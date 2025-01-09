@@ -1,0 +1,927 @@
+[
+    {
+        "ifindex" : {
+            "class" : "auto",
+            "attributes" : {}
+        },
+        "ingress_port_mapping" : {
+            "class" : "auto",
+            "dependencies" : [
+            {
+                "object" : "port",
+                "attribute" : "tc"
+            },
+            {
+                "object" : "port",
+                "attribute" : "color"
+            },
+            {
+                "object" : "port",
+                "attribute" : "learning"
+            },
+            {
+                "object" : "port",
+                "attribute" : "yid"
+            },
+            {
+                "object" : "lag",
+                "attribute" : "yid"
+            },
+            {
+                "object" : "port",
+                "attribute" : "ingress_sflow_handle"
+            },
+            {
+                "object" : "port",
+                "attribute" : "ingress_acl_handle"
+            },
+            {
+                "object" : "port",
+                "attribute" : "ingress_port_lag_label"
+            },
+            {
+                "object" : "port",
+                "attribute" : "lag_handle"
+            },
+            {
+                "object" : "lag_member",
+                "attribute" : "ingress_disable"
+            },
+            {
+                "object" : "port",
+                "attribute" : "in_ports_group_label"
+            }
+            ],
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "port"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            }
+            }
+        }
+    },
+    {
+        "egress_port_mapping" : {
+            "dependencies" : [
+               {
+                  "object" : "port",
+                  "attribute" : "type"
+               },
+               {
+                  "object" : "port",
+                  "attribute" : "egress_acl_handle"
+               },
+               {
+                  "object" : "port",
+                  "attribute" : "egress_port_lag_label"
+               },
+               {
+                  "object" : "port",
+                  "attribute" : "lag_handle"
+               },
+               {
+                  "object" : "port",
+                  "attribute" : "is_mlag_member"
+               },
+               {
+                  "object" : "port",
+                  "attribute" : "out_ports_group_label"
+               },
+               {
+                   "object" : "port",
+                   "attribute" : "egress_qos_group"
+               }
+            ],
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "port"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "ingress_port_state_eg_1" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "port",
+                    "attribute" : "ingress_port_lag_label"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "yid"
+                },
+                {
+                    "object" : "lag",
+                    "attribute" : "yid"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "ingress_sflow_handle"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "lag_handle"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "ingress_acl_handle"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "ingress_mirror_handle"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_port_state_ig_1" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "port",
+                    "attribute" : "ingress_port_lag_label"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "yid"
+                },
+                {
+                    "object" : "lag",
+                    "attribute" : "yid"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "ingress_sflow_handle"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "lag_handle"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "ingress_acl_handle"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "ingress_mirror_handle"
+                }
+            ]
+        }
+    },
+    {
+        "isolation_group_helper" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "port", "bridge_port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                   "object" : "port",
+                   "attribute" : "isolation_group_handle"
+                },
+                {
+                    "object" : "bridge_port",
+                    "attribute" : "isolation_group_handle"
+                }
+            ]
+        }
+    },
+    {
+        "egress_ingress_port_mapping" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "port"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "egress_port_isolation" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "isolation_group_member"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "egress_bridge_port_isolation" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "isolation_group_member"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "peer_link_tunnel_isolation_helper" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "bridge_port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "peer_link_tunnel_isolation_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "peer_link_tunnel_isolation"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "bridge_port",
+                    "attribute" : "is_peer_link"
+                },
+                {
+                    "object" : "bridge_port",
+                    "attribute" : "isolation_group_handle"
+                }
+            ]
+        }
+    },
+    {
+        "peer_link_tunnel_isolation" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                       "allowed_object_types" : [
+                          "isolation_group"
+                       ],
+                       "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "port_double_tag_to_bd_mapping" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "bd_member"
+                        ]
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    },
+                    "type" : "SWITCH_TYPE_LIST"
+                }
+            },
+            "dependencies" : [
+                {
+                   "object" : "rif",
+                   "attribute" : "port_handle"
+                },
+                {
+                   "object" : "rif",
+                   "attribute" : "outer_vlan_id"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "inner_vlan_id"
+                }
+            ]
+        }
+    },
+    {
+        "port_vlan_to_bd_mapping_for_port" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "port", "lag", "rif"
+                        ]
+                    }
+                },
+                "status" : {
+                   "type_info" : {
+                      "list" : {
+                       "default_value" : false,
+                         "type" : "SWITCH_TYPE_BOOL"
+                      },
+                      "type" : "SWITCH_TYPE_LIST"
+                   }
+                }
+            },
+            "dependencies" : [
+                {
+                   "object" : "port",
+                   "attribute" : "port_vlan_id"
+                },
+                {
+                    "object" : "lag",
+                    "attribute" : "port_vlan_id"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "rif_handle"
+                },
+                {
+                    "object" : "lag",
+                    "attribute" : "rif_handle"
+                }
+            ]
+        }
+    },
+    {
+        "port_vlan_to_bd_mapping_for_rif" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "rif"
+                        ]
+                    }
+                },
+                "status" : {
+                   "type_info" : {
+                      "list" : {
+                       "default_value" : false,
+                         "type" : "SWITCH_TYPE_BOOL"
+                      },
+                      "type" : "SWITCH_TYPE_LIST"
+                   }
+                }
+            }
+        }
+    },
+    {
+        "snake_table" : {
+            "class" : "auto",
+            "attributes" : {
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "parent_handle" : {
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "snake"
+                    ]
+                }
+            }
+            }
+        }
+    },
+    {
+        "port_qos_helper" : {
+            "class" : "auto",
+            "attributes" : {
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "parent_handle" : {
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "port"
+                    ]
+                }
+            }
+            },
+            "dependencies" : [
+                {
+                    "object" : "port",
+                    "attribute" : "pfc_cos_map"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "skid_limit"
+                }
+            ]
+        }
+    },
+    {
+        "hostif_port_metadata" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "port"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "port_metadata" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "port"
+                        ]
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "port",
+                    "attribute" : "ingress_acl_handle"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "ingress_port_lag_label"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "lag_handle"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "ingress_port_group_index"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "port_exclusion_bit_map"
+                }
+            ]
+        }
+    },
+    {
+        "cpu_to_bd_mapping" : {
+            "class" : "auto",
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "bd"
+                    ]
+                }
+            },
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            }
+            }
+        }
+    },
+    {
+        "port_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "port" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "mac_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "tm_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "ingress_drop_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "port" ]
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "egress_drop_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "port" ]
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "egress_cpu_port_rewrite" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "port"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "ingress_port_conversion" : {
+            "class" : "auto",
+            "attributes" : {
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "parent_handle" : {
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "port"
+                    ]
+                }
+            }
+            }
+        }
+    },
+    {
+        "egress_port_conversion" : {
+            "class" : "auto",
+            "attributes" : {
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "parent_handle" : {
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "port"
+                    ]
+                }
+            }
+            }
+        }
+    },
+    {
+        "fold_cpu" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "cpu_pvs" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "fp_fold" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "ingress_port_ip_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "port" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "egress_port_ip_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "port" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "port_serdes_table" : {
+            "class" : "auto",
+            "attributes" : {
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "parent_handle" : {
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "port_serdes"
+                    ]
+                }
+            }
+            }
+        }
+    },
+    {
+        "pktgen_pvs" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                          "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    }
+]

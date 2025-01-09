@@ -1,0 +1,9 @@
+{
+    "port_serdes" : {
+        "profile" : "Per profile info",
+        "switch" : "port_serdes",
+        "attributes" : {
+            "port_id" : "port_id"
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+   "vlan" : {
+      "profile" : "Per profile info",
+      "switch" : "vlan",
+      "attributes" : {
+         "vlan_id" : "vlan_id",
+         "stp_instance" : "stp_handle",
+         "ingress_acl" : "ingress_acl_handle",
+         "egress_acl" : "egress_acl_handle",
+         "max_learned_addresses" : "max_learned_addresses",
+         "custom_igmp_snooping_enable" : "igmp_snooping",
+         "unknown_unicast_flood_control_type" : "unknown_ucast_flood_type",
+         "unknown_multicast_flood_control_type" : "unknown_mcast_flood_type",
+         "broadcast_flood_control_type" : "bcast_flood_type"
+      }
+   }
+}

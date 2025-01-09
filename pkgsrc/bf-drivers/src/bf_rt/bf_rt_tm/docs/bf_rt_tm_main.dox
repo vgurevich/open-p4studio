@@ -1,0 +1,335 @@
+/** @mainpage BF-RT Fixed Functions
+
+    ## Revision History ##
+
+  | Date | Revision | Note |
+  | :--- | :------- | :--- |
+  | Nov-2022 | 006 | TM Queue scheduling_speed read-only attribute on TF2, TF3. |
+  | Aug-2022 | 005 | Updates to tm.counter.dpg and tm.counter.mirror_dpg tables |
+  | Jun-2022 | 004 | TM Port separate ingress (WAC) and egress (QAC) settings for buffer and resume limit. |
+  |  |  | TM Scheduler shaping descriptions updated at tm.port.sched_shaping, tm.queue.sched_shaping, tm.l1_node.sched_shaping tables. |
+  |  |  | QSTAT-related TF-2 and TF-3 fields changed for better usability. |
+  | 27-Mar-2022 | 003 | tm.pipe.cfg changes for TF-2, TF-3: mirror_drop_enable field is added; queue_color_drop_visible value inversion fix. |
+  | 16-Jan-2022 | 002 | Tofino-3 Traffic Manager tables. |
+  | 21-Dec-2021 | 001 | Initial version with content based on BF-RT TM Release Notes (rel.9.5 - 9.7) |
+
+
+  # Introduction #
+
+  Intel Tofino family of switch ASIC provide a fully programmable network switching pipeline and allows
+  to develop custom network packet processing appliances using industry standard P4 language.
+
+  To complement the P4 programmable packet processing pipeline, the Tofino ASIC also has 'Fixed Function' (FF) blocks.
+  These blocks deal with packet memory buffer management, port configuration, multicast, scheduling, queues, etc.
+
+  The P4 Studio SDE provides 'BF Runtime' API (BF-RT) with data-driven general methods applicable
+  to the different types of Tofino pipeline tables including Exact Match, ALPM, Counters, etc.
+  <br>The same BF-RT API is applicable for the Tofino 'Fixed Function' blocks represented as tables.
+
+  This document describes BF-RT Fixed Function tables. For BF-RT API itself please refer to "BF-Runtime API" user guide.
+
+
+  ## How to read this Manual ##
+
+  The <b>Diagrams</b> chapter presents some high level schemes of how Fixed Function Objects implemented as groups of Tables
+  are related to each other. In HTML version these diagrams allow to navigate over this manual.
+
+  The <b>Workflows</b> chapter is a list of cross references to step-by-step guides for how to use some of the FF Objects in typical use cases.
+
+  The <b>Module Index</b> shows a tree list with 3 main layers of hierarchy:
+  - Tofino ASIC.
+    + Fixed Functions supported by the Tofino ASIC.
+      - BF-RT Objects (groups of Tables) and standalone Tables exposing properties and controls for the Fixed Function.
+
+  The <b>Module Documentation</b> contains detaied descriptions for all the Modules (ASICs, Fixed Functions, Objects, Tables)
+  sorted alphabetically by name.
+
+  Each Module description has a collaboration diagram to show <i>"is-part-of"</i> relationships to other Modules.
+  <br>The diagram allows to overview a Fixed Function as all its Objects and Tables on some Tofino ASIC.
+
+  Each Object is described as a set of Tables with related purpose.
+
+  Tables are described with:
+    - basic Table properties: name, size, type;
+    - Table layout: key fields, actions and data fields;
+    - BF-RT APIs supported by the Table (to get an entry, add an entry, clear the table, etc.);
+    - additional details and references to other Tables and APIs.
+
+  @attention Please note: not all the Modules and Tables are currently described in this manual with the same level of details.
+
+  <hr>
+
+  ## Choose Tofino ASIC family to explore:##
+
+  - @subpage TF1
+  - @subpage TF2
+  - @subpage TF3
+
+  <hr>
+
+  # Notes on Tofino blocks #
+
+  ## Traffic Manager ##
+
+  Starting from rel.9.5.0 the SDE introduces BF Runtime support for Traffic Manager (TM) functions on
+  @ref BFRT_TM_OBJECTS_TF1 "Tofino", @ref BFRT_TM_OBJECTS_TF2 "Tofino-2" and @ref BFRT_TM_OBJECTS_TF3 "Tofino-3"
+  to manage Priority groups, Queues, Packet Buffers, Ports and other TM Objects represented as BF-RT Tables with Entries.
+  <br>This document describes BF-RT TM Fixed Function tables and has references to the underlying TM APIs
+  to ease migration from functional TM APIs to the data-driven object-oriented BF-RT API.
+  <br>Most of the TM Tables are fixed-size where entries represent different TM resources,
+  for example TM Queue object is a group of tables with the same key for Queue Id and each entry
+  exposes some set of related properties.
+  <br>TM tables usually require <i>pipe_id</i> value set as a part of BF-RT API call paramenter <i>dev_tgt</i>, to be an implicit key field.
+  <br>Pipe tables are keyless tables with only default entries for each Pipe on the ASIC.
+
+  */
+
+/** @page BFRT_FF_CHANGE_HISTORY History of changes
+
+  ## Tofino rel. 9.11 ##
+
+  ### Traffic Manager ###
+
+  #### 'skid_pool_usage_cells' field was removed from TM DPG and mirror DPG counter tables. ####
+  <table>
+    <tr>
+      <td>
+  @ref TF1_TM_COUNTER_DPG "tm.counter.dpg" data field 'skid_pool_usage_cells' (uint64)
+      </td>
+      <td>
+  Removed as it is not applicable for DPGs.
+      </td>
+    </tr>
+    <tr>
+      <td>
+  @ref TF1_TM_COUNTER_MIRROR_DPG "tm.counter.mirror_dpg" data field 'skid_pool_usage_cells' (uint64)
+      </td>
+      <td>
+  Removed as it is not applicable for mirror port DPG.
+      </td>
+    </tr>
+  </table>
+
+  ## Tofino rel. 9.10 ##
+
+  ### Traffic Manager ###
+
+  #### TM Port separate ingress and egress settings for buffer and resume limit. ####
+
+  <table>
+    <tr>
+      <td>
+  @ref TF2_TM_PORT_BUFFER__EG_LIMIT_CELLS "tm.port.buffer.eg_limit_cells" (uint32)
+      </td>
+      <td>
+  New data field.
+      </td>
+    </tr>
+    <tr>
+      <td>
+  @ref TF2_TM_PORT_BUFFER__EG_HYSTERESIS_CELLS "tm.port.buffer.eg_hysteresis_cells" (uint32)
+      </td>
+      <td>
+  New data field.
+      </td>
+    </tr>
+  </table>
+
+  ## Tofino-2 rel. 9.12 ##
+
+  ### Traffic Manager ###
+
+  #### TM Queue 'scheduling_speed' read-only attribute. ####
+  <table>
+    <tr>
+      <td>
+  @ref TF2_TM_QUEUE_SCHED_CFG__SCHEDULING_SPEED  "tm.queue.sched_cfg.scheduling_speed"
+      </td>
+      <td>
+  New data field.
+      </td>
+    </tr>
+  </table>
+
+  ## Tofino-2 rel. 9.11 ##
+
+  ### Traffic Manager ###
+
+  #### 'skid_pool_usage_cells' field was removed from TM DPG and mirror DPG counter tables. ####
+
+  <table>
+    <tr>
+      <td>
+  @ref TF2_TM_COUNTER_DPG "tm.counter.dpg" data field 'skid_pool_usage_cells' (uint64)
+      </td>
+      <td>
+  Removed as it is not applicable for DPGs.
+      </td>
+    </tr>
+    <tr>
+      <td>
+  @ref TF2_TM_COUNTER_MIRROR_DPG "tm.counter.mirror_dpg" data field 'skid_pool_usage_cells' (uint64)
+      </td>
+      <td>
+  Removed as it is not applicable for mirror port DPG.
+      </td>
+    </tr>
+  </table>
+
+  ## Tofino-2 rel. 9.10 ##
+
+  ### Traffic Manager ###
+
+  #### TM Port separate ingress and egress settings for buffer and resume limit. ####
+
+  <table>
+    <tr>
+      <td>
+  @ref TF2_TM_PORT_BUFFER "tm.port.buffer" data field 'ig_hysteresis_cells' (uint32)
+      </td>
+      <td>
+  Removed as not supported by Tofino-2 ASIC.
+      </td>
+    </tr>
+    <tr>
+      <td>
+  @ref TF2_TM_PORT_BUFFER__EG_LIMIT_CELLS "tm.port.buffer.eg_limit_cells" (uint32)
+      </td>
+      <td>
+  New data field.
+      </td>
+    </tr>
+    <tr>
+      <td>
+  @ref TF2_TM_PORT_BUFFER__EG_HYSTERESIS_CELLS "tm.port.buffer.eg_hysteresis_cells" (uint32)
+      </td>
+      <td>
+  New data field.
+      </td>
+    </tr>
+  </table>
+
+  #### 'Queue Stats Reporting' (QSTAT) fields ####
+
+  <table>
+    <tr>
+      <td>
+  @ref TF2_TM_QUEUE_COLOR "tm.queue.color" data field 'drop_visible' (bool)
+      </td>
+      <td>
+  renamed and moved to another table
+  @ref TF2_TM_QUEUE_CFG "tm.queue.cfg" as data field
+  @ref TF2_TM_QUEUE_CFG__DEPTH_REPORT_ENABLE "depth_report_enable" (bool)
+      </td>
+    </tr>
+    <tr>
+      <td>
+  @ref TF2_TM_PIPE_CFG "tm.pipe.cfg" data field 'queue_color_drop_visible" (bool)
+      </td>
+      <td>
+  renamed and its data type changed as data field
+  @ref TF2_TM_PIPE_CFG__QUEUE_DEPTH_REPORT_MODE "queue_depth_report_mode" (string)
+      </td>
+    </tr>
+  </table>
+
+  ## Tofino-3 rel. 9.12 ##
+
+  ### Traffic Manager ###
+
+  #### TM Queue 'scheduling_speed' read-only attribute. ####
+
+  <table>
+    <tr>
+      <td>
+  @ref TF3_TM_QUEUE_SCHED_CFG__SCHEDULING_SPEED  "tm.queue.sched_cfg.scheduling_speed"
+      </td>
+      <td>
+  New data field.
+      </td>
+    </tr>
+  </table>
+
+  ## Tofino-3 rel. 9.11 ##
+
+  ### Traffic Manager ###
+
+  #### 'skid_pool_usage_cells' field was removed from TM DPG and mirror DPG counter tables. ####
+
+  <table>
+    <tr>
+      <td>
+  @ref TF3_TM_COUNTER_DPG "tm.counter.dpg" data field 'skid_pool_usage_cells' (uint64)
+      </td>
+      <td>
+  Removed as it is not applicable for DPGs.
+      </td>
+    </tr>
+    <tr>
+      <td>
+  @ref TF3_TM_COUNTER_MIRROR_DPG "tm.counter.mirror_dpg" data field 'skid_pool_usage_cells' (uint64)
+      </td>
+      <td>
+  Removed as it is not applicable for mirror port DPG.
+      </td>
+    </tr>
+  </table>
+
+  ## Tofino-3 rel. 9.10 ##
+
+  ### Traffic Manager ###
+
+  #### TM Port separate ingress and egress settings for buffer and resume limit. ####
+
+  <table>
+    <tr>
+      <td>
+  @ref TF3_TM_PORT_BUFFER "tm.port.buffer" data field 'ig_hysteresis_cells' (uint32)
+      </td>
+      <td>
+  Removed as not supported by Tofino-3 ASIC.
+      </td>
+    </tr>
+    <tr>
+      <td>
+  @ref TF3_TM_PORT_BUFFER__EG_LIMIT_CELLS "tm.port.buffer.eg_limit_cells" (uint32)
+      </td>
+      <td>
+  New data field.
+      </td>
+    </tr>
+    <tr>
+      <td>
+  @ref TF3_TM_PORT_BUFFER__EG_HYSTERESIS_CELLS "tm.port.buffer.eg_hysteresis_cells" (uint32)
+      </td>
+      <td>
+  New data field.
+      </td>
+    </tr>
+  </table>
+
+  #### 'Queue Stats Reporting' (QSTAT) fields ####
+
+  <table>
+    <tr>
+      <td>
+  @ref TF3_TM_QUEUE_COLOR "tm.queue.color" data field 'drop_visible' (bool)
+      </td>
+      <td>
+  renamed and moved to another table
+  @ref TF3_TM_QUEUE_CFG "tm.queue.cfg" as data field
+  @ref TF3_TM_QUEUE_CFG__DEPTH_REPORT_ENABLE "depth_report_enable" (bool)
+      </td>
+    </tr>
+    <tr>
+      <td>
+  @ref TF3_TM_PIPE_CFG "tm.pipe.cfg" data field 'queue_color_drop_visible" (bool)
+      </td>
+      <td>
+  renamed and its data type changed as data field
+  @ref TF3_TM_PIPE_CFG__QUEUE_DEPTH_REPORT_MODE "queue_depth_report_mode" (string)
+      </td>
+    </tr>
+  </table>
+
+ */

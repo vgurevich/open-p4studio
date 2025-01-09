@@ -1,0 +1,133 @@
+The Tofino open-source repository provides software to run and test the Tofino 1 and 2 models. To adapt this repository to test on hardware after acquiring Intel's Tofino RDC, certain files within `bf-drivers` need to be copied over from the private software release. This README outlines the modifications required within the following directories. 
+
+# Run Setup
+The modifications outlined in the next section are automated with the rdc_setup.sh script provided. To run rdc_setup.sh:
+
+Provide the paths to the RDC and open source repositories by setting the $RDC_BFD and $OS_BFD variables, respectively:
+$ vi rdc_setup.sh
+
+Run
+$ source rdc_setup.sh
+$ rdc_setup
+
+# Open Source Repository Modifications
+
+The modifications are listed by subdirectory.
+
+bf_switchd
+1. Replace CMakelists.txt with the version in RDC.
+
+src
+1. Replace CMakeLists.txt with the version in RDC.
+2. Copy the bf-drivers/src/alphawave directory here
+3. Copy the bf-drivers/src/credo directory here
+4. Copy bf-drivers/src/firmware directory here
+5. Copy the bf-drivers/src/microp directory here
+
+src/port_mgr
+1. Replace the CMakelists.txt with the version in RDC
+2. Copy the bf-drivers/src/port-mgr/aw-gen direcotry here
+3. Copy files bf-drivers/src/port_mgr/bf_ll_umac3_if.c and bf-drivers/src/port_mgr/bf_ll_umac_4_if.c here
+4. Copy the bf-drvers/src/port_mgr/crdo directory here
+5. Copy the bf-drvers/src/port_mgr/csr directory here
+6. Replace port_mgr_dev.c and port_mgr_physical_dev.c with the versions in RDC. If there are modifications made to the files by the open source community, it is up to the user to merge them.
+7. Copy file port_mgr_umac_access.c here
+
+src/port_mgr/port_mgr_tof1
+From bf-drivers/src/port_mgr/port_mgr_tof1, copy the files:
+1. bf_serdes_if.c
+2. comira_reg_access_autogen.c
+3. comira_reg_access_autogen.h
+4. comira_reg_def_autogen.h
+5. comira_reg_strs.h
+6. port_mgr_av_sd.c
+7. port_mgr_av_sd_an.c
+8. port_mgr_mac.c
+9. port_mgr_port_diag.c
+10. port_mgr_serdes.c
+11. port_mgr_serdes_diag.c
+12. port_mgr_serdes_sbus_map.c
+13. port_mgr_ucli.c
+
+src/port_mgr/port_mgr_tof2
+From bf-drivers/src/port_mgr/port_mgr_tof2, copy the files:
+1. autogen-required-headers.h
+2. bf_ll_eth100g_reg_rspec_if.c
+3. bf_ll_eth400g_mac_rspec_if.c
+4. bf_ll_eth400g_pcs_rspec_if.c
+5. bf_ll_serdes_if.c
+6. bf_tof2_serdes_if.c
+7. credo_sd_access.c
+8. credo_sd_access.h
+9. eth100g_reg_rspec_access.c
+10. eth400g_mac_rspec_access.c
+11. eth400g_pcs_rspec_access.c
+12. port_mgr_tof2_bandgap.c
+13. port_mgr_tof2_gpio.c
+14. port_mgr_tof2_microp.c
+15. port_mgr_tof2_serdes.c
+16. port_mgr_tof2_umac.c
+17. port_mgr_tof2_umac3.c
+18. port_mgr_tof2_umac4.c
+19. umac3c4_access.c
+20. umac3c4_fld_access.c
+21. umac4_ctrs.c
+22. umac4_ctrs_str.c
+23. umac4c8_access.c
+24. umac4c8_fld_access.c
+
+
+src/port_mgr/port_mgr_tof3
+From bf-drivers/src/port_mgr/port_mgr_tof3, copy the directories:
+1. aw-reg-gen
+2. aw_16ln
+
+and the files:
+1. aw_driver_sim.c
+2. aw_driver_sim.h
+3. aw_if.h
+4. aw_io.c
+5. aw_io.h
+6. aw_mss.h
+7. aw_reg_dbg.c
+8. aw_reg_dbg.h
+9. aw_types.h
+10. aw_vector_types.h
+11. bf_aw_pmd.c
+12. bf_aw_vfld_pmd.c
+13. bf_ll_tof3_eth400g_app_rspec_if.c
+14. bf_ll_tof3_eth400g_app_rspec_if.h
+15. bf_ll_tof3_eth400g_mac_rspec_if.c
+16. bf_ll_tof3_eth400g_mac_rspec_if.h
+17. bf_ll_tof3_eth400g_sys_rspec_if.c
+18. bf_ll_tof3_eth400g_sys_rspec_if.h
+19. bf_tof3_serdes_if.c
+20. bf_tof3_serdes_utils.c
+21. bf_tof3_serdes_utils.h
+22. port_mgr_tof3.c
+23. port_mgr_tof3_dev.c
+24. port_mgr_tof3_map.c
+25. port_mgr_tof3_microp.c
+26. port_mgr_tof3_port.c
+27. port_mgr_tof3_serdes.c
+28. port_mgr_tof3_serdes_map.c
+29. port_mgr_tof3_tmac.c
+30. svdpi.c
+31. svdpi.h
+32. tmac_access.c
+33. tmac_access.h
+34. tof3-autogen-required-headers.h
+35. tof3_eth400g_app_rspec_access.c
+36. tof3_eth400g_app_rspec_access.h
+37. tof3_eth400g_mac_rspec_access.c
+38. tof3_eth400g_mac_rspec_access.h
+39. tof3_eth400g_sys_rspec_access.c
+40. tof3_eth400g_sys_rspec_access.h
+41. vfld_vec_name.h
+42. vfld_vec_type.h
+
+If there are modifications made to aw_if.h, aw_mss.h, or bf_tof3_serdes_utils.h by the open source community, it is up to the user to merge the changes.
+
+src/port_mgr/t3-csr
+1. Copy file bf-drivers/src/port-mgr/t3-csr/tf3-csr-gen.py here
+

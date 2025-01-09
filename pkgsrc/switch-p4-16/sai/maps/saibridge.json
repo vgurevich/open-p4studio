@@ -1,0 +1,10 @@
+{
+    "bridge" : {
+        "profile" : "Per profile info",
+        "switch" : "bridge",
+        "attributes" : {
+            "type" : "type",
+            "learn_disable" : "learning"
+        }
+    }
+}

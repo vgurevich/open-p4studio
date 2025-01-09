@@ -1,0 +1,172 @@
+[
+    {
+        "meter" : {
+            "class" : "user",
+            "description" : "Configure a packet/bit rate Meter",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                    }
+                },
+                "mode" : {
+                    "description": "Meter mode.",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value" : "NONE",
+                        "enum" : [
+                            "NONE",
+                            "SINGLE_RATE_THREE_COLOR",
+                            "TWO_RATE_THREE_COLOR",
+                            "STORM_CONTROL"
+                        ]
+                    }
+                },
+                "color_source" : {
+                    "description": "Meter Color Source",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value" : "NONE",
+                        "enum" : [
+                            "NONE",
+                            "BLIND",
+                            "AWARE"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description": "Meter type. STORM_CONTROL mode only supports BYTES",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value" : "NONE",
+                        "enum" : [
+                            "NONE",
+                            "PACKETS",
+                            "BYTES"
+                        ]
+                    }
+                },
+                "cbs" : {
+                    "description": "Committed Burst Size in bytes",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "pbs" : {
+                    "description": "Peak Burst Size in bytes",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "cir" : {
+                    "description": "Committed information rate in bytes per sec",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "pir" : {
+                    "description": "Peak information rate in bytes per sec",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "green_packet_action" : {
+                    "description" : "Green packet action",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value" : "PERMIT",
+                        "enum" : [
+                            "PERMIT",
+                            "DROP",
+                            "COPY",
+                            "TRAP"
+                        ]
+                    }
+                },
+                "yellow_packet_action" : {
+                    "description" : "Yellow packet action",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value" : "PERMIT",
+                        "enum" : [
+                            "PERMIT",
+                            "DROP",
+                            "COPY",
+                            "TRAP"
+                        ]
+                    }
+                },
+                "red_packet_action" : {
+                    "description" : "Red packet action",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value" : "PERMIT",
+                        "enum" : [
+                            "PERMIT",
+                            "DROP",
+                            "COPY",
+                            "TRAP"
+                        ]
+                    }
+                },
+                "target_type" : {
+                    "description": "Target type. This is an internal attribute which gets updated when this meter is bound to a target object acl_entry/mirror/port/hostif_trap_group/storm_control",
+                    "is_internal" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value" : "NONE",
+                        "enum" : [
+                            "NONE",
+                            "INGRESS_ACL",
+                            "EGRESS_ACL",
+                            "INGRESS_PORT",
+                            "EGRESS_PORT",
+                            "INGRESS_COPP",
+                            "EGRESS_COPP",
+                            "INGRESS_MIRROR",
+                            "EGRESS_MIRROR",
+                            "STORM_CONTROL",
+			    "INGRESS_IP_MIRROR_ACL",
+			    "INGRESS_IP_QOS_ACL",
+			    "EGRESS_IP_MIRROR_ACL",
+			    "EGRESS_IP_QOS_ACL"
+                        ]
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "GREEN_PACKETS",
+                            "YELLOW_PACKETS",
+                            "RED_PACKETS",
+                            "GREEN_BYTES",
+                            "YELLOW_BYTES",
+                            "RED_BYTES"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "ingress_copp_table", "egress_copp_table", "ingress_port_meter_action", "egress_port_meter_action", "ingress_mirror_meter_action", "egress_mirror_meter_action", "ingress_acl_meter_action", "ingress_ip_qos_acl_meter_action", "ingress_ip_mirror_acl_meter_action", "egress_acl_meter_action", "egress_ip_qos_acl_meter_action", "egress_ip_mirror_acl_meter_action", "sc_stats"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+]

@@ -1,0 +1,145 @@
+[
+    {
+        "stp_factory" : {
+            "class" : "auto",
+            "attributes" : {
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "stp_port"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            }
+            },
+            "dependencies" : [
+            {
+                "object" : "stp_port",
+                "attribute" : "state"
+            },
+            {
+                "object" : "vlan",
+                "attribute" : "stp_handle"
+            }
+            ]
+        },
+
+        "ingress_stp_group" : {
+            "class" : "auto",
+            "attributes" : {
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "stp_port"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            }
+            },
+            "dependencies" : [
+            {
+                "object" : "stp_port",
+                "attribute" : "state"
+            }
+            ]
+        },
+
+        "ingress_stp" : {
+            "class" : "auto",
+            "attributes" : {
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "stp_port"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            }
+            },
+            "dependencies" : [
+            {
+                "object" : "stp_port",
+                "attribute" : "state"
+            },
+            {
+                "object" : "vlan",
+                "attribute" : "stp_handle"
+            }
+            ]
+        },
+
+        "egress_stp_group" : {
+            "class" : "auto",
+            "attributes" : {
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "stp_port"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            }
+            },
+            "dependencies" : [
+            {
+                "object" : "stp_port",
+                "attribute" : "state"
+            }
+            ]
+        },
+
+        "egress_stp" : {
+            "class" : "auto",
+            "attributes" : {
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "stp_port"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            }
+            },
+            "dependencies" : [
+            {
+                "object" : "stp_port",
+                "attribute" : "state"
+            },
+            {
+                "object" : "vlan",
+                "attribute" : "stp_handle"
+            }
+            ]
+        }
+    }
+]

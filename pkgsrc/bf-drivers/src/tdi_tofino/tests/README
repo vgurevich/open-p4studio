@@ -1,0 +1,17 @@
+###############################################################################
+Steps to run the UT (from a precompiled p4factory repo root)
+###############################################################################
+1) cd build/bf-drivers/src/bf_rt/tests/
+2) make prerequisites
+3) make check
+"make prerequisites" will actually compile all the relevant P4s which are being used in the UT.
+"make check" runs the actual unit tests
+
+###############################################################################
+The steps to run the UT from a brand new p4factory repo root:
+###############################################################################
+1) ./autogen.sh
+2) ./configure --with-p4c --enable-drv-gtest
+3) cd build/bf-drivers/src/bf_rt/tests/
+4) make prerequisites
+5) make check

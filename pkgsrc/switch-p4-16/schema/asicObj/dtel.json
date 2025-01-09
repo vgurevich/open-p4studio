@@ -1,0 +1,501 @@
+[
+    {
+        "dtel_config" : {
+            "class" : "auto",
+            "dependencies" : [
+            {
+                "object" : "dtel",
+                "attribute" : "drop_report"
+            },
+            {
+                "object" : "dtel",
+                "attribute" : "queue_report"
+            },
+            {
+                "object" : "dtel",
+                "attribute" : "flow_report"
+            },
+            {
+                "object" : "dtel",
+                "attribute" : "tail_drop_report"
+            },
+            {
+                "object" : "dtel",
+                "attribute" : "ifa_report"
+            },
+            {
+                "object" : "device",
+                "attribute" : "switch_id"
+            }
+            ],
+            "attributes" : {
+		        "parent_handle" : {
+		            "type_info" : {
+			            "allowed_object_types" : [
+			                "dtel"
+			            ],
+			            "type" : "SWITCH_TYPE_OBJECT_ID"
+		            }
+		        },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "dtel_config_ifa" : {
+            "class" : "auto",
+            "dependencies" : [
+            {
+                "object" : "dtel",
+                "attribute" : "queue_report"
+            },
+            {
+                "object" : "dtel",
+                "attribute" : "ifa_report"
+            },
+            {
+                "object" : "dtel",
+                "attribute" : "ifa_dscp"
+            },
+            {
+                "object" : "dtel",
+                "attribute" : "ifa_dscp_mask"
+            }
+            ],
+            "attributes" : {
+		        "parent_handle" : {
+		            "type_info" : {
+			            "allowed_object_types" : [
+			                "dtel"
+			            ],
+			            "type" : "SWITCH_TYPE_OBJECT_ID"
+		            }
+		        },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "mod_config" : {
+            "class" : "auto",
+            "dependencies" : [
+            {
+                "object" : "dtel",
+                "attribute" : "drop_report"
+            }
+            ],
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "dtel"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                 }
+            }
+        }
+    },
+    {
+        "mod_config_drop_reason" : {
+                "class" : "auto",
+                "dependencies" : [
+                {
+                        "object" : "dtel_drop_control",
+                        "attribute" : "enable"
+                },
+                {
+                        "object" : "dtel",
+                        "attribute" : "drop_report"
+                }
+                ],
+                "attributes" : {
+                        "parent_handle" : {
+                                "type_info" : {
+                                        "allowed_object_types" : [
+                                                "dtel_drop_control"
+                                        ],
+                                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                                }
+                        },
+                        "status" : {
+                                "type_info" : {
+                                        "default_value" : false,
+                                        "type" : "SWITCH_TYPE_BOOL"
+                                }
+                        }
+                }
+        }
+    },
+    {
+        "dtel_config_drop_reason" : {
+                "class" : "auto",
+                "dependencies" : [
+                {
+                        "object" : "dtel_drop_control",
+                        "attribute" : "enable"
+                },
+                {
+                        "object" : "dtel",
+                        "attribute" : "drop_report"
+                },
+                {
+                        "object" : "dtel",
+                        "attribute" : "queue_report"
+                }
+                ],
+                "attributes" : {
+                        "parent_handle" : {
+                                "type_info" : {
+                                        "allowed_object_types" : ["dtel_drop_control"],
+                                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                                }
+                        },
+                        "status" : {
+                                "type_info" : {
+                                        "list" : {
+                                                "default_value" : false,
+                                                "type" : "SWITCH_TYPE_BOOL"
+                                        },
+                                        "type" : "SWITCH_TYPE_LIST"
+                                }
+                        }
+                }
+        }
+    },
+    {
+        "session_selector" : {
+            "class" : "auto",
+            "priority" : 10,
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "report_session"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                 }
+            }
+        }
+    },
+    {
+        "session_selector_group" : {
+            "class" : "auto",
+            "priority" : 9,
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                    "allowed_object_types" : [
+                        "report_session"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "dtel_mirror_session_table" : {
+            "class" : "auto",
+            "priority" : 8,
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                    "allowed_object_types" : [
+                        "report_session"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "recirc_rif" : {
+            "class" : "auto",
+            "description" : "Internal RIFs over recirc ports, used for DTEL mirroring",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "report_session"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "default_session_selector" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "queue_alert" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "queue_report" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "queue_report",
+                    "attribute" : "breach_quota"
+                }
+            ]
+        }
+    },
+    {
+        "qr_thresholds" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "queue_report" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "queue_report",
+                    "attribute" : "depth_threshold"
+                },
+                {
+                    "object" : "queue_report",
+                    "attribute" : "latency_threshold"
+                },
+                {
+                    "object" : "queue_report",
+                    "attribute" : "breach_quota"
+                }
+            ]
+        }
+    },
+    {
+        "check_quota" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "queue_report" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "int_edge" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "port" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "port",
+                    "attribute" : "clone_mirror_session_id"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "dtel_int_edge"
+                }
+            ]
+        }
+    },
+    {
+        "deflect_on_drop" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "dtel"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                 }
+            },
+            "dependencies" : [
+            {
+                "object" : "dtel",
+                "attribute" : "tail_drop_report"
+            },
+            {
+                "object" : "dtel",
+                "attribute" : "queue_report"
+            }
+            ]
+        }
+    },
+    {
+        "deflect_on_drop_queue" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "queue_report"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                 }
+            },
+            "dependencies" : [
+            {
+                "object" : "queue_report",
+                "attribute" : "tail_drop"
+            }
+            ]
+        }
+    },
+    {
+        "tm_dod_config" : {
+            "class" : "auto",
+            "description" : "Used to program deflection ports for tail drop packets",
+            "dependencies" : [
+            {
+                "object" : "dtel",
+                "attribute" : "tail_drop_report"
+            }
+            ],
+            "attributes" : {
+		"parent_handle" : {
+		    "type_info" : {
+			    "allowed_object_types" : [
+				"dtel"
+			    ],
+			    "type" : "SWITCH_TYPE_OBJECT_ID"
+		    }
+		},
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    }
+]

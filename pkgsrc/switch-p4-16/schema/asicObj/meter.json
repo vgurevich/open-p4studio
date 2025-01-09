@@ -1,0 +1,1163 @@
+[
+    {
+        "storm_control_meter" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pir"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cir"
+                }
+            ]
+        }
+    },
+    {
+        "storm_control" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "sc_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                }
+            ]
+        }
+    },
+    {
+        "sc_port_meter_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "port" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "ingress_copp_meter" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pir"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cir"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_copp_table" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                }
+            ]
+        }
+    },
+    {
+        "egress_copp_meter" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pir"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cir"
+                }
+            ]
+        }
+    },
+    {
+        "egress_copp_table" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_mirror_meter" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pir"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cir"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_mirror_meter_index" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_mirror_meter_action" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "green_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "yellow_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "red_packet_action"
+                }
+            ]
+        }
+    },
+    {
+        "egress_mirror_meter" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pir"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cir"
+                }
+            ]
+        }
+    },
+    {
+        "egress_mirror_meter_index" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                }
+            ]
+        }
+    },
+    {
+        "egress_mirror_meter_action" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "green_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "yellow_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "red_packet_action"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_port_meter" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pir"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cir"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_port_meter_index" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_port_meter_action" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "green_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "yellow_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "red_packet_action"
+                }
+            ]
+        }
+    },
+    {
+        "egress_port_meter" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pir"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cir"
+                }
+            ]
+        }
+    },
+    {
+        "egress_port_meter_index" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                }
+            ]
+        }
+    },
+    {
+        "egress_port_meter_action" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "green_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "yellow_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "red_packet_action"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_acl_meter" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pir"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cir"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_acl_meter_index" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_acl_meter_action" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "green_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "yellow_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "red_packet_action"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_ip_qos_acl_meter_action" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "green_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "yellow_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "red_packet_action"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_ip_mirror_acl_meter_action" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "green_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "yellow_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "red_packet_action"
+                }
+            ]
+        }
+    },
+    {
+        "egress_acl_meter" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pbs"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "pir"
+                },
+                {
+                    "object" : "meter",
+                    "attribute" : "cir"
+                }
+            ]
+        }
+    },
+    {
+        "egress_acl_meter_index" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                }
+            ]
+        }
+    },
+    {
+        "egress_acl_meter_action" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "green_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "yellow_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "red_packet_action"
+                }
+            ]
+        }
+    },
+    {
+        "egress_ip_qos_acl_meter_action" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "green_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "yellow_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "red_packet_action"
+                }
+            ]
+        }
+    },
+    {
+        "egress_ip_mirror_acl_meter_action" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "meter" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                    "object" : "meter",
+                    "attribute" : "target_type"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "green_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "yellow_packet_action"
+                },
+               {
+                    "object" : "meter",
+                    "attribute" : "red_packet_action"
+                }
+            ]
+        }
+    }
+]

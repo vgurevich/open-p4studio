@@ -1,0 +1,166 @@
+[
+    {
+        "scheduler" : {
+            "class" : "user",
+            "description" : "Scheduler",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description" : "Scheduler type",
+                    "is_mandatory": true,
+                    "type_info": {
+                    "default_value": "STRICT",
+                    "enum" : [
+                        "STRICT",
+                        "DWRR",
+                        "STRICT_AND_DWRR"
+                        ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "shaper_type" : {
+                    "description" : "Shaper type, input in packets or bits",
+                    "is_mandatory": true,
+                    "type_info": {
+                    "default_value": "PPS",
+                    "enum" : [
+                        "PPS",
+                        "BPS"
+                        ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "priority" : {
+                    "description": "Priority",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "enum" : [
+                            "LOW",
+                            "NORMAL_1",
+                            "NORMAL_2",
+                            "NORMAL_3",
+                            "NORMAL_4",
+                            "NORMAL_5",
+                            "NORMAL_6",
+                            "HIGH"
+                        ]
+                    }
+                },
+                "rem_bw_priority" : {
+                    "description": "Remaining bandwidth priority",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "weight" : {
+                    "description": "Scheduler type weight",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "min_burst_size" : {
+                    "description": "Minimum burst size in bytes",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "min_rate" : {
+                    "description": "Minimum rate in bps(bits) or pps",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "max_burst_size" : {
+                    "description": "Maximum burst size in bytes",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "max_rate" : {
+                    "description": "Maximum rate in bps(bits) or pps",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "scheduler_group" : {
+            "class" : "user",
+            "description" : "Scheduler group",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description" : "Scheduler group type",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info": {
+                    "default_value": "PORT",
+                    "enum" : [
+                        "PORT",
+                        "QUEUE"
+                        ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "queue_handle" : {
+                    "description": "Queue handle",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "queue"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "port_handle" : {
+                    "description": "Port handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "scheduler_handle" : {
+                    "description": "Scheduler handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "scheduler"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "membership" : [
+                {
+                    "object" : "port",
+                    "attribute" : "port_queue_scheduler_group_handles"
+                }
+            ]
+        }
+    }
+]

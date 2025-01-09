@@ -1,0 +1,14 @@
+{
+   "counter" : {
+       "profile" : "Per profile info",
+       "switch" : "generic_counter",
+       "attributes" : {
+           "type" : "type"
+       },
+       "enums" : {
+           "type" : {
+               "REGULAR" : "REGULAR"
+           }
+       }
+   }
+}

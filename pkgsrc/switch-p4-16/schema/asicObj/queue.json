@@ -1,0 +1,36 @@
+[
+    {
+        "queue_buffer_config" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "queue"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "queue",
+                    "attribute" : "buffer_profile_handle"
+                },
+                {
+                    "object" : "buffer_profile",
+                    "attribute" : "buffer_size"
+                },
+                {
+                    "object" : "buffer_profile",
+                    "attribute" : "threshold"
+                },
+                {
+                    "object" : "buffer_profile",
+                    "attribute" : "xon_threshold"
+                }
+            ]
+
+        }
+    }
+]

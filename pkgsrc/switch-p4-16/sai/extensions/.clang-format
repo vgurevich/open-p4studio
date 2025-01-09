@@ -1,0 +1,15 @@
+---
+Language:        Cpp
+BasedOnStyle:  Google
+BinPackArguments: false
+BinPackParameters: false
+DerivePointerAlignment: false
+PointerAlignment: Right
+SortIncludes: false
+SortUsingDeclarations: false
+ColumnLimit: 0
+IndentWidth: 4
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterEnum: true
+...

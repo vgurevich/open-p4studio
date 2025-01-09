@@ -1,0 +1,23 @@
+{
+   "acl_table_group" : {
+       "profile" : "Per profile info",
+       "switch" : "acl_group",
+       "attributes" : {
+           "member_list" : "acl_group_members",
+           "acl_bind_point_type_list" : "bind_point_type"
+       },
+       "enums": {
+            "acl_bind_point_type_list" : {
+                "PORT" : "PORT",
+                "LAG" : "LAG",
+                "VLAN" : "VLAN",
+                "ROUTER_INTERFACE" : "RIF",
+                "SWITCH" : "SWITCH"
+            }
+       },
+       "global_enums" : ["acl_bind_point_type_list"],
+       "enum_to_global" : {
+            "acl_bind_point_type_list" : "acl_bind_point_type"
+       }
+   }
+}

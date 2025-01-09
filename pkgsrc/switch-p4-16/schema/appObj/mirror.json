@@ -1,0 +1,248 @@
+[
+    {
+        "mirror" : {
+            "class" : "user",
+            "description" : "Create a mirror session",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "is_mandatory": true,
+                    "description": "Mirror type",
+                    "type_info" : {
+                        "default_value": "LOCAL",
+                        "enum" : [
+                            "LOCAL",
+                            "REMOTE",
+                            "ENHANCED_REMOTE"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "session_type" : {
+                    "is_mandatory": true,
+                    "description": "Mirror session type",
+                    "type_info" : {
+                        "default_value": "SIMPLE",
+                        "enum" : [
+                            "SIMPLE",
+                            "TRUNCATE",
+                            "COALESCE"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "mirror_type" : {
+                    "is_mandatory": true,
+                    "description": "Mirror type",
+                    "type_info" : {
+                        "default_value": "PORT",
+                        "enum" : [
+                            "PORT",
+                            "MGID"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "vlan_handle" : {
+                    "description": "Vlan handle",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "vlan"
+                        ]
+                    }
+                },
+                "vlan_id" : {
+                    "description": "Vlan ID",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "vlan_tpid" : {
+                    "description": "TPID field",
+                    "type_info" : {
+                        "default_value": 0,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "vlan_pri" : {
+                    "description": "PCP field",
+                    "type_info" : {
+                        "default_value": 0,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "egress_port_handle" : {
+                    "description": "Egress port handle",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "port", "lag"
+                        ]
+                    }
+                },
+                "direction" : {
+                    "is_mandatory": true,
+                    "description": "Mirrored traffic direction",
+                    "type_info" : {
+                        "default_value": "BOTH",
+                        "enum" : [
+                            "BOTH",
+                            "INGRESS",
+                            "EGRESS"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "rspan_type" : {
+                    "description": "Remote span type",
+                    "type_info" : {
+                        "default_value": "NONE",
+                        "enum" : [
+                            "NONE",
+                            "VLAN_ID",
+                            "VLAN_HANDLE"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "tos" : {
+                    "description": "Type of service",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "ttl" : {
+                    "description" : "Mirrored traffic TTL value",
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "queue_id" : {
+                    "description": "Queue ID",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "erspan_type" : {
+                    "description": "Remote enhanced span GRE protocol type",
+                    "type_info" : {
+                        "default_value": "NONE",
+                        "enum" : [
+                            "NONE",
+                            "ERSPAN_2",
+                            "ERSPAN_3"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "platform_info" : {
+                    "description": "Enable or disable ERSPAN III platform info header",
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "extract_length" : {
+                    "description": "Packet extract length",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "max_pkt_len" : {
+                    "description": "Maximum packet length",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "timeout_usec" : {
+                    "description": "Timeout in micro seconds",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "src_mac_address" : {
+                    "description": "Source MAC address",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "dest_mac_address" : {
+                    "description": "Destination MAC address",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "src_ip" : {
+                    "description": "Source IP",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                        }
+                },
+                "dest_ip" : {
+                    "description": "Destination IP",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                        }
+                },
+                "multicast_mgid_handle" : {
+                    "description": "Multicast Index Object Id",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "vlan"
+                        ]
+                    }
+                },
+                "multicast_l1_hash" : {
+                    "description": "Multicast Level 1 Node hash",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                        }
+                },
+                "multicast_l2_hash" : {
+                    "description": "Multicast Level 2 Node hash",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                        }
+                },
+                "port_tag_mode" : {
+                    "description": "Monitor port original tag mode",
+                    "is_internal": true,
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "meter_handle" : {
+                    "description" : "Meter handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "meter"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "session_id" : {
+                    "description": "Internal session_id, readable for erspan",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                }
+            }
+        }
+    }
+]

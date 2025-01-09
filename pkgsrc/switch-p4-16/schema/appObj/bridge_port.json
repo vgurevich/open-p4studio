@@ -1,0 +1,96 @@
+[
+    {
+        "bridge_port" : {
+            "description": "This is an L2 interface equivalent and analogous to the SAI bridge port object. When using BMAI APIs, this object is not necessary to be created and only applies when using SAI. In SAI, a bridge_port needs to be created on a physical port or LAG before creating vlan members using them.",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description": "Bridge Port type.",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value" : "PORT",
+                        "enum" : [
+                            "PORT",
+                            "TUNNEL",
+                            "QINQ"
+                        ]
+                    }
+                },
+                "port_lag_handle" : {
+                    "description": "Port/LAG handle to create interface. Valid only if type is PORT or LAG",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "port",
+                            "lag"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "tunnel_handle" : {
+                    "description": "Handle of the tunnel represented by this bridge port. Valid only if type is TUNNEL",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "tunnel"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "bridge_handle" : {
+                    "description": "Bridge handle.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "bridge"
+                        ]
+                    }
+                },
+                "isolation_group_handle" : {
+                    "description" : "Isolation group handle for packets ingressing on this bridge port",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "isolation_group"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "is_peer_link" : {
+                    "description": "Configure this bridge port as an mlag peer link",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL",
+                        "default_value" : false
+                    }
+                },
+                "admin_state" : {
+                    "description": "Admin state. Setting state to false will flush all FDB entries. Before removing a bridge port, need to disable it by setting admin mode to false.",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL",
+                        "default_value" : false
+                    }
+                }
+            },
+            "membership" : [
+                {
+                    "object" : "bridge",
+                    "attribute" : "bridge_members"
+                }
+            ],
+            "class" : "user"
+        }
+    }
+]

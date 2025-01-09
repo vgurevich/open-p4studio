@@ -1,0 +1,3 @@
+#!/bin/bash
+#Unload bf_tun kernel module
+rmmod bf_tun

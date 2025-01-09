@@ -1,0 +1,26 @@
+{
+   "fdb_entry" : {
+       "profile" : "Per profile info",
+       "switch" : "mac_entry",
+       "attributes" : {
+           "endpoint_ip" : "dest_ip",
+           "packet_action" : "action",
+           "allow_mac_move" : "allow_move",
+           "type" : "type"
+       },
+       "enums": {
+           "packet_action" : {
+               "FORWARD" : "FORWARD",
+               "DROP" : "DROP"
+           },
+           "type" : {
+               "DYNAMIC" : "DYNAMIC",
+               "STATIC" : "STATIC"
+           }
+       },
+       "global_enums" : ["packet_action"],
+       "enum_to_global" : {
+           "packet_action" : "packet_action"
+       }
+   }
+}

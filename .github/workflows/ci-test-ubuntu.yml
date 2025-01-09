@@ -1,0 +1,66 @@
+name: "test-ubuntu"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  merge_group:
+    branches: [main]
+
+# Cancel any preceding run on the pull request.
+concurrency:
+  group: test-ubuntu-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  # Build with GCC and test P4C on different Ubuntu distributions.
+  test-ubuntu:
+    name: test-${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-20.04]
+        # os: [ubuntu-20.04, ubuntu-22.04, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Remove unused software
+        run: |
+          echo "Available storage before:"
+          sudo df -h
+          echo
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          echo "Available storage after:"
+          sudo df -h
+          echo -h
+          echo
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: ccache
+        uses: hendrikmuhs/ccache-action@v1
+        with:
+          key: test-${{ matrix.os }}
+          max-size: 2000M
+
+      - name: Build
+        run: |
+          sudo -E ./p4studio/p4studio profile apply ./p4studio/profiles/testing.yaml
+
+      - name: Run tests
+        run: |
+          # FIXME: Move these into a separate test suite.
+          sudo -E ENABLE_BF_ASM=TRUE make -C build tna_counter install
+          export SDE=`pwd`
+          export SDE_INSTALL="`pwd`/install"
+
+          sudo ${SDE_INSTALL}/bin/veth_setup.sh 128
+          sudo -E ./run_tofino_model.sh -p tna_counter --arch tofino -q |& sed 's/^/model: /' &
+          sudo -E ./run_switchd.sh -p tna_counter --arch tofino |& sed 's/^/switchd: /' &
+          sudo -E timeout 10800 ./run_p4_tests.sh -p tna_counter --arch tofino |& sed 's/^/tests: /'
+

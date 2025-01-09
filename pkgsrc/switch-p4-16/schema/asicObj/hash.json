@@ -1,0 +1,213 @@
+[
+    {
+        "ipv4_hash" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "hash"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "hash",
+                  "attribute" : "type"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "field_list"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "fine_grained_field_list"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "symmetric_hash"
+               }
+            ]
+        }
+    },
+    {
+        "ipv6_hash" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "hash"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "hash",
+                  "attribute" : "type"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "field_list"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "fine_grained_field_list"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "symmetric_hash"
+               }
+            ]
+        }
+    },
+    {
+        "non_ip_hash" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "hash"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "hash",
+                  "attribute" : "type"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "field_list"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "fine_grained_field_list"
+               }
+            ]
+        }
+    },
+    {
+        "lag_v4_hash" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "hash"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "hash",
+                  "attribute" : "type"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "field_list"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "fine_grained_field_list"
+               }
+            ]
+        }
+    },
+    {
+        "lag_v6_hash" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "hash"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "hash",
+                  "attribute" : "type"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "field_list"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "fine_grained_field_list"
+               }
+            ]
+        }
+    },
+    {
+        "inner_dtel_v4_hash" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "hash"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "hash",
+                  "attribute" : "type"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "field_list"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "fine_grained_field_list"
+               }
+            ]
+        }
+    },
+    {
+        "inner_dtel_v6_hash" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "hash"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "hash",
+                  "attribute" : "type"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "field_list"
+               },
+               {
+                  "object" : "hash",
+                  "attribute" : "fine_grained_field_list"
+               }
+            ]
+        }
+    }
+]

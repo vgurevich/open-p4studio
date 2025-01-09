@@ -1,0 +1,11 @@
+switch_p4_16_profiles:
+    tofino:
+        default: x2_tofino
+        supported_profiles:
+            - x1_tofino
+            - x2_tofino
+            - x9_tofino
+    tofino2:
+        default: y2_tofino2
+        supported_profiles:
+            - y2_tofino2

@@ -1,0 +1,100 @@
+definitions:
+    p4i_all_systems: &all_systems ['centos:9', 'debian:10', 'debian:11', 'ubuntu:20.04', 'ubuntu:22.04']
+    p4i_apt_systems: &apt_systems ['debian:10', 'debian:11', 'ubuntu:20.04', 'ubuntu:22.04']
+packages:
+    xdg-utils:
+        systems: *all_systems
+        tags: [p4i]
+        type: os
+    libasound-dev:
+        systems: *apt_systems
+        tags: [p4i]
+        type: os
+    libasound2-dev:
+        systems: *apt_systems
+        tags: [p4i]
+        type: os
+    libatspi2.0-0:
+        systems: *apt_systems
+        tags: [p4i]
+        type: os
+    libgbm-dev:
+        systems: *apt_systems
+        tags: [p4i]
+        type: os
+    libgtk-3-0:
+        systems: *apt_systems
+        tags: [p4i]
+        type: os
+    libnotify4:
+        systems: *apt_systems
+        tags: [p4i]
+        type: os
+    libnss3:
+        systems: *apt_systems
+        tags: [p4i]
+        type: os
+    libsecret-1-0:
+        systems: *apt_systems
+        tags: [p4i]
+        type: os
+    libuuid1:
+        systems: *apt_systems
+        tags: [p4i]
+        type: os
+    libxss1:
+        systems: *apt_systems
+        tags: [p4i]
+        type: os
+    libxtst6:
+        systems: *apt_systems
+        tags: [p4i]
+        type: os
+    libappindicator3-1:
+        systems: ['debian:10', 'ubuntu:20.04', 'ubuntu:22.04']
+        tags: [minimal, p4i]
+        type: os
+    alsa-lib:
+        systems: ['centos:9']
+        tags: [p4i]
+        type: os
+    at-spi2-core:
+        systems: ['centos:9']
+        tags: [p4i]
+        type: os
+    gtk3:
+        systems: ['centos:9']
+        tags: [p4i]
+        type: os
+    https://ftp.debian.org/debian/pool/main/liba/libappindicator/libappindicator3-1_0.4.92-7_amd64.deb:
+        systems: ['debian:11']
+        tags: [minimal]
+        type: os
+    https://ftp.debian.org/debian/pool/main/libi/libindicator/libindicator3-7_0.5.0-4_amd64.deb:
+        systems: ['debian:11']
+        tags: [minimal]
+        type: os
+    libnotify:
+        systems: ['centos:9']
+        tags: [p4i]
+        type: os
+    libuuid:
+        systems: ['centos:9']
+        tags: [p4i]
+        type: os
+    libXScrnSaver:
+        systems: ['centos:9']
+        tags: [p4i]
+        type: os
+    libXtst:
+        systems: ['centos:9']
+        tags: [p4i]
+        type: os
+    mesa-libgbm:
+        systems: ['centos:9']
+        tags: [p4i]
+        type: os
+    nss:
+        systems: ['centos:9']
+        tags: [p4i]
+        type: os

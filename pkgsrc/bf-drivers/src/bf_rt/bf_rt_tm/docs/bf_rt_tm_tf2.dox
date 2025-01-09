@@ -1,0 +1,876 @@
+/** @page BFRT_TM_OBJECTS_TF2 BF-RT Traffic Manager Objects (Tofino-2)
+
+    @anchor BFRT_TM_OBJECTS_TF2_DIAG
+    @image latex tf2_bf_rt_tm_objects.jpg "BF-RT TM Objects (Tofino-2)"
+      <!-- Include an image file into the html doxygen, and do not show it yet -->
+    @image html tf2_bf_rt_tm_objects.jpg "" width=0 height=0
+      <!-- Now show the image file in html doxygen with a custom map -->
+    @htmlonly
+    <img src="tf2_bf_rt_tm_objects.jpg" border="0" alt="" usemap="#BFRT_TM_OBJECTS_TF2_MAP"/>
+    <map name="BFRT_TM_OBJECTS_TF2_MAP" id="BFRT_TM_OBJECTS_TF2_MAP">
+      <area shape="rect" id="node1" href="group__TF2__TM__QUEUE.html" title="TM Queue tables. " alt="" coords="960,350,1080,430"/>
+      <area shape="rect" id="node2" href="group__TF2__TM__PORT__GROUP__CFG.html#TF2_TM_PORT_GROUP_CFG__PG_QUEUES" title="tm.port.group_cfg.pg_queues" alt="" coords="250,200,410,230"/>
+      <area shape="rect" id="node3" href="group__TF2__TM__PORT__GROUP.html#TF2_TM_PORT_GROUP__EGRESS_QID_QUEUES_0" title="tm.port.group.egress_qid_queues_*" alt="" coords="410,230,530,260"/>
+      <area shape="rect" id="node4" href="group__TF2__TM__PORT__GROUP.html#TF2_TM_PORT_GROUP__INGRESS_QID_MAP_0" title="tm.port.group.ingress_qid_map_*" alt="" coords="240,360,420,380"/>
+      <area shape="rect" id="node5" href="BFRT_TM_PORT_TO_QUEUE_REL.html#BFRT_TM_PORT_TO_QUEUE_REL_DIAG" title="QID" alt="" coords="290,270,410,320"/>
+      <area shape="rect" id="node6" href="BFRT_TM_PORT_TO_QUEUE_REL.html#BFRT_TM_PORT_TO_QUEUE_REL_DIAG" title="pg_queue" alt="" coords="550,200,670,260"/>
+      <area shape="rect" id="node7" href="BFRT_TM_PORT_TO_QUEUE_REL.html#BFRT_TM_PORT_TO_QUEUE_REL_DIAG" title="queue_nr" alt="" coords="490,350,610,420"/>
+      <area shape="rect" id="node8" href="group__TF2__TM__PORT__GROUP__CFG.html#TF2_TM_PORT_GROUP_CFG__INGRESS_QID_MAX" title="tm.port.group_cfg.ingress_qid_max" alt="" coords="450,450,550,480"/>
+      <area shape="rect" id="node9" href="group__TF2__TM__PORT__GROUP__CFG.html#TF2_TM_PORT_GROUP_CFG__PG_QUEUES" title="tm.port.group_cfg.pg_queues" alt="" coords="580,450,680,480"/>
+      <area shape="rect" id="node10" href="group__TF2__TM__PORT__GROUP.html" title="tm.port.group" alt="" coords="140,570,250,620"/>
+      <area shape="rect" id="node11" href="group__TF2__TM__COUNTER.html" title="Counters at TM objects. " alt="" coords="1130,180,1300,320"/>
+      <ARea shape="rect" id="node12" href="group__TF2__TM__PORT.html" title="TM Port tables. " alt="" coords="520,570,640,630"/>
+      <area shape="rect" id="node13" href="group__TF2__TM__POOL.html" title="TM Pool object. " alt="" coords="960,470,1350,1000"/>
+      <area shape="rect" id="node14" href="group__TF2__TM__SCHEDULER.html" title="TM Scheduler tables. " alt="" coords="700,250,880,530"/>
+      <area shape="rect" id="node15" href="group__TF2__TM__PIPE.html" title="TM Pipe tables. " alt="" coords="160,700,280,770"/>
+      <area shape="rect" id="node16" href="group__TF2__TM__PIPE__MULTICAST__FIFO.html" title="TM Multicast FIFO" alt="" coords="380,690,520,720"/>
+      <area shape="rect" id="node17" href="group__TF2__TM__MIRROR.html" title="TM Mirror tables. " alt="" coords="380,730,520,770"/>
+      <area shape="rect" id="node18" href="group__TF2__TM__PORT__DPG.html" title="TM Port DPG" alt="" coords="610,730,720,770"/>
+      <area shape="rect" id="node19" href="group__TF2__TM__PPG.html" title="PFC" alt="" coords="450,870,720,980"/>
+      <area shape="rect" id="node20" href="group__TF2__TM__PPG.html" title="iCoS" alt="" coords="770,650,930,790"/>
+      <area shape="rect" id="node21" href="group__TF2__TM__PPG__CFG.html" title="TM Port Priority Group" alt="" coords="720,800,890,890"/>
+      <area shape="rect" id="node22" href="group__TF2__TM__CFG.html" title="TM Device" alt="" coords="0,700,120,770"/>
+      <area shape="rect" id="node23" href="group__TF2__TM__L1__NODE.html" title="L1 Node tables (Hierarchical Scheduling) " alt="" coords="980,90,1090,150"/>
+    </map>
+    @endhtmlonly
+ */
+
+/** @addtogroup TF2_TM
+
+  @note <b>Data Field Id meaning</b>
+  <br>The Data Field 'id' value in the BFRT TM tables (also in the bf_rt_tm_*.json files) conveys a hint to what is the order of execution
+  for the underlying TM APIs when several data fields are given to update an entry (on Add, Mod, Delete operations), or to change all entries
+  in a table (on Clear). This order becomes important to consider when a table has a meaningful execution sequence to update its entry
+  e.g. to set some feature properties first and 'enable/disable' that feature, or how to respond if one of data fields got an error
+  on low-level TM functions and the entry has been changed partially.
+  <br>If there is a need to execute the underlying TM APIs in some custom order, or to ensure more granular error handling,
+  then the caller should split a table entry change into several BF-RT TM API requests with specific data fields in each request.
+
+
+    @{
+      @defgroup TF2_TM_SCHEDULER tf2.tm.scheduler object
+
+      @brief TM Scheduler tables
+
+      BFRT TM Scheduler tables are child tables of related TM objects:
+      <table>
+      <tr>
+        <td> @ref TF2_TM_PIPE "TM Pipe"</td>
+        <td> @ref TF2_TM_PIPE_SCHED_CFG "tm.pipe.sched_cfg" </td>
+      </tr>
+      <tr>
+        <td rowspan=2>@ref TF2_TM_PORT "TM Port"</td>
+        <td> @ref TF2_TM_PORT_SCHED_CFG "tm.port.sched_cfg"</td>
+      </tr>
+      <tr>
+        <td>@ref TF2_TM_PORT_SCHED_SHAPING "tm.port.sched_shaping"</td>
+      </tr>
+      <tr>
+        <td rowspan=2>@ref TF2_TM_L1_NODE "TM L1 Node"</td>
+        <td> @ref TF2_TM_L1_NODE_SCHED_CFG "tm.l1_node.sched_cfg" </td>
+      </tr>
+      <tr>
+        <td> @ref TF2_TM_L1_NODE_SCHED_SHAPING "tm.l1_node.sched_shaping"</td>
+      </tr>
+      <tr>
+        <td rowspan=2>@ref TF2_TM_QUEUE "TM Queue"</td>
+        <td> @ref TF2_TM_QUEUE_SCHED_CFG "tm.queue.sched_cfg" </td>
+      </tr>
+      <tr>
+        <td> @ref TF2_TM_QUEUE_SCHED_SHAPING "tm.queue.sched_shaping"</td>
+      </tr>
+      </table>
+    @}
+*/
+
+/** @addtogroup TF2_TM_COUNTER
+
+    @brief Counters at TM objects
+ */
+
+/** @addtogroup TF2_TM_POOL
+
+    @brief TM Pool object
+ */
+
+/** @addtogroup TF2_TM_PIPE
+
+    @brief TM Pipe tables
+
+    All the BFRT Pipe tables are keyless with default entry.
+    Each available Pipe is addressed by <i>dev_tgt.pipe_id</i> pipe identifier (0..3) or PIPE_ALL for all pipes.
+
+ */
+
+/** @addtogroup TF2_TM_PIPE_CFG
+
+    ### See also ###
+
+  <table>
+    <tr>
+      <th>Data field</th>
+      <th>TM API</th>
+      <th>Other data fields</th>
+    </tr>
+    <tr>
+      <td colspan=3><b>Dropped packet redirection (Negative Mirroring or 'Deflection on Drop')</b></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_PIPE_CFG__MIRROR_DROP_ENABLE "mirror_drop_enable"</td>
+      <td> @ref bf_tm_pipe_deflection_port_enable_set(), bf_tm_pipe_deflection_port_enable_get()</td>
+      <td>The mirror drop function enabled on the pipe allows to redirect dropped packets into the mirror drop port/queue if these packets have ingress_intrinsic_metadata_for_tm deflect_on_drop bit set by the P4 data-plane program.</td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_PIPE_CFG__MIRROR_DROP_DEV_PORT  "mirror_drop_dev_port"</td>
+      <td rowspan=2> @ref bf_tm_port_mirror_on_drop_dest_set(), bf_tm_port_mirror_on_drop_dest_get()</td>
+      <td>The Port assignment is also reflected by @ref TF2_TM_PORT_CFG__MIRROR_DROP_DESTINATION "tm.port.cfg.mirror_drop_destination" R/O flag.</td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_PIPE_CFG__MIRROR_DROP_QUEUE_NR  "mirror_drop_queue_nr"</td>
+      <td>The <i>mirror_drop_dev_port</i> must have that queue mapped to a physical queue.
+        This queue number will change when the physical queue becomes re-mapped to another port in its group.
+        <br>The Queue assignment is also reflected by @ref TF2_TM_QUEUE_CFG__MIRROR_DROP_DESTINATION "tm.queue.cfg.mirror_drop_destination" R/O flag.
+      </td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_PIPE_CFG__MIRROR_DROP_PG_ID  "mirror_drop_pg_id"</td>
+      <td rowspan=2></td>
+      <td rowspan=2><i>mirror_drop_pg_id and mirror_drop_pg_queue</i> tuple identifies a physical queue which is mapped to a port queue identified by <i>mirror_drop_dev_port, mirror_drop_queue_nr</i> tuple. Make sure to set the destination physical queue in accordance to the device port queue mapping when it is changed.</td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_PIPE_CFG__MIRROR_DROP_PG_QUEUE  "mirror_drop_pg_queue"</td>
+    </tr>
+    <tr>
+      <td colspan=3><b>Egress limits</b></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_PIPE_CFG__EG_LIMIT_CELLS "eg_limit_cells"</td>
+      <td> @ref bf_tm_pipe_egress_limit_set(), bf_tm_pipe_egress_limit_get()</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_PIPE_CFG__EG_HYSTERESIS_CELLS "eg_hysteresis_cells"</td>
+      <td> @ref bf_tm_pipe_egress_hysteresis_set(),bf_tm_pipe_egress_hysteresis_get()</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan=3><b>Queue Stats Reporting (QSTAT)</b></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_PIPE_CFG__QUEUE_DEPTH_REPORT_MODE "queue_depth_report_mode"
+           Since rel.9.10 instead of 'queue_color_drop_visible'
+      </td>
+      <td> @ref bf_tm_qstat_report_mode_set(), bf_tm_qstat_report_mode_get() </td>
+      <td> @ref TF2_TM_QUEUE_CFG__DEPTH_REPORT_ENABLE "tm.queue.cfg.depth_report_enable"
+      </td>
+    </tr>
+  </table>
+*/
+
+/** @addtogroup TF2_TM_PIPE_SCHED_CFG
+
+    ### See also ###
+
+| Action / Data field | TM API | Other data fields |
+| :------------------ | :----- | :---------------- |
+| @ref TF2_TM_PIPE_SCHED_CFG__PACKET_IFG_COMPENSATION "packet_ifg_compensation" | @ref bf_tm_sched_pkt_ifg_compensation_set(), bf_tm_sched_pkt_ifg_compensation_get() | |
+| @ref TF2_TM_PIPE_SCHED_CFG__ADVANCED_FLOW_CONTROL_ENABLE "advanced_flow_control_enable" | @ref bf_tm_sched_adv_fc_mode_enable_set(), bf_tm_sched_adv_fc_mode_enable_get() | |
+
+ */
+
+/** @addtogroup TF2_TM_PORT
+    @brief TM Port tables
+ */
+
+/** @addtogroup TF2_TM_PORT_GROUP_CFG
+
+    ### See also ###
+
+| Action / Data field | TM API | Other data fields |
+| :------------------ | :----- | :---------------- |
+| @ref TF2_TM_PORT_GROUP_CFG__INGRESS_QID_MAX "ingress_qid_max" |  | The same R/O value is at @ref TF2_TM_QUEUE_MAP__INGRESS_QID_MAX "tm.queue.map.ingress_qid_max" |
+ */
+
+/** @addtogroup TF2_TM_PORT_GROUP
+
+    @note @ref BFRT_TM_PORT_TO_QUEUE_REL_DIAG "Queue to Port mapping diagram."
+
+    This table ensures the port group queue resources are consistently assigned for all ports in the group.
+
+    @sa bf_tm_port_q_mapping_get(), bf_tm_port_q_mapping_set()
+
+  <table>
+  <tr>
+    <th>Action / Data field</th>
+    <th>Notes and Examples</th>
+  </tr>
+  <tr>
+    <td>@ref TF2_TM_PORT_GROUP__PG_DEV_PORTS "pg_dev_ports"</td>
+    <td>Example (TF1): [4,5,6,7] for pg_id=1 on pipe=0;  [260,261,262,263] for pg_id=1 on pipe=2.</td>
+  </tr>
+  <tr>
+    <td>@ref TF2_TM_PORT_GROUP__SEQ "'seq' action"</td>
+    <td>Fill each ingress_qid_map_[n] list with sequences 0..port_queue_count[n] the same way as default mapping does. </td>
+  </tr>
+  <tr>
+    <td>@ref TF2_TM_PORT_GROUP__SEQ__PORT_QUEUE_COUNT "'seq' port_queue_count"</td>
+    <td>Same as for the 'map' action.</td>
+  </tr>
+  <tr>
+    <td>@ref TF2_TM_PORT_GROUP__EVEN "'even' action"</td>
+    <td>Fill each ingress_qid_map[n] list with equally sized chunks using port_queue_count[n],
+      <br>e.g. for 8 queues: (0,0,0,0, 1,1,1,1, 2,2,2,2, 3,3,3,3, 4,4,4,4, 5,5,5,5, 6,6,6,6, 7,7,7,7).
+      <br>When size of a chunk is 1 or less, like when port_queue_count[n] > 16 on TF1, then the rest of the queues is assigned to 0,
+      <br>e.g. for 17 queues: (0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16, 0,0,0..0)
+    </td>
+  </tr>
+  <tr>
+    <td>@ref TF2_TM_PORT_GROUP__EVEN__PORT_QUEUE_COUNT "'even' port_queue_count"</td>
+    <td>Same as for the 'map' action.</td>
+  </tr>
+  <tr>
+    <td>@ref TF2_TM_PORT_GROUP__CROP "'crop' action"</td>
+    <td>Apply new port_queue_count[] to the current ingress_qid_map[]
+        replacing with 0 all values greater or equal to the port_queue_count[]-1 or 0, e.g.
+        <br>a) the default map will not change for 10 queues eventually leaving two physical queues not used;
+        <br>b) default map becomes (0,1,2,3,4,0,0,0, 0,1,2,3,4,0,0,0, 0,1,2,3,4,0,0,0, 0,1,2,3,4,0,0,0) for 5 queues.
+        <br><br><i>port_queue_count</i> is mandatory field for this action as it provides the crop factor to apply.
+    </td>
+  </tr>
+  <tr>
+    <td>@ref TF2_TM_PORT_GROUP__CROP__PORT_QUEUE_COUNT "'crop' port_queue_count"</td>
+    <td>Same as for the 'map' action.</td>
+  </tr>
+  <tr>
+    <td>@ref TF2_TM_PORT_GROUP__MAP "'map' action"</td>
+    <td>Custom queue mapping.</td>
+  </tr>
+  <tr>
+    <td>@ref TF2_TM_PORT_GROUP__MAP__PORT_QUEUE_COUNT "'crop' port_queue_count"</td>
+    <td>
+      How many <b>physical queues</b> are carved to each egress port in this port group from its fixed resource equal to
+      @ref TF2_TM_PORT_GROUP_CFG__PG_QUEUES "tm.port.group_cfg.pg_queues".
+      <br>Each item becomes a range for <b>port queue number</b> values used in the ingress_qid_map_* with constraints applied to an item:
+      <ul>
+        <li>this data field list must contain items for all ports in the port group, i.e. pg_dev_ports[].size().</li>
+        <li>if this data field is omitted then current carving is used for the program group and all the ingress_qid_map_* fields provided
+           must have appropriate number of queues.</li>
+        <li>it is greater or equal to how many unique items are in the ingress_qid_map_* of the appropriate port.</li>
+        <li>the sum for all the items must be less or equal to the @ref TF2_TM_PORT_GROUP_CFG__PG_QUEUES "tm.port.group_cfg.pg_queues".</li>
+      </ul>
+      <br><b>Example 1</b>: TF1, the default TM setup: (8, 8, 8, 8)
+      <br><b>Example 2</b>: TF1, some custom queue assignment: (2, 4, 16, 10) – 2 queues on the first port of the port group, 4 on the second, etc
+    </td>
+  </tr>
+  <tr>
+    <td>@ref TF2_TM_PORT_GROUP__MAP__INGRESS_QID_MAP_0 "ingress_qid_map_*"</td>
+    <td>If port_queue_count[n] == 0 then ingress_qid_queues_[n] is empty list.
+      <br>At least one of ingress_qid_map data fields need to be present in the data for this action, or the port_queue_count changed.
+      <br>
+      <br><b>Example 1</b>: TF1, the default TM setup
+      <br>0: (0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7)
+      <br>1: (0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7)
+      <br>2: (0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7)
+      <br>3: (0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7)
+      <br>
+      <br><b>Example 2</b>: TF1, the custom queue setup:
+      <br>0: (0,1,0,1,0,1,0,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,1,1,1,1),
+      <br>1: (0,1,2,3,0,1,2,3, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 2,2,2,2,3,3,3,3),
+      <br>2: (0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15, 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15),
+      <br>3: (0,1,2,3,4,5,6,7,8,9, 0,1, 2,2,2,2,2,2,2,2,2,2, 9,9,9,9,9,9,9,9,9,9)
+    </td>
+  </tr>
+  <tr>
+    <td>@ref TF2_TM_PORT_GROUP__MAP__EGRESS_QID_QUEUES_0 "egress_qid_queues_*"</td>
+    <td>If port_queue_count[n] == 0 then egress_qid_queues_[n] is empty list.
+      <br>At least one of ingress_qid_map data fields need to be present in the data for this action, or the port_queue_count changed.
+      <br>
+      <br><b>Example 1</b>: TF1, the default TM setup:
+      <br>0: (0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7)
+      <br>1: (8,9,10,11,12,13,14,15, 8,9,10,11,12,13,14,15, 8,9,10,11,12,13,14,15, 8,9,10,11,12,13,14,15,)
+      <br>2: (16,17,18,19,20,21,22,23, 16,17,18,19,20,21,22,23, 16,17,18,19,20,21,22,23, 16,17,18,19,20,21,22,23)
+      <br>3: (24,25,26,27,28,29,30,31, 24,25,26,27,28,29,30,31, 24,25,26,27,28,29,30,31, 24,25,26,27,28,29,30,31)
+      <br><b>Example 2</b>: TF1 the custom queue setup:
+      <br>0: (0,1,0,1,0,1,0,1, 0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1, 0,0,0,0,1,1,1,1),
+      <br>1: (2,3,4,5,2,3,4,5, 2,2,2,2,2,2,2,2, 3,3,3,3,3,3,3,3, 4,4,4,4,5,5,5,5),
+      <br>2: (6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21, 6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21),
+      <br>3: (22,23,24,25,26,27,28,29,30,31, 22,23, 24,24,24,24,24,24,24,24,24,24, 31,31,31,31,31,31,31,31,31,31)
+    </td>
+  </tr>
+  </table>
+ */
+
+/** @addtogroup TF2_TM_PORT_CFG
+
+    @note @ref BFRT_TM_PORT_TO_QUEUE_REL_DIAG "Queue to Port mapping diagram."
+
+    ### See also ###
+
+| Action / Data field | TM API | Other data fields |
+| :------------------ | :----- | :---------------- |
+| @ref TF2_TM_PORT_CFG__PORT_QUEUES_COUNT "port_queues_count" |  | Modified via @ref TF2_TM_PORT_GROUP "tm.port.group". The same value is @ref TF2_TM_PORT_GROUP__MAP__PORT_QUEUE_COUNT "tm.port.group.port_queue_count[pg_port_nr]" |
+| @ref TF2_TM_PORT_CFG__INGRESS_QID_MAP "ingress_qid_map" | @ref bf_tm_port_q_mapping_get() | Modified via @ref TF2_TM_PORT_GROUP "tm.port.group". The same array as @ref TF2_TM_PORT_GROUP__MAP__INGRESS_QID_MAP_0 "tm.port.group.ingress_qid_map_{pg_port_id}" for the pg_id entry. |
+| @ref TF2_TM_PORT_CFG__EGRESS_QID_QUEUES "egress_qid_queues" |  | Modified via @ref TF2_TM_PORT_GROUP "tm.port.group".  The same array field as  @ref TF2_TM_PORT_GROUP__MAP__EGRESS_QID_QUEUES_0 "tm.port.group.egress_qid_queues_{pg_port_id}" for the pg_id entry. |
+| @ref TF2_TM_PORT_CFG__COPY_TO_CPU "copy_to_cpu" | bf_mc_get_copy_to_cpu() |  |
+| @ref TF2_TM_PORT_CFG__MIRROR_DROP_DESTINATION "mirror_drop_destination" |  @ref bf_tm_port_mirror_on_drop_dest_get() | <i>Queue[pg_id, mirror_drop_pg_queue]</i> has the same value in its @ref TF2_TM_QUEUE_CFG__MIRROR_DROP_DESTINATION "tm.queue.cfg.mirror_drop_destination". |
+| @ref TF2_TM_PORT_CFG__PKT_EXTRACTION_CREDITS "pkt_extraction_credits" | @ref bf_tm_port_credits_get() |  |
+
+*/
+
+/** @addtogroup TF2_TM_PORT_BUFFER
+
+    ### See also ###
+
+| Action / Data field | TM API | Other data fields |
+| :------------------ | :----- | :---------------- |
+| @ref TF2_TM_PORT_BUFFER__CT_ENABLE "ct_enable" | @ref bf_tm_port_cut_through_enable_status_get(),  @ref bf_tm_port_cut_through_enable(), @ref bf_tm_port_cut_through_disable() | @ref TF1_PORT_PORT__CUT_THROUGH_EN "port.$CUT_THROUGH_EN" |
+| @ref TF2_TM_PORT_BUFFER__UC_CT_LIMIT_CELLS "uc_ct_limit_cells" | @ref bf_tm_port_uc_cut_through_limit_get(), @ref bf_tm_port_uc_cut_through_limit_set() |  |
+| @ref TF2_TM_PORT_BUFFER__IG_LIMIT_CELLS "ig_limit_cells" | @ref bf_tm_port_ingress_drop_limit_set(), @ref bf_tm_port_ingress_drop_limit_get() |  |
+| @ref TF2_TM_PORT_BUFFER__EG_LIMIT_CELLS "eg_limit_cells" | @ref bf_tm_port_egress_drop_limit_set(), @ref bf_tm_port_egress_drop_limit_get() |  |
+| @ref TF2_TM_PORT_BUFFER__EG_HYSTERESIS_CELLS "eg_hysteresis_cells" | @ref bf_tm_port_egress_hysteresis_set(), @ref bf_tm_port_egress_hysteresis_get() |  |
+| @ref TF2_TM_PORT_BUFFER__SKID_LIMIT_CELLS "skid_limit_cells" | @ref bf_tm_port_skid_limit_set(), @ref bf_tm_port_skid_limit_get() |  |
+
+*/
+
+/** @addtogroup TF2_TM_PORT_FLOWCONTROL
+
+    ### See also ###
+
+| Action / Data field | TM API | Other data fields |
+| :------------------ | :----- | :---------------- |
+| @ref TF2_TM_PORT_FLOWCONTROL__MODE_TX "mode_tx" | @ref bf_tm_port_flowcontrol_mode_set(), @ref bf_tm_port_flowcontrol_mode_get() |  |
+| @ref TF2_TM_PORT_FLOWCONTROL__MODE_RX "mode_rx" | @ref bf_tm_port_flowcontrol_rx_set(), @ref bf_tm_port_flowcontrol_rx_get() |  |
+| @ref TF2_TM_PORT_FLOWCONTROL__COS_TO_ICOS "cos_to_icos" | @ref bf_tm_port_pfc_cos_mapping_set(), @ref bf_tm_port_pfc_cos_mapping_get() |  |
+
+*/
+
+/** @addtogroup TF2_TM_PORT_SCHED_CFG
+
+    ### See also ###
+
+| Action / Data field | TM API | Other data fields |
+| :------------------ | :----- | :---------------- |
+| @ref TF2_TM_PORT_SCHED_CFG__SCHEDULING_SPEED "scheduling_speed"  | @ref bf_tm_sched_port_enable(), @ref bf_tm_sched_port_disable() |  |
+| @ref TF2_TM_PORT_SCHED_CFG__MAX_RATE_ENABLE "max_rate_enable" | @ref bf_tm_sched_port_shaping_enable(), @ref bf_tm_sched_port_shaping_disable() |  |
+| @ref TF2_TM_PORT_SCHED_CFG__L1_NODES_COUNT "l1_nodes_count" <br> @ref TF2_TM_PORT_SCHED_CFG__L1_NODES "l1_nodes" | | L1 Nodes are associated to Port via @ref TF2_TM_L1_NODE_SCHED_CFG "tm.l1.node.sched_cfg" table |
+
+*/
+
+/** @addtogroup TF2_TM_PORT_SCHED_SHAPING
+
+    ### See also ###
+
+| Action / Data field | TM API | Other data fields |
+| :------------------ | :----- | :---------------- |
+| @ref TF2_TM_PORT_SCHED_SHAPING__PROVISIONING "provisioning" | @ref bf_tm_sched_port_shaping_rate_get_provisioning(), @ref bf_tm_sched_port_shaping_rate_get(), @ref bf_tm_sched_port_shaping_rate_set() |  |
+| @ref TF2_TM_PORT_SCHED_SHAPING__UNIT "unit" |^|  |
+| @ref TF2_TM_PORT_SCHED_SHAPING__MAX_RATE "max_rate" |^|  |
+| @ref TF2_TM_PORT_SCHED_SHAPING__MAX_BURST_SIZE "max_burst_size" |^|  |
+
+*/
+
+/** @addtogroup TF2_TM_PPG
+
+    @brief TM Port Priority Group tables
+
+    On ingress @ref TF2_TM_PORT "Port", to provide desired QoS characteristics (lossless/lossy, real-time, etc.),
+    each packet can be mapped to a 'Port Priority Group' object by iCoS value.
+
+    <i>Port Priority Group</i> is either the ingress @ref TF2_TM_PORT_DPG "Port Default Priority Group (DPG)",
+    or a @ref TF2_TM_MIRROR_DPG "Mirror Port DPG",
+    or it is a dedicated @ref TF2_TM_PPG_CFG "PFC Priority Group (PPG)" allocated on the ingress Port to be applied for some iCoS subset.
+
+    There is one DPG per-Port, whereas PPGs are allocated from the common resource pool of 128 PPGs per each Pipe.
+
+    A PPG might be PFC-enabled making its subset of assigned iCoS ‘lossless’ on the Port.
+
+    Each Pipe has one DPG for its ingress Mirroring Port to map iCoS to PPGs, but PFC treatment is not allowed on them.
+
+    @sa TF2_TM_PORT_DPG, TF2_TM_MIRROR_DPG, TF2_TM_PPG_CFG
+
+    <hr>
+
+    @section BFRT_TF2_TM_PPG_WORKFLOW Tofino-2 TM Priority Group workflow
+    <table>
+    <tr>
+      <th></th>
+      <th>TM API</th>
+      <th>BFRT TM PPG</th></tr>
+    <tr>
+      <td>Get Id of Port's DPG</td>
+      <td>Get a low-level TM handle for Port's DPG (dpg_h)
+        <br>@ref bf_tm_ppg_defaultppg_get (dev, port, &dpg_h)
+      </td>
+      <td>Use dev_port as a key to @ref TF2_TM_PORT_DPG "tm.port.dpg"
+      </td>
+    </tr>
+    <tr><td colspan=3></tr>
+    <tr>
+      <td>Get/Set the Port's DPG buffer settings</td>
+      <td>Multiple calls to <br>bf_tm_ppg_*_get(dev, dpg_h, &value)<br> bf_tm_ppg_*_set(dev, dpg_h, &value)</td>
+      <td>Several properties at once: <br>@ref TF2_TM_PORT_DPG "tm.port.dpg.get(dev_port, field_name(s))"<br> @ref TF2_TM_PORT_DPG "tm.port.dpg.mod(dev_port, field_name(s)=value(s))"</td>
+    </tr>
+    <tr>
+      <td>Get Port's DPG iCoS mapping</td>
+      <td>@ref bf_tm_ppg_icos_mapping_get (dev, dpg_h, &old_dpg_icos)</td>
+      <td>@ref TF2_TM_PORT_DPG "tm.port.dpg.get(dev_port, icos_*)"</td>
+    </tr>
+    <tr>
+      <td>Set Port's DPG iCoS mapping</td>
+      <td colspan=2 align=center>TM driver does it indirectly with PPG setting</td>
+    </tr>
+    <tr><td colspan=3></tr>
+    <tr>
+      <td>Get Id of a PPG</td>
+      <td>Low-level TM handle for a PPG (ppg_h)</td>
+      <td>User-defined ppg_id.
+          <br>Low level handle is kept by BFRT internally
+      </td>
+    </tr>
+    <tr>
+      <td>Allocate new PPG; it is bound to the Port.</td>
+      <td>Allocate with default settings and obtain a handle (ppg_h)<br> @ref bf_tm_ppg_allocate (dev, port, &ppg_h)</td>
+      <td>Allocate with custom Id, iCoS and buffer settings.  <br>@ref TF2_TM_PPG_CFG__DEV_PORT "tm.ppg.cfg.add_with_device_port(pipe, ppg_id, dev_port, icos_N)" <br>@ref TF2_TM_PPG_CFG__MIRROR_PORT "tm.ppg.cfg.add_with_mirror_port(pipe, ppg_id, icos_N))"</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>The client application is responsible to keep the PPG handle and free the PPG when it is not needed.</td>
+      <td>@ref TF2_TM_PORT_DPG__ICOS_PPG_MAP "tm.port.dpg.icos_ppg_map[]"
+        <br>keeps track of ppg_id-s allocated for each iCoS.</td>
+    </tr>
+    <tr>
+      <td>Get and Set the new PPG's parameters</td>
+      <td>bf_tm_ppg_*_get(dev, ppg_h, &value), ....  <br>bf_tm_ppg_*_set(dev, ppg_h, &value), ....</td>
+      <td>@ref TF2_TM_PPG_CFG "tm.ppg.cfg.mod_with_*(pipe, ppg_id, field_name(s)=value(s))"</td>
+    </tr>
+    <tr>
+      <td>Assign/Release iCoS on the PPG.</td>
+      <td>@ref bf_tm_ppg_icos_mapping_set (dev, ppg_h, new_ppg_icos)</td>
+      <td>@ref TF2_TM_PPG_CFG "tm.ppg.cfg.mod_with_*(pipe, ppg_id, icos_N=True)"</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td colspan=2 align=center>TM driver updates the Port's DPG iCoS when PPG does iCoS changes.  <br>Application should track PPGs left without iCoS assignments on the Port to free it explicitly.</td>
+    </tr>
+    <tr>
+      <td>PFC setup on the PPG</td>
+      <td>@ref bf_tm_ppg_lossless_treatment_enable (dev, ppg_h) <br> @ref bf_tm_ppg_skid_limit_set (dev, ppg_h, limit) <br> @ref bf_tm_ppg_lossless_treatment_disable (dev, ppg_h)</td>
+      <td>@ref TF2_TM_PPG_CFG "tm.ppg.cfg.mod_with_dev_port(pipe, ppg_id, pfc_enable=True, pfc_field_name(s)=value(s))" </td>
+    </tr>
+    <tr><td colspan=3></tr>
+    <tr>
+      <td>Mirroring Port</td>
+      <td>With dev_port=72 the same way as for an 'external port' (0–71), except a PPG allocated can't be PFC-enabled</td>
+      <td>DPG: set up QoS settings with @ref TF2_TM_MIRROR_DPG "tm.mirror.dpg" the same way
+        @ref TF2_TM_PORT_DPG "tm.port.dpg" table using pipe_id as a key.  
+        <br>PPG: same @ref TF2_TM_PPG_CFG "tm.ppg.cfg" table with @ref TF2_TM_PPG_CFG__MIRROR_PORT "mirror_port" action.
+      </td>
+    </tr>
+    <tr><td colspan=3></tr>
+    <tr>
+      <td>Release PPG</td>
+      <td>@ref bf_tm_ppg_free (dev, ppg_h)  for each of PPG allocated</td>
+      <td> 1) @ref TF2_TM_PPG_CFG "tm.ppg.cfg.delete(pipe, ppg_id)" one selected PPG
+         <br>or<br>
+           2) @ref TF2_TM_PPG_CFG "tm.ppg.cfg.clear(pipe)"  for all Ports on the pipe or for PIPE_ALL
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td colspan=2 align=center>Application is responsible to free all the unused PPGs.<br> TM driver releases iCoS back to the Port's DPG if any is left at the PPG on free.<br> TM driver may keep old buffer settings at the released PPG objects.
+      </td>
+    </tr>
+  </table>
+ */
+
+/** @addtogroup TF2_TM_PPG_CFG
+
+    @note @ref BFRT_TF2_TM_PPG_WORKFLOW "PPG workflow."
+
+    ### See also ###
+
+| Action / Data field | TM API | Other data fields |
+| :------------------ | :----- | :---------------- |
+| @ref TF2_TM_PPG_CFG__DEV_PORT "'dev_port' action"| | The PPG is allocated for a regular Port on the Pipe (dev_tgt.pipe_id). |
+| @ref TF2_TM_PPG_CFG__DEV_PORT__DEV_PORT "dev_port"| | TM allows to allocate not more than 8 PPGs per Port, either assigned to iCoS or not. |
+| @ref TF2_TM_PPG_CFG__DEV_PORT__PFC_ENABLE "pfc_enable"| @ref bf_tm_ppg_lossless_treatment_get(), @ref bf_tm_ppg_lossless_treatment_disable(), @ref bf_tm_ppg_lossless_treatment_enable() | The Default property of PPG is to treat traffic as ‘lossy’. ‘Lossless’ traffic should not be dropped in TM except in worst-case scenarios when the upstream device is not honoring port pause or priority flow control (PFC), or when the Skid buffer space is full. |
+| @ref TF2_TM_PPG_CFG__DEV_PORT__PFC_SKID_MAX_CELLS "pfc_skid_max_cells"| @ref bf_tm_ppg_skid_limit_get(), @ref bf_tm_ppg_skid_limit_set() | This buffer space is used when the PPGs configured ingress buffer limit has been used up. When traffic flow is directed to the skid buffer space, a PFC or Pause message is sent immediately to the upstream device. Cannot be set more than the Skid pool total size. Once this limit is reached, then even the lossless traffic will be dropped. Before consuming the Skid pool, the PFC would be asserted for lossless flows. |
+| @ref TF2_TM_PPG_CFG__MIRROR_PORT "'mirror_port' action" | | The PPG is allocated for a Mirror port on the Pipe (dev_tgt.pipe_id). |
+| @ref TF2_TM_PPG_CFG__ICOS_0 "icos_*" | @ref bf_tm_ppg_icos_mapping_set(),  @ref bf_tm_ppg_icos_mapping_get() |  All iCoS are initially assigned to the port's default PG (DPG). PPG allows explicit iCoS assignment to/from its 'parent' Port's DPG. To reassign some iCoS to another PPG it should be released back to the DPG first. |
+| @ref TF2_TM_PPG_CFG__GUARANTEED_CELLS "guaranteed_cells" | @ref bf_tm_ppg_guaranteed_min_limit_get(), bf_tm_ppg_guaranteed_min_limit_set() | |
+| @ref TF2_TM_PPG_CFG__HYSTERESIS_CELLS "hysteresis_cells" | @ref bf_tm_ppg_guaranteed_min_skid_hysteresis_get(), bf_tm_ppg_guaranteed_min_skid_hysteresis_set() |  The same hysteresis limit is applied to the guaranteed minimum buffer and to the Skid Pool if the PPG is lossless and its pfc_skid_max_cells is non-zero |
+| @ref TF2_TM_PPG_CFG__POOL_ID "pool_id" | @ref bf_tm_ppg_app_pool_usage_disable(), @ref bf_tm_ppg_app_pool_usage_get(), @ref bf_tm_ppg_app_pool_usage_set() | |
+| @ref TF2_TM_PPG_CFG__POOL_MAX_CELLS "pool_max_cells" |^| |
+| @ref TF2_TM_PPG_CFG__DYNAMIC_BAF "dynamic_baf" |^| |
+
+*/
+
+/** @addtogroup TF2_TM_PORT_DPG
+
+    @note @ref BFRT_TF2_TM_PPG_WORKFLOW "PPG workflow."
+
+    ### See also ###
+
+| Action / Data field | TM API | Other data fields |
+| :------------------ | :----- | :---------------- |
+| @ref TF2_TM_PORT_DPG__ICOS_0 "icos_*" | @ref bf_tm_ppg_icos_mapping_set(),  bf_tm_ppg_icos_mapping_get() | All iCoS are initially assigned to the DPG and all the icos_* bits are True. If an iCoS bit is set to False, then it means a PPG object is assigned the iCoS and the PPG’s parameters are applied instead. Use @ref TF2_TM_PORT_DPG__ICOS_PPG_MAP "tm.port.dpg.icos_ppg_map[icos]" for ppg_id of that PPG object to access its properties. |
+| @ref TF2_TM_PORT_DPG__GUARANTEED_CELLS "guaranteed_cells" | @ref bf_tm_ppg_guaranteed_min_limit_get(), bf_tm_ppg_guaranteed_min_limit_set() | |
+| @ref TF2_TM_PORT_DPG__HYSTERESIS_CELLS "hysteresis_cells" | @ref bf_tm_ppg_guaranteed_min_skid_hysteresis_get(), bf_tm_ppg_guaranteed_min_skid_hysteresis_set() | Hysteresis limit is the number of cells the PPG usage should fall by from its limit value. Once usage limit is below hysteresis, then the appropriate condition is cleared. The same hysteresis limit is applied to the guaranteed minimum buffer and to the Skid Pool if the PPG is lossless and its pfc_skid_max_cells is non-zero. |
+| @ref TF2_TM_PORT_DPG__POOL_ID "pool_id" | @ref bf_tm_ppg_app_pool_usage_disable(), @ref bf_tm_ppg_app_pool_usage_get(), @ref bf_tm_ppg_app_pool_usage_set() | |
+| @ref TF2_TM_PORT_DPG__POOL_MAX_CELLS "pool_max_cells" |^| |
+| @ref TF2_TM_PORT_DPG__DYNAMIC_BAF "dynamic_baf" |^| |
+
+*/
+
+/** @addtogroup TF2_TM_MIRROR
+
+    @brief TM Mirror tables
+*/
+
+/** @addtogroup TF2_TM_MIRROR_DPG
+
+    @note @ref BFRT_TF2_TM_PPG_WORKFLOW "PPG workflow."
+
+    ### See also ###
+
+| Action / Data field | TM API | Other data fields |
+| :------------------ | :----- | :---------------- |
+| @ref TF2_TM_MIRROR_DPG__ICOS_0 "icos_*" | @ref bf_tm_ppg_icos_mapping_set(), @ref bf_tm_ppg_icos_mapping_get() | All iCoS are initially assigned to the DPG and all the icos_* bits are True. If an iCoS bit is set to False, then it means a PPG object is assigned the iCoS and the PPG’s parameters are applied instead. Use @ref TF2_TM_MIRROR_DPG__ICOS_PPG_MAP "tm.mirror.dpg.icos_ppg_map[icos]" for ppg_id of that PPG object to access its properties. |
+| @ref TF2_TM_MIRROR_DPG__GUARANTEED_CELLS "guaranteed_cells" | @ref bf_tm_ppg_guaranteed_min_limit_get(), @ref bf_tm_ppg_guaranteed_min_limit_set() | |
+| @ref TF2_TM_MIRROR_DPG__HYSTERESIS_CELLS "hysteresis_cells" | @ref bf_tm_ppg_guaranteed_min_skid_hysteresis_get(), @ref bf_tm_ppg_guaranteed_min_skid_hysteresis_set() | |
+| @ref TF2_TM_MIRROR_DPG__POOL_ID "pool_id" | @ref bf_tm_ppg_app_pool_usage_disable(), @ref bf_tm_ppg_app_pool_usage_get(), @ref bf_tm_ppg_app_pool_usage_set() | |
+| @ref TF2_TM_MIRROR_DPG__POOL_MAX_CELLS "pool_max_cells" |^| |
+| @ref TF2_TM_MIRROR_DPG__DYNAMIC_BAF "dynamic_baf" |^| |
+
+*/
+
+/** @addtogroup TF2_TM_QUEUE
+
+    @brief TM Queue tables
+
+    @note @ref BFRT_TM_PORT_TO_QUEUE_REL_DIAG "Queue to Port mapping diagram."
+ */
+
+/** @addtogroup TF2_TM_QUEUE_CFG
+
+    ### See also ###
+
+| Action / Data field | TM API | Other data fields |
+| :------------------ | :----- | :---------------- |
+| @ref TF2_TM_QUEUE_CFG__MIRROR_DROP_DESTINATION "mirror_drop_destination" | @ref bf_tm_port_mirror_on_drop_dest_get() |  |
+| @ref TF2_TM_QUEUE_CFG__PFC_COS "pfc_cos" | @ref bf_tm_q_pfc_cos_mapping_set() |  |
+| @ref TF2_TM_QUEUE_CFG__DEPTH_REPORT_ENABLE "depth_report_enable" | @ref bf_tm_q_visible_get(), bf_tm_q_visible_set() | @ref TF2_TM_PIPE_CFG__QUEUE_DEPTH_REPORT_MODE "tm.pipe.cfg.queue_depth_report_mode" <br> Since rel.9.10 instead of 'tm.queue.color.drop_visible' |
+
+*/
+
+/** @addtogroup TF2_TM_QUEUE_MAP
+
+    @note @ref BFRT_TM_PORT_TO_QUEUE_REL_DIAG "Queue to Port mapping diagram."
+
+    ### See also ###
+
+| Action / Data field | TM API | Other data fields |
+| :------------------ | :----- | :---------------- |
+| @ref TF2_TM_QUEUE_MAP__INGRESS_QID_COUNT "ingress_qid_count" | @ref bf_tm_port_q_mapping_get() |  |
+| @ref TF2_TM_QUEUE_MAP__INGRESS_QID_LIST "ingress_qid_list" | @ref bf_tm_port_q_mapping_get() |  |
+
+*/
+
+/** @addtogroup TF2_TM_QUEUE_BUFFER
+
+    ### See also ###
+
+| Action / Data field | TM API | Other data fields |
+| :------------------ | :----- | :---------------- |
+| @ref TF2_TM_QUEUE_BUFFER__GUARANTEED_CELLS "guaranteed_cells" | @ref bf_tm_q_guaranteed_min_limit_get(), bf_tm_q_guaranteed_min_limit_set() | Also known as the 'green' color limit. |
+| @ref TF2_TM_QUEUE_BUFFER__HYSTERESIS_CELLS "hysteresis_cells" | @ref bf_tm_q_hysteresis_get(), bf_tm_q_hysteresis_set(), bf_tm_q_app_pool_usage_get(), bf_tm_q_app_pool_usage_set() | |
+| @ref TF2_TM_QUEUE_BUFFER__TAIL_DROP_ENABLE "tail_drop_enable" | @ref bf_tm_q_tail_drop_get(), bf_tm_q_tail_drop_enable(), bf_tm_q_tail_drop_disable() | |
+| @ref TF2_TM_QUEUE_BUFFER__BUFFER_ONLY "'buffer_only' action" | @ref bf_tm_q_app_pool_usage_disable(), bf_tm_q_app_pool_limit_get() | The queue will not use a shared pool, but only the guaranteed_cells buffer which is allocated to the queue.  The action_id value after a BfRtTable::tableEntryGet() operation allows to determine the current buffering mode: a data object having ‘buffer_only’ action_id will change it to 'shared_pool' to inform that this mode is currently active for the queue (see pool_max_cells data field).  Another BfRtTable::tableEntryGet() with this data object will fetch data for the current buffering mode if needed. |
+| @ref TF2_TM_QUEUE_BUFFER__SHARED_POOL__POOL_ID "pool_id" | @ref bf_tm_q_app_pool_usage_get(), @ref bf_tm_q_app_pool_usage_set() | The queue is always assigned to some pool, but its actual usage depends on pool_max_cells non-zero value |
+| @ref TF2_TM_QUEUE_BUFFER__SHARED_POOL__POOL_MAX_CELLS "pool_max_cells" |^| |
+| @ref TF2_TM_QUEUE_BUFFER__SHARED_POOL__DYNAMIC_BAF "dynamic_baf" |^| |
+
+*/
+
+/** @addtogroup TF2_TM_QUEUE_COLOR
+
+    ### See also ###
+
+| Action / Data field | TM API | Other data fields |
+| :------------------ | :----- | :---------------- |
+| @ref TF2_TM_QUEUE_COLOR__DROP_ENABLE "drop_enable" | @ref bf_tm_q_color_drop_get(), bf_tm_q_color_drop_enable(), bf_tm_q_color_drop_disable() |  |
+| @ref TF2_TM_QUEUE_COLOR__DROP_LIMIT_YELLOW "drop_limit_yellow" | @ref bf_tm_q_color_limit_get(), bf_tm_q_color_limit_set() | Queue color drop limit in % of the 'green' color limit which is @ref TF2_TM_QUEUE_BUFFER__GUARANTEED_CELLS "tm.queue.buffer.guaranteed_cells" value |
+| @ref TF2_TM_QUEUE_COLOR__DROP_LIMIT_RED "drop_limit_red" |^|^|
+| @ref TF2_TM_QUEUE_COLOR__HYSTERESIS_YELLOW_CELLS "hysteresis_yellow_cells" | @ref bf_tm_q_color_hysteresis_get(), bf_tm_q_color_hysteresis_set() | |
+| @ref TF2_TM_QUEUE_COLOR__HYSTERESIS_RED_CELLS "hysteresis_red_cells" |^| |
+| "drop_visible" | | since rel.9.10 replaced by @ref TF2_TM_QUEUE_CFG__DEPTH_REPORT_ENABLE "tm.queue.cfg.depth_report_enable" |
+
+*/
+
+/** @addtogroup TF2_TM_QUEUE_SCHED_CFG
+
+    ### See also ###
+
+    <table>
+    <tr>
+      <th>Action / Data field</th>
+      <th>TM API</th>
+      <th>Other data fields</th>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_QUEUE_SCHED_CFG__SCHEDULING_ENABLE  "scheduling_enable"</td>
+      <td> @ref bf_tm_sched_q_enable_get(), bf_tm_sched_q_enable(), bf_tm_sched_q_disable()</td>
+      <td>This field will be last in the entry to be written into HW.</td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_QUEUE_SCHED_CFG__SCHEDULING_SPEED  "scheduling_speed"</td>
+      <td> @ref bf_tm_sched_q_speed_get()</td>
+      <td> Each queue becomes associated with appropriate HW resources when it is carved on TM Port which in turn is a leading channel of some active ('added') PM port with some line rate (port.port.$SPEED) thus derived TM scheduling speed (@ref TF2_TM_PORT_SCHED_CFG__SCHEDULING_SPEED "tm.port.sched_cfg.scheduling_speed"). The queue has scheduling_speed not worse than its port scheduling speed. If TM Port is not participating as a channel of some PM Port, then its mappped queues are not associated to HW resources and their scheduling speed is set as 'BF_SPEED_NONE' indicating no resources are consumed.
+      </td>
+    </tr>
+    <tr>
+      <td colspan=3><b>Guaranteed (minimum) bandwidth.</b></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_QUEUE_SCHED_CFG__MIN_RATE_ENABLE  "min_rate_enable"</td>
+      <td> @ref bf_tm_sched_q_guaranteed_enable_get(), bf_tm_sched_q_guaranteed_rate_enable(), bf_tm_sched_q_guaranteed_rate_disable()</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_QUEUE_SCHED_CFG__MIN_PRIORITY  "min_priority"</td>
+      <td> @ref bf_tm_sched_q_priority_get(), bf_tm_sched_q_priority_set()</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan=3><b>Shaping (maximum) bandwidth.</b></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_QUEUE_SCHED_CFG__MAX_RATE_ENABLE  "max_rate_enable"</td>
+      <td> @ref bf_tm_sched_q_shaping_rate_get(), bf_tm_sched_q_max_shaping_rate_enable(), bf_tm_sched_q_max_shaping_rate_disable()</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_QUEUE_SCHED_CFG__MAX_PRIORITY  "max_priority"</td>
+      <td> @ref bf_tm_sched_q_remaining_bw_priority_get(), bf_tm_sched_q_remaining_bw_priority_set()</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_QUEUE_SCHED_CFG__DWRR_WEIGHT  "dwrr_weight"</td>
+      <td> @ref bf_tm_sched_q_dwrr_weight_get(), bf_tm_sched_q_dwrr_weight_set()</td>
+      <td>The weight is used when queues at same priority level are scheduled during excess bandwidth sharing.</td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_QUEUE_SCHED_CFG__ADVANCED_FLOW_CONTROL "advanced_flow_control"</td>
+      <td> @ref bf_tm_sched_q_adv_fc_mode_set(), bf_tm_sched_q_adv_fc_mode_get() </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_QUEUE_SCHED_CFG__PG_L1_NODE "pg_l1_node"</td>
+      <td> @ref bf_tm_sched_q_l1_get(), bf_tm_sched_q_l1_set(), bf_tm_sched_q_l1_reset()</td>
+      <td> The L1 Node must be already assigned (‘in_use’) to the same port as the queue.</td>
+    </tr>
+
+
+
+  </table>
+*/
+
+/** @addtogroup TF2_TM_QUEUE_SCHED_SHAPING
+
+    ### See also ###
+
+    <table>
+    <tr>
+      <th>Action / Data field</th>
+      <th>TM API</th>
+      <th>Other data fields</th>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_QUEUE_SCHED_SHAPING__PROVISIONING  "provisioning"</td>
+      <td rowspan=4> @ref bf_tm_sched_q_shaping_rate_set_provisioning(), bf_tm_sched_q_shaping_rate_set(), bf_tm_sched_q_shaping_rate_get_provisioning(), bf_tm_sched_q_shaping_rate_get()</td>
+      <td>
+        <ul>
+        <li>Upper limit for the rate, Over-provisioning; </li>
+        <li>Lower limit for the rate, Under-provisioning; </li>
+        <li>Min Error between the Upper/Lower rate. </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_QUEUE_SCHED_SHAPING__UNIT "unit"</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_QUEUE_SCHED_SHAPING__MAX_RATE "max_rate"</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_QUEUE_SCHED_SHAPING__MAX_BURST_SIZE "max_burst_size"</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_QUEUE_SCHED_SHAPING__MIN_RATE "min_rate"</td>
+      <td rospan=2></td> @ref bf_tm_sched_q_guaranteed_rate_get(), bf_tm_sched_q_guaranteed_rate_set() </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_QUEUE_SCHED_SHAPING__MIN_BURST_SIZE "min_burst_size"</td>
+      <td></td>
+    </tr>
+  </table>
+*/
+
+/** @addtogroup TF2_TM_L1_NODE
+
+    @brief L1 Node tables (Hierarchical Scheduling)
+
+    L1 Node on Tofino-2 implements 'Hierarchical Scheduling' for better port bandwidth utilization:
+    it allows to spread the Port capacity between L1 Nodes designated to customer applications, hosts, services, customers etc.,
+    and then by Queues assigned to traffic types like video, data, network control, etc.
+
+    @anchor BFRT_TF2_TM_HIERARCHICAL_SCHEDULING_DIAG
+    @image html tf2_hierarchical_scheduling.jpg "Tofino-2 Hierarchical Scheduling over Port, L1 Node, Queue."
+    @image latex tf2_hierarchical_scheduling.jpg "Tofino-2 Hierarchical Scheduling over Port, L1 Node, Queue."
+
+ */
+
+/** @addtogroup TF2_TM_L1_NODE_SCHED_CFG
+
+    ### See also ###
+
+    <table>
+    <tr>
+      <th>Action / Data field</th>
+      <th>TM API</th>
+      <th>Other data fields</th>
+    </tr>
+    <tr>
+      <td>@ref TF2_TM_L1_NODE_SCHED_CFG__FREE "'free' action"</td>
+      <td>L1 Node is not active at its Port: not scheduled as well as all its Queues</td>
+      <td>L1_Node is always assigned to some port, but its scheduling might be disabled, either with queues attached or without queues. No queues with enabled scheduling should be assigned to the disabled L1_Node.</td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_CFG__FREE__DEV_PORT "'free' dev_port"</td>
+      <td></td>
+      <td>Allows to get which port is currently associated with the L1 Node to be applied on free&rArr;in_use transition as default.
+      </td>
+    </tr>
+
+    <tr>
+      <td>@ref TF2_TM_L1_NODE_SCHED_CFG__IN_USE "'in_use' action"</td>
+      <td colspan=2>L1 Node is active at its Port</td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_CFG__IN_USE__SCHEDULING_ENABLE  "'in_use' scheduling_enable"</td>
+      <td> @ref bf_tm_sched_l1_enable_get(), bf_tm_sched_l1_enable(), bf_tm_sched_l1_disable()</td>
+      <td>L1_Node with in_use == True might have no queues assigned.
+        <br>
+        <br><b>L1 Node state transitions:</b>
+        <br><b>free&rArr;in_use</b>: If this field is omitted, then the L1 Node will be enabled. If the field is given as False, then the node will be enabled to become ‘in_use’ with the port, and then set disabled.
+      </td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_CFG__IN_USE__DEV_PORT "'in_use' dev_port"</td>
+      <td></td>
+      <td>The device port is from the same dev_tgt.pipe_id and pg_id as the L1 Node.
+        <br>See @ref TF2_TM_PORT_SCHED_CFG__L1_NODES "tm.port.sched_cfg.l1_nodes" for reverse reference from the Port object to its L1 Nodes.
+        <br>
+        <br><b>L1 Node state transitions:</b>
+        <br><b>free&rArr;in_use</b>:if this field is omitted it is assumed as the current one which is, by default, port 0 in the port group.
+        <br><b>in_use&rArr;in_use</b>: to different port: frees the node, if possible, and then assign it to another port asserting scheduling enable. To make scheduling disabled on the new port it should be set explicitly with scheduling_enable=False
+      </td>
+    </tr>
+    <tr>
+      <td colspan=3><b>Child Queues.</b></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_CFG__QUEUES_COUNT "queues_count"</td>
+      <td></td>
+      <td>
+        <b>For queues_count and pg_queues data fields:</b>
+        <ol>
+          <li>Use @ref TF2_TM_QUEUE_SCHED_CFG__PG_L1_NODE "tm.queue.sched_cfg.pg_l1_node" to assign or detach child queues. The L1_Node itself must be "in_use" for that.
+          <li>Changed when queues are enabled for scheduling at @ref TF2_TM_QUEUE_SCHED_CFG__SCHEDULING_ENABLE "tm.queue.sched_cfg.scheduling_enable".
+          <li>Changed when queues are carved to the L1 Node port at @ref TF2_TM_PORT_GROUP "tm.port.group"
+        </ol>
+      </td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_CFG__PG_QUEUES "pg_queues"</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan=3><b>Guaranteed (minimum) bandwidth.</b></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_CFG__MIN_RATE_ENABLE  "min_rate_enable"</td>
+      <td> @ref bf_tm_sched_l1_guaranteed_rate_enable_get(), bf_tm_sched_l1_guaranteed_rate_enable(), bf_tm_sched_l1_guaranteed_rate_disable()</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_CFG__MIN_PRIORITY  "min_priority"</td>
+      <td> @ref bf_tm_sched_l1_priority_get(), bf_tm_sched_l1_priority_set()</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan=3><b>Shaping (maximum) bandwidth.</b></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_CFG__MAX_RATE_ENABLE  "max_rate_enable"</td>
+      <td> @ref bf_tm_sched_l1_shaping_rate_enable_get(), bf_tm_sched_l1_max_shaping_rate_enable(), bf_tm_sched_l1_max_shaping_rate_disable()</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_CFG__MAX_PRIORITY  "max_priority"</td>
+      <td> @ref bf_tm_sched_l1_remaining_bw_priority_get(), bf_tm_sched_l1_remaining_bw_priority_set()</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_CFG__DWRR_WEIGHT  "dwrr_weight"</td>
+      <td> @ref bf_tm_sched_l1_dwrr_weight_get(), bf_tm_sched_l1_dwrr_weight_set()</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_CFG__PRIORITY_PROPAGATION "priority_propagation"</td>
+      <td> @ref bf_tm_sched_l1_priority_prop_enable_get(), bf_tm_sched_l1_priority_prop_enable(), bf_tm_sched_l1_priority_prop_disable() </td>
+      <td></td>
+    </tr>
+  </table>
+*/
+
+/** @addtogroup TF2_TM_L1_NODE_SCHED_SHAPING
+
+    ### See also ###
+
+    <table>
+    <tr>
+      <th>Action / Data field</th>
+      <th>TM API</th>
+      <th>Other data fields</th>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_SHAPING__UNIT "unit"</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_SHAPING__MAX_RATE "max_rate"</td>
+      <td rowspan=2> @ref bf_tm_sched_l1_shaping_rate_set(), bf_tm_sched_l1_shaping_rate_get()</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_SHAPING__MAX_BURST_SIZE "max_burst_size"</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_SHAPING__MIN_RATE "min_rate"</td>
+      <td rowspan=2></td> @ref bf_tm_sched_l1_guaranteed_rate_get(), bf_tm_sched_l1_guaranteed_rate_set() </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td> @ref TF2_TM_L1_NODE_SCHED_SHAPING__MIN_BURST_SIZE "min_burst_size"</td>
+      <td></td>
+    </tr>
+  </table>
+*/
+

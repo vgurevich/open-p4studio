@@ -1,0 +1,132 @@
+[
+    {
+        "ppg_helper" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port_priority_group"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "port_priority_group",
+                    "attribute" : "skid_limit"
+                },
+                {
+                    "object" : "port_priority_group",
+                    "attribute" : "skid_hysterisis"
+                },
+                {
+                    "object" : "port_priority_group",
+                    "attribute" : "lossless_admin_enable"
+                },
+                {
+                    "object" : "port_priority_group",
+                    "attribute" : "buffer_profile_handle"
+                },
+                {
+                    "object" : "buffer_profile",
+                    "attribute" : "buffer_size"
+                },
+                {
+                    "object" : "buffer_profile",
+                    "attribute" : "threshold"
+                },
+                {
+                    "object" : "buffer_profile",
+                    "attribute" : "xoff_threshold"
+                },
+                {
+                    "object" : "buffer_profile",
+                    "attribute" : "xon_threshold"
+                }
+            ]
+
+        }
+    },
+    {
+        "ingress_port_icos_ppg_helper" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "port",
+                    "attribute" : "icos_ppg_qos_map_handle"
+                }
+            ]
+        }
+    },
+    {
+        "port_ppg_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+
+            }
+        }
+    },
+    {
+        "ppg_stats_helper" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port_priority_group"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "tm_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+
+            }
+        }
+    }
+]

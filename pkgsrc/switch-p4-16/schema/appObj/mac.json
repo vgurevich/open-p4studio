@@ -1,0 +1,97 @@
+[
+    {
+        "mac_entry" : {
+            "class" : "user",
+            "description" : "Create a MAC entry object",
+            "attributes" : {
+            "device" : {
+                "description": "Device handle",
+                "is_mandatory": true,
+                "is_create_only" : true,
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "device"
+                    ]
+                }
+            },
+            "vlan_handle" : {
+                "description": "Vlan handle",
+                "is_mandatory": true,
+                "is_create_only" : true,
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "vlan"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "mac_address" : {
+                "description": "MAC address",
+                "is_mandatory": true,
+                "is_create_only" : true,
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_MAC"
+                }
+            },
+            "destination_handle" : {
+                "description": "Egress destination object for this MAC entry",
+                "is_mandatory": true,
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "port", "lag", "nexthop", "tunnel"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "action" : {
+                "description": "MAC entry packet action",
+                "type_info" : {
+                    "default_value": "FORWARD",
+                    "enum" : [
+                        "DROP",
+                        "FORWARD",
+                        "REDIRECT",
+                        "COPY"
+                    ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                }
+            },
+            "type" : {
+                "description": "MAC entry configuration type",
+                "is_mandatory": true,
+                "type_info" : {
+                    "default_value": "STATIC",
+                    "enum" : [
+                        "STATIC",
+                        "DYNAMIC"
+                    ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                }
+            },
+            "dest_ip" : {
+                "description": "Tunnel endpoint IP address",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_IP_ADDRESS"
+                }
+            },
+            "age_out" : {
+                "description": "Age out entry",
+                "is_internal": true,
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "allow_move" : {
+                "description": "Allow move for static entries",
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            }
+            },
+            "key_groups" : [["device", "vlan_handle", "mac_address"]]
+        }
+    }
+]

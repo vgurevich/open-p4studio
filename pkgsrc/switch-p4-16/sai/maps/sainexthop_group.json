@@ -1,0 +1,19 @@
+{
+   "next_hop_group" : {
+       "profile" : "Per profile info",
+       "switch" : "ecmp",
+       "attributes" : {
+           "type" : "type",
+           "next_hop_member_list" : "ecmp_members",
+           "configured_size" : "configured_size",
+           "real_size" : "real_size"
+       },
+       "enums" : {
+            "type" : {
+                "DYNAMIC_UNORDERED_ECMP" : "ECMP",
+                "PROTECTION" : "WCMP",
+                "DYNAMIC_ORDERED_ECMP" : "ORDERED_ECMP"
+            }
+        }
+    }
+}

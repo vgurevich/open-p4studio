@@ -1,0 +1,27 @@
+{
+   "scheduler" : {
+       "profile" : "Per profile info",
+       "switch" : "scheduler",
+       "attributes" : {
+           "scheduling_type" : "type",
+           "scheduling_weight" : "weight",
+           "meter_type" : "shaper_type",
+           "min_bandwidth_rate" : "min_rate",
+           "min_bandwidth_burst_rate" : "min_burst_size",
+           "max_bandwidth_rate" : "max_rate",
+           "max_bandwidth_burst_rate" : "max_burst_size"
+       },
+       "enums" : {
+           "scheduling_type" : {
+               "STRICT" : "STRICT",
+               "WRR" : "STRICT_AND_DWRR",
+               "DWRR" : "DWRR"
+           },
+           "meter_type" : {
+               "PACKETS" : "PPS",
+               "BYTES" : "BPS"
+           }
+       },
+       "global_enums" : ["scheduling_type", "meter_type"]
+   }
+}

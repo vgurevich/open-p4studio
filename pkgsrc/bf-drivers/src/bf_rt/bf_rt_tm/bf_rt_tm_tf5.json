@@ -1,0 +1,572 @@
+{
+  "tables": [
+    {
+      "name": "tf5.tm.pool.cfg",
+      "description": "This table is used to configure various properties for pools.",
+      "id": 4278517762,
+      "table_type": "TmPoolCfg",
+      "size": 38,
+      "key": [
+        {
+          "id": 1,
+          "name": "pool",
+          "description": "The pool identifier string. For buffer carving, EG/IG pools 0-7 belong to pipes 0-7 and EG/IG pools 8-15 belong to pipes 8-15.",
+          "repeated": false,
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "string",
+            "choices": [
+              "IG_APP_POOL_0",
+              "IG_APP_POOL_1",
+              "IG_APP_POOL_2",
+              "IG_APP_POOL_3",
+              "IG_APP_POOL_4",
+              "IG_APP_POOL_5",
+              "IG_APP_POOL_6",
+              "IG_APP_POOL_7",
+              "IG_APP_POOL_8",
+              "IG_APP_POOL_9",
+              "IG_APP_POOL_10",
+              "IG_APP_POOL_11",
+              "IG_APP_POOL_12",
+              "IG_APP_POOL_13",
+              "IG_APP_POOL_14",
+              "IG_APP_POOL_15",
+              "EG_APP_POOL_0",
+              "EG_APP_POOL_1",
+              "EG_APP_POOL_2",
+              "EG_APP_POOL_3",
+              "EG_APP_POOL_4",
+              "EG_APP_POOL_5",
+              "EG_APP_POOL_6",
+              "EG_APP_POOL_7",
+              "EG_APP_POOL_8",
+              "EG_APP_POOL_9",
+              "EG_APP_POOL_10",
+              "EG_APP_POOL_11",
+              "EG_APP_POOL_12",
+              "EG_APP_POOL_13",
+              "EG_APP_POOL_14",
+              "EG_APP_POOL_15",
+              "IG_SKID_POOL",
+              "IG_EG_NEGATIVE_MIRROR_POOL",
+              "EG_PRE_FIFO",
+              "IG_EG_GUARANTEED_MIN",
+              "EG_UNICAST_CUT_THROUGH",
+              "EG_MULTICAST_CUT_THROUGH"
+            ]
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "size_cells",
+            "description": "Used to specify the number of cells that need to be allocated for a particular pool.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to modify the size of the pool identified by the key field in terms of number of cells."
+        },
+        "tableEntryGet": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to fetch the current size of the pool identified by the key field in terms of number of cells."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to fetch the name and the current size (in terms of number of cells) of the very first pool from the list of pools specified in the key field."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to fetch the names and the current sizes (in terms of number of cells) of the next n pools starting from the pool provided as an input parameter in the fixed order present in this json in the key field."
+        },
+        "tableUsageGet": {
+          "target_attributes" : [],
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key field above can have."
+        }
+      }
+    },
+    {
+      "name": "tf5.tm.pool.skid",
+      "description": "This table is used to configure various properties for the skid pool.",
+      "id": 4278517763,
+      "table_type": "TmPoolSkid",
+      "size": 1,
+      "key": [
+      ],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "resume_limit_cells",
+            "description": "Used to specify the number of cells that will need to be freed up in order to resume the link pause or PFC. Gets rounded down to the multiple of 8 if not.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntrySet": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to modify the current resume limit of the skid pool."
+        },
+        "tableDefaultEntryReset": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to reset the current resume limit of the skid pool to the initial value (0)."
+        },
+        "tableDefaultEntryGet": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to fetch the current resume limit of the skid pool."
+        },
+        "tableClear": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to reset the current resume limit of the skid pool to the initial value (0)."
+        }
+      }
+    },
+    {
+      "name": "tf5.tm.pool.app",
+      "description": "This table is used to configure various properties for application pools.",
+      "id": 4278517764,
+      "table_type": "TmPoolApp",
+      "size": 32,
+      "key": [
+        {
+          "id": 1,
+          "name": "pool",
+          "description": "The application pool identifier string. For buffer carving, EG/IG pools 0-7 belong to pipes 0-7 and EG/IG pools 8-15 belong to pipes 8-15.",
+          "repeated": false,
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "string",
+            "choices": [
+              "IG_APP_POOL_0",
+              "IG_APP_POOL_1",
+              "IG_APP_POOL_2",
+              "IG_APP_POOL_3",
+              "IG_APP_POOL_4",
+              "IG_APP_POOL_5",
+              "IG_APP_POOL_6",
+              "IG_APP_POOL_7",
+              "IG_APP_POOL_8",
+              "IG_APP_POOL_9",
+              "IG_APP_POOL_10",
+              "IG_APP_POOL_11",
+              "IG_APP_POOL_12",
+              "IG_APP_POOL_13",
+              "IG_APP_POOL_14",
+              "IG_APP_POOL_15",
+              "EG_APP_POOL_0",
+              "EG_APP_POOL_1",
+              "EG_APP_POOL_2",
+              "EG_APP_POOL_3",
+              "EG_APP_POOL_4",
+              "EG_APP_POOL_5",
+              "EG_APP_POOL_6",
+              "EG_APP_POOL_7",
+              "EG_APP_POOL_8",
+              "EG_APP_POOL_9",
+              "EG_APP_POOL_10",
+              "EG_APP_POOL_11",
+              "EG_APP_POOL_12",
+              "EG_APP_POOL_13",
+              "EG_APP_POOL_14",
+              "EG_APP_POOL_15"
+            ]
+          }
+        }
+      ],
+      "action_specs": [
+        {
+          "id" : 1,
+          "name" : "color_drop_disable",
+          "data" : []
+        },
+        {
+          "id" : 2,
+          "name" : "color_drop_enable",
+          "data" : [
+            {
+              "id" : 1,
+              "name" : "green_limit_cells",
+              "repeated" : false,
+              "mandatory" : false,
+              "annotations" : [],
+              "type" : {
+                "type" : "uint32"
+              }
+            },
+            {
+              "id" : 2,
+              "name" : "yellow_limit_cells",
+              "repeated" : false,
+              "mandatory" : false,
+              "annotations" : [],
+              "type" : {
+                "type" : "uint32"
+              }
+            },
+            {
+              "id" : 3,
+              "name" : "red_limit_cells",
+              "repeated" : false,
+              "mandatory" : false,
+              "annotations" : [],
+              "type" : {
+                "type" : "uint32"
+              }
+            }
+          ]
+        }
+      ],
+      "data": [],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to modify the various properties (described by the data fields above) of the application pool identified by the key field."
+        },
+        "tableEntryGet": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to fetch the current values of the properties (described by the data fields above) of the application pool identified by the key field."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to fetch the name and the current values of the properties (described by the data fields above) of the very first application pool from the list of application pools specified in the key field."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to fetch the names and the current values of the properties (described by the data fields above) of the next n application pools starting from the application pool provided as an input parameter in the fixed order present in this json in the key field."
+        },
+        "tableUsageGet": {
+          "target_attributes" : [],
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key field above can have."
+        }
+      }
+    },
+    {
+      "name": "tf5.tm.pool.color",
+      "description": "This table is used to configure various properties for colors for all the application pools.",
+      "id": 4278517765,
+      "table_type": "TmPoolColor",
+      "size": 3,
+      "key": [
+        {
+          "id": 1,
+          "name": "color",
+          "description": "The color identifier string.",
+          "repeated": false,
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "string",
+            "choices": [
+              "GREEN",
+              "YELLOW",
+              "RED"
+            ]
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": true,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "color_drop_resume_limit_cells",
+            "description": "Used to specify the number of cells for the resume limit. The resume condition is triggered when the pool usage for all the application pools drops by this value from the limit value which was originally set for the color drop.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to modify the table entry identified by the key field in terms of number of cells."
+        },
+        "tableEntryGet": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to fetch the table entry identified by the key field in terms of number of cells."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to fetch the table entry for the very first color from the list of colors specified in the key field."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to fetch the table entries for next n colors starting from the color provided as an input parameter in the fixed order present in this json in the key field."
+        },
+        "tableUsageGet": {
+          "target_attributes" : [],
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key field (number of colors) above can have."
+        },
+        "tableClear": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to reset the data fields for the table entries for all the colors to their default values."
+        }
+      }
+    },
+    {
+      "name": "tf5.tm.pool.app_pfc",
+      "description": "This table is used to configure various properties for the given application pool for the given COS (Class of Service) which used to implement PFC (Priority Flow Control).",
+      "id": 4278517766,
+      "table_type": "TmPoolAppPfc",
+      "size": 128,
+      "key": [
+        {
+          "id": 1,
+          "name": "pool",
+          "description": "The application pool identifier string. For buffer carving, IG pools 0-7 belong to pipes 0-7 and IG pools 8-15 belong to pipes 8-15.",
+          "repeated": false,
+          "mandatory": true,
+          "match_type": "Exact",
+          "type": {
+            "type": "string",
+            "choices": [
+              "IG_APP_POOL_0",
+              "IG_APP_POOL_1",
+              "IG_APP_POOL_2",
+              "IG_APP_POOL_3",
+              "IG_APP_POOL_4",
+              "IG_APP_POOL_5",
+              "IG_APP_POOL_6",
+              "IG_APP_POOL_7",
+              "IG_APP_POOL_8",
+              "IG_APP_POOL_9",
+              "IG_APP_POOL_10",
+              "IG_APP_POOL_11",
+              "IG_APP_POOL_12",
+              "IG_APP_POOL_13",
+              "IG_APP_POOL_14",
+              "IG_APP_POOL_15"
+            ]
+          }
+        },
+        {
+          "id": 2,
+          "name": "cos",
+          "description": "Class of Service value (ranges between 0-7).",
+          "repeated": false,
+          "annotations": [],
+          "mandatory": true,
+          "match_type": "Exact",
+          "type" : {
+            "type" : "bytes",
+            "width" : 3
+          }
+        }
+      ],
+      "data": [
+        {
+          "mandatory": true,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "pfc_limit_cells",
+            "description": "Used to specify the PFC limit in terms of number of cells for an application pool. When the PPG usage hits this limit, PFC is triggered.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableEntryMod": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to modify the data fields for the table entry identified by the key field."
+        },
+        "tableEntryGet": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to fetch data fields for the table entry identified by the key field."
+        },
+        "tableEntryGetFirst": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to fetch the first table entry identified by the first pool value from the key above and cos value 0."
+        },
+        "tableEntryGetNext_n": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to fetch the next n table entries for the entry specified in the input."
+        },
+        "tableUsageGet": {
+          "target_attributes" : [],
+          "description": "This API is used to fetch the current usage of the table in terms of number of entries. As this table has fixed number of entries, it will always return a constant value based on what all possible values the key fields above can have."
+        },
+        "tableClear": {
+          "target_attributes" : ["dev_id"],
+          "description": "This API is used to reset the data fields for all the table entries to their default values."
+        }
+      }
+    },
+    {
+      "name": "tf5.tm.pipe.cfg",
+      "description": "TM Pipe general settings.",
+      "id": 4278517840,
+      "table_type": "TmPipeCfg",
+      "size": 16,
+      "key": [],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "mirror_drop_enable",
+            "description": "Enable Mirror Drop ('Deflection on Drop') function on the pipe.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "eg_limit_cells",
+            "description": "The egress pipe limit in number of buffer cells. When admitting a packet into the traffic manager, apart from the other checks, the packet also has to pass usage check on per egress pipe usage limit. When exceeded, the packet will not be admitted.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 3,
+            "name": "eg_hysteresis_cells",
+            "description": "The pipe level hysteresis limit in number buffer of cells. When usage of cells goes below the hysteresis limit, pipe level drop condition will be cleared.",
+            "repeated": false,
+            "type": {
+              "type": "uint32"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 4,
+            "name": "queue_depth_report_mode",
+            "description": "Egress Pipe 'Queue Stats Reporting' (QSTAT) mode: 'ANY' - for any enqueue/dequeue depth change; 'COLOR' - for color threshold crosses only. A queue is participating in QSTAT reporting if it has tm.queue.cfg.depth_report_enable = True",
+            "repeated": false,
+            "type": {
+              "type": "string",
+              "choices" : [
+                "ANY", "COLOR"
+              ]
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntryGet" : {
+          "description": "Retrieves the entry identified by dev_tgt.pipe_id with values in the corresponding data fields.",
+          "target_attributes" : ["dev_id", "pipe_id"]
+        },
+        "tableDefaultEntrySet" : {
+          "description": "Updates the entry identified by the dev_tgt.pipe_id with values from the corresponding data fields.",
+          "target_attributes" : ["dev_id", "pipe_id"]
+        },
+        "tableDefaultEntryReset" : {
+          "description": "Updates the entry identified by the dev_tgt.pipe_id with HW reset values.",
+          "target_attributes" : ["dev_id", "pipe_id", "pipe_all"]
+        },
+        "tableClear" : {
+          "target_attributes": ["dev_id", "pipe_id", "pipe_all"],
+          "description": "Applies tableDefaultEntryReset to the dev_tgt.pipe_id entry or to all pipes with PIPE_ALL."
+        }
+      }
+    },
+    {
+      "name": "tf5.tm.pipe.sched_cfg",
+      "description": "TM Pipe Scheduler settings.",
+      "id": 4278517842,
+      "table_type": "TmPipeSchedCfg",
+      "size": 16,
+      "key": [],
+      "data": [
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 1,
+            "name": "packet_ifg_compensation",
+            "description": "Per packet byte adjustment value. Set number of bytes added per each packet by shaper to adjust its length.",
+            "repeated": false,
+            "type": {
+              "type": "uint8"
+            }
+          }
+        },
+        {
+          "mandatory": false,
+          "read_only": false,
+          "singleton": {
+            "id": 2,
+            "name": "advanced_flow_control_enable",
+            "description": "Enable Scheduler Advanced Flow Control mode.",
+            "repeated": false,
+            "type": {
+              "type": "bool"
+            }
+          }
+        }
+      ],
+      "supported_operations": [],
+      "attributes": [],
+      "supported_apis": {
+        "tableDefaultEntryGet" : {
+          "description": "Retrieves the entry identified by dev_tgt.pipe_id with values in the corresponding data fields.",
+          "target_attributes" : ["dev_id", "pipe_id"]
+        },
+        "tableDefaultEntrySet" : {
+          "description": "Updates the entry identified by the dev_tgt.pipe_id with values from the corresponding data fields.",
+          "target_attributes" : ["dev_id", "pipe_id"]
+        },
+        "tableDefaultEntryReset" : {
+          "description": "Updates the entry identified by the dev_tgt.pipe_id with HW reset values.",
+          "target_attributes" : ["dev_id", "pipe_id", "pipe_all"]
+        },
+        "tableClear" : {
+          "target_attributes": ["dev_id", "pipe_id", "pipe_all"],
+          "description": "Applies tableDefaultEntryReset to the dev_tgt.pipe_id entry or to all pipes with PIPE_ALL."
+        }
+      }
+    }
+  ]
+}

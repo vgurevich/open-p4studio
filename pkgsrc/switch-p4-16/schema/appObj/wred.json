@@ -1,0 +1,116 @@
+[
+    {
+        "wred" : {
+            "class" : "user",
+            "description" : "WRED",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                    }
+                },
+                "enable" : {
+                    "description": "Drop Enable",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL",
+                        "default_value" : false
+                    }
+                },
+                "ecn_mark" : {
+                    "description": "Mark ECN enable",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL",
+                        "default_value" : false
+                    }
+                },
+                "min_threshold" : {
+                    "description": "Wred minimum threshold in bytes",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32",
+                        "default_value" : 10000
+                    }
+                },
+                "max_threshold" : {
+                    "description": "Wred maximum threshold in bytes",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32",
+                        "default_value" : 1000000
+                    }
+                },
+                "probability" : {
+                    "description": "Wred drop/mark probability",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32",
+                        "default_value" : 100
+                    }
+                },
+                "time_constant" : {
+                    "description": "Wred time constant",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                }
+            }
+        },
+        "wred_profile" : {
+            "class" : "user",
+            "description" : "List of WREDs",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                    }
+                },
+                "wred_green_handle" : {
+                    "description": "WRED green handle",
+                    "is_mandatory": true,
+                    "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "wred"
+                     ]
+                    }
+                },
+                "wred_yellow_handle" : {
+                    "description": "WRED yellow handle",
+                    "is_mandatory": true,
+                    "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "wred"
+                     ]
+                    }
+                },
+                "wred_red_handle" : {
+                    "description": "WRED red handle",
+                    "is_mandatory": true,
+                    "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "wred"
+                     ]
+                    }
+                },
+                "weight" : {
+                    "description": "Wred weight",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8",
+                        "default_value" : 0
+                    }
+                }
+            }
+        }
+    }
+]

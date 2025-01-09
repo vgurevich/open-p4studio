@@ -1,0 +1,144 @@
+[
+    {
+        "ecmp" : {
+            "class" : "user",
+            "description" : "Create an ECMP group",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description": "ECMP group type",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "default_value" : "ECMP",
+                        "enum" : [
+                            "ECMP",
+                            "FINE_GRAIN_ECMP",
+                            "WCMP",
+                            "ORDERED_ECMP"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "ecmp_members" : {
+                    "is_read_only" : true ,
+                    "description": "List of ECMP members",
+                    "type_info" : {
+                    "list" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "ecmp_member" ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "empty" : {
+                    "is_internal" : true ,
+                    "description": "Flag if ecmp group has no members - for tunnel",
+                    "type_info" : {
+                        "default_value" : true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "configured_size" : {
+                    "description": "ECMP members configured size",
+                    "type_info" : {
+                        "default_value" : 64,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "real_size" : {
+                    "description": "ECMP current members size",
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "ecmp_member" : {
+            "class" : "user",
+            "description" : "Create an ECMP group member",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "ecmp_handle" : {
+                    "description": "ECMP group handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "ecmp"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "nexthop_handle" : {
+                    "description": "Nexthop handle",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "nexthop"
+                        ]
+                    }
+                },
+                "enable" : {
+                    "description": "Activate ecmp member",
+                    "type_info" : {
+                        "default_value" : true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "index" : {
+                    "description": "Id specifying exact location of ecmp member within the ecmp group",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "weight" : {
+                    "description": "Weight of the ecmp member",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "default_value" : 1,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "sequence_id" : {
+                    "description": "Loose index specifying the member's order. The index is not strict allowing for the missing IDs in a sequence",
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                }
+            },
+            "membership" : [
+                {
+                    "object" : "ecmp",
+                    "attribute" : "ecmp_members"
+                }
+            ]
+        }
+    }
+]

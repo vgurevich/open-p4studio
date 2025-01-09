@@ -1,0 +1,319 @@
+[
+    {
+        "buffer_pool" : {
+            "class" : "user",
+            "description" : "Buffer pool",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                    }
+                },
+                "direction" : {
+                    "description" : "Buffer pool direction/type",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info": {
+                    "enum" : [
+                        "INGRESS",
+                        "EGRESS"
+                        ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "pool_size" : {
+                    "description": "Buffer pool size in bytes",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "xoff_size" : {
+                    "description": "Ingress Buffer XOFF size",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "shared_size" : {
+                    "is_read_only" : true,
+                    "description": "Buffer shared pool size",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "threshold_mode" : {
+                    "description" : "Buffer pool threshold mode",
+                    "is_create_only" : true,
+                    "type_info": {
+                    "default_value": "DYNAMIC",
+                    "enum" : [
+                        "STATIC",
+                        "DYNAMIC"
+                        ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "created_in_hw" : {
+                    "description": "Created in Hardware",
+                    "is_read_only": true,
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "WATERMARK_BYTES",
+                            "CURR_OCCUPANCY_BYTES",
+                            "MAX_OCCUPANCY_BYTES"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "buffer_pool_helper"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "buffer_profile" : {
+            "class" : "user",
+            "description" : "Buffer profile",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                    }
+                },
+                "buffer_pool_handle" : {
+                    "description": "Buffer pool handle",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "buffer_pool"
+                        ]
+                    }
+                },
+                "buffer_size" : {
+                    "description": "Buffer size in bytes",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "threshold" : {
+                    "description": "Threshold limit based on threshold mode",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "xoff_threshold" : {
+                    "description": "XOFF threshold",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "xon_threshold" : {
+                    "description": "XON threshold",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "threshold_mode" : {
+                    "description" : "Buffer profile threshold mode",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info": {
+                    "default_value": "STATIC",
+                    "enum" : [
+                        "STATIC",
+                        "DYNAMIC"
+                        ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "port_priority_group" : {
+            "class" : "user",
+            "description" : "Ingress port priority group",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                    }
+                },
+                "port_handle" : {
+                    "description": "Ingress port handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "port"
+                        ]
+                    }
+                },
+                "ppg_index" : {
+                    "description": "Priority group index",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "buffer_profile_handle" : {
+                    "description": "Buffer profile handle",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "buffer_profile"
+                        ]
+                    }
+                },
+                "lossless_admin_enable" : {
+                    "description": "Lossles mode admin enable",
+                    "type_info" : {
+                        "default_value" : true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "skid_limit" : {
+                    "description": "PPG skid limit in bytes",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "skid_hysterisis" : {
+                    "description": "PPG hysterisis limit in bytes",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "pd_hdl" : {
+                    "description": "PD handle from driver",
+                    "is_internal": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "created_in_hw" : {
+                    "description": "Created in Hardware",
+                    "is_read_only": true,
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "buffer_profile_in_use" : {
+                    "description": "Buffer profile (device/ppg) handle",
+                    "is_read_only": true,
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "lossless_oper_enable" : {
+                    "description": "Lossles oper enable",
+                    "is_read_only": true,
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "packet_count" : {
+                    "comment": "When icos to ppg mapping changes, MAU ppg stats are cleared. This field is used for caching packet count for the ppg before the change in mapping. Returned stats value is then sum of this value and actual value read from the hardware",
+                    "description": "Packet count for ppg",
+                    "is_internal": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "byte_count" : {
+                    "comment": "When icos to ppg mapping changes, MAU ppg stats are cleared. This field is used for caching byte count for the ppg before the change in mapping. Returned stats value is then sum of this value and actual value read from the hardware",
+                    "description": "Byte count for ppg",
+                    "is_internal": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "icos_bmp" : {
+                    "description": "icos bmp for this ppg",
+                    "is_read_only": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "PACKETS",
+                            "BYTES",
+                            "DROPPED_PACKETS",
+                            "WATERMARK_BYTES",
+                            "SHARED_CURR_OCCUPANCY_BYTES",
+                            "CURR_OCCUPANCY_BYTES",
+                            "SKID_CURR_OCCUPANCY_BYTES",
+                            "GUARANTEED_BYTES",
+                            "SHARED_MAX_OCCUPANCY_BYTES",
+                            "SKID_MAX_OCCUPANCY_BYTES",
+                            "SHARED_WATERMARK_BYTES"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "ppg_stats_helper"
+                        ]
+                    }
+                }
+            },
+            "key_groups":   [["device", "port_handle", "ppg_index"]],
+            "membership" : [
+                {
+                    "object" : "port",
+                    "attribute" : "port_priority_groups"
+                }
+            ],
+           "cli_info" : {
+                "table_view_attrs": ["port_handle", "ppg_index", "buffer_profile_handle", "lossless_admin_enable", "lossless_oper_enable", "skid_limit", "created_in_hw"]
+            }
+        }
+    }
+]

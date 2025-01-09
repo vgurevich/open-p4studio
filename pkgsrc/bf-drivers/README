@@ -1,0 +1,124 @@
+Barefoot Networks Device Drivers
+================================
+The <bf-drivers> package contains sources for the device drivers
+for Barefoot Networks devices. The drivers are P4 independent. At the time
+of device initialization they take artifacts associated with P4 as inputs.
+
+The <bf-drivers> package is organized as follows
+    include/
+        Header files associated with various driver modules
+
+    src/
+        Driver source files. Largely they are categorized into these submodules
+
+        pipe_mgr:
+            Pipeline Mgmt API (e.g. tables, actions, stats, meters)
+        traffic_mgr:
+            Traffic Mgmt API (e.g. buffering, queuing, shaping)
+        mc_mgr:
+            Multicast Mgmt API (e.g. MC replication tree mgmt)
+        pkt_mgr:
+            Packet RX/TX API over PCIe CPU port
+        knet_mgr:
+            KNET Mgmt API (e.g Rx/Tx filter, hostif)
+        port_mgr:
+            Port and Serdes Mgmt API
+        bf-pm:
+            Port management platform interfaces and state machines
+        lld:
+            Low Level Driver (e.g. register/DMA, interrupts, MAC/serdes)
+        dvm:
+            Device Mgmt (e.g. device/port instantiation, HA sequences)
+        pdfixed:
+            An abstraction layer for API that are exercised by
+            P4 dependent (PD) library or over thrift
+        bf_rt:
+            BF Runtime API that is P4 program independent and object driven
+            docs:
+              BF-RT Doxygen builder
+        dru_sim:
+            DMA simulation library to interface with SW device model
+
+    third-party/
+        Files of open-source third-party libraries used by the drivers
+
+    kdrv/
+        Linux kernel component of the driver
+
+    pdfixed_thrift/
+        Thrift IDL and API to expose the pdfixed APIs over thrift
+
+    pd_api_gen:
+        Barefoot ASIC P4 PD API generation templates and scripts
+
+    bf_switchd/
+        Reference implementation of application to exercise the drivers 
+
+    doc/
+        Doxygen builder
+
+Building and installing
+=======================
+Refer to P4 Studio installation guide
+
+Artifacts installed
+===================
+Here're the artifacts that get installed for <bf-drivers>
+
+Build artifacts:
+
+    header files for driver API to  $SDE_INSTALL/include/
+
+    libdriver.[a,la,so] to $SDE_INSTALL/lib/
+        driver library to manage the device
+
+    libdru_sim.[a,la,so] to $SDE_INSTALL/lib/
+        library used to interface to SW model
+
+    bf_[kdrv/kpkt/knet].ko to $SDE_INSTALL/lib/modules
+        bf_kdrv: KLM needed for mmap and interrupt dispatch
+        bf_kpkt: KLM needed for mmap, interrupt dispatch and
+                 cpu bound packet processing
+        bf_knet: KLM for packet filtering and hostif creation.
+
+    bf_[kdrv/kpkt/knet]_mod_[un]load to $SDE_INSTALL/bin
+        Scripts to load and unload bf_[kdrv/kpkt/knet].ko
+
+    bf_kdrv_mod_[un]load to $SDE_INSTALL/bin
+        Scripts to load and unload bf_kdrv.ko
+
+    bf_switchd to $SDE_INSTALL/bin
+        reference implementation to exercise driver API
+
+    generate_tofino_pd to $SDE_INSTALL/bin
+        P4 PD API generation script
+
+    tofino_pd_api to $SDE_INSTALL/lib/python2.7/site-packages/tofino_pd_api
+        P4 PD API generation python package
+
+    tofino_pd_api to $SDE_INSTALL/share
+        P4 PD API templates
+
+Thrift mode additional build artifacts:
+
+    libpdfixedthrift.[a,la,so] to $SDE_INSTALL/lib/
+        library that provides thrift API for drivers
+
+
+Documentation: <TBD>
+==============
+Install dependencies:
+    sudo apt-get install doxygen doxypy
+
+Run CMake to detect dependencies f.e.:
+    cmake .. -DSWITCH=on
+
+Generate documentation:
+    bf-drivers:
+        make doc-driver
+
+    BF-RT:
+        make doc-driver-bfrt
+
+    bfruntime gRPC python client
+        make doc-driver-bfrt-python-grpc

@@ -1,0 +1,10 @@
+{
+   "rpf_group_member" : {
+      "profile" : "Per profile info",
+      "switch" : "rpf_member",
+      "attributes" : {
+         "rpf_group_id" : "rpf_group_handle",
+         "rpf_interface_id" : "handle"
+      }
+   }
+}

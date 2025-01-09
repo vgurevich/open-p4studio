@@ -1,0 +1,5 @@
+-/usr/include/c++/*
+-/usr/local/include/thrift/*
+-*third-party/*
+-/home/jenkins/workspace/p4-factory-static-analysis/build/bf-diags/p4-build/tofino/diag/src/pdcli.c
+-/home/jenkins/workspace/p4-factory-static-analysis/build/bf-diags/p4-build/tofino/diag/src/pd.c

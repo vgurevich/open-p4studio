@@ -1,0 +1,40 @@
+[
+    {
+        "sflow_session" : {
+            "class" : "user",
+            "description" : "Sflow session",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                    }
+                },
+                "sample_rate" : {
+                    "description": "Sampling rate. For example a sampling rate of 100 specifies that, on average, 1 sample will be generated for 100 every packets observed.",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "mode" : {
+                    "is_create_only" : true,
+                    "description": "Sflow session mode. In exclusive mode, if multiple ports or ACL entries are configured with the same profile, sampling is independently done per port/ACL. In shared mode, traffic going through these ports/ACLs is merged from a sampling point of view",
+                    "type_info" : {
+                        "default_value": "EXCLUSIVE",
+                        "enum" : [
+                            "EXCLUSIVE",
+                            "SHARED"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                }
+            }
+        }
+    }
+]

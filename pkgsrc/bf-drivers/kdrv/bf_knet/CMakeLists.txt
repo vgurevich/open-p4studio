@@ -1,0 +1,18 @@
+
+project(bf_knet VERSION 0.1.0 LANGUAGES C)
+
+set(DRIVER_FILE bf_knet.ko)
+set(BUILD_CMD $(MAKE) -C ${KERNELDIR} M=${CMAKE_CURRENT_BINARY_DIR} src=${CMAKE_CURRENT_SOURCE_DIR})
+set(BUILD_CLEAN $(MAKE) -C ${KERNELDIR} M=${CMAKE_CURRENT_BINARY_DIR} src=${CMAKE_CURRENT_SOURCE_DIR})
+
+# build
+add_custom_command(OUTPUT ${DRIVER_FILE}
+  COMMAND ${BUILD_CMD}
+  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/bf_knet.c
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+add_custom_target(bf_knet ALL DEPENDS ${DRIVER_FILE})
+
+# clean
+add_custom_target(bf_knet_clean COMMAND ${BUILD_CLEAN})
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/bf_knet.ko DESTINATION lib/modules)

@@ -1,0 +1,13 @@
+{
+   "my_mac" : {
+      "profile" : "Per profile info",
+      "switch" : "my_mac",
+      "attributes" : {
+         "priority" : "priority",
+         "port_id" : "port_lag_index",
+         "vlan_id" : "vlan_id",
+         "mac_address" : "mac_address",
+         "mac_address_mask" : "mac_address_mask"
+      }
+   }
+}

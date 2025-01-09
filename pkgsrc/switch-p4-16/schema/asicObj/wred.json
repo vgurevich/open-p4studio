@@ -1,0 +1,181 @@
+[
+    {
+        "wred_session" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "wred" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "wred",
+                    "attribute" : "time_constant"
+                },
+                {
+                    "object" : "wred",
+                    "attribute" : "max_threshold"
+                },
+                {
+                    "object" : "wred",
+                    "attribute" : "min_threshold"
+                },
+                {
+                    "object" : "wred",
+                    "attribute" : "probability"
+                }
+            ]
+        }
+    },
+    {
+        "wred_index" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "queue" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "queue",
+                    "attribute" : "wred_profile_handle"
+                }
+            ]
+        }
+    },
+    {
+        "egress_wred_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "queue" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "port_ecn_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "port" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "v4_wred_action" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "wred" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "wred",
+                    "attribute" : "enable"
+                },
+                {
+                    "object" : "wred",
+                    "attribute" : "ecn_mark"
+                }
+            ]
+        }
+    },
+    {
+        "v6_wred_action" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [ "wred" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "wred",
+                    "attribute" : "enable"
+                },
+                {
+                    "object" : "wred",
+                    "attribute" : "ecn_mark"
+                }
+            ]
+        }
+    }
+]

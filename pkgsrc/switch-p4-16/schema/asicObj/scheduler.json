@@ -1,0 +1,72 @@
+[
+    {
+        "scheduler_helper" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "scheduler"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+            {
+                "object" : "scheduler",
+                "attribute" : "type"
+            },
+            {
+                "object" : "scheduler",
+                "attribute" : "shaper_type"
+            },
+            {
+                "object" : "scheduler",
+                "attribute" : "priority"
+            },
+            {
+                "object" : "scheduler",
+                "attribute" : "weight"
+            },
+            {
+                "object" : "scheduler",
+                "attribute" : "min_burst_size"
+            },
+            {
+                "object" : "scheduler",
+                "attribute" : "min_rate"
+            },
+            {
+                "object" : "scheduler",
+                "attribute" : "max_burst_size"
+            },
+            {
+                "object" : "scheduler",
+                "attribute" : "max_rate"
+            }
+            ]
+        }
+     },
+     {
+        "scheduler_group_helper" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "scheduler_group"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+            {
+                "object" : "scheduler_group",
+                "attribute" : "scheduler_handle"
+            }
+            ]
+        }
+    }
+]

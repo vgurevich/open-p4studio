@@ -1,0 +1,93 @@
+[
+    {
+        "isolation_group" : {
+            "class" : "user",
+            "description" : "Create a port isolation group",
+            "attributes" : {
+            "device" : {
+                "description": "Device handle",
+                "is_mandatory": true,
+                "is_create_only" : true,
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "device"
+                    ]
+                }
+            },
+            "type" : {
+                "description": "Isolation group type",
+                "type_info" : {
+                    "default_value": "PORT",
+                    "enum" : [
+                        "PORT",
+                        "BRIDGE_PORT"
+                    ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                }
+            },
+            "isolation_group_members" : {
+                "description" : "List of isolation group members",
+                "is_read_only" : true ,
+                "type_info" : {
+                "list" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "isolation_group_member"
+                    ]
+                    },
+                    "type" : "SWITCH_TYPE_LIST"
+                }
+            }
+            }
+        }
+    },
+    {
+        "isolation_group_member" : {
+            "class" : "user",
+            "description" : "Create a isolation_group member",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "handle" : {
+                    "description": "Port or bridge port handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "port", "bridge_port"
+                        ]
+                    }
+                },
+                "isolation_group_handle" : {
+                    "description": "Isolation group handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "isolation_group"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "membership" : [
+                {
+                    "object" : "isolation_group",
+                    "attribute" : "isolation_group_members"
+                }
+            ],
+            "key_groups": [["device", "isolation_group_handle", "handle"]]
+        }
+    }
+]

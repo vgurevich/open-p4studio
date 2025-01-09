@@ -1,0 +1,9 @@
+{
+   "ipmc_group" : {
+       "profile" : "Per profile info",
+       "switch" : "ipmc_group",
+       "attributes" : {
+           "ipmc_member_list" : "ipmc_members"
+       }
+   }
+}

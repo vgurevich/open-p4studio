@@ -1,0 +1,22 @@
+[
+    {
+        "buffer_pool_helper" : {
+            "class" : "auto",
+            "attributes" : {
+                "pool_id" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "buffer_pool"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    }
+]

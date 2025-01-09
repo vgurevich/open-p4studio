@@ -1,0 +1,29 @@
+{
+    "hostif_table_entry" : {
+        "profile" : "Per profile info",
+        "switch" : "hostif_rx_filter",
+        "attributes" : {
+            "type" : "type",
+            "obj_id" : "handle",
+            "trap_id" : "hostif_trap_handle",
+            "channel_type" : "channel_type",
+            "host_if" : "hostif"
+        },
+        "enums" : {
+            "type" : {
+                "port" : "port",
+                "lag" : "lag",
+                "vlan" : "vlan",
+                "wildcard" : "wildcard",
+                "trap_id" : "trap"
+            },
+            "channel_type" : {
+                "cb" : "cb",
+                "fd" : "fd",
+                "netdev_physical_port" : "port",
+                "netdev_logical_port" : "lag",
+                "genetlink" : "genetlink"
+            }
+        }
+    }
+}

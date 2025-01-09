@@ -1,0 +1,26 @@
+[
+    {
+        "udf" : {
+            "class" : "user",
+            "description" : "Create an UDF object",
+            "attributes" : {
+            }
+        }
+    },
+    {
+        "udf_match" : {
+            "class" : "user",
+            "description" : "Create an UDF match object",
+            "attributes" : {
+            }
+        }
+    },
+    {
+        "udf_group" : {
+            "class" : "user",
+            "description" : "Create an UDF group object",
+            "attributes" : {
+            }
+        }
+    }
+]

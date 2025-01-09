@@ -1,0 +1,17 @@
+diff --git a/api/switch_tna/device.cpp b/api/switch_tna/device.cpp
+index 71e574c72..a1cbfcf27 100644
+--- a/api/switch_tna/device.cpp
++++ b/api/switch_tna/device.cpp
+@@ -2501,10 +2501,8 @@ class device_init : public auto_object {
+     // For AFP internal ports are always managed by BMAI
+     // For FP internal ports are managed by BMAI on model . On hardware these
+     // are manged by Driver
+-    if (feature::is_feature_set(SWITCH_FEATURE_ASYMMETRIC_FOLDED_PIPELINE)) {
+-      SWITCH_CONTEXT.set_internal_pipe_ports_bmai_managed(true);
+-    } else if (feature::is_feature_set(SWITCH_FEATURE_FOLDED_SWITCH_PIPELINE) &&
+-               sw_model) {
++    if (feature::is_feature_set(SWITCH_FEATURE_ASYMMETRIC_FOLDED_PIPELINE) ||
++        feature::is_feature_set(SWITCH_FEATURE_FOLDED_SWITCH_PIPELINE)) {
+       SWITCH_CONTEXT.set_internal_pipe_ports_bmai_managed(true);
+     }
+ 

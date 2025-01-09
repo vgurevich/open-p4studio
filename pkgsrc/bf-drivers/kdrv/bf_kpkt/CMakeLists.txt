@@ -1,0 +1,34 @@
+
+project(bf_kpkt VERSION 0.1.0 LANGUAGES C)
+include(CheckCXXCompilerFlag)
+
+set(DRIVER_FILE ${CMAKE_CURRENT_BINARY_DIR}/bf_kpkt.ko)
+
+set(KBUILD_CMD_EXTRA_CFLAGS -DBF_INCLUDE_KPKT -Werror)
+CHECK_CXX_COMPILER_FLAG(-Wimplicit-fallthrough=2 COMPILER_SUPPORTS_IMPLICIT_FALLTHROUGH)
+if (COMPILER_SUPPORTS_IMPLICIT_FALLTHROUGH)
+  set(KBUILD_CMD_EXTRA_CFLAGS ${KBUILD_CMD_EXTRA_CFLAGS} -Wimplicit-fallthrough=2)
+endif()
+
+set(KBUILD_CMD $(MAKE) EXTRA_CFLAGS='${KBUILD_CMD_EXTRA_CFLAGS}' -C ${KERNELDIR} M=${CMAKE_CURRENT_BINARY_DIR} src=${CMAKE_CURRENT_SOURCE_DIR} inc=${CMAKE_INSTALL_PREFIX}/include modules)
+set(KBUILD_CLEAN $(MAKE) -C ${KERNELDIR} M=${CMAKE_CURRENT_BINARY_DIR} src=${CMAKE_CURRENT_SOURCE_DIR} inc=${CMAKE_INSTALL_PREFIX}/include clean)
+
+# Generate the Kbuild file through cmake.
+FILE(WRITE ${CMAKE_CURRENT_BINARY_DIR}/Kbuild "obj-m := bf_kpkt.o\n")
+FILE(APPEND ${CMAKE_CURRENT_BINARY_DIR}/Kbuild "ccflags-y := -I${CMAKE_CURRENT_SOURCE_DIR}/../../include\n")
+FILE(APPEND ${CMAKE_CURRENT_BINARY_DIR}/Kbuild "ccflags-y += -I${CMAKE_CURRENT_SOURCE_DIR}/../../src/lld\n")
+FILE(APPEND ${CMAKE_CURRENT_BINARY_DIR}/Kbuild "ccflags-y += -I${CMAKE_CURRENT_SOURCE_DIR}/../bf_kdrv\n")
+FILE(APPEND ${CMAKE_CURRENT_BINARY_DIR}/Kbuild "ccflags-y += -I${CMAKE_INSTALL_PREFIX}/include\n")
+FILE(APPEND ${CMAKE_CURRENT_BINARY_DIR}/Kbuild "ccflags-y += -D__KERNEL__\n")
+
+# build
+add_custom_command(OUTPUT ${DRIVER_FILE}
+  COMMAND ${KBUILD_CMD}
+  DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/bf_kpkt_net.c
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+add_custom_target(bf_kpkt ALL DEPENDS ${DRIVER_FILE})
+
+# clean
+add_custom_target(bf_kpkt_clean COMMAND ${KBUILD_CLEAN})
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/bf_kpkt.ko DESTINATION lib/modules)

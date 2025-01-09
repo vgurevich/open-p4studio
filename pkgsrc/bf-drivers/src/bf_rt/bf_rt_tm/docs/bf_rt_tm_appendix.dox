@@ -1,0 +1,40 @@
+/** @page BFRT_FF_DIAGRAMS Diagrams
+
+    - @subpage BFRT_TM_OBJECTS_TF1
+    - @subpage BFRT_TM_OBJECTS_TF2
+    - @subpage BFRT_TM_OBJECTS_TF3
+    - @subpage BFRT_TM_PORT_TO_QUEUE_REL
+ */
+
+/** @page BFRT_TM_PORT_TO_QUEUE_REL BF-RT Traffic Manager Queue to Port mapping
+
+    @anchor BFRT_TM_PORT_TO_QUEUE_REL_DIAG
+
+    @image latex port_to_queue_mapping.jpg "Simplified TM Queue to Port mapping."
+    @image html port_to_queue_mapping.jpg "Simplified TM Queue to Port mapping."
+    <hr>
+    @image latex port_to_queue_relations.jpg "BFRT TM Port, Queue and L1-Node relationships (Tofino-2)."
+      <!-- Include an image file into the html doxygen, and do not show it yet -->
+    @image html port_to_queue_relations.jpg "BFRT TM Port, Queue and L1-Node relationships (Tofino-2)." width=0 height=0
+      <!-- Now show the image file in html doxygen with a custom map -->
+    @htmlonly
+    <img src="port_to_queue_relations.jpg" border="0" alt="" usemap="#BFRT_TM_RELATIONS_TF2_MAP"/>
+    <map name="BFRT_TM_RELATIONS_TF2_MAP" id="BFRT_TM_OBJECTS_TF1_MAP">
+      <area shape="rect" id="node1" href="group__TF2__TM__PORT__SCHED__CFG.html" title="tm.port.sched_cfg" alt="" coords="0,480,140,570"/>
+      <area shape="rect" id="node2" href="group__TF2__TM__PORT__CFG.html" title="tm.port.cfg" alt="" coords="0,720,140,840"/>
+      <area shape="rect" id="node3" href="group__TF2__TM__PORT__CFG.html#TF2_TM_PORT_CFG__EGRESS_QID_QUEUES" title="tm.port.cfg.egress_qid_queues[]" alt="" coords="200,620,420,680"/>
+      <area shape="rect" id="node4" href="group__TF2__TM__PORT__CFG.html#TF2_TM_PORT_CFG__INGRESS_QID_MAP" title="tm.port.cfg.ingress_qid_map[]" alt="" coords="200,1000,420,1060"/>
+      <area shape="rect" id="node5" href="group__TF2__TM__L1__NODE__SCHED__CFG.html" title="tm.l1_node.sched_cfg" alt="" coords="710,420,850,570"/>
+      <area shape="rect" id="node6" href="group__TF2__TM__PORT__GROUP.html" title="tm.port.group" alt="" coords="710,750,850,960"/>
+      <area shape="rect" id="node7" href="group__TF2__TM__QUEUE__MAP.html" title="tm.queue.map" alt="" coords="710,1000,850,1180"/>
+      <area shape="rect" id="node8" href="group__TF2__TM__QUEUE__SCHED__CFG.html" title="tm.queue.sched_cfg" alt="" coords="1020,1000,1160,1120"/>
+    </map>
+    @endhtmlonly
+ */
+
+/** @page BFRT_FF_WORKFLOWS Workflows
+
+    - @subpage BFRT_TF1_TM_PPG_WORKFLOW
+    - @subpage BFRT_TF2_TM_PPG_WORKFLOW
+    - @subpage BFRT_TF3_TM_PPG_WORKFLOW
+ */

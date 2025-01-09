@@ -1,0 +1,17 @@
+{
+  "srv6_sidlist" : {
+    "profile" : "Per profile info",
+    "switch" : "segmentroute_sidlist",
+    "attributes" : {
+      "type" : "type",
+      "segment_list" : "segment_list"
+    },
+    "enums" : {
+      "type" : {
+        "INSERT_RED" : "H_INSERT_RED",
+        "ENCAPS_RED" : "H_ENCAPS_RED"
+      }
+    }
+  },
+  "version" : "10901"
+}

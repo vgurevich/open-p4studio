@@ -1,0 +1,19 @@
+global-options:
+  asic: true
+  p4ppflags:
+  p4flags:
+  extra-cppflags:
+  kdir:
+features:
+  bf-diags:
+    thrift-diags: true
+  drivers:
+    bfrt: false
+    bfrt-generic-flags: false
+    grpc: false
+    p4rt: false
+# uncomment below lines to enable build with BSP
+#  bf-platforms:
+#    bsp-path: /path/to/bsp.tgz
+architectures:
+  - tofino

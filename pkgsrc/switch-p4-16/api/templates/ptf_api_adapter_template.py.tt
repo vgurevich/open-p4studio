@@ -1,0 +1,102 @@
+
+
+# This file is auto-generated
+
+"""
+SMI API interface
+"""
+
+
+import os
+import traceback
+
+from bf_switcht_api_thrift.model_headers import *
+from bf_switcht_api_thrift.ttypes import *
+
+import api_base_tests
+
+################################################################################
+
+class ApiAdapter(api_base_tests.ThriftInterfaceDataPlane):
+
+    def setUp(self):
+        super(self.__class__, self).setUp()
+
+    def tearDown(self):
+        super(self.__class__, self).tearDown()
+
+//:: import template_generator as template
+//:: attribute_iterator = template.attribute_generator(_context, False)
+//:: object_dict = template.get_object_dict(_context)
+//:: counter = -1
+//:: oldobjectname = ""
+//:: oldkey = ""
+//:: oldtype = ""
+//:: oldtype_enum = ""
+//:: oldfield = ""
+//:: oldid = ""
+//:: lines = ""
+//:: olddefault = ""
+//:: def helper(oldtype_enum, oldobjectname, oldkey, olddefault, oldid, lines, params):
+//::   indent = ",\n" + " " * (13 + len(oldobjectname))
+//::   temp = oldtype_enum[12:]
+//::   if temp == 'LIST':
+//::     lines = lines + "        value = switcht_value_t(type=switcht_value_type." + temp + ", " +  temp + "=tuple(" + oldkey + "))\n"
+//::   else:
+//::     lines = lines + "        value = switcht_value_t(type=switcht_value_type." + temp + ", " +  temp + "=" + oldkey + ")\n"
+//::   #endif
+//::   lines = lines + "        attr = switcht_attribute_t(id=" + str(oldid) + ", value=value)\n"
+//::   lines = lines + "        attrs.append(attr)\n"
+//::   if oldkey == 'device':
+//::     return lines, params
+//::   #endif
+//::   if oldtype_enum[12:] == 'ENUM':
+//::     val = 'SWITCH_'+oldobjectname+'_ATTR_'+oldkey+'_'+str(olddefault)
+//::     val = val.upper()
+//::     if olddefault == 0:
+//::       val = 0
+//::     #endif
+//::     params = params + indent + str(oldkey)+"="+str(val)
+//::   elif oldtype_enum[12:] == 'STRING':
+//::     if olddefault == "":
+//::       val = "\"\""
+//::     else:
+//::       val = "\"" + olddefault + "\""
+//::     #endif
+//::     params = params + indent + str(oldkey)+"="+val
+//::   else:
+//::     params = params + indent + str(oldkey)+"="+str(olddefault)
+//::   #endif
+//::   return lines, params
+//:: #enddef
+//::
+//:: for type, key, default, type_enum, field, id, objectname in attribute_iterator:
+//::   if oldobjectname != objectname:
+//::     if counter >= 1:
+//::       lines, params = helper(oldtype_enum, oldobjectname, oldkey, olddefault, oldid, lines, params)
+//::       params = params + "):"
+//::       lines = lines + "        ret = self.client.object_create(" + str(object_type) + ", attrs)\n"
+//::       lines = lines + "        self._push('object_create', ret.status, ret.object_id)\n"
+//::       lines = lines + "        return ret.object_id\n"
+${params}
+${lines}
+//::     #endif
+//::     counter = 1
+//::     oldobjectname = objectname
+//::     attribute_count, object_type = object_dict[objectname]
+//::     oldkey, olddefault, oldtype, oldtype_enum, oldfield, oldid = key, default, type, type_enum, field, id
+//::     lines = "        attrs = list()\n"
+//::     params = "    def add_" + objectname + "(self, device"
+//::   else:
+//::     lines, params = helper(oldtype_enum, oldobjectname, oldkey, olddefault, oldid, lines, params)
+//::   #endif
+//::   oldkey, olddefault, oldtype, oldtype_enum, oldfield, oldid = key, default, type, type_enum, field, id
+//::   counter +=1
+//:: #endfor
+//:: lines, params = helper(oldtype_enum, oldobjectname, oldkey, olddefault, oldid, lines, params)
+//:: params = params + "):"
+//:: lines = lines + "        ret = self.client.object_create(" + str(object_type) + ", attrs)\n"
+//:: lines = lines + "        self._push('object_create', ret.status, ret.object_id)\n"
+//:: lines = lines + "        return ret.object_id\n"
+${params}
+${lines}

@@ -1,0 +1,253 @@
+[
+    {
+        "host_interface" : {
+            "class" : "auto",
+            "attributes" : {
+               "def_rx_filter_handle" : {
+                  "type_info" : {
+                      "default_value" : -1,
+                     "type" : "SWITCH_TYPE_UINT64"
+                  }
+               },
+               "def_tx_filter_handle" : {
+                  "type_info" : {
+                      "default_value" : -1,
+                     "type" : "SWITCH_TYPE_UINT64"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "hostif"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+                {
+                   "object" : "hostif",
+                   "attribute" : "oper_status"
+                },
+                {
+                   "object" : "hostif",
+                   "attribute" : "ip_addr"
+                },
+                {
+                   "object" : "hostif",
+                   "attribute" : "mac"
+                }
+            ]
+        }
+    },
+    {
+        "hostif_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "hostif" ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "hostif_filter_default" : {
+            "class" : "auto",
+            "attributes" : {
+               "rx_handle" : {
+                  "type_info" : {
+                      "default_value" : -1,
+                     "type" : "SWITCH_TYPE_UINT64"
+                  }
+               },
+               "tx_handle" : {
+                  "type_info" : {
+                      "default_value" : -1,
+                     "type" : "SWITCH_TYPE_UINT64"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "host_interface"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            }
+        }
+    },
+    {
+        "hostif_user_defined_trap_acl": {
+            "class": "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "hostif_user_defined_trap"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "status" : {
+                   "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                   }
+               }
+            }
+        }
+    },
+    {
+        "hostif_trap_acl" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "hostif_trap"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "status" : {
+                   "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                   }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "hostif_trap",
+                  "attribute" : "packet_action"
+               }
+            ]
+        }
+    },
+    {
+        "egress_hostif_trap_acl" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "hostif_trap"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "status" : {
+                   "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                   }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "hostif_trap",
+                  "attribute" : "packet_action"
+               }
+            ]
+        }
+    },
+    {
+        "hostif_trap_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "hostif_trap" ]
+                    }
+                }
+            }
+        }
+    },
+    {
+      "hostif_trap_group_helper" : {
+         "class" : "auto",
+         "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "allowed_object_types" : [
+                     "hostif_trap_group"
+                  ],
+                  "type" : "SWITCH_TYPE_OBJECT_ID"
+               }
+            }
+         },
+         "dependencies" : [
+            {
+               "object" : "hostif_trap_group",
+               "attribute" : "policer_handle"
+            },
+            {
+               "object" : "hostif_trap_group",
+               "attribute" : "queue_handle"
+            }
+         ]
+      }
+   },
+    {
+        "pktdriver_rx_filter" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "hostif_rx_filter"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "filter_id" : {
+                  "type_info" : {
+                      "default_value" : 0,
+                     "type" : "SWITCH_TYPE_UINT64"
+                  }
+               }
+            },
+            "dependencies" : [
+                {
+                   "object" : "hostif",
+                   "attribute" : "vlan_action"
+                }
+            ]
+        }
+    },
+    {
+        "pktdriver_tx_filter" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "hostif_tx_filter"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "filter_id" : {
+                  "type_info" : {
+                      "default_value" : 0,
+                     "type" : "SWITCH_TYPE_UINT64"
+                  }
+               }
+            }
+        }
+    }
+]

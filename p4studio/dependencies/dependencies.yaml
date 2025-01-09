@@ -1,0 +1,324 @@
+definitions:
+    all_systems: ['centos:9', 'debian:10', 'debian:11', 'ubuntu:20.04', 'ubuntu:22.04', 'ubuntu:24.04']
+    apt_systems: &apt_systems ['debian:10', 'debian:11', 'ubuntu:20.04', 'ubuntu:22.04', 'ubuntu:24.04']
+packages:
+    autoconf:
+        type: os
+    automake:
+        type: os
+    cmake:
+        type: os
+    ccache:
+        type: os
+    cpp:
+        type: os
+    cscope:
+        tags: [optional]
+        type: os
+    curl:
+        type: os
+    doxygen:
+        tags: [optional]
+        type: os
+    ethtool:
+        type: os
+    expat:
+        type: os
+    flex:
+        type: os
+    git:
+        type: os
+    libtool:
+        type: os
+    make:
+        type: os
+    net-tools:
+        type: os
+    python3-pip:
+        type: os
+    python3-wheel:
+        type: os
+    unzip:
+        type: os
+    wget:
+        type: os
+    bison:
+        systems: *apt_systems
+        tags: [thrift]
+        type: os
+    bridge-utils:
+        systems: *apt_systems
+        type: os
+    build-essential:
+        systems: *apt_systems
+        type: os
+    libbz2-dev:
+        systems: *apt_systems
+        type: os
+    libc6-dev:
+        systems: *apt_systems
+        type: os
+    libcurl4-gnutls-dev:
+        systems: *apt_systems
+        tags: [bf_platforms]
+        type: os
+    libedit-dev:
+        systems: *apt_systems
+        type: os
+    libelf-dev:
+        systems: *apt_systems
+        type: os
+    libevent-dev:
+        systems: *apt_systems
+        tags: [thrift]
+        type: os
+    libffi-dev:
+        systems: *apt_systems
+        type: os
+    libgmp10:
+        systems: *apt_systems
+        type: os
+    libjudy-dev:
+        systems: *apt_systems
+        tags: [pi]
+        type: os
+    libnl-genl-3-dev:
+        systems: *apt_systems
+        tags: [switch_p4_16]
+        type: os
+    libnl-route-3-dev:
+        systems: *apt_systems
+        tags: [switch_p4_16]
+        type: os
+    libpcap-dev:
+        systems: *apt_systems
+        tags: [bf_diags]
+        type: os
+    libsqlite3-dev:
+        systems: *apt_systems
+        type: os
+    libssl-dev:
+        systems: *apt_systems
+        type: os
+    libusb-1.0-0-dev:
+        systems: *apt_systems
+        tags: [bf_platforms]
+        type: os
+    libxml-simple-perl:
+        systems: *apt_systems
+        tags: [switch_p4_16]
+        type: os
+    pkg-config:
+        systems: *apt_systems
+        type: os
+    python3-dev:
+        systems: *apt_systems
+        type: os
+    python3-setuptools:
+        systems: *apt_systems
+        type: os
+    rapidjson-dev:
+        systems: *apt_systems
+        type: os
+    libfl-dev:
+        systems: *apt_systems
+        type: os
+    ninja-build:
+        systems: *apt_systems
+        type: os
+    lld:
+        systems: *apt_systems
+        type: os
+    iproute2:
+        systems: ['debian:11', 'ubuntu:20.04', 'ubuntu:22.04', 'ubuntu:24.04']
+        type: os
+    g++:
+        systems: ['debian:10', 'debian:11']
+        type: os
+    procps:
+        systems: ['debian:10', 'debian:11']
+        type: os
+    systemd:
+        systems: ['debian:10', 'debian:11']
+        type: os
+    byacc:
+        systems: ['centos:9']
+        tags: [thrift]
+        type: os
+    bzip2:
+        systems: ['centos:9']
+        type: os
+    bzip2-devel:
+        systems: ['centos:9']
+        type: os
+    diffutils:
+        systems: ['centos:9']
+        type: os
+    expat-devel:
+        systems: ['centos:9']
+        type: os
+    gc:
+        systems: ['centos:9']
+        type: os
+    gcc:
+        systems: ['centos:9']
+        type: os
+    gcc-c++:
+        systems: ['centos:9']
+        type: os
+    glib2-devel:
+        systems: ['centos:9']
+        type: os
+    glibc-devel:
+        systems: ['centos:9']
+        type: os
+    gmp:
+        systems: ['centos:9']
+        type: os
+    iproute:
+        systems: ['centos:9']
+        type: os
+    Judy-devel:
+        systems: ['centos:9']
+        type: os
+    libcurl-devel:
+        systems: ['centos:9']
+        tags: [bf_platforms]
+        type: os
+    libedit-devel:
+        systems: ['centos:9']
+        type: os
+    libevent-devel:
+        systems: ['centos:9']
+        tags: [thrift]
+        type: os
+    libffi-devel:
+        systems: ['centos:9']
+        type: os
+    libnl3-devel:
+        systems: ['centos:9']
+        tags: [switch_p4_16]
+        type: os
+    libpcap-devel:
+        systems: ['centos:9']
+        tags: [bf_diags]
+        type: os
+    libusb-devel:
+        systems: ['centos:9']
+        tags: [bf_platforms]
+        type: os
+    libusbx-devel:
+        systems: ['centos:9']
+        tags: [bf_platforms]
+        type: os
+    openssl-devel:
+        systems: ['centos:9']
+        type: os
+    openssl-libs:
+        systems: ['centos:9']
+        type: os
+    patch:
+        systems: ['centos:9']
+        type: os
+    perl-XML-Simple:
+        systems: ['centos:9']
+        tags: [switch_p4_16]
+        type: os
+    pkgconfig:
+        systems: ['centos:9']
+        type: os
+    python3-devel:
+        systems: ['centos:9']
+        type: os
+    redhat-rpm-config:
+        systems: ['centos:9']
+        type: os
+    scl-utils:
+        systems: ['centos:9']
+        type: os
+    which:
+        systems: ['centos:9']
+        type: os
+    xz:
+        systems: ['centos:9']
+        type: os
+    yum-utils:
+        systems: ['centos:9']
+        type: os
+    crc16:
+        type: pip
+    crcmod:
+        type: pip
+    ctypesgen==1.0.1:
+        type: pip
+    doxypy:
+        tags: [optional]
+        type: pip
+    getmac==0.8.2:
+        type: pip
+    jsl:
+        type: pip
+    jsonschema==2.6.0:
+        type: pip
+    netifaces:
+        type: pip
+    ply:
+        type: pip
+    psutil:
+        type: pip
+    pysubnettree:
+        type: pip
+    PyYAML:
+        type: pip
+    scapy_helper:
+        type: pip
+    simplejson:
+        type: pip
+    six>=1.12.0:
+        type: pip
+    Tenjin:
+        type: pip
+    pyinstaller:
+        type: pip
+    tabulate:
+        type: pip
+    xmlrunner:
+        systems: ['centos:9', 'debian:11', 'ubuntu:20.04', 'ubuntu:22.04',]
+        type: pip
+    coverage>=4.0,<6.0: {type: pip, tags: ['default', 'grpc']}
+    cython>=0.29.8: {type: pip, tags: ['default', 'grpc']}
+    grpcio==1.60.0: {type: pip, tags: ['default', 'grpc']}
+    protobuf==4.23.4: {type: pip, tags: ['default', 'grpc']}
+    thrift==0.14.1: {type: pip, tags: ['default', 'thrift']}
+    boost:
+        attributes: {flags: --with-thread --with-test --with-filesystem --with-system --with-graph --with-iostreams install, url: 'https://boostorg.jfrog.io/artifactory/main/release/1.67.0/source/boost_1_67_0.tar.bz2', version: 1.67.0}
+        tags: [source]
+        type: source
+    bridge:
+        attributes: {mode: wget, url: 'https://www.kernel.org/pub/linux/utils/net/bridge-utils/bridge-utils-1.6.tar.xz', version: '1.6'}
+        tags: [default, source]
+        type: source
+    grpc:
+        attributes:
+            32b:
+                protobuf: {version: 3.12.2}
+                version: 1.31.0
+            64b:
+                protobuf: {version: 3.25.3}
+                version: 1.60.0
+        tags: [default, source]
+        dependencies: [boost]
+        type: source
+    libcli:
+        attributes: {version: 1.10.4}
+        tags: [default, source]
+        type: source
+    pi:
+        attributes: {git_ref: 4546038f5770e84dc0d2bba90f1ee7811c9955df}
+        tags: [default, source]
+        type: source
+    thrift:
+        attributes: {flags: --with-cl="no" --with-java="no" --with-kotlin="no" --with-python="yes" --with-py3="yes" --with-ruby="no" --with-haxe="no" --with-netstd="no" --with-perl="no" --with-php="no" --with-php_extension="no" --with-dart="no" --with-erlang="no" --with-go="no" --with-d="no" --with-nodejs="no" --with-nodets="no" --with-lua="no" --with-rs="no" --with-swift="no" --enable-tests=no, url: 'https://archive.apache.org/dist/thrift/0.14.1/thrift-0.14.1.tar.gz', version: 0.14.1}
+        tags: [default, source]
+        dependencies: [boost]
+        type: source

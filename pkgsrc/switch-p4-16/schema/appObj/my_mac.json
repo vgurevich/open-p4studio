@@ -1,0 +1,61 @@
+[
+    {
+        "my_mac" : {
+            "class" : "user",
+            "description" : "Router MAC entry",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "priority" : {
+                    "description": "Priority",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "default_value": 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "port_lag_index" : {
+                    "description": "port lag handle",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "port", "lag"
+                        ]
+                    }
+                },
+                "vlan_id" : { 
+                    "description": "Vlan ID",
+                    "is_create_only" : true,
+                    "type_info" : { 
+                        "default_value": 0,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "mac_address" : {
+                    "description": "MAC address",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "mac_address_mask" : {
+                    "description": "MAC address mask",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                }
+            }
+        }
+    }
+]

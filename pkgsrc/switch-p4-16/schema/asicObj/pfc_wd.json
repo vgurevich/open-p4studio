@@ -1,0 +1,62 @@
+[
+    {
+        "ingress_pfc_wd" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "pfc_wd"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "class" : "auto"
+        }
+    },
+    {
+        "egress_pfc_wd" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "pfc_wd"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "class" : "auto"
+        }
+    }
+]

@@ -1,0 +1,11 @@
+{
+   "hostif_trap_group" : {
+      "profile" : "Per profile info",
+      "switch" : "hostif_trap_group",
+      "attributes" : {
+         "queue" : "queue_handle",
+         "policer" : "policer_handle",
+         "admin_state" : "admin_state"
+      }
+   }
+}

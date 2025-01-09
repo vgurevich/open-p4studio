@@ -1,0 +1,126 @@
+[
+    {
+        "nexthop_resolution" : {
+            "class" : "auto",
+            "priority" : 100,
+            "attributes" : {
+               "neighbor_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "neighbor"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "mac_entry_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "mac_entry"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "nexthop", "tunnel"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+                {
+                    "object" : "mac_entry",
+                    "attribute" : "destination_handle"
+                },
+                {
+                    "object" : "nexthop",
+                    "attribute" : "type"
+                },
+                {
+                    "object" : "nexthop",
+                    "attribute" : "tunnel_vni"
+                },
+                {
+                    "object" : "neighbor",
+                    "attribute" : "mac_address"
+                },
+                {
+                    "object" : "neighbor",
+                    "attribute" : "user_defined_trap_handle"
+                }
+            ]
+        }
+    },
+    {
+        "nexthop_table" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "nexthop_resolution", "nexthop"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "description": "Nexthop egress object when nexthop resolution feature is off",
+                  "object" : "nexthop",
+                  "attribute" : "port_lag_handle"
+               },
+               {
+                  "object" : "nexthop",
+                  "attribute" : "type"
+               },
+               {
+                  "object" : "rif",
+                  "attribute" : "nat_zone"
+               },
+               {
+                 "object" : "port",
+                 "attribute" : "oper_state"
+               }
+            ]
+        }
+    },
+    {
+        "fwd_result" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                     "list" : {
+                      "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                     },
+                     "type" : "SWITCH_TYPE_LIST"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "device",
+                  "attribute" : "cpu_port"
+               }
+            ]
+        }
+    }
+]

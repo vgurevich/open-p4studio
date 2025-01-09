@@ -1,0 +1,21 @@
+global-options: {}
+features:
+  # FIXME: broken
+  # bf-diags:
+    # thrift-diags: true
+  drivers:
+    bfrt: true
+    bfrt-generic-flags: true
+    grpc: true
+    thrift-driver: true
+  p4-examples:
+    # FIXME: broken
+    # - p4-14-programs
+    - p4-16-programs
+  # FIXME: broken
+  # switch:
+  #   profile: x2_tofino
+  #   sai: true
+  #   thrift-switch: true
+architectures:
+  - tofino

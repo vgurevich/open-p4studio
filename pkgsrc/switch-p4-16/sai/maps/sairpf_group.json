@@ -1,0 +1,9 @@
+{
+   "rpf_group" : {
+      "profile" : "Per profile info",
+      "switch" : "rpf_group",
+      "attributes" : {
+         "rpf_member_list" : "rpf_members"
+      }
+   }
+}

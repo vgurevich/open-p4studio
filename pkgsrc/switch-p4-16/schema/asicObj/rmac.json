@@ -1,0 +1,126 @@
+[
+    {
+        "ingress_pv_rmac_for_rif" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "rif"
+                     ]
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                     "list" : {
+                      "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                     },
+                     "type" : "SWITCH_TYPE_LIST"
+                  }
+               }
+            }
+        }
+    },
+    {
+        "ingress_pv_rmac_for_port" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "port", "lag"
+                     ]
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                     "list" : {
+                      "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                     },
+                     "type" : "SWITCH_TYPE_LIST"
+                  }
+               }
+            },
+            "dependencies" : [
+                {
+                    "object" : "port",
+                    "attribute" : "port_vlan_id"
+                },
+                {
+                    "object" : "lag",
+                    "attribute" : "port_vlan_id"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_pv_rmac_for_my_mac" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "my_mac"
+                     ]
+                  }
+               },
+               "status" : {
+                   "type_info" : {
+                       "default_value" : false,
+                       "type" : "SWITCH_TYPE_BOOL"
+                   }
+               }
+            }
+        }
+    },
+    {
+        "ingress_vlan_rmac" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "rif"
+                     ]
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                     "list" : {
+                      "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                     },
+                     "type" : "SWITCH_TYPE_LIST"
+                  }
+               }
+            }
+        }
+    },
+    {
+        "vxlan_rmac" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "tunnel_mapper_entry"
+                     ]
+                  }
+               },
+               "status" : {
+                   "type_info" : {
+                       "default_value" : false,
+                       "type" : "SWITCH_TYPE_BOOL"
+                   }
+               }
+            }
+        }
+    }
+]

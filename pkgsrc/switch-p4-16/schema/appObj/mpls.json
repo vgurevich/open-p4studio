@@ -1,0 +1,109 @@
+[
+    {
+        "mpls" : {
+            "description" : "Create a MPLS label object",
+            "class" : "user",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "label" : {
+                    "description" : "MPLS Label",
+                    "is_mandatory" : true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                      "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "packet_action" : {
+                    "description": "Packet action",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value": "FORWARD",
+                        "enum" : [
+                            "FORWARD",
+                            "DROP",
+                            "TRAP"
+                        ]
+                    }
+                },
+                "nexthop_rif_handle" : {
+                    "description" : "MPLS Nexthop or RIF handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                          "nexthop", "rif", "ecmp"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "num_pop" : {
+                    "description" : "Number of label pops",
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "pop_ttl_mode" : {
+                    "description" : "The pop TTL mode describes whether the TTL field is copied from the top of the stack (Uniform mode) or whether TTLs below the top of the stack are left unchanged (Pipe Mode)",
+                     "type_info" : {
+                         "type" : "SWITCH_TYPE_ENUM",
+                         "default_value": "UNIFORM_MODEL",
+                         "enum" : [
+                             "UNIFORM_MODEL",
+                             "PIPE_MODEL"
+                         ]
+                     }
+                },
+                "pop_qos_mode" : {
+                    "description" : "The pop QoS mode describes whether the EXP field is copied from the top of the stack (Uniform mode) or whether QoS fields below the top of the stack are left unchanged (Pipe Mode)",
+                     "type_info" : {
+                         "type" : "SWITCH_TYPE_ENUM",
+                         "enum" : [
+                             "UNIFORM_MODEL",
+                             "PIPE_MODEL"
+                         ]
+                     }
+                },
+                "counter_handle" : {
+                    "description" : "MPLS counter handle. This is not a match or action field. It is used to bind an MPLS counter object to this entry to retreive counters. This is to satisfy SAI object model. An application can directly query this object for counters",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "generic_counter"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "PKTS",
+                            "BYTES"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "mpls_fib"
+                        ]
+                    }
+                }
+            },
+            "key_groups" : [
+                [ "device", "label" ]
+            ]
+        }
+    }
+]

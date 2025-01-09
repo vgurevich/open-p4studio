@@ -1,0 +1,26 @@
+Barefoot Networks PTF Modules Package
+=====================================
+The <ptf-modules> package contains Packet Test Framework (PTF) modules 
+    
+The <ptf-modules> package is organized as follows
+    ptf:
+        PTF infra
+    ptf-utils:
+        Utility scripts used with PTF testing
+
+Building the <ptf-modules> package
+==================================
+# Building and installing
+Here're the steps to build and install the <ptf-modules> package
+
+    cd <ptf-modules>
+    ./configure --prefix=$SDE_INSTALL
+    make
+    make install
+
+Artifacts installed
+===================
+Here're the artifacts that get installed for <ptf-modules>
+
+  * PTF scripts needed to execute PTF tests to $SDE_INSTALL/bin
+  * Python packages needed to execute PTF tests to $SDE_INSTALL/lib

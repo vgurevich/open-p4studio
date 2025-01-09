@@ -1,0 +1,16 @@
+{
+   "acl_range" : {
+       "profile" : "Per profile info",
+       "switch" : "acl_range",
+       "attributes" : {
+            "type" : "type",
+            "limit" : "range"
+       },
+       "enums" : {
+           "type" : {
+               "L4_SRC_PORT_RANGE" : "SRC_PORT",
+               "L4_DST_PORT_RANGE" : "DST_PORT"
+           }
+       }
+   }
+}

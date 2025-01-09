@@ -1,0 +1,18 @@
+#!/usr/bin/env python
+
+# This is just a wrapper script around gen_pd.py
+# It makes sure that the script works correctly no matter where Python
+# dependencies are installed
+
+try:
+    import sdepythonpath
+except ModuleNotFoundError:
+    # it is valid case when we call this script from cmake
+    pass
+
+import sys
+import os
+sys.path.append("@pdgenpythondir@")
+
+import generate_tofino_pd
+generate_tofino_pd.main(templates_dir=os.path.join("@pdtemplatedir@", "templates"))

@@ -1,0 +1,122 @@
+[
+    {
+        "neighbor_rewrite" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "nexthop_resolution", "nexthop"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "description": "Nexthop mac when nexthop resolution feature is off",
+                    "object" : "nexthop",
+                    "attribute" : "mac_address"
+                }
+            ]
+        }
+    },
+    {
+        "outer_nexthop" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "nexthop_resolution","nexthop"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "tunnel_nexthop" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nexthop_resolution","nexthop"
+                        ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "nexthop",
+                    "attribute" : "tunnel_vni"
+                },
+                {
+                    "object" : "nexthop",
+                    "attribute" : "mac_address"
+                },
+                {
+                    "object" : "nexthop",
+                    "attribute" : "rw_type"
+                },
+                {
+                    "object" : "nexthop",
+                    "attribute" : "labelstack"
+                },
+                {
+                    "object" : "nexthop",
+                    "attribute" : "labelop"
+                },
+                {
+                    "object" : "nexthop",
+                    "attribute" : "mpls_encap_qos_mode"
+                },
+                {
+                    "object" : "nexthop",
+                    "attribute" : "mpls_encap_exp"
+                },
+                {
+                    "object" : "nexthop",
+                    "attribute" : "mpls_encap_ttl_mode"
+                },
+                {
+                    "object" : "nexthop",
+                    "attribute" : "mpls_encap_ttl"
+                },
+                {
+                    "object" : "segmentroute_sidlist",
+                    "attribute" : "segment_list"
+                },
+                {
+                    "object" : "device",
+                    "attribute" : "tunnel_dmac"
+                },
+                {
+                    "object" : "nexthop_resolution",
+                    "attribute" : "mac_entry_handle"
+                }
+            ]
+        }
+    }
+]

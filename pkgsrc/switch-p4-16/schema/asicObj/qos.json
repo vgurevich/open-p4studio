@@ -1,0 +1,292 @@
+[
+    {
+        "dscp_tc_map" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "pcp_tc_map" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "traffic_class" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "qos_map_ingress"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "l3_qos_map_table" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "l2_qos_map_table" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "ingress_icos_ppg_qos_map_helper" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "qos_map_ingress"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "qos_map_ingress",
+                    "attribute" : "qos_map_list"
+                }
+            ]
+        }
+    },
+    {
+        "egress_port_pfc_priority_queue_helper" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "port",
+                    "attribute" : "pfc_map"
+                },
+                {
+                    "object" : "port",
+                    "attribute" : "pfc_priority_queue_qos_map_handle"
+                }
+            ]
+        }
+    },
+    {
+        "egress_pfc_priority_queue_qos_map_helper" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "qos_map_egress"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "qos_map_egress",
+                    "attribute" : "qos_map_list"
+                }
+            ]
+        }
+    },
+    {
+        "qos_map_helper" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "qos_map"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "qos_map",
+                    "attribute" : "dscp"
+                },
+                {
+                    "object" : "qos_map",
+                    "attribute" : "tos"
+                },
+                {
+                    "object" : "qos_map",
+                    "attribute" : "pcp"
+                },
+                {
+                    "object" : "qos_map",
+                    "attribute" : "tc"
+                },
+                {
+                    "object" : "qos_map",
+                    "attribute" : "color"
+                },
+                {
+                    "object" : "qos_map",
+                    "attribute" : "icos"
+                },
+                {
+                    "object" : "qos_map",
+                    "attribute" : "qid"
+                },
+                {
+                    "object" : "qos_map",
+                    "attribute" : "pfc_priority"
+                },
+                {
+                    "object" : "qos_map",
+                    "attribute" : "ppg"
+                }
+            ]
+        }
+    },
+    {
+        "queue_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "queue"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "tm_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+
+            }
+        }
+    }
+
+]

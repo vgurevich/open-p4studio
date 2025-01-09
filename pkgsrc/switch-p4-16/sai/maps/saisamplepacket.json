@@ -1,0 +1,16 @@
+{
+   "samplepacket" : {
+       "profile" : "Per profile info",
+       "switch" : "sflow_session",
+       "attributes" : {
+           "sample_rate" : "sample_rate",
+           "mode" : "mode"
+       },
+       "enums" : {
+           "mode" : {
+               "exclusive" : "exclusive",
+               "shared" : "shared"
+           }
+       }      
+   }
+}

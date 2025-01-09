@@ -1,0 +1,12 @@
+{
+   "lag" : {
+      "profile" : "Per profile info",
+      "switch" : "lag",
+      "attributes" : {
+         "port_list" : "lag_members",
+         "ingress_acl" : "ingress_acl_handle",
+         "egress_acl" : "egress_acl_handle",
+         "port_vlan_id" : "port_vlan_id"
+      }
+   }
+}

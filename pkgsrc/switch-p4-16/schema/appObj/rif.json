@@ -1,0 +1,226 @@
+[
+    {
+        "rif" : {
+            "class" : "user",
+            "description" : "Create an L3 routed interface",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "vrf_handle" : {
+                    "description": "VRF handle. Update is a NOP if rif_type is LOOPBACK",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "vrf"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "type" : {
+                    "description" : "Router Interface Type - Port or LAG or VLAN or QinQ or Loopback",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "enum" : [
+                            "PORT",
+                            "VLAN",
+                            "SUB_PORT",
+                            "QINQ_PORT",
+                            "LOOPBACK",
+                            "MPLS"
+                        ]
+                    }
+                },
+                "port_handle" : {
+                    "description": "Port/LAG handle when rif_type is either port or sub_port",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "port", "lag"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    },
+                    "is_create_only" : true
+                },
+                "vlan_handle" : {
+                    "description": "vlan handle when rif_type is vlan",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "vlan"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    },
+                    "is_create_only" : true
+                },
+                "outer_vlan_id" : {
+                    "description": "outer_vlan id when rif_type is QinQ_port or SUB_PORT",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    },
+                    "is_create_only" : true
+                },
+                "inner_vlan_id" : {
+                    "description": "inner_vlan id when rif_type is QinQ_port",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    },
+                    "is_create_only" : true
+                },
+                "src_mac" : {
+                    "description": "Source MAC address",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "ingress_acl_handle" : {
+                    "description": "Ingress ACL group or table handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "acl_group", "acl_table"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "egress_acl_handle" : {
+                    "description": "Egress ACL group or table handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "acl_group", "acl_table"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "ingress_vlan_rif_label" : {
+                    "description": "Ingress bd label",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "egress_vlan_rif_label" : {
+                    "description": "Egress bd label",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "ipv4_multicast" : {
+                    "description": "Enable/disable IPv4 multicast",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "ipv6_multicast" : {
+                    "description": "Enable/disable IPv6 multicast",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "ipv4_unicast" : {
+                    "description": "Enable/disable IPv4 unicast",
+                    "type_info" : {
+                        "default_value" : true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "ipv6_unicast" : {
+                    "description": "Enable/disable IPv6 unicast",
+                    "type_info" : {
+                        "default_value" : true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "mtu" : {
+                    "description": "L3 MTU",
+                    "type_info" : {
+                        "default_value" : 1514,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "mpls_state" : {
+                    "description" : "Enable/disable MPLS",
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "nat_zone" : {
+                    "description": "NAT zone ID",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "is_virtual" : {
+                    "description": "RIF creation is a virtual RIF",
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    },
+                    "is_create_only" : true
+                },
+                "anycast_mac_support" : {
+                    "description" : "Whether src_mac is anycast",
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "anycast_mac_addr" : {
+                    "description": "When present this address is used as the src_mac for packets transmitted out this rif",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "peer_src_mac" : {
+                    "description": "Peer's source MAC address",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "src_mac_rif_update" : {
+                    "description": "Src mac address for RIF update",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "IN_UCAST_PKTS",
+                            "IN_MCAST_PKTS",
+                            "IN_BCAST_PKTS",
+                            "IN_UCAST_BYTES",
+                            "IN_MCAST_BYTES",
+                            "IN_BCAST_BYTES",
+                            "OUT_UCAST_PKTS",
+                            "OUT_MCAST_PKTS",
+                            "OUT_BCAST_PKTS",
+                            "OUT_UCAST_BYTES",
+                            "OUT_MCAST_BYTES",
+                            "OUT_BCAST_BYTES"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "rif_stats"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+]

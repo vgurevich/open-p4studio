@@ -1,0 +1,13 @@
+{
+   "next_hop_group_member" : {
+       "profile" : "Per profile info",
+       "switch" : "ecmp_member",
+       "attributes" : {
+           "next_hop_group_id" : "ecmp_handle",
+           "next_hop_id" : "nexthop_handle",
+           "index" : "index",
+           "weight" : "weight",
+           "sequence_id": "sequence_id"
+       }
+   }
+}

@@ -1,0 +1,39 @@
+#!/bin/bash -xe
+
+######################################################################################
+# Script is intended to be run by Jenkinsfile. As such, several environment variables
+# are assumed to be present. Including standard jenkins env var (e.g. WORKSPACE, BRANCH)
+# and other custom variables such as `target_branch`
+#####################################################################################
+
+cd /ci_workspace
+
+sysctl kernel.core_pattern
+ulimit -a
+cat /proc/sys/kernel/core_*
+
+cat ./submodules/bf-diags/ci/gdb_commands.txt
+
+ls -l || true
+ls core* || true
+ls -lart install/bin/ || true
+file install/bin/tofino-model || true
+
+gdb -x=./submodules/bf-diags/ci/gdb_commands.txt install/bin/bf_switchd core.bf_switchd* > gdblog.txt || true
+cat gdblog.txt || true
+gdb -x=./submodules/bf-diags/ci/gdb_commands.txt install/bin/tofino-model core.tofino-model* > gdblog.txt || true
+cat gdblog.txt || true
+
+ls model*log || true
+tail -n 100 bf_drivers.log > final_log || true
+tail -n 100 model*.log >> final_log || true
+tail -n 100 ptf.log >> final_log || true
+echo "Run Switchd Log" >> final_log
+echo "=================" >> final_log
+tail -n 100 run_switchd.log >> final_log || true
+echo "Run Model Log" >> final_log
+echo "=================" >> final_log
+tail -n 100 run_tofino_model.log >> final_log || true
+cat final_log
+
+grep HugePage /proc/meminfo || true

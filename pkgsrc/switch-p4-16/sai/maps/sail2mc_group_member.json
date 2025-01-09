@@ -1,0 +1,10 @@
+{
+   "l2mc_group_member" : {
+       "profile" : "Per profile info",
+       "switch" : "l2mc_member",
+       "attributes" : {
+           "l2mc_group_id" : "l2mc_group_handle",
+           "l2mc_endpoint_ip" : "dest_ip"
+       }
+   }
+}

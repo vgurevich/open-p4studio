@@ -1,0 +1,11 @@
+global-options: {}
+features:
+  drivers:
+    bfrt: true
+    grpc: false
+    thrift-driver: false
+    p4rt: false
+    pi: true
+architectures:
+  - tofino
+  - tofino2

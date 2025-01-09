@@ -1,0 +1,13 @@
+{
+   "dtel_report_session" : {
+      "profile" : "Per profile info",
+      "switch" : "report_session",
+      "attributes" : {
+         "src_ip" : "src_ip",
+         "dst_ip_list" : "dst_ip_list",
+         "virtual_router_id" : "vrf_handle",
+         "truncate_size" : "truncate_size",
+         "udp_dst_port" : "udp_dst_port"
+      }
+   }
+}

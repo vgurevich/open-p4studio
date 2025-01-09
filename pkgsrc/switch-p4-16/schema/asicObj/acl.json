@@ -1,0 +1,576 @@
+[
+    {
+        "ingress_l4_src_port" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "acl_range"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto"
+        }
+    },
+    {
+        "ingress_l4_dst_port" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "acl_range"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto"
+        }
+    },
+    {
+        "egress_l4_src_port" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "acl_range"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto"
+        }
+    },
+    {
+        "egress_l4_dst_port" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "acl_range"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto"
+        }
+    },
+    {
+        "acl_factory" : {
+            "attributes" : {
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "acl_entry"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "mau_stats_cache" : {
+                  "type_info" : {
+                      "list" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT64"
+                      },
+                      "type" : "SWITCH_TYPE_LIST"
+                  }
+               }
+            },
+            "dependencies" : [
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_counter_handle"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_report_type"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_report_all_packets"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "sample_session_handle"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "dtel_action_type"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "packet_action"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "redirect"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_set_vrf_handle"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_ingress_mirror_handle"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_egress_mirror_handle"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_set_dscp"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_set_ecn"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_set_outer_vlan_pri"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_set_tc"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_set_color"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_disable_nat"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_hostif_user_defined_trap_handle"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_meter_handle"
+                },
+                {
+                   "object" : "acl_table",
+                   "attribute" : "bind_point_attach"
+                }
+            ],
+            "class" : "auto"
+        }
+    },
+    {
+        "ecn_acl" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "acl_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto"
+        }
+    },
+   {
+        "macaddr_acl" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "acl_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto"
+        }
+   },
+   {
+        "acl_hw_entry" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "acl_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "mau_stats_cache" : {
+                   "type_info" : {
+                       "list" : {
+                         "default_value" : 0,
+                         "type" : "SWITCH_TYPE_UINT64"
+                       },
+                       "type" : "SWITCH_TYPE_LIST"
+                   }
+                }
+            },
+            "dependencies" : [
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_counter_handle"
+                }
+            ],
+            "class" : "auto"
+        }
+    },
+    {
+        "acl_sample_session" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "acl_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto",
+            "dependencies" : [
+                {
+                    "object" : "acl_entry",
+                    "attribute" : "sample_session_handle"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "dtel_action_type"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_system_acl" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "acl_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "action_meter_handle"
+                },
+                {
+                   "object" : "acl_entry",
+                   "attribute" : "cpu_redirect_reason_code"
+                }
+            ],
+            "class" : "auto"
+        }
+    },
+    {
+        "egress_system_acl" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "acl_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto"
+        }
+    },
+    {
+        "default_ingress_system_acl" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto",
+            "dependencies" : [
+                {
+                   "object" : "device",
+                   "attribute" : "cpu_port"
+                }
+             ]
+        }
+    },
+    {
+        "egress_tos_mirror_acl" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "acl_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                          "default_value" : 0,
+                          "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                 }
+            },
+            "class" : "auto"
+        }
+    },
+    {
+        "default_egress_system_acl" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto"
+        }
+    },
+    {
+        "default_egress_system_acl2" : {
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "port" ]
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "class" : "auto"
+        }
+    },
+    {
+        "counter" : {
+            "class" : "auto",
+            "attributes" : {}
+        }
+    },
+    {
+        "ingress_acl_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "counter" ]
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "mirror_acl_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "counter" ]
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "racl_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "counter" ]
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "egress_acl_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "counter" ]
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "device_pre_ingress_acl" : {
+            "attributes" : {
+              "parent_handle" : {
+                  "type_info" : {
+                      "allowed_object_types" : [
+                        "device"
+                      ],
+                      "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "class" : "auto",
+            "dependencies" : [
+                {
+                   "object" : "device",
+                   "attribute" : "pre_ingress_acl"
+                }
+            ]
+        }
+    }
+]

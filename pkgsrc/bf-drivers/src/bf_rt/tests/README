@@ -1,0 +1,22 @@
+###############################################################################
+Steps to run the UT from a brand new p4factory repo root:
+###############################################################################
+1) mkdir build
+2) cd build
+3) cmake .. -DSWITCH=on # one of the needed targets is x2_tofino
+4) make checkbfrtprep # this will compile needed targets that provide
+bf-rt.json files
+5) make install # this will put the needed files in expected location
+6) make checkbfrt
+
+
+###############################################################################
+Steps to run the UT manually and see the logs
+###############################################################################
+1) mkdir build
+2) cd build
+3) cmake .. -DSWITCH=on
+4) make checkbfrtprep
+5) make install
+6) cd ./submodules/bf-drivers/src/bf_rt/tests
+7) ./bf_rt_utest

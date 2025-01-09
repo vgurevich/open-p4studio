@@ -1,0 +1,146 @@
+[
+    {
+        "etrap_acl_entry" : {
+            "class" : "user",
+            "description" : "Etrap ACL entry object. ACL entry fields are provided as Value/Mask pair",
+            "attributes" : {
+                "device" : {
+                    "description" : "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description" : "Etrap ACL entry type",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info": {
+                    "enum" : [
+                        "NONE",
+                        "IPV4",
+                        "IPV6"
+                        ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "src_ip" : {
+                    "description" : "Source IP address",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "src_ip_mask" : {
+                    "description" : "Source IP address mask",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "dst_ip" : {
+                    "description" : "Destination IP address",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "dst_ip_mask" : {
+                    "description" : "Destination IP address mask",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "meter_handle" : {
+                    "description" : "Meter handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "etrap_meter"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "tc" : {
+                    "description" : "Set TC field",
+                    "type_info": {
+                        "default": 0,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "acl_entry_handle" : {
+                    "description" : "Handle of source ACL entry object",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "acl_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "key_groups" : [["type", "src_ip", "src_ip_mask", "dst_ip", "dst_ip_mask"]]
+        }
+    },
+    {
+        "etrap_meter" : {
+            "class" : "user",
+            "description" : "Etrap meter",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                    }
+                },
+                "type" : {
+                    "description": "Meter type",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value" : "BYTES",
+                        "enum" : [
+                            "NONE",
+                            "PACKETS",
+                            "BYTES"
+                        ]
+                    }
+                },
+                "cbs" : {
+                    "description": "Committed Burst Size in bytes",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "pbs" : {
+                    "description": "Peak Burst Size in bytes",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "cir" : {
+                    "description": "Committed information rate in bytes per sec",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "pir" : {
+                    "description": "Peak information rate in bytes per sec",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                }
+            }
+        }
+    }
+]

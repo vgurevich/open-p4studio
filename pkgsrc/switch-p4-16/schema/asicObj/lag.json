@@ -1,0 +1,185 @@
+[
+    {
+        "lag_selector_group" : {
+            "class" : "auto",
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "lag"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "mbr_cnt" : {
+                "type_info" : {
+                   "default_value" : 0,
+                   "type" : "SWITCH_TYPE_UINT16"
+                }
+            },
+            "status" : {
+                "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                }
+            }
+            }
+        }
+    },
+    {
+        "peer_link" : {
+            "class" : "auto",
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "lag"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            }
+            }
+        }
+    },
+    {
+        "lag_membership" : {
+            "class" : "auto",
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "lag_member"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            }
+            },
+            "dependencies" : [
+                {
+                    "object" : "lag_member",
+                    "attribute" : "egress_disable"
+                }
+            ]
+        }
+    },
+    {
+        "lag_helper" : {
+            "class" : "auto",
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "lag"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            }
+            },
+            "dependencies" : [
+                {
+                    "object" : "lag",
+                    "attribute" : "learning"
+                },
+                {
+                    "object" : "lag",
+                    "attribute" : "tc"
+                },
+                {
+                    "object" : "lag",
+                    "attribute" : "color"
+                },
+                {
+                    "object" : "lag",
+                    "attribute" : "ingress_acl_handle"
+                },
+                {
+                    "object" : "lag",
+                    "attribute" : "ingress_port_lag_label"
+                },
+                {
+                    "object" : "lag",
+                    "attribute" : "egress_acl_handle"
+                },
+                {
+                    "object" : "lag",
+                    "attribute" : "egress_port_lag_label"
+                },
+                {
+                    "object" : "lag",
+                    "attribute" : "egress_qos_group"
+                }
+            ]
+        }
+    },
+    {
+        "lag_selector" : {
+            "class" : "auto",
+            "comment" : "one entry per port, for when port is not part of lag",
+            "priority" : 10,
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "port"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            }
+            }
+        }
+    },
+    {
+        "lag_table_member" : {
+            "class" : "auto",
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "port"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            }
+            }
+        }
+    },
+    {
+        "lag_table_selector" : {
+            "class" : "auto",
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "lag"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            }
+            }
+        }
+    }
+]

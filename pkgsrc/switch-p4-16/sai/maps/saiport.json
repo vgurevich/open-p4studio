@@ -1,0 +1,64 @@
+{
+    "port" : {
+        "profile" : "Per profile info",
+        "switch" : "port",
+        "attributes" : {
+            "type" : "type",
+            "oper_status" : "oper_state",
+            "oper_speed" : "oper_speed",
+            "speed" : "speed",
+            "hw_lane_list" : "lane_list",
+            "admin_state" : "admin_state",
+            "fec_mode" : "fec_type",
+            "supported_fec_mode" : "supported_fec_types",
+            "ingress_acl" : "ingress_acl_handle",
+            "egress_acl" : "egress_acl_handle",
+            "qos_default_tc" : "tc",
+            "global_flow_control_mode" : "link_pause",
+            "internal_loopback_mode" : "loopback_mode",
+            "media_type" : "media_type",
+            "drop_untagged" : "drop_untagged",
+            "drop_tagged" : "drop_tagged",
+            "ingress_priority_group_list" : "port_priority_groups",
+            "qos_queue_list" : "queue_handles",
+            "qos_scheduler_profile_id" : "scheduler_handle",
+            "qos_scheduler_group_list" : "port_queue_scheduler_group_handles",
+            "qos_maximum_headroom_size" : "max_headroom_size",
+            "port_vlan_id" : "port_vlan_id",
+            "ingress_samplepacket_enable" : "ingress_sflow_handle",
+            "flood_storm_control_policer_id" : "unknown_unicast_storm_control",
+            "multicast_storm_control_policer_id" : "multicast_storm_control",
+            "broadcast_storm_control_policer_id" : "broadcast_storm_control",
+            "priority_flow_control_mode" : "pfc_mode",
+            "isolation_group" : "isolation_group_handle",
+            "auto_neg_status" : "autoneg_status",
+            "supported_speed" : "supported_speeds",
+            "advertised_speed" : "advertised_speed",
+            "advertised_fec_mode" : "advertised_fec_type",
+            "pkt_tx_enable" : "pkt_tx_enable"
+        },
+        "enums" : {
+            "type" : {
+               "LOGICAL" : "NORMAL",
+               "CPU" : "CPU",
+               "FABRIC" : "FABRIC",
+               "RECYCLE" : "RECIRC"
+            },
+            "internal_loopback_mode" : {
+               "NONE" : "NONE",
+               "PHY" : "PCS_NEAR",
+               "MAC" : "MAC_NEAR"
+            },
+            "media_type" : {
+               "NOT_PRESENT" : "NOT_PRESENT",
+               "UNKNOWN" : "UNKNOWN",
+               "FIBER" : "FIBER",
+               "COPPER" : "COPPER"
+            },
+            "priority_flow_control_mode" : {
+                "COMBINED" : "COMBINED",
+                "SEPARATE" : "SEPARATE"
+            }
+        }
+    }
+}

@@ -1,0 +1,53 @@
+{
+   "policer" : {
+       "profile" : "Per profile info",
+       "switch" : "meter",
+       "attributes" : {
+           "mode" : "mode",
+           "color_source" : "color_source",
+           "cbs" : "cbs",
+           "cir" : "cir",
+           "pbs" : "pbs",
+           "pir" : "pir",
+           "meter_type" : "type",
+           "green_packet_action" : "green_packet_action",
+           "yellow_packet_action" : "yellow_packet_action",
+           "red_packet_action" : "red_packet_action"
+       },
+       "enums" : {
+           "mode" : {
+               "TR_TCM" : "TWO_RATE_THREE_COLOR",
+               "STORM_CONTROL" : "STORM_CONTROL",
+               "SR_TCM" : "SINGLE_RATE_THREE_COLOR"
+           },
+           "meter_type" : {
+               "PACKETS" : "PACKETS",
+               "BYTES" : "BYTES"
+           },
+           "green_packet_action" : {
+               "DROP" : "DROP",
+               "FORWARD" : "PERMIT",
+               "COPY" : "COPY",
+               "TRAP" : "TRAP"
+           },
+           "yellow_packet_action" : {
+               "DROP" : "DROP",
+               "FORWARD" : "PERMIT",
+               "COPY" : "COPY",
+               "TRAP" : "TRAP"
+           },
+           "red_packet_action" : {
+               "DROP" : "DROP",
+               "FORWARD" : "PERMIT",
+               "COPY" : "COPY",
+               "TRAP" : "TRAP"
+           }
+       },
+       "global_enums" : ["green_packet_action", "yellow_packet_action", "red_packet_action", "meter_type"],
+       "enum_to_global" : {
+         "green_packet_action" : "packet_action",
+         "yellow_packet_action" : "packet_action",
+         "red_packet_action" : "packet_action"
+       }
+   }
+}

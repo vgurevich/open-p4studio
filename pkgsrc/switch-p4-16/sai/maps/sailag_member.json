@@ -1,0 +1,12 @@
+{
+   "lag_member" : {
+      "profile" : "Per profile info",
+      "switch" : "lag_member",
+      "attributes" : {
+         "lag_id" : "lag_handle",
+         "port_id" : "port_handle",
+         "egress_disable" : "egress_disable",
+         "ingress_disable" :  "ingress_disable"
+      }
+   }
+}

@@ -1,0 +1,11 @@
+{
+   "dtel" : {
+      "profile" : "Per profile info",
+      "switch" : "dtel",
+      "attributes" : {
+         "postcard_enable" : "flow_report",
+         "drop_report_enable" : "drop_report",
+         "queue_report_enable" : "queue_report"
+      }
+   }
+}

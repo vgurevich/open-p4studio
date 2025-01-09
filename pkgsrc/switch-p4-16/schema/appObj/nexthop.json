@@ -1,0 +1,292 @@
+[
+    {
+        "nexthop" : {
+            "class" : "user",
+            "description" : "Create a nexthop object",
+            "attributes" : {
+                "device" : {
+                        "description": "Device handle",
+                        "is_mandatory": true,
+                        "is_create_only" : true,
+                        "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                        }
+                },
+                "type" : {
+                        "description": "Nexthop type, this determines the handle attribute",
+                        "is_mandatory": true,
+                        "type_info" : {
+                            "default_value" : "IP",
+                            "enum" : [
+                                "NONE",
+                                "IP",
+                                "TUNNEL",
+                                "DROP",
+                                "GLEAN",
+                                "SRV6_SIDLIST",
+                                "MPLS"
+                            ],
+                            "type" : "SWITCH_TYPE_ENUM"
+                        }
+                },
+                "handle" : {
+                    "description": "Reference to either RIF or tunnel handle depending on nexthop type attribute",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "rif", "tunnel"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "dest_ip" : {
+                    "description": "Nexthop destination IP address",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                        }
+                },
+                "rw_type" : {
+                    "description": "Tunnel rewrite type, valid when nexthop type is TUNNEL",
+                    "default_value": "NONE",
+                    "type_info" : {
+                        "enum" : [
+                            "NONE",
+                            "L2",
+                            "L3",
+                            "L3_VNI"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "tunnel_vni" : {
+                    "description": "Tunnel VNI, valid when nexthop type is TUNNEL",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "srv6_sidlist_id" : {
+                    "description" : "Handle to SRV6 SID List, valid when nexthop type is SRV6_SIDLIST",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "segmentroute_sidlist"
+                        ]
+                    }
+                },
+                "tunnel_dest_ip_handle" : {
+                    "description": "Refers to Internal Tunnel Dest IP Object when nexthop type == TUNNEL",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "tunnel_dest_ip"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "tunnel_dest_ip_index" : {
+                    "description": "Index for tunnel dest ip object corresponding to this nexthop",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "labelstack" : {
+                    "description": "List of MPLS labels when nexthop type == MPLS",
+                    "type_info" : {
+                      "list" : {
+                          "type" : "SWITCH_TYPE_UINT32"
+                      },
+                      "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "labelop" : {
+                    "description" : "Label stack operation",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value" : "NONE",
+                          "enum" : [
+                              "NONE",
+                              "SWAP",
+                              "PUSH"
+                          ]
+                    }
+                },
+                "mpls_encap_qos_mode" : {
+                    "description" : "The MPLS encapsulation QoS mode describes whether the QoS fields are copied into new headers in the MPLS stack (Uniform mode) or are set to user-defined values (Pipe Mode), i.e. in Pipe Mode pushed EXP fields are independent of the inner QoS fields",
+                     "type_info" : {
+                         "type" : "SWITCH_TYPE_ENUM",
+                         "enum" : [
+                             "UNIFORM_MODEL",
+                             "PIPE_MODEL"
+                         ]
+                     }
+                },
+                "mpls_encap_exp" : {
+                    "description" : "MPLS Encap Exp value for pipe mode",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "mpls_encap_ttl_mode" : {
+                    "description" : "The MPLS encapsulation TTL mode describes whether the TTL field is copied into new headers in the MPLS stack (Uniform mode) or is set to a user-defined value (Pipe Mode), i.e. in Pipe Mode pushed TTL fields are independent of the inner TTL field",
+                     "type_info" : {
+                         "type" : "SWITCH_TYPE_ENUM",
+                         "default_value": "UNIFORM_MODEL",
+                         "enum" : [
+                             "UNIFORM_MODEL",
+                             "PIPE_MODEL"
+                         ]
+                     }
+                },
+                "mpls_encap_ttl" : {
+                    "description" : "MPLS Encap TTL value for pipe mode",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "mac_address" : {
+                    "description": "Nexthop destination MAC [Valid only if nexthop-resolution feature is off or nexthop type is tunnel]",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "port_lag_handle" : {
+                    "description": "Egress destination object for this nexthop [Used only if nexthop-resolution feature is off]",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "port", "lag"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "tunnel_rif_handle" : {
+                    "description": "Reference to RIF handle when nexthop type == TUNNEL",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "rif"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "key_groups" : [
+                [ "device", "type", "handle", "dest_ip", "tunnel_vni", "srv6_sidlist_id", "labelop", "labelstack" ]
+            ]
+        }
+    },
+    {
+        "tunnel_dest_ip" : {
+            "class" : "user",
+            "description" : "Internal object created for every nexthop object with unique dest_ip and nexthop type == TUNNEL",
+            "attributes" : {
+                "device" : {
+                        "description": "Device handle",
+                        "is_read_only" : true,
+                        "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                            "allowed_object_types" : [
+                                "device"
+                            ]
+                        }
+                },
+                "underlay_vrf_handle" : {
+                    "description" : "VRF handle",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "vrf"
+                        ]
+                    }
+                },
+                "dest_ip" : {
+                    "description": "Nexthop destination IP address",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "tunnel_members" : {
+                    "description" : "List of tunnel members",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_OBJECT_ID",
+                            "allowed_object_types" : [
+                                "tunnel"
+                            ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "key_groups" : [
+                [ "device", "underlay_vrf_handle", "dest_ip" ]
+            ]
+        }
+    },
+    {
+        "segmentroute_sidlist" : {
+            "class" : "user",
+            "description" : "SRv6 segment route list object",
+            "attributes" : {
+                "device" : {
+                        "description": "Device handle",
+                        "is_mandatory": true,
+                        "is_create_only" : true,
+                        "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description" : "Headend behavior",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "enum" : [
+                            "H_ENCAPS_RED",
+                            "H_INSERT_RED"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "segment_list" : {
+                    "description": "List of Segments",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_IP_ADDRESS"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "PKTS",
+                            "BYTES"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "sidlist_stats"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+]

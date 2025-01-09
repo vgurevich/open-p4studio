@@ -1,0 +1,320 @@
+[
+    {
+        "mirror_session" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "mirror"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "vlan_member_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "hw_programmed" : {
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "class" : "auto",
+            "dependencies" : [
+                {
+                    "object" : "mirror",
+                    "attribute" : "egress_port_handle"
+                }
+            ]
+        }
+    },
+    {
+        "dtel_mirror_session" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "report_session"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto",
+            "dependencies" : [
+                {
+                    "object" : "report_session",
+                    "attribute" : "truncate_size"
+                }
+            ]
+        }
+    },
+    {
+        "dtel_dod_mirror_session" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "report_session"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto",
+            "dependencies" : [
+                {
+                    "object" : "report_session",
+                    "attribute" : "truncate_size"
+                }
+            ]
+        }
+    },
+    {
+        "dtel_clone_mirror_session" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto",
+            "dependencies" : [
+                {
+                    "object" : "port",
+                    "attribute" : "clone_mirror_session_id"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_port_mirror" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "port",
+                    "attribute" : "ingress_mirror_handle"
+                }
+            ]
+        }
+    },
+    {
+        "egress_port_mirror" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "port",
+                    "attribute" : "egress_mirror_handle"
+                }
+            ]
+        }
+    },
+    {
+        "mirror_rewrite" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "mirror"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "mirror",
+                    "attribute" : "dest_mac_address"
+                },
+                {
+                    "object" : "mirror",
+                    "attribute" : "src_mac_address"
+                },
+                {
+                    "object" : "mirror",
+                    "attribute" : "src_ip"
+                },
+                {
+                    "object" : "mirror",
+                    "attribute" : "dest_ip"
+                },
+                {
+                    "object" : "mirror",
+                    "attribute" : "vlan_handle"
+                },
+                {
+                    "object" : "mirror",
+                    "attribute" : "vlan_id"
+                },
+                {
+                    "object" : "mirror",
+                    "attribute" : "vlan_tpid"
+                },
+                {
+                    "object" : "mirror",
+                    "attribute" : "vlan_pri"
+                },
+                {
+                    "object" : "mirror",
+                    "attribute" : "rspan_type"
+                }
+            ]
+        }
+    },
+    {
+        "dtel_mirror_rewrite" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                 },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "report_session"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto",
+            "dependencies" : [
+                {
+                    "object" : "report_session",
+                    "attribute" : "udp_dst_port"
+                },
+                {
+                    "object" : "report_session",
+                    "attribute" : "udp_src_port"
+                },
+                {
+                    "object" : "report_session",
+                    "attribute" : "udp_src_port_entropy"
+                },
+                {
+                    "object" : "report_session",
+                    "attribute" : "src_ip"
+                },
+                {
+                    "object" : "report_session",
+                    "attribute" : "dst_ip_list"
+                },
+                {
+                    "object" : "report_session",
+                    "attribute" : "ttl"
+                },
+                {
+                    "object" : "report_session",
+                    "attribute" : "tos"
+                },
+                {
+                    "object" : "report_session",
+                    "attribute" : "truncate_size"
+                }
+            ]
+        }
+    },
+    {
+        "dtel_clone_mirror_rewrite" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto",
+            "dependencies" : [
+                {
+                    "object" : "port",
+                    "attribute" : "clone_mirror_session_id"
+                }
+            ]
+        }
+    }
+]

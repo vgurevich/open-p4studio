@@ -1,0 +1,322 @@
+[
+    {
+        "nat_factory" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nat_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_dst_ip"
+                },
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_l4_dst_port"
+                },
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_src_ip"
+                },
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_l4_src_port"
+                }
+            ]
+        }
+    },
+    {
+        "destination_napt" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nat_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_dst_ip"
+                },
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_l4_dst_port"
+                }
+            ]
+        },
+        "dnapt_index" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nat_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_dst_ip"
+                },
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_l4_dst_port"
+                }
+            ]
+        },
+        "snapt_index" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nat_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_src_ip"
+                },
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_l4_src_port"
+                }
+            ]
+        },
+        "destination_nat" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nat_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_dst_ip"
+                }
+            ]
+        },
+        "destination_nat_pool" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nat_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_dst_ip"
+                }
+            ]
+        },
+        "source_napt" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nat_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_src_ip"
+                },
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_l4_src_port"
+                }
+            ]
+        },
+        "source_nat" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nat_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_src_ip"
+                }
+            ]
+        },
+        "flow_napt": {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nat_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_src_ip"
+                },
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_l4_src_port"
+                },
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_dst_ip"
+                },
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_l4_dst_port"
+                }
+            ]
+        },
+        "flow_nat" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nat_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_src_ip"
+                },
+                {
+                    "object" : "nat_entry",
+                    "attribute" : "nat_dst_ip"
+                }
+            ]
+        },
+        "rewrite_nat" : {
+            "class" : "auto",
+            "attributes": {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                  }
+               },
+              "status" : {
+                  "type_info" : {
+                      "list" : {
+                          "default_value" : false,
+                          "type" : "SWITCH_TYPE_BOOL"
+                      },
+                      "type" : "SWITCH_TYPE_LIST"
+                  }
+              }
+            }
+        }
+    }
+]

@@ -1,0 +1,10 @@
+{
+   "ipmc_entry" : {
+       "profile" : "Per profile info",
+       "switch" : "ipmc_route",
+       "attributes" : {
+           "output_group_id" : "group_handle",
+           "rpf_group_id" : "rpf_group_handle"
+       }
+   }
+}

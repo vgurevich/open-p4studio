@@ -1,0 +1,93 @@
+Barefoot Diagnostics Package
+============================
+The <diag> package contains diag.p4, a P4 program that implements the pipeline
+for standard forwarding, learning, and multicast. The package contains sources
+for building libraries that provide APIs to manipulate the pipeline processing.
+
+The <diag> package is organized as follows
+    p4_16src: P4 sources
+    api: Source code for the APIs
+    ptf-tests: API tests
+    thrift: Thrift API support
+
+The package may be built in one of two modes:
+    1) Simple mode: Thrift API generation disabled
+    2) Thrift mode: Thrift API generation enabled (default)
+
+Diags supports the following CMake configuration options:
+    1) -DBF-DIAGS=on: Build the <diag> package
+    2) -DDIAG-PROFILE=<profile>: Build the specified profile
+    3) -DTHRIFT-DIAGS=<on|off>: Generate Thrift API (on by default)
+
+Valid diag profiles include:
+    1) Basic Diags          (no profile specified)
+    2) Diag Single Stage    DIAG_SINGLE_STAGE
+    3) Diag Power           DIAG_POWER_ENABLE
+    4) MAU Bus Stress       DIAG_MAU_BUS_STRESS_ENABLE
+    5) PHV + PARDE Stress   DIAG_PHV_PARDE_STRESS_ENABLE
+
+Use the DIAG-PROFILE CMake option to specify the profile. For example:
+    -DDIAG-PROFILE=DIAG_POWER_ENABLE
+
+Note that you may build for only one diag profile at a time.
+
+The following CMake options may also be specified:
+    1) -DTOFINO=on: Build for "Tofino" target (enabled by default)
+    2) -DTOFINO2=on: Build for "Tofino2" target
+
+Note that you may build diags for only one architecture at a time. Since
+TOFINO is enabled by default, you must disable it when you build <diag>
+for Tofino2:
+    -DTOFINO2=on -DTOFINO=off
+
+Thus, to build Basic Diags for the Tofino ASIC, you might specify:
+    $ mkdir build && cd build
+    $ cmake .. -DBF-DIAGS=on -DASIC=on -DGRPC=off
+    $ make -j4 && make install
+
+# Install additional packages needed for diag
+    $ ./install_diag_deps.sh
+
+NOTE:
+    1) In order to exercise PTF tests, thrift mode needs to be enabled.
+    2) Building in thrift mode requires additional third-party pkgs to be
+       installed. This is done by the 'p4studio dependencies install'
+       command.
+
+# Building and installing
+Refer to P4 Studio installation guide
+
+
+Artifacts Installed
+===================
+Here are the artifacts that get installed for <diag>
+
+Simple mode build artifacts:
+
+  o header files for diag related API to $SDE_INSTALL/include/diag/
+        api/ : header files for APIs
+
+  o P4 (diag.p4) dependent auto-generated artifacts
+      * header files for auto-generated P4 dependent (PD) library
+        to $SDE_INSTALL/include/diag/pd
+
+      * libraries for auto-generated P4 dependent sources
+        to $SDE_INSTALL/lib/diag
+          - libpd.[a,so]
+          - libpdthrift.[a,so]
+
+      * data files generated for bf-drivers
+        to $SDE_INSTALL/share/p4/diag
+          - mau.context.json: pipeline resource context for the driver
+          - p4_name_lookup.json: context for model logging
+          - tofino.bin: configuration for Tofino device
+
+      * conf files needed by switchd application for PTF tests
+        to $SDE_INSTALL/share/p4/targets/diag.conf
+
+  o libbfdiags.[a,so] to $SDE_INSTALL/lib/
+        library with diag APIs
+
+Thrift mode additional build artifacts:
+
+    libbfdiags also includes thrift versions of the API

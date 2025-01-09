@@ -1,0 +1,76 @@
+[
+    {
+        "neighbor" : {
+            "class" : "user",
+            "description" : "Create a neighbor object",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "handle" : {
+                    "description": "RIF handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "rif"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "dest_ip" : {
+                    "description": "Destination IP",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                        }
+                },
+                "mac_address" : {
+                    "description": "Destination MAC adrress",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "nexthop_handle" : {
+                    "description": "Nexthop handle better description",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nexthop"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "packet_action" : {
+                    "description": "Packet action",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value": "FORWARD",
+                        "enum" : [
+                            "FORWARD",
+                            "TRAP"
+                        ]
+                    }
+                },
+                "user_defined_trap_handle" : {
+                    "description": "User Defined Trap Handle. Only Valid when Packet Action == Trap",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "hostif_user_defined_trap"
+                        ]
+                    }
+                }
+            },
+            "key_groups" : [
+               [ "device", "handle", "dest_ip" ]
+            ]
+        }
+    }
+]

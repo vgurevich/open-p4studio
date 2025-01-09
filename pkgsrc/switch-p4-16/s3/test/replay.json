@@ -1,0 +1,497 @@
+{
+  "idlPrefix" : "switch_", "version" : "0", "objects" : {
+    "test_object_1" : {
+          "description" : "test",
+          "class" : "user",
+          "attributes" : {
+              "test_attribute_bool" : {
+                "description" : "test",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+              },
+              "test_attribute_uint8" : {
+                "description" : "test",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_UINT8"
+                }
+              },
+              "test_attribute_uint16" : {
+                "description" : "test",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_UINT16"
+                }
+              },
+              "test_attribute_uint32" : {
+                "description" : "test",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_UINT32"
+                }
+              },
+              "test_attribute_uint64" : {
+                "description" : "test",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_UINT64"
+                }
+              },
+              "test_attribute_int64" : {
+                "description" : "test",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_INT64"
+                }
+              },
+              "test_attribute_string" : {
+                "description" : "test",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_STRING"
+                }
+              },
+              "test_attribute_range" : {
+                "description" : "test",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_RANGE"
+                }
+              }
+          }
+      },
+      "test_object_2" : {
+          "description" : "test",
+          "class" : "user",
+          "attributes" : {
+            "test_attribute_enum" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_ENUM",
+                  "enum" : [
+                      "enum_val_1",
+                      "enum_val_2"
+                  ]
+                }
+            }
+          }
+      },
+      "test_object_3" : {
+          "description" : "test",
+          "class" : "user",
+          "attributes" : {
+            "test_attribute_ip_addr" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_IP_ADDRESS"
+                }
+            },
+            "test_attribute_ip_prefix" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_IP_PREFIX"
+                }
+            }
+          }
+      },
+      "test_object_4" : {
+        "description" : "test",
+        "class" : "user",
+        "attributes" : {
+          "test_attribute_mac" : {
+              "description" : "test",
+              "type_info" : {
+                "type" : "SWITCH_TYPE_MAC"
+              }
+          }
+        }
+      },
+      "test_object_list" : {
+        "description" : "test",
+        "class" : "user",
+        "attributes" : {
+          "test_attribute_list_oid" : {
+              "description" : "test",
+              "type_info" : {
+                "type" : "SWITCH_TYPE_LIST",
+                "list" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                      "test_object_5"
+                    ]
+                }
+              }
+          },
+          "test_attribute_list_uint64" : {
+              "description" : "test",
+              "type_info" : {
+                "type" : "SWITCH_TYPE_LIST",
+                "list" : {
+                    "type" : "SWITCH_TYPE_UINT64"
+                }
+              }
+          }
+        }
+      },
+      "test_object_5" : {
+          "description" : "test",
+          "class" : "user",
+          "attributes" : {
+          }
+      },
+      "test_object_6" : {
+          "description" : "test",
+          "class" : "user",
+          "attributes" : {
+          }
+      },
+      "test_object_7" : {
+        "description" : "test",
+        "class" : "user",
+        "attributes" : {
+          "test_attribute_oid" : {
+              "description" : "test",
+              "type_info" : {
+                "type" : "SWITCH_TYPE_OBJECT_ID",
+                "allowed_object_types" : [
+                    "test_object_5",
+                    "test_object_6"
+                ]
+              }
+          }
+        }
+      },
+      "test_object_8" : {
+          "description" : "test",
+          "class" : "user",
+          "attributes" : {
+          }
+      },
+      "test_auto_81" : {
+          "class" : "auto",
+          "attributes" : {
+            "test_auto_81_parent" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["test_object_8"]
+               }
+            }
+          }
+      },
+      "test_auto_811" : {
+          "class" : "auto",
+          "attributes" : {
+            "test_auto_811_parent" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["test_auto_81"]
+               }
+            }
+          }
+      },
+      "test_auto_812" : {
+          "class" : "auto",
+          "attributes" : {
+            "test_auto_812_parent" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["test_auto_81"]
+               }
+            }
+          }
+      },
+      "device" : {
+          "description" : "test",
+          "class" : "user",
+          "attributes" : {
+            "device_port" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["port"]
+                }
+            }
+          }
+      },
+      "port" : {
+          "description" : "test",
+          "class" : "user",
+          "attributes" : {
+            "port_device" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["device"]
+                }
+            },
+            "port_mirror" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["mirror"]
+                }
+            }
+          }
+      },
+      "fdb" : {
+          "description" : "test",
+          "class" : "user",
+          "attributes" : {
+            "device" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["device"]
+                }
+            },
+            "mac_address" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_MAC"
+                }
+            },
+            "vrf" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["vrf"]
+                }
+            },
+            "port" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["port"]
+                }
+            }
+          },
+          "key_groups" : [ [ "device", "vrf", "mac_address" ] ]
+      },
+      "vrf" : {
+          "description" : "test",
+          "class" : "user",
+          "attributes" : {}
+      },
+      "nexthop" : {
+          "description" : "test",
+          "class" : "user",
+          "attributes" : {}
+      },
+      "route" : {
+          "description" : "test",
+          "class" : "user",
+          "attributes" : {
+            "device" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["device"]
+                }
+            },
+            "ip_prefix" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_IP_PREFIX"
+                }
+            },
+            "vrf" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["vrf"]
+                }
+            },
+            "nexthop" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["nexthop"]
+                }
+            }
+          },
+          "key_groups" : [ [ "device", "vrf", "ip_prefix" ] ]
+      },
+      "ipv4_fib" : {
+          "class" : "auto",
+          "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["route"]
+               }
+            }
+          }
+      },
+      "smac" : {
+          "class" : "auto",
+          "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["fdb"]
+               }
+            }
+          }
+      },
+      "dmac" : {
+          "class" : "auto",
+          "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["fdb"]
+               }
+            }
+          }
+      },
+      "mirror" : {
+          "description" : "test",
+          "class" : "user",
+          "attributes" : {
+            "mirror_device" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : ["device"]
+                }
+            },
+            "mirror_port" : {
+                "description" : "test",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : ["port"]
+                }
+            }
+          }
+      },
+      "test_key_1" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+            "test_attribute_uint64" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT64"
+               }
+            }
+         }
+      },
+      "test_key_2" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+            "test_attribute_uint64" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT64"
+               }
+            }
+         }
+      },
+      "test_key_3" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+            "test_attribute_uint64" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT64"
+               }
+            }
+         }
+      },
+      "test_object_9" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+            "test_key1" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_key_1"
+                  ]
+               }
+            },
+            "test_key2" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_key_2"
+                  ]
+               }
+            },
+            "test_key3" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_key_3"
+                  ]
+               }
+            }
+         },
+         "key_groups" : [
+             ["test_key1", "test_key2"],
+             ["test_key2", "test_key3"]
+         ]
+      },
+      "test_object_10" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+            "test_attribute_list_oid" : {
+               "description" : "test",
+               "is_read_only": true,
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "test_object_membership"
+                     ]
+                  }
+               }
+            }
+         }
+      },
+      "test_object_membership" : {
+        "class" : "auto",
+        "attributes" : {
+           "test_attribute_oid" : {
+              "type_info" : {
+                 "type" : "SWITCH_TYPE_OBJECT_ID",
+                 "allowed_object_types" : [
+                    "test_object_10"
+                 ]
+              }
+           }
+        },
+        "membership" : [
+           {
+              "attribute" : "test_attribute_list_oid",
+              "object" : "test_object_10"
+           }
+        ]
+     },
+    "test_object_keygroup_list_uint32" : {
+      "description" : "Test key_group list UINT32",
+      "class" : "user",
+      "attributes" : {
+        "test_attribute_uint32" : {
+          "description" : "Test attribute",
+          "type_info" : {
+            "type" : "SWITCH_TYPE_UINT32"
+          }
+        },
+        "test_attribute_list" : {
+          "description" : "Test List attribute",
+          "type_info" : {
+            "list" : {
+              "type" : "SWITCH_TYPE_UINT32"
+            },
+            "type" : "SWITCH_TYPE_LIST"
+          }
+        }
+      },
+      "key_groups" : [
+        ["test_attribute_uint32", "test_attribute_list"]
+      ]
+    }
+  }
+}

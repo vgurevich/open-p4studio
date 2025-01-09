@@ -1,0 +1,542 @@
+[
+    {
+        "tunnel_mapper" : {
+            "class" : "user",
+            "description" : "Create a tunnel mapper object",
+            "attributes" : {
+                "type" : {
+                    "description" : "Tunnel map types",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "enum" : [
+                            "VNI_TO_VLAN_HANDLE",
+                            "VNI_TO_VRF_HANDLE",
+                            "VNI_TO_BRIDGE_HANDLE",
+                            "VLAN_HANDLE_TO_VNI",
+                            "BRIDGE_HANDLE_TO_VNI",
+                            "VRF_HANDLE_TO_VNI"
+                        ]
+                    }
+                },
+                "tunnel_mapper_id" : {
+                    "description" : "Internal tunnel mapper id allocated when tunnel mapper type == VLAN_HANDLE_TO_VNI",
+                    "is_internal" : true,
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "reverse_mapper_id" : {
+                    "description" : "Reverse tunnel mapper handle that refers to decap mapper from which we program reverse entries.",
+                    "is_internal": false,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "tunnel_mapper"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "tunnel_mapper_entry" : {
+            "class" : "user",
+            "description" : "Create a tunnel mapper entry object",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+               "type" : {
+                    "description" : "Tunnel mapper entry type",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "enum" : [
+                        "VNI_TO_VLAN_HANDLE",
+                        "VNI_TO_VRF_HANDLE",
+                        "VNI_TO_BRIDGE_HANDLE",
+                        "VLAN_HANDLE_TO_VNI",
+                        "BRIDGE_HANDLE_TO_VNI",
+                        "VRF_HANDLE_TO_VNI"
+                        ]
+                    }
+               },
+                "tunnel_mapper_handle" : {
+                    "description" : "Tunnel mapper handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "tunnel_mapper"
+                        ]
+                    }
+                },
+                "tunnel_vni" : {
+                    "description" : "Tunnel VNID",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "network_handle" : {
+                    "description" : "VLAN or VRF handle depending on tunnel map type",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "vlan", "vrf"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "tunnel" : {
+            "class" : "user",
+            "description" : "Create a tunnel object",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description" : "Type of tunnel",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "enum" : [
+                            "NONE",
+                            "VXLAN",
+                            "IPIP",
+			    "IPGRE",
+                            "SRV6"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "peer_mode" : {
+                    "description" : "Whether the tunnel is P2P or P2MP",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "enum" : [
+                            "P2P",
+                            "P2MP"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value" : "P2MP"
+                    }
+                },
+                "src_ip" : {
+                    "description" : "Tunnel src IP",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "dst_ip" : {
+                    "description" : "Tunnel dst IP, valid when peer_mode == P2P. When peer_mode == P2MP, a value using address family IPv4 and address 0 must be provided in order for creation of corresponding P2P tunnels to operate properly.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "encap_ttl_mode" : {
+                    "description" : "The encapsulation TTL mode describes whether the TTL field is copied into the outer header (Uniform mode) or is set to a user-defined value (Pipe Mode), i.e. in Pipe Mode the outer TTL field is independent of the inner TTL field",
+                     "type_info" : {
+                         "type" : "SWITCH_TYPE_ENUM",
+                         "enum" : [
+                             "UNIFORM_MODEL",
+                             "PIPE_MODEL"
+                         ]
+                     }
+                },
+                "decap_ttl_mode" : {
+                    "description" : "The decapsulation TTL mode describes whether the TTL field is copied from the outer header (Uniform mode) or from the inner header (Pipe Mode)",
+                     "type_info" : {
+                         "type" : "SWITCH_TYPE_ENUM",
+                         "enum" : [
+                             "UNIFORM_MODEL",
+                             "PIPE_MODEL"
+                         ]
+                     }
+                },
+                "ttl" : {
+                    "description" : "Tunnel TTL value. Valid only when the Encapsulation TTL Mode = Pipe Mode",
+                    "type_info" : {
+                        "default_value": 64,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "encap_qos_mode" : {
+                    "description" : "The encapsulation QoS mode describes whether the QoS fields are copied into the outer header (Uniform mode) or are set to user-defined values (Pipe Mode), i.e. in Pipe Mode the outer QoS fields are independent of the inner QoS fields",
+                     "type_info" : {
+                         "type" : "SWITCH_TYPE_ENUM",
+                         "enum" : [
+                             "UNIFORM_MODEL",
+                             "PIPE_MODEL"
+                         ]
+                     }
+                },
+                "decap_qos_mode" : {
+                    "description" : "The decapsulation QoS mode describes whether the QoS fields are copied from the outer header (Uniform mode) or from the inner (Pipe Mode)",
+                     "type_info" : {
+                         "type" : "SWITCH_TYPE_ENUM",
+                         "enum" : [
+                             "UNIFORM_MODEL",
+                             "PIPE_MODEL"
+                         ]
+                     }
+                },
+                "dscp_val" : {
+                    "description" : "Tunnel DSCP value. Valid only when the Encapsulation QoS Mode = Pipe Mode",
+                    "type_info" : {
+                        "default_value": 0,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "decap_ecn_mode" : {
+                    "description" : "The decapsulation ECN mode describes  whether the ECN field is determined as specified in RFC 6040, or copied from the outer header",
+                     "type_info" : {
+                         "type" : "SWITCH_TYPE_ENUM",
+                         "enum" : [
+                             "STANDARD",
+                             "COPY_FROM_OUTER"
+                         ],
+                         "default_value" : "COPY_FROM_OUTER"
+                     }
+                },
+                "gre_key" : {
+                    "description" : "Tunnel GRE key",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "ingress_mapper_handles" : {
+                    "description" : "Ingress tunnel mapper handles",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_OBJECT_ID",
+                            "allowed_object_types" : [
+                                "tunnel_mapper"
+                            ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "egress_mapper_handles" : {
+                    "description" : "Egress tunnel mapper handles",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "list": {
+                            "type" : "SWITCH_TYPE_OBJECT_ID",
+                            "allowed_object_types" : [
+                                "tunnel_mapper"
+                            ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "underlay_rif_handle" : {
+                    "description" : "Tunnel underlay interface",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "rif"
+                        ]
+                    }
+                },
+                "overlay_rif_handle" : {
+                    "description" : "Tunnel overlay interface",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "rif"
+                        ]
+                    }
+                },
+                "tunnel_id" : {
+                    "description" : "Internal tunnel id allocated when peer_mode == P2MP",
+                    "is_internal" : true,
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "dst_ip_handle" : {
+                    "description": "Refers to Internal Tunnel Dest IP Object when peer_mode == P2P",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "tunnel_dest_ip"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "dst_ip_index" : {
+                    "description": "Index for tunnel dest ip object",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                }
+            },
+            "membership" : [
+                {
+                    "object" : "tunnel_dest_ip",
+                    "attribute" : "tunnel_members"
+                }
+            ],
+            "key_groups" : [
+                ["device", "type", "peer_mode", "underlay_rif_handle",
+                 "overlay_rif_handle", "src_ip", "dst_ip"]
+            ]
+        }
+    },
+    {
+        "tunnel_term" : {
+            "class" : "user",
+            "description" : "Create a tunnel termination object",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+               "type" : {
+                "description" : "Tunnel termination type",
+                  "is_mandatory": true,
+                  "is_create_only" : true,
+                  "type_info" : {
+                     "enum" : [
+                         "NONE",
+                         "VXLAN",
+                         "IPIP",
+			 "IPGRE"
+                     ],
+                     "type" : "SWITCH_TYPE_ENUM"
+                  }
+               },
+               "termination_type" : {
+                "description" : "Tunnel termination table entry type",
+                  "is_mandatory": true,
+                  "is_create_only" : true,
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_ENUM",
+                     "enum" : [
+                        "P2P",
+                        "P2MP"
+                     ],
+                     "default_value" : "P2P"
+                  }
+               },
+               "dst_ip" : {
+                "description" : "Tunnel termination address",
+                  "is_mandatory": true,
+                  "is_create_only" : true,
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_IP_ADDRESS"
+                  }
+               },
+               "src_ip" : {
+                "description" : "Tunnel termination source IP address, if termination_type is P2P",
+                  "is_create_only" : true,
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_IP_ADDRESS"
+                  }
+               },
+               "tunnel_handle" : {
+                "description" : "Tunnel handle for decap",
+                  "is_mandatory": true,
+                  "is_create_only" : true,
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "tunnel"
+                     ]
+                  }
+               },
+               "vrf_handle" : {
+                "description" : "VRF handle",
+                  "is_mandatory": true,
+                  "is_create_only" : true,
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "vrf"
+                     ]
+                  }
+               }
+            }
+        }
+    },
+    {
+        "my_sid_entry" : {
+            "class" : "user",
+            "description" : "Create a SRv6 my SID object",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "endpoint_type" : {
+                    "description" : "SRV6 Endpoint function",
+                    "type_info" : {
+                        "enum" : [
+                            "END",
+                            "END_X",
+                            "END_T",
+                            "END_DT4",
+                            "END_DT6",
+                            "END_DT46",
+                            "END_DX4",
+                            "END_DX6",
+                            "END_B6_ENCAPS_RED",
+                            "END_B6_INSERT_RED",
+                            "END_UN",
+                            "END_UA"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "endpoint_flavor" : {
+                    "description" : "SRV6 Endpoint segment flavor for End, End.x and End.T",
+                    "type_info" : {
+                        "enum" : [
+                            "PSP",
+                            "USP",
+                            "USD",
+                            "PSP_AND_USP",
+                            "USD_AND_USP",
+                            "PSP_AND_USD",
+                            "PSP_AND_USP_AND_USD"
+                        ],
+                        "default_value" : "PSP_AND_USD",
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "sid" : {
+                    "description" : "Local Segment IP Address",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "sid_vrf_handle" : {
+                    "description" : "My SID entry VRF handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "vrf"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "packet_action" : {
+                    "description": "Packet action",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value": "FORWARD",
+                        "enum" : [
+                            "DROP",
+                            "FORWARD",
+                            "TRAP",
+                            "DENY",
+                            "TRANSIT"
+                        ]
+                    }
+                },
+                "nexthop_handle" : {
+                    "description": "Destination nexthop handle for End.X, End.DX* and End.B6.Encaps* flavors",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nexthop", "ecmp"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "vrf_handle" : {
+                    "description" : "VRF handle for End.T and End.DT*",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "vrf"
+                        ]
+                    }
+                },
+                "counter_handle" : {
+                    "description" : "my_sid_entry counter handle. This is not a specific my_sid_entry attribute. It is used to bind a counter object to this entry to retrieve counters. This is to satisfy SAI object model. An application can directly query this object for counters",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "generic_counter"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "PKTS",
+                            "BYTES"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "my_sid"
+                        ]
+                    }
+                }
+            },
+            "key_groups" : [
+                [ "device", "sid", "sid_vrf_handle"]
+            ]
+        }
+    }
+]

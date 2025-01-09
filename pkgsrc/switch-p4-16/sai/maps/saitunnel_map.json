@@ -1,0 +1,19 @@
+{
+   "tunnel_map" : {
+       "profile" : "Per profile info",
+       "switch" : "tunnel_mapper",
+       "attributes" : {
+           "type" : "type"
+       },
+       "enums" : {
+           "type" : {
+               "VNI_TO_VLAN_ID" : "VNI_TO_VLAN_HANDLE",
+               "VLAN_ID_TO_VNI" : "VLAN_HANDLE_TO_VNI",
+               "VNI_TO_BRIDGE_IF" : "VNI_TO_BRIDGE_HANDLE",
+               "BRIDGE_IF_TO_VNI" : "BRIDGE_HANDLE_TO_VNI",
+               "VNI_TO_VIRTUAL_ROUTER_ID" : "VNI_TO_VRF_HANDLE",
+               "VIRTUAL_ROUTER_ID_TO_VNI" : "VRF_HANDLE_TO_VNI"
+           }
+       }    
+   }
+}

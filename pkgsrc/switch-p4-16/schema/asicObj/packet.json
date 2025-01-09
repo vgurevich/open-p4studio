@@ -1,0 +1,146 @@
+[
+    {
+        "validate_ethernet" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                     "list" : {
+                      "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                     },
+                     "type" : "SWITCH_TYPE_LIST"
+                  }
+               }
+            }
+        }
+    },
+    {
+        "validate_ip" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                     "list" : {
+                      "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                     },
+                     "type" : "SWITCH_TYPE_LIST"
+                  }
+               }
+            }
+         }
+    },
+    {
+        "inner_validate_ethernet" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                     "list" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                     },
+                     "type" : "SWITCH_TYPE_LIST"
+                  }
+               }
+            }
+        }
+    },
+    {
+        "fp_validate_ethernet" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+               },
+               "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "fp_validate_ip" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "fp_validate_ethernet_1" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+               },
+               "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    }
+]

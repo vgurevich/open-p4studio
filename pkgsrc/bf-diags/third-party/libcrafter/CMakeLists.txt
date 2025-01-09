@@ -1,0 +1,109 @@
+if (STANDALONE)
+  include(ConfigureChecks)
+  include_directories(${CMAKE_CURRENT_BINARY_DIR})
+endif() # STANDALONE
+set(CMAKE_CXX_FLAGS "-ansi -pedantic -Wall -DHAVE_CONFIG_H")
+find_library(RESOLVE resolv)
+if(RESOLVE)
+  add_definitions(-DHAVE_LIBRESOLV)
+endif()
+find_library(RT rt)
+if(RT)
+  add_definitions(-DHAVE_LIBRT)
+endif()
+add_library(crafter_o OBJECT
+crafter/Layer.cpp
+crafter/Payload.cpp
+crafter/Packet.cpp
+crafter/PacketDecoder.cpp
+crafter/InitCrafter.cpp
+crafter/Utils/PrintMessage.cpp
+crafter/Utils/BitHandling.cpp
+crafter/Utils/IPResolver.cpp
+crafter/Utils/IPv4Parse.cpp
+crafter/Utils/RawSocket.cpp
+crafter/Utils/CrafterUtils.cpp
+crafter/Utils/PacketContainer.cpp
+crafter/Utils/ARPPing.cpp
+crafter/Utils/ARPSpoofing.cpp
+crafter/Utils/ARPSpoofingReply.cpp
+crafter/Utils/ARPSpoofingRequest.cpp
+crafter/Utils/Sniffer.cpp
+crafter/Utils/TCPConnection.cpp
+crafter/Fields/FieldContainer.cpp
+crafter/Fields/FieldInfo.cpp
+crafter/Fields/IPAddress.cpp
+crafter/Fields/IPv6Address.cpp
+crafter/Fields/MACAddress.cpp
+crafter/Fields/NumericFields.cpp
+crafter/Protocols/RawLayer.cpp
+crafter/Protocols/EthernetConstructor.cpp
+crafter/Protocols/EthernetCraft.cpp
+crafter/Protocols/Dot1QConstructor.cpp
+crafter/Protocols/Dot1QCraft.cpp
+crafter/Protocols/ARPConstructor.cpp
+crafter/Protocols/ARPCraft.cpp
+crafter/Protocols/IPConstructor.cpp
+crafter/Protocols/IPCraft.cpp
+crafter/Protocols/IPOptionLayer.cpp
+crafter/Protocols/IPOptionConstructor.cpp
+crafter/Protocols/IPOptionCraft.cpp
+crafter/Protocols/IPOptionPadConstructor.cpp
+crafter/Protocols/IPOptionPadCraft.cpp
+crafter/Protocols/IPOptionTracerouteConstructor.cpp
+crafter/Protocols/IPOptionTracerouteCraft.cpp
+crafter/Protocols/IPOptionPointerConstructor.cpp
+crafter/Protocols/IPOptionPointerCraft.cpp
+crafter/Protocols/UDPConstructor.cpp
+crafter/Protocols/UDPCraft.cpp
+crafter/Protocols/TCPConstructor.cpp
+crafter/Protocols/TCPCraft.cpp
+crafter/Protocols/TCPOptionLayer.cpp
+crafter/Protocols/TCPOptionConstructor.cpp
+crafter/Protocols/TCPOptionCraft.cpp
+crafter/Protocols/TCPOptionPadConstructor.cpp
+crafter/Protocols/TCPOptionPadCraft.cpp
+crafter/Protocols/TCPOptionMaxSegSizeConstructor.cpp
+crafter/Protocols/TCPOptionMaxSegSizeCraft.cpp
+crafter/Protocols/TCPOptionTimestampConstructor.cpp
+crafter/Protocols/TCPOptionTimestampCraft.cpp
+crafter/Protocols/TCPOptionWindowScaleConstructor.cpp
+crafter/Protocols/TCPOptionWindowScaleCraft.cpp
+crafter/Protocols/TCPOptionMPTCPConstructor.cpp
+crafter/Protocols/TCPOptionMPTCPCraft.cpp
+crafter/Protocols/ICMPConstructor.cpp
+crafter/Protocols/ICMPCraft.cpp
+crafter/Protocols/ICMPExtensionConstructor.cpp
+crafter/Protocols/ICMPExtensionCraft.cpp
+crafter/Protocols/ICMPExtensionMPLSConstructor.cpp
+crafter/Protocols/ICMPExtensionMPLSCraft.cpp
+crafter/Protocols/ICMPExtensionObjectConstructor.cpp
+crafter/Protocols/ICMPExtensionObjectCraft.cpp
+crafter/Protocols/DNSConstructor.cpp
+crafter/Protocols/DNSCraft.cpp
+crafter/Protocols/DNSQuery.cpp
+crafter/Protocols/DNSAnswer.cpp
+crafter/Protocols/DHCPConstructor.cpp
+crafter/Protocols/DHCPCraft.cpp
+crafter/Protocols/DHCPOptions.cpp
+crafter/Protocols/SLLConstructor.cpp
+crafter/Protocols/SLLCraft.cpp
+crafter/Protocols/IPv6Constructor.cpp
+crafter/Protocols/IPv6Craft.cpp
+crafter/Protocols/IPv6FragmentationHeaderCraft.cpp
+crafter/Protocols/IPv6FragmentationHeaderConstructor.cpp
+crafter/Protocols/IPv6RoutingHeaderCraft.cpp
+crafter/Protocols/IPv6RoutingHeaderConstructor.cpp
+crafter/Protocols/IPv6SegmentRoutingHeaderCraft.cpp
+crafter/Protocols/IPv6SegmentRoutingHeaderConstructor.cpp
+crafter/Protocols/IPv6MobileRoutingHeaderCraft.cpp
+crafter/Protocols/IPv6MobileRoutingHeaderConstructor.cpp
+crafter/Protocols/IPLayer.cpp
+crafter/Protocols/NullLoopbackConstructor.cpp
+crafter/Protocols/NullLoopbackCraft.cpp
+crafter/Protocols/ICMPv6LayerConstructor.cpp
+crafter/Protocols/ICMPv6LayerCraft.cpp
+crafter/Protocols/ICMPv6Constructor.cpp
+crafter/Protocols/ICMPv6Craft.cpp
+crafter/Protocols/ICMPLayer.cpp
+)

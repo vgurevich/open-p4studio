@@ -1,0 +1,25 @@
+# This file contains custom definitions of "p4studio configure" options.
+# Options defined in this file can also be used in profile mode.
+# To add your own definition please follow the specification:
+#
+# <option_name>:
+#   enabled: list of cmake arguments when option is enabled
+#   disabled(optional): list of cmake arguments when option is disabled
+#   description(optional): description shown by "p4studio configure --help"
+#   category(optional): category of defined option eg. Drivers, Switch etc...
+#
+# --------EXAMPLE----------
+# my-platform:
+#   enabled:
+#     - -DNEWPORT=ON
+#     - -DASIC=ON
+#     - -DMYOPTION=MYOPTION
+#   category: Drivers
+#   description: Configure SDE for my platform
+#
+# my-platform-option:
+#   enabled:
+#     - -DMYOPTION=ON
+#   disabled:
+#     - -DMYOPTION=OFF
+#   category: Drivers

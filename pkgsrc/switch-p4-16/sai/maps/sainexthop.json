@@ -1,0 +1,27 @@
+{
+   "next_hop" : {
+       "profile" : "Per profile info",
+       "switch" : "nexthop",
+       "attributes" : {
+           "type" : "type",
+           "ip" : "dest_ip",
+           "tunnel_mac" : "mac_address",
+           "labelstack" : "labelstack",
+           "outseg_ttl_value" : "mpls_encap_ttl",
+           "outseg_exp_value" : "mpls_encap_exp",
+           "outseg_type" : "labelop"
+       },
+       "enums" : {
+           "type" : {
+               "IP" : "IP",
+               "TUNNEL_ENCAP" : "TUNNEL",
+               "MPLS" : "MPLS",
+               "SRV6_SIDLIST" : "SRV6_SIDLIST"
+           },
+           "labelop" : {
+                "PUSH" : "PUSH",
+                "SWAP" : "SWAP"
+          }
+       }
+   }
+}

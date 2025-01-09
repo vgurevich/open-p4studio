@@ -1,0 +1,793 @@
+[
+    {
+        "mcast_fwd_result" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                     "list" : {
+                      "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                     },
+                     "type" : "SWITCH_TYPE_LIST"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "device",
+                  "attribute" : "cpu_port"
+               }
+            ]
+        }
+    },
+    {
+        "rid_table" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "vlan", "tunnel_replication_resolution", "ipmc_member", "rif", "ipmc_member_vlan_tunnel"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "tunnel_dest_ip",
+                  "attribute" : "tunnel_members"
+               },
+               {
+                  "object" : "tunnel_replication_resolution",
+                  "attribute" : "flood_nexthop_handle"
+               }
+            ]
+        }
+    },
+    {
+        "mc_mgid" : {
+            "class" : "auto",
+            "priority" : 10,
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "ipmc_group", "l2mc_bridge", "vlan"
+                     ]
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "ipmc_group",
+                  "attribute" : "ipmc_members"
+               },
+               {
+                  "object" : "l2mc_bridge",
+                  "attribute" : "group_handle"
+               },
+               {
+                  "object" : "l2mc_group",
+                  "attribute" : "l2mc_members"
+               }
+            ]
+        }
+    },
+    {
+        "mc_node_vlan" : {
+            "class" : "auto",
+            "priority" : 11,
+            "comment" : "higher priority than mc_mgid above",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "vlan"
+                     ]
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "index" : {
+                  "comment" : "Store allocated pre.node index",
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_UINT32"
+                  }
+               }
+            }
+        }
+    },
+    {
+        "mc_node_vlan_member" : {
+            "class" : "auto",
+            "priority" : 11,
+            "comment" : "higher priority than vlan_membership",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "vlan_member"
+                     ]
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "tunnel_replication_resolution_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "tunnel_replication_resolution"
+                     ]
+                  }
+               },
+               "nexthop_resolution_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "nexthop_resolution"
+                     ]
+                  }
+               },
+               "index" : {
+                  "comment" : "Store allocated pre.node index",
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_UINT32"
+                  }
+               }
+            },
+            "dependencies" : [
+                {
+                    "object" : "tunnel_replication_resolution",
+                    "attribute" : "flood_nexthop_handle"
+                },
+                {
+                    "object" : "nexthop_resolution",
+                    "attribute" : "neighbor_handle"
+                },
+                {
+                    "object" : "nexthop_resolution",
+                    "attribute" : "mac_entry_handle"
+                },
+                {
+                   "object" : "mac_entry",
+                   "attribute" : "destination_handle"
+                }
+            ]
+        }
+    },
+    {
+        "l2mc_node" : {
+            "class" : "auto",
+            "priority" : 11,
+            "description" : "Program pre.node for port and LAG objects belonging to l2mc_group",
+            "comment" : "higher priority than mc_mgid above",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "l2mc_bridge"
+                     ]
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "index" : {
+                  "comment" : "Store allocated pre.node index",
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_UINT32"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "l2mc_group",
+                  "attribute" : "l2mc_members"
+               },
+               {
+                  "object" : "l2mc_bridge",
+                  "attribute" : "group_handle"
+               }
+           ]
+        }
+    },
+    {
+        "mc_node_tunnel" : {
+            "class" : "auto",
+            "description" : "An object used to program pre.node entries in two cases: 1) for tunnel objects belonging to l2mc_group; a parent here is an object of type l2mc_member_tunnel so we program an entry for each l2mc_member of type tunnel and each l2mc_bridge using an l2mc_group with this member; 2) for tunnel objects being members of SVIs that are members of IPMC group; a parent here is an object of type ipmc_member_vlan_tunnel so we program an entry for each tunnel and each ipmc_member (corresponding to an SVI) that uses this tunnel",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "l2mc_member_tunnel", "ipmc_member_vlan_tunnel"
+                     ]
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "index" : {
+                  "comment" : "Store allocated pre.node index",
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_UINT32"
+                  }
+               }
+            }
+        }
+    },
+    {
+        "ipmc_node" : {
+            "class" : "auto",
+            "priority" : 11,
+            "comment" : "higher priority than mc_mgid above",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "ipmc_member"
+                     ]
+                  }
+               },
+               "status" : {
+                  "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "index" : {
+                  "comment" : "Store allocated pre.node index",
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_UINT32"
+                  }
+               },
+               "vlan_handle" : {
+                  "comment" : "vlan handle if the ipmc_member output is an SVI and no l2mc_group is assigned to ipmc_member; just for handling dependencies",
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "vlan"
+                     ]
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "l2mc_group",
+                  "attribute" : "l2mc_members"
+               }
+            ]
+        }
+    },
+    {
+        "mc_port_prune" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+                }
+            }
+        }
+    },
+    {
+        "mc_lag_membership" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "lag"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "lag",
+                    "attribute" : "lag_members"
+                }
+            ]
+        }
+    },
+    {
+        "multicast_route_factory" : {
+            "class" : "auto",
+            "attributes" : {
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "ipmc_route"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "mau_stats_cache" : {
+                  "type_info" : {
+                      "default_value" : 0,
+                      "type" : "SWITCH_TYPE_UINT64"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "ipmc_route",
+                  "attribute" : "group_handle"
+               },
+               {
+                  "object" : "ipmc_route",
+                  "attribute" : "rpf_group_handle"
+               }
+            ]
+        }
+    },
+    {
+        "multicast_bridge_factory" : {
+            "class" : "auto",
+            "attributes" : {
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "l2mc_bridge"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "mau_stats_cache" : {
+                  "type_info" : {
+                      "default_value" : 0,
+                      "type" : "SWITCH_TYPE_UINT64"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "l2mc_bridge",
+                  "attribute" : "group_handle"
+               }
+            ]
+        }
+    },
+    {
+        "ipv4_multicast_route_s_g" : {
+            "attributes" : {
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "ipmc_route"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "mau_stats_cache" : {
+                  "type_info" : {
+                      "default_value" : 0,
+                      "type" : "SWITCH_TYPE_UINT64"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "ipmc_route",
+                  "attribute" : "group_handle"
+               },
+               {
+                  "object" : "ipmc_route",
+                  "attribute" : "rpf_group_handle"
+               }
+            ],
+            "class" : "auto"
+        }
+    },
+    {
+        "ipv4_multicast_bridge_s_g" : {
+            "attributes" : {
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "l2mc_bridge"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "l2mc_bridge",
+                  "attribute" : "group_handle"
+               }
+            ],
+            "class" : "auto"
+        }
+    },
+    {
+        "ipv4_multicast_route_x_g" : {
+            "attributes" : {
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "ipmc_route"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "mau_stats_cache" : {
+                  "type_info" : {
+                      "default_value" : 0,
+                      "type" : "SWITCH_TYPE_UINT64"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "ipmc_route",
+                  "attribute" : "group_handle"
+               },
+               {
+                  "object" : "ipmc_route",
+                  "attribute" : "rpf_group_handle"
+               }
+            ],
+            "class" : "auto"
+        }
+    },
+    {
+        "ipv4_multicast_bridge_x_g" : {
+            "attributes" : {
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "l2mc_bridge"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "l2mc_bridge",
+                  "attribute" : "group_handle"
+               }
+            ],
+            "class" : "auto"
+        }
+    },
+    {
+        "ipv4_multicast_route_star_g" : {
+            "attributes" : {
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "ipmc_route"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "ipmc_route",
+                  "attribute" : "group_handle"
+               },
+               {
+                  "object" : "ipmc_route",
+                  "attribute" : "rpf_group_handle"
+               }
+            ],
+            "class" : "auto"
+        }
+    },
+    {
+        "ipv4_multicast_bridge_star_g" : {
+            "attributes" : {
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "l2mc_bridge"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "l2mc_bridge",
+                  "attribute" : "group_handle"
+               }
+            ],
+            "class" : "auto"
+        }
+    },
+    {
+        "ipv6_multicast_route_star_g" : {
+            "attributes" : {
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "ipmc_route"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "ipmc_route",
+                  "attribute" : "group_handle"
+               },
+               {
+                  "object" : "ipmc_route",
+                  "attribute" : "rpf_group_handle"
+               }
+            ],
+            "class" : "auto"
+        }
+    },
+    {
+        "ipv6_multicast_bridge_star_g" : {
+            "attributes" : {
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "l2mc_bridge"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "l2mc_bridge",
+                  "attribute" : "group_handle"
+               }
+            ],
+            "class" : "auto"
+        }
+    },
+    {
+        "ipv6_multicast_route_s_g" : {
+            "attributes" : {
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "ipmc_route"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "mau_stats_cache" : {
+                  "type_info" : {
+                      "default_value" : 0,
+                      "type" : "SWITCH_TYPE_UINT64"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "ipmc_route",
+                  "attribute" : "group_handle"
+               },
+               {
+                  "object" : "ipmc_route",
+                  "attribute" : "rpf_group_handle"
+               }
+            ],
+            "class" : "auto"
+        }
+    },
+    {
+        "ipv6_multicast_bridge_s_g" : {
+            "attributes" : {
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "l2mc_bridge"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "l2mc_bridge",
+                  "attribute" : "group_handle"
+               }
+            ],
+            "class" : "auto"
+        }
+    },
+    {
+        "ipv6_multicast_route_x_g" : {
+            "attributes" : {
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "ipmc_route"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "mau_stats_cache" : {
+                  "type_info" : {
+                      "default_value" : 0,
+                      "type" : "SWITCH_TYPE_UINT64"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "ipmc_route",
+                  "attribute" : "group_handle"
+               },
+               {
+                  "object" : "ipmc_route",
+                  "attribute" : "rpf_group_handle"
+               }
+            ],
+            "class" : "auto"
+        }
+    },
+    {
+        "ipv6_multicast_bridge_x_g" : {
+            "attributes" : {
+               "status" : {
+                  "type_info" : {
+                      "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               },
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "l2mc_bridge"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "l2mc_bridge",
+                  "attribute" : "group_handle"
+               }
+            ],
+            "class" : "auto"
+        }
+    }
+]

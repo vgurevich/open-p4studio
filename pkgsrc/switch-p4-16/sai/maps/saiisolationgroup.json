@@ -1,0 +1,16 @@
+{
+   "isolation_group" : {
+      "profile" : "Per profile info",
+      "switch" : "isolation_group",
+      "attributes" : {
+         "type" : "type",
+         "isolation_member_list" : "isolation_group_members"
+      },
+      "enums": {
+          "type" : {
+              "PORT"  : "PORT",
+              "BRIDGE_PORT"  : "BRIDGE_PORT"
+          }
+      }
+   }
+}

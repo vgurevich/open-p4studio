@@ -1,0 +1,41 @@
+[
+    {
+        "fib_factory" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "route"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+               {
+                  "object" : "route",
+                  "attribute" : "nexthop_handle"
+               },
+               {
+                  "object" : "route",
+                  "attribute" : "is_host_myip"
+               },
+               {
+                  "object" : "route",
+                  "attribute" : "fib_label"
+               },
+               {
+                  "object" : "route",
+                  "attribute" : "packet_action"
+               }
+            ]
+        }
+    }
+]

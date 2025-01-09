@@ -1,0 +1,74 @@
+[
+    {
+        "pfc_wd" : {
+            "class" : "user",
+            "description" : "Create a PFC watchdog object",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "direction" : {
+                    "description" : "PFC WD ACL table direction",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info": {
+                    "default_value": "NONE",
+                    "enum" : [
+                        "NONE",
+                        "INGRESS",
+                        "EGRESS"
+                    ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "qid" : {
+                    "description": "Queue ID",
+                    "is_mandatory" : true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "port_handle" : {
+                    "description" : "port handle",
+                    "is_mandatory" : true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "PACKETS",
+                            "BYTES"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "ingress_pfc_wd", "egress_pfc_wd"
+                        ]
+                    }
+                }
+            },
+            "key_groups" : [["device", "direction", "qid", "port_handle"]]
+        }
+    }
+]

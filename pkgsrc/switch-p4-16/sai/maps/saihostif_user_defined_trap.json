@@ -1,0 +1,17 @@
+{
+   "hostif_user_defined_trap" : {
+       "profile" : "Per profile info",
+       "switch" : "hostif_user_defined_trap",
+       "attributes" : {
+           "type" : "type",
+           "trap_priority" : "priority",
+           "trap_group" : "hostif_trap_group_handle"
+       },
+       "enums" : {
+           "type" : {
+               "ACL" : "ACL",
+               "NEIGHBOR" : "NEIGHBOR"
+           }
+       }
+   }
+}

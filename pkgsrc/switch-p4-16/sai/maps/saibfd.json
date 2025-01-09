@@ -1,0 +1,50 @@
+{
+   "bfd_session" : {
+      "profile" : "Per profile info",
+      "switch" : "bfd_session",
+      "attributes" : {
+         "type" : "type",
+         "virtual_router" : "vrf_handle",
+         "local_discriminator" : "local_discriminator",
+         "remote_discriminator" : "remote_discriminator",
+         "udp_src_port" : "udp_src_port",
+         "bfd_encapsulation_type" : "encapsulation_type",
+         "iphdr_version" : "iphdr_version",
+         "ttl" : "ttl",
+         "src_ip_address" : "src_ip_address",
+         "dst_ip_address" : "dst_ip_address",
+         "multihop" : "multihop",
+         "min_tx" : "min_tx",
+         "min_rx" : "min_rx",
+         "multiplier" : "multiplier",
+         "remote_min_tx" : "remote_min_tx",
+         "remote_min_rx" : "remote_min_rx",
+         "state" : "state",
+         "offload_type" : "offload_type",
+         "negotiated_tx" : "negotiated_tx",
+         "negotiated_rx" : "negotiated_rx",
+         "local_diag" : "local_diag",
+         "remote_diag" : "remote_diag",
+         "remote_multiplier" : "remote_multiplier"
+      },
+       "enums" : {
+           "type" : {
+               "ASYNC_ACTIVE" : "ASYNC_ACTIVE",
+               "ASYNC_PASSIVE" : "ASYNC_PASSIVE"
+           },
+           "offload_type" : {
+                "NONE" : "NONE",
+                "FULL" : "FULL"
+           },
+           "encapsulation_type" : {
+                "NONE" : "NONE"
+           },
+           "state" : {
+               "ADMIN_DOWN" : "ADMIN_DOWN",
+               "DOWN" : "DOWN",
+               "INIT" : "INIT",
+               "UP" : "UP"
+           }
+       }
+   }
+}

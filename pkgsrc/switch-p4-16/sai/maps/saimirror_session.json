@@ -1,0 +1,20 @@
+{
+   "mirror_session" : {
+       "profile" : "Per profile info",
+       "switch" : "mirror",
+       "attributes" : {
+           "type" : "type",
+           "monitor_port" : "egress_port_handle",
+           "tos" : "tos",
+           "ttl" : "ttl",
+           "tc" : "queue_id",
+           "vlan_tpid" : "vlan_tpid",
+           "vlan_pri" : "vlan_pri",
+           "src_ip_address" : "src_ip",
+           "dst_ip_address" : "dest_ip",
+           "src_mac_address" : "src_mac_address",
+           "dst_mac_address" : "dest_mac_address",
+           "policer": "meter_handle"
+       }
+   }
+}

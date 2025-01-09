@@ -1,0 +1,12 @@
+{
+   "ipmc_group_member" : {
+       "profile" : "Per profile info",
+       "switch" : "ipmc_member",
+       "attributes" : {
+           "ipmc_group_id" : "ipmc_group_handle",
+           "ipmc_output_id" : "output_handle",
+           "extensions_l2mc_output_id" : "l2mc_group_handle",
+           "extensions_egress_object" : "egress_object_handle"
+       }
+   }
+}

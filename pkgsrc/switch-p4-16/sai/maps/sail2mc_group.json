@@ -1,0 +1,9 @@
+{
+   "l2mc_group" : {
+       "profile" : "Per profile info",
+       "switch" : "l2mc_group",
+       "attributes" : {
+           "l2mc_member_list" : "l2mc_members"
+       }
+   }
+}

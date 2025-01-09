@@ -1,0 +1,23 @@
+{
+   "buffer_pool" : {
+      "profile" : "Per profile info",
+      "switch" : "buffer_pool",
+      "attributes" : {
+         "shared_size" : "shared_size",
+         "type" : "direction",
+         "size" : "pool_size",
+         "threshold_mode" : "threshold_mode",
+         "xoff_size" : "xoff_size"
+      },
+      "enums" : {
+          "type" : {
+              "INGRESS" : "INGRESS",
+              "EGRESS" : "EGRESS"
+          },
+          "threshold_mode" : {
+              "STATIC" : "STATIC",
+              "DYNAMIC" : "DYNAMIC"
+          }
+      }
+   }
+}

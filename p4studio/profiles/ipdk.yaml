@@ -1,0 +1,10 @@
+global-options:
+  asic: true
+  with-p4info: true
+features:
+  drivers:
+    tdi: true
+    grpc: false
+    thrift-driver: false
+architectures:
+  - tofino

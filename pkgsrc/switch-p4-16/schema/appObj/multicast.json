@@ -1,0 +1,462 @@
+[
+    {
+        "ipmc_group" : {
+            "class" : "user",
+            "description": "Create a IPMC multicast group",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "ipmc_members" : {
+                    "description" : "List of IPMC multicast group members",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_OBJECT_ID",
+                            "allowed_object_types" : [
+                                "ipmc_member"
+                            ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "ipmc_member" : {
+            "class" : "user",
+            "description": "Create a IPMC multicast group member",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "ipmc_group_handle" : {
+                    "description": "IPMC multicast group handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "ipmc_group"
+                        ]
+                    }
+                },
+                "output_handle" : {
+                    "description": "Handle to an object which is a destination of multicast traffic",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "rif", "tunnel"
+                        ]
+                    }
+                },
+                "l2mc_group_handle" : {
+                    "description" : "Handle to corresponding L2MC group",
+                    "comment" : "Valid when output_handle is a rif that has type VLAN",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "l2mc_group"
+                        ]
+                    }
+                },
+                "vlan_tunnel_members" : {
+                    "description" : "List of ipmc_member_vlan_tunnel objects corresponding to VLAN members of type tunnel",
+                    "comment" : "Valid when output_handle is a rif that has type VLAN",
+                    "is_read_only" : true ,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_LIST",
+                        "list" : {
+                            "type" : "SWITCH_TYPE_OBJECT_ID",
+                            "allowed_object_types" : [
+                                "ipmc_member_vlan_tunnel"
+                            ]
+                        }
+                    }
+                },
+                "egress_object_handle" : {
+                    "description" : "Handle to nexthop or ecmp (nexthop group) object of the member",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "nexthop", "ecmp"
+                        ]
+                    }
+                }
+            },
+            "membership" : [
+                {
+                    "object" : "ipmc_group",
+                    "attribute" : "ipmc_members"
+                }
+            ],
+            "key_groups": [
+                [ "device", "output_handle", "ipmc_group_handle" ]
+            ]
+        }
+    },
+    {
+        "ipmc_member_vlan_tunnel" : {
+            "class" : "user",
+            "description" : "For every ipmc_member with output handle of type rif of type vlan, a separate instance of this internal object is created for each tunnel being a member of this vlan",
+            "attributes" : {
+                "device" : {
+                    "description" : "Device handle",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "ipmc_member_handle" : {
+                    "description" : "IPMC member handle",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "ipmc_member"
+                        ]
+                    }
+                },
+                "tunnel_handle" : {
+                    "description" : "Tunnel handle",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "tunnel"
+                        ]
+                    }
+                },
+                "rid" : {
+                    "description" : "Store allocated RID value",
+                    "is_read_only" : true,
+                    "type_info" : {
+                       "type" : "SWITCH_TYPE_UINT16"
+                    }
+                }
+            },
+            "membership" : [
+                {
+                    "object" : "ipmc_member",
+                    "attribute" : "vlan_tunnel_members"
+                }
+            ],
+            "key_groups" : [
+                ["device", "ipmc_member_handle", "tunnel_handle"]
+            ]
+        }
+    },
+    {
+        "l2mc_group" : {
+            "class" : "user",
+            "description": "Create a L2MC multicast group",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "l2mc_members" : {
+                    "description" : "List of L2MC multicast group members",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_OBJECT_ID",
+                            "allowed_object_types" : [
+                                "l2mc_member"
+                            ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "l2mc_member" : {
+            "class" : "user",
+            "description": "Create a L2MC multicast group member",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "l2mc_group_handle" : {
+                    "description": "L2MC multicast group handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "l2mc_group"
+                        ]
+                    }
+                },
+                "output_handle" : {
+                    "description": "Handle to an object which is a destination of multicast traffic",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "tunnel", "port", "lag"
+                        ]
+                    }
+                },
+                "dest_ip" : {
+                    "description": "Tunnel endpoint IP address",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                }
+            },
+            "membership" : [
+                {
+                    "object" : "l2mc_group",
+                    "attribute" : "l2mc_members"
+                }
+            ],
+            "key_groups": [
+                [ "device", "output_handle", "l2mc_group_handle" ]
+            ]
+        }
+    },
+    {
+        "l2mc_member_tunnel" : {
+            "class" : "user",
+            "description" : "For every l2mc_member with output handle of type tunnel, a separate instance of this internal object is created for each l2mc_bridge using the corresponding l2mc_group.",
+            "attributes" : {
+                "device" : {
+                    "description" : "Device handle",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "tunnel_handle" : {
+                    "description" : "Tunnel handle",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "tunnel"
+                        ]
+                    }
+                },
+                "l2mc_bridge_handle" : {
+                    "description" : "l2mc_bridge handle",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "l2mc_bridge"
+                        ]
+                    }
+                }
+            },
+            "key_groups" : [
+                ["device", "tunnel_handle", "l2mc_bridge_handle"]
+            ]
+        }
+    },
+    {
+        "ipmc_route" : {
+            "class" : "user",
+            "description": "Create an IPMC route entry",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "src_ip" : {
+                    "description": "Source IP address for S.G entry",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : { "type" : "SWITCH_TYPE_IP_PREFIX" }
+                },
+                "grp_ip" : {
+                    "description": "Group IP address",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : { "type" : "SWITCH_TYPE_IP_PREFIX" }
+                },
+                "vrf_handle" : {
+                    "description": "Reference to VRF handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "vrf"
+                        ]
+                    }
+                },
+                "pim_mode" : {
+                    "description": "PIM mode",
+                    "type_info" : {
+                        "default_value" : "SM",
+                        "enum" : [
+                            "NONE",
+                            "SM",
+                            "BIDIR"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "group_handle" : {
+                    "description": "Destination IPMC multicast group handle",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "ipmc_group"
+                        ]
+                    }
+                },
+                "rpf_group_handle" : {
+                    "description": "RPF group handle",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "rpf_group"
+                        ]
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "PKTS"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "multicast_route_factory"
+                        ]
+                    }
+                }
+            },
+            "key_groups" : [["device", "src_ip", "grp_ip", "vrf_handle"]]
+        }
+    },
+    {
+        "l2mc_bridge" : {
+            "class" : "user",
+            "description": "Create a L2MC bridge",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "src_ip" : {
+                    "description": "Source IP address for S.G entry",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : { "type" : "SWITCH_TYPE_IP_PREFIX" }
+                },
+                "grp_ip" : {
+                    "description": "Group IP address",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : { "type" : "SWITCH_TYPE_IP_PREFIX" }
+                },
+                "vlan_handle" : {
+                    "description": "Reference to VLAN handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "vlan"
+                        ]
+                    }
+                },
+                "group_handle" : {
+                    "description": "Destination L2MC multicast group handle",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "l2mc_group"
+                        ]
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "PKTS"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "multicast_bridge_factory"
+                        ]
+                    }
+                }
+            },
+            "key_groups" : [["device", "src_ip", "grp_ip", "vlan_handle"]]
+        }
+    }
+]

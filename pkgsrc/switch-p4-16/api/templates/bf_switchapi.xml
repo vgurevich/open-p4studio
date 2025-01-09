@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CLISH_MODULE xmlns="http://clish.sourceforge.net/XMLSchema"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://clish.sourceforge.net/XMLSchema
+http://clish.sourceforge.net/XMLSchema/clish.xsd">
+//:: #<PLUGIN name="switchapi" file="lib/tofinopd/switch/libbf_switchapi_cli.so"/>
+<PLUGIN name="bf_switchapi"/>
+//:: import gencli
+//:: import six
+//:: objects_dict = _context["__objects"]
+//:: ptype_dict = _context["__PTYPE"]
+//:: bf_switch_cli_view_names = {"bf_switch", "bf_switch_internal"}
+//:: bf_smi_object_classes = {"user", "auto"}
+//:: level_1_tab = ""
+//:: level_2_tab = level_1_tab + "  "
+//:: level_3_tab = level_2_tab + "  " 
+//:: level_4_tab = level_3_tab + "  " 
+//:: level_5_tab = level_4_tab + "  " 
+//:: level_6_tab = level_5_tab + "  " 
+//:: level_7_tab = level_6_tab + "  " 
+//:: act_prefix = "bf_switch_cli"
+//:: obj_handle = "handle"
+//::
+//:: # gen pattern for method type "select" 
+//:: model_enum_dict = ptype_dict["select"] 
+//:: for enum_type, enum_dict in six.iteritems(model_enum_dict):
+//::   ptype = enum_type
+//::   comment_str = "Select " + enum_type[:enum_type.index("_enum")]  
+//::   help_str = "select " +  gencli.map_enum_type_to_attr_name(enum_type)
+
+<!-- ${comment_str} -->
+<PTYPE name="${ptype}"
+  method="select"
+//::   prefix = '"'
+//::   for enum_name, enum_val in six.iteritems(enum_dict):
+//::     pattern_str = prefix +enum_name  +  "(" + str(enum_val) + ")" 
+//::     prefix = pattern_str + " "
+//::   pattern_str = pattern_str + '"'  
+//::   #endfor
+  pattern=${pattern_str}
+  help="${help_str} "/>
+//:: #endfor 
+
+//:: # gen pattern for method type "unsignedInteger" 
+//:: model_uint_range_dict = ptype_dict["uint"]
+//:: for range_name, range_dict in six.iteritems(model_uint_range_dict):
+//::   comment_str = "unsignedInteger ptype " + range_name 
+
+<!-- ${comment_str} -->
+<PTYPE name="${range_name}"
+  method="unsignedInteger"
+//::   pattern_str = str(range_dict["min"]) + ".." + str(range_dict["max"])
+  pattern="${pattern_str}"
+  help="Integer"/>
+//:: #endfor
+
+//:: shell_variable_regex = "(\\$[a-zA-Z]+)|"
+//:: list_regex_of = lambda regex_in, shell_variable_regex=shell_variable_regex: shell_variable_regex + "(" + regex_in + "(," + regex_in + ")*" +")"
+//:: _range_regex = "([0-9]+\-[0-9]+)"
+//:: range_regex = shell_variable_regex + _range_regex
+//:: _hex_int_regex = "(0x[0-9a-fA-F]+|[0-9]+)"
+//:: hex_int_regex = shell_variable_regex + _hex_int_regex
+//:: _mac_regex = "(^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$)"
+//:: mac_regex = shell_variable_regex + _mac_regex
+//:: _ipv6_addr_regex="(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))"
+//:: ipv6_addr_regex = shell_variable_regex + _ipv6_addr_regex
+//:: _ipv6_prefix_regex = "((([0-9a-fA-F]{1,4}(:[0-9a-fA-F]{1,4}){7})|([0-9a-fA-F]{1,4}(:[0-9a-fA-F]{1,4}){0,5}::([0-9a-fA-F]{1,4})?)|([0-9a-fA-F]{1,4}(:[0-9a-fA-F]{1,4}){0,5}::[0-9a-fA-F]{1,4}(:[0-9a-fA-F]{1,4}){0,5})){1}((/(1[0-2][0-8]|[0-9][0-9]|[0-9]))?))"
+//:: ipv6_prefix_regex = shell_variable_regex + _ipv6_prefix_regex
+//:: ipv6_prefix_list_regex=list_regex_of(_ipv6_prefix_regex)
+//:: ipv6_addr_list_regex=list_regex_of(_ipv6_addr_regex)
+//:: hex_int_list_regex=list_regex_of(_hex_int_regex)
+//:: range_list_regex=list_regex_of(_range_regex)
+//:: int_list_regex=list_regex_of("[0-9]+")
+//:: ipv4_addr_list_regex=list_regex_of("(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))")
+//:: ipv4_addr_mask_list_regex=list_regex_of("((((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(/(1[0-9]|2[0-9]|3[0-2]|[0-9]))?)")
+<!-- bf_switchapi_HEX_INT_type ptype regexp -->
+<PTYPE name="bf_switchapi_INT_RANGE"
+  method="regexp"
+  pattern="${range_regex}"
+  help="Integer (min-max)"/>
+
+<!-- bf_switchapi_INT_LIST_type ptype regexp -->
+<PTYPE name="bf_switchapi_INT_LIST"
+  method="regexp"
+  pattern="${int_list_regex}"
+  help="Integer (comma seperated list)"/>
+
+
+<!-- bf_switchapi_HEX_INT_type ptype regexp -->
+<PTYPE name="bf_switchapi_HEX_INT"
+  method="regexp"
+  pattern="${hex_int_regex}"
+  help="Hex/Integer"/>
+
+<!-- bf_switchapi_MAC_type ptype regexp -->
+<PTYPE name="bf_switchapi_MAC"
+  method="regexp"
+  pattern="${mac_regex}"
+  help="MAC address"/>
+
+<!-- bf_switchapi_ipv6_addr_type ptype regexp -->
+<PTYPE name="bf_switchapi_IPADDR_LIST"
+  method="regexp"
+  pattern="${ipv4_addr_list_regex}"
+  help="comma separated list of ipv4 address i.e. A.B.C.D"/>
+
+<!-- bf_switchapi_ipv6_addr_type ptype regexp -->
+<PTYPE name="bf_switchapi_IPADDR_MASK_LIST"
+  method="regexp"
+  pattern="${ipv4_addr_mask_list_regex}"
+  help="comma separated list of ipv4 address i.e. A.B.C.D[/mask]"/>
+
+<!-- bf_switchapi_ipv6_addr_type ptype regexp -->
+<PTYPE name="bf_switchapi_IPv6_ADDR"
+  method="regexp"
+  pattern="${ipv6_addr_regex}"
+  help="::"/>
+
+<!-- bf_switchapi_ipv6_addr_type ptype regexp -->
+<PTYPE name="bf_switchapi_IPv6_ADDR_LIST"
+  method="regexp"
+  pattern="${ipv6_addr_list_regex}"
+  help="comma separated list of ipv6 address i.e. ::"/>
+
+<!-- bf_switchapi_ipv6_prefix ptype regexp -->
+<PTYPE name="bf_switchapi_IPv6_PREFIX"
+  method="regexp"
+  pattern="(\\$[a-zA-Z]+)|((([0-9a-fA-F]{1,4}(:[0-9a-fA-F]{1,4}){7})|([0-9a-fA-F]{1,4}(:[0-9a-fA-F]{1,4}){0,5}::([0-9a-fA-F]{1,4})?)|([0-9a-fA-F]{1,4}(:[0-9a-fA-F]{1,4}){0,5}::[0-9a-fA-F]{1,4}(:[0-9a-fA-F]{1,4}){0,5})){1}((/(1[0-2][0-8]|[0-9][0-9]|[0-9]))?))"
+  help="::(/mask)"/>
+
+<!-- bf_switchapi_ipv6_addr_type ptype regexp -->
+<PTYPE name="bf_switchapi_IPv6_PREFIX_LIST"
+  method="regexp"
+  pattern="${ipv6_prefix_list_regex}"
+  help="comma separated list of ipv6 prefix i.e. ::(/mask)"/>
+
+<!-- bf_switchapi_log_level ptype regexp -->
+<PTYPE name="BF_SMI_LOG_LEVEL"
+  method="select"
+  pattern="error(0) warn(1) info(2) debug(3) detail(4)"
+  help="select"/>
+
+<!-- bf_switchapi_operation_type ptype regexp -->
+<PTYPE name="BF_SMI_OPERATION_TYPE"
+  method="select"
+  pattern="create(0) delete(1) get(2) set(3) all(4)"
+  help="select"/>
+
+<!-- enter bfswitchapi view -->
+//:: device_id_string = "${device_id}"
+<VIEW name="root-view">
+ <COMMAND name="bf_switch" help="bf_switchapi object commands"
+   view="bf_switch-view" viewid="device_id=${device_id_string}">
+   <PARAM name="device" help="Device ID" optional="true"
+     mode="subcommand" ptype="SUBCOMMAND">
+     <PARAM name="device_id" help="Device ID" ptype="UINT8" default="0"/>
+   </PARAM>
+ </COMMAND> 
+</VIEW> 
+
+<!-- enter bfswitchapi-internal view -->
+//:: device_id_string = "${device_id}"
+<VIEW name="bf_switch-view">
+ <COMMAND name="internal" help="bf_switchapi internal object commands"
+   view="bf_switch_internal-view" viewid="device_id=${device_id_string}">
+   <PARAM name="device" help="Device ID" optional="true"
+     mode="subcommand" ptype="SUBCOMMAND">
+     <PARAM name="device_id" help="Device ID" ptype="UINT8" default="0"/>
+   </PARAM>
+ </COMMAND>
+</VIEW>
+
+<VIEW name="bf_switch-view">
+  <COMMAND name="replay_file"
+      help="Replay the previously recorded operations">
+      <PARAM name="filename"
+             help="The filename to be replayed, default is bmai.rec"
+             optional="true"
+             default="bmai.rec"
+             ptype="STRING"/>
+      <PARAM name="stop_on_error"
+             help="Stop the script if replay ever encounters error, default is true"
+             optional="true"
+             default="true"
+             ptype="BOOL"/>
+      <ACTION builtin="bf_switch_cli_replay_file"/>
+  </COMMAND>
+</VIEW>
+
+//:: # generate main commands.
+//:: for view_name in bf_switch_cli_view_names:
+<!-- bf_switchapi view top level commands -->
+<VIEW name="${view_name}-view"
+  prompt="${view_name}:${device_id_string}&gt; ">
+  <COMMAND name="end" help="End bf_switchAPI sub-commands" view="root-view"/>
+  <COMMAND name="show" help="show object commands"/>
+  <COMMAND name="describe" help="describe object commands"/>  
+//::   if view_name == "bf_switch":
+//::     #crud operation supported only in bf_switch mode in the current release. 
+  <COMMAND name="add" help="add object commands"/>
+  <COMMAND name="del" help="delete object commands"/>
+  <COMMAND name="clear" help="clear counter commands"/>
+  <COMMAND name="debug" help="Debug object commands"/>
+  <COMMAND name="var" help="Declare new shell variable">
+    <PARAM name="varname" help="Variable name" ptype="STRING">
+    </PARAM>
+    <ACTION builtin="bf_switch_cli_add_var" />
+  </COMMAND>
+  <COMMAND name="get" help="Display value of shell variable">
+    <PARAM name="varname" help="Variable name" ptype="STRING">
+    </PARAM>
+    <ACTION builtin="bf_switch_cli_get_var" />
+  </COMMAND>
+  <COMMAND name="set" help="set object commands">
+    <PARAM name="varname" help="set variable name" ptype="STRING">
+    </PARAM>
+    <PARAM name="value" help="value of variable" ptype="STRING">
+    </PARAM>
+    <ACTION builtin="bf_switch_cli_set_var" />
+  </COMMAND>
+//::   #endif
+</VIEW>
+
+//:: #endfor
+//::
+//:: # Generate add commands per user view and internal view objects 
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     """
+//::     crud operation not allowed in internal mode in current release. 
+//::     still keeping followign code in case it's required to support it. 
+//::     """
+//::     continue
+//::   #endif
+//::   object_class = "user"
+//::   if view_name == "bf_switch_internal":
+//::     object_class = "auto"
+//::   #endif 
+//::   object_iterator = gencli.object_generator(objects_dict, object_class)
+//::   for object_name, object_metadata in object_iterator:
+//::     if object_name == "device":
+//::       continue
+//::     #endif
+//::     if "description" in object_metadata:
+//::       obj_h_str =  object_metadata["description"]
+//::     else:
+//::       obj_h_str = "add " + object_name
+//::     #endif
+
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="add ${object_name}" help="${obj_h_str}">
+//::     # Generate params tag for every attributes.
+//::     attr_iterator = gencli.attr_generator_with_mandatory_first(object_metadata) 
+//::     for attr_name, attr_metadata_dict in attr_iterator:
+//::       clish_xml_params = gencli.gen_attr_clish_xml_params_string(
+//::                               objects_dict, object_name, attr_name, attr_metadata_dict, level_3_tab)
+${clish_xml_params}
+//::     #endfor
+//::     # gen action tag
+${level_3_tab}<ACTION builtin="${act_prefix}_add_object"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//::   #endfor
+//:: #endfor
+//::
+//:: #Generate set commands
+//:: #format: set <object_name> handle <handle_value> attribute {<non key attributes>}
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     """
+//::     crud operation not allowed in internal mode in current release. 
+//::     still keeping followign code in case it's required to support it. 
+//::     """
+//::     continue
+//::   #endif
+//::   object_class = "user"
+//::   if view_name == "bf_switch_internal":
+//::     object_class = "auto"
+//::   #endif
+//::   object_iterator = gencli.object_generator(objects_dict, object_class)
+//::   for object_name, object_metadata in object_iterator:
+ 
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="set ${object_name} handle" help="set ${object_name} by handle">
+${level_3_tab}<PARAM  name="p_oid" help="Value of handle"
+                      ptype="bf_switchapi_HEX_INT">
+${level_3_tab}</PARAM>
+//::     # Generate params tag for every optional attributes.
+//::     attr_iterator = gencli.set_non_key_attr_generator(object_metadata)
+${level_4_tab}<PARAM name="attribute" help="describe attribute" ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND" optional="true">
+${level_5_tab}<PARAM name="attribute_sc" help="attribute sc" ptype="SUBCOMMAND"
+               mode="switch" optional="false">
+//::     for attr_name, attr_metadata_dict in attr_iterator:
+//::       clish_xml_params = gencli.gen_attr_clish_xml_params_string(
+//::                                 objects_dict, object_name, attr_name, attr_metadata_dict, level_3_tab)
+${clish_xml_params}
+//::     #endfor
+//::     # gen action tag
+${level_5_tab}</PARAM>
+${level_4_tab}</PARAM>
+${level_3_tab}<ACTION builtin="${act_prefix}_set_object"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//::   #endfor
+//:: #endfor
+//::
+//:: # Generate set by object name commands per every user view object
+//:: # set <object_name> <key attributes> <optional attributes>
+//:: # if object has no key-fields skip generating that CLI
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     """
+//::     crud operation not allowed in internal mode in current release. 
+//::     still keeping followign code in case it's required to support it. 
+//::     """
+//::     continue
+//::   #endif
+//::   object_class = "user"
+//::   if view_name == "bf_switch_internal":
+//::     object_class = "auto"
+//::   #endif
+//::   object_iterator = gencli.object_generator(objects_dict, object_class)
+//::   for object_name, object_metadata in object_iterator:
+//::     if not "key_groups" in object_metadata:
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="set ${object_name}" help="set ${object_name}"/>
+${level_1_tab}</VIEW>
+//::       continue
+//::     #endif
+
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="set ${object_name}" help="set ${object_name}">
+${level_3_tab}<PARAM  name="p_oid" help="Value of handle"
+                      ptype="bf_switchapi_HEX_INT">
+${level_3_tab}</PARAM>
+//::     # Generate params tag for every attributes.
+//::     attr_iterator = gencli.set_non_key_attr_generator(object_metadata)
+//::     for attr_name, attr_metadata_dict in attr_iterator:
+//::       clish_xml_params = gencli.gen_attr_clish_xml_params_string(
+//::                                 objects_dict, object_name, attr_name, attr_metadata_dict, level_3_tab)
+${clish_xml_params}
+//::     #endfor
+//::     # gen action tag
+${level_3_tab}<ACTION builtin="${act_prefix}_set_object"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//::   #endfor
+//:: #endfor
+//::
+
+//:: # Generate del <object_name> handle <oid> command
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     """
+//::     crud operation not allowed in internal mode in current release. 
+//::     still keeping followign code in case it's required to support it. 
+//::     """
+//::     continue
+//::   #endif
+//::   object_class = "user"
+//::   if view_name == "bf_switch_internal":
+//::     object_class = "auto"
+//::   #endif
+//::   object_iterator = gencli.object_generator(objects_dict, object_class)
+//::   for object_name, object_metadata in object_iterator:
+//::     if object_name == "device":
+//::       continue
+//::     #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="del ${object_name}" help="del ${object_name}">
+${level_3_tab}<PARAM name="handle" help="${object_name}'s object_id" ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND" optional="false">
+${level_4_tab}<PARAM  name="p_oid" help="Value of handle" ptype="bf_switchapi_HEX_INT" />
+${level_3_tab}</PARAM>
+//::     # gen action tag
+${level_3_tab}<ACTION builtin="${act_prefix}_del_object"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//::   #endfor
+//:: #endfor
+
+//:: #Generate show object_types command
+//:: for view_name in bf_switch_cli_view_names:
+
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="show object_types" help="show bf_switchapi user object types">
+${level_3_tab}<PARAM name="internal" help="show bf_switchapi internal object types" ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND" optional="true">
+${level_3_tab}</PARAM>
+//::   # gen action tag
+${level_3_tab}<ACTION builtin="${act_prefix}_show_object"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//:: #endfor
+
+//:: # Generate show object_name {<handle <oid>> | <key attributes> } [dependencies]  command
+//:: for view_name in bf_switch_cli_view_names:
+//::   object_class = ["user"]
+//::   if view_name == "bf_switch_internal":
+//::     object_class = ["auto", "user"]
+//::   #endif
+//::   for obj_class in object_class:
+//::     object_iterator = gencli.object_generator(objects_dict, obj_class)
+//::     for object_name, object_metadata in object_iterator:
+//::       if object_name == "counter":
+//::         continue
+//::       #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="show ${object_name}" help="show ${object_name}">
+//::       # Generate params tag for every mandatory attributes.
+${level_3_tab}<PARAM name="dump_oid_sc" help="dump oid sc" ptype="SUBCOMMAND"
+                     mode="switch" optional="false">
+${level_4_tab}<PARAM name="handle" help="${object_name}'s handle" ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND" optional="false">
+${level_5_tab}<PARAM  name="p_oid" help="Value of handle" ptype="bf_switchapi_HEX_INT" />
+${level_4_tab}</PARAM>
+//::       if "key_groups" in object_metadata:
+//::         attr_iterator = gencli.key_attr_generator(object_metadata)
+//::         first = True
+//::         attr_count = 0
+//::         for attr_name, attr_metadata_dict in attr_iterator:
+//::           attr_count += 1
+//::           if first == True:
+//::             clish_xml_params = gencli.gen_attr_clish_xml_params_string(
+//::                                   objects_dict, object_name,
+//::                                   attr_name, attr_metadata_dict,
+//::                                   level_4_tab)
+//::             clish_xml_params_head, _sep, tail = \
+//::                    clish_xml_params.rpartition("\n" + level_4_tab + "</PARAM>")
+//::             clish_xml_params = clish_xml_params_head
+//::             first = False
+//::           else:
+//::             clish_xml_params = gencli.gen_attr_clish_xml_params_string(
+//::                                   objects_dict, object_name, attr_name, attr_metadata_dict, level_5_tab)
+//::           #endif
+${clish_xml_params}
+//::         #endfor
+//::         if attr_count:
+${level_4_tab}</PARAM>
+//::         #endif
+//::       #endif
+${level_3_tab}</PARAM>
+${level_3_tab}<PARAM name="dependencies" help="show all objects referring to ${object_name} object" 
+                    ptype="SUBCOMMAND" mode="SUBCOMMAND" optional="true"/>
+//::       # gen action tag
+${level_3_tab}<ACTION builtin="${act_prefix}_show_object"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//::     #endfor
+//::   #endfor
+//:: #endfor
+
+//:: # Generate show <object_name> all command
+//:: for view_name in bf_switch_cli_view_names:
+//::   object_class = ["user"]
+//::   if view_name == "bf_switch_internal":
+//::     object_class = ["auto", "user"]
+//::   #endif
+//::   for obj_class in object_class:
+//::     object_iterator = gencli.object_generator(objects_dict, obj_class)
+//::     for object_name, object_metadata in object_iterator:
+//::       if object_name == "counter":
+//::         continue
+//::       #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="show ${object_name} all" help="show all ${object_name}">
+//::     # 1. gen action tag
+${level_3_tab}<ACTION builtin="${act_prefix}_show_object_all"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//::     #endfor
+//::   #endfor
+//:: #endfor
+
+//:: # Generate describe object command for every object.
+//:: for view_name in bf_switch_cli_view_names:
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="describe object" help="describe object and it's attributes">
+${level_3_tab}<PARAM name="desc_object_type_sc" help="object sc" ptype="SUBCOMMAND"
+                     mode="switch" optional="false">
+//::   object_class = "user"
+//::   if view_name == "bf_switch_internal":
+//::     object_class = "auto"
+//::   #endif
+//::   object_iterator = gencli.object_generator(objects_dict, object_class)
+//::   for object_name, object_metadata in object_iterator:
+${level_4_tab}<PARAM name="${object_name}" help="${object_name} object type" ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND">
+${level_5_tab}<PARAM name="attribute" help="describe attribute" ptype="SUBCOMMAND" 
+                     mode="SUBCOMMAND" optional="true">
+${level_6_tab}<PARAM name="attribute_sc" help="attribute sc" ptype="SUBCOMMAND"
+               mode="switch" optional="false">
+//::     # Generate params tag for every attributes.
+//::     attr_iterator = gencli.obj_model_attr_generator(object_metadata)
+//::     for attr_name in attr_iterator:
+${level_7_tab}<PARAM name="${attr_name}" help="${attr_name} attribute" ptype="SUBCOMMAND" 
+                     mode="SUBCOMMAND"/>
+//::     #endfor
+${level_6_tab}</PARAM>
+${level_5_tab}</PARAM>
+${level_4_tab}</PARAM>
+//::   #endfor
+${level_3_tab}</PARAM>
+${level_3_tab}<ACTION builtin="${act_prefix}_describe_object"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//:: #endfor
+//:: 
+
+//::
+//:: # Generate show table utilization command.
+//:: #   show table_utilization <table_name> 
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     continue
+//::   #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="show table_utilization" help="Display P4 table utilization">
+${level_3_tab}<PARAM name="table_name" help="Name of the table" ptype="SUBCOMMAND"
+                     mode="switch" optional="false">
+//::   object_iterator = gencli.object_generator(objects_dict, "user")
+//::   for object_name, object_metadata in object_iterator:
+//::     if object_name == "device":
+//::       # Generate params tag for every attributes.
+//::       attr_iterator = gencli.attr_generator_with_mandatory_first(object_metadata)
+//::       for attr_name, attr_md in attr_iterator:
+//::         if attr_name == "table":
+//::           enum_list = attr_md["type_info"]["enum"]
+//::           for enum_value, enum_name in enumerate(enum_list):
+${level_4_tab}<PARAM name="${enum_name}" help="${enum_name} table" ptype="SUBCOMMAND" mode="SUBCOMMAND">
+${level_4_tab}</PARAM>
+//::           #endfor
+//::         #endif
+//::       #endfor
+//::     #endif
+//::   #endfor
+${level_4_tab}<PARAM name="ALL" help="All tables" ptype="SUBCOMMAND" mode="SUBCOMMAND"/>
+${level_3_tab}</PARAM>
+${level_3_tab}<ACTION builtin="${act_prefix}_show_table_info"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//:: #endfor
+//::
+
+//::
+//:: # Generate log_level command.
+//:: #   log_level packet [on | off]
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     continue
+//::   #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="log_level packet" help="Configure pktdriver packet logging">
+${level_3_tab}<PARAM name="debug_packet_sc" help="object sc" ptype="SUBCOMMAND"
+                     mode="switch" optional="false">
+${level_4_tab}<PARAM name="on" help="enable packet dump" ptype="SUBCOMMAND" mode="SUBCOMMAND"/>
+${level_4_tab}<PARAM name="off" help="disable packet dump" ptype="SUBCOMMAND" mode="SUBCOMMAND"/>
+${level_3_tab}</PARAM>
+${level_3_tab}<ACTION builtin="${act_prefix}_packet_log_level_set"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//:: #endfor
+
+//::
+//:: # Generate log_level bfd command
+//:: #   log_level bfd [on | off]
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     continue
+//::   #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="log_level bfd" help="Configure bfdd packet logging">
+${level_3_tab}<PARAM name="debug_packet_sc" help="object sc" ptype="SUBCOMMAND"
+                     mode="switch" optional="false">
+${level_4_tab}<PARAM name="on" help="enable packet dump" ptype="SUBCOMMAND" mode="SUBCOMMAND"/>
+${level_4_tab}<PARAM name="off" help="disable packet dump" ptype="SUBCOMMAND" mode="SUBCOMMAND"/>
+${level_3_tab}</PARAM>
+${level_3_tab}<ACTION builtin="${act_prefix}_bfd_log_level_set"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//:: #endfor
+
+//::
+//:: # Generate packet path command.
+//:: #   show pkt_path_counter port handle <id>
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     continue
+//::   #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="show pkt_path" help="Display packet path counters">
+${level_3_tab}<PARAM name="debug_pkt_path_sc" help="object sc" ptype="SUBCOMMAND"
+                     mode="switch" optional="false">
+${level_4_tab}<PARAM name="port" help="enable packet dump" ptype="SUBCOMMAND" mode="SUBCOMMAND">
+${level_5_tab}<PARAM name="handle" help="Port handle object_id" ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND" optional="false">
+${level_6_tab}<PARAM  name="p_oid" help="Value of handle" ptype="bf_switchapi_HEX_INT" />
+${level_5_tab}</PARAM>
+${level_4_tab}</PARAM>
+${level_3_tab}</PARAM>
+${level_3_tab}<ACTION builtin="${act_prefix}_pkt_path_counter_print"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//:: #endfor
+//::
+
+//::
+//:: # Generate show cpu_rx counter command
+//:: #   show cpu_rx counter
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     continue
+//::   #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="show cpu_rx" help="Display CPU rx packet information">
+${level_3_tab}<PARAM name="counter" help="Show counters" ptype="SUBCOMMAND" mode="SUBCOMMAND"/>
+${level_4_tab}<ACTION builtin="${act_prefix}_cpu_rx_counter_show"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//:: #endfor
+//::
+
+//::
+//:: # Generate clear cpu_rx counter command
+//:: #   clear cpu_rx counter
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     continue
+//::   #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="clear cpu_rx" help="Clear CPU rx packet information">
+${level_3_tab}<PARAM name="counter" help="Clear counters" ptype="SUBCOMMAND" mode="SUBCOMMAND"/>
+${level_4_tab}<ACTION builtin="${act_prefix}_cpu_rx_counter_clear"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//:: #endfor
+//::
+
+//::
+//:: # Generate show features command.
+//:: #   show features [enabled | disabled | all]
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     continue
+//::   #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="show features" help="Show P4 Profile features">
+${level_3_tab}<PARAM name="feature_filter" help="Filter for fetures to list" ptype="SUBCOMMAND"
+                     mode="switch" optional="false">
+${level_4_tab}<PARAM name="enabled" help="Show Enabled Features" ptype="SUBCOMMAND" mode="SUBCOMMAND"/>
+${level_4_tab}<PARAM name="disabled" help="Show Disabled Features" ptype="SUBCOMMAND" mode="SUBCOMMAND"/>
+${level_4_tab}<PARAM name="all" help="Show all features (enabled/disabled)" ptype="SUBCOMMAND" mode="SUBCOMMAND"/>
+${level_3_tab}</PARAM>
+${level_3_tab}<ACTION builtin="${act_prefix}_show_features"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//:: #endfor
+//::
+
+//::
+//:: # Generate log_level command.
+//:: #   log_level show
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     continue
+//::   #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="log_level show" help="Display object log levels">
+${level_3_tab}<ACTION builtin="${act_prefix}_log_level_show"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//:: #endfor
+//::
+
+//::
+//:: # Generate log_level command.
+//:: #   log_level <log_level> [global | object_type <object type>]
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     continue
+//::   #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="log_level" help="configure log level">
+${level_3_tab}<PARAM name="log_level" help="log level" ptype="BF_SMI_LOG_LEVEL"/>
+${level_4_tab}<PARAM name="debug_log_level_sc" help="log_level sc" ptype="SUBCOMMAND"
+                     mode="switch" optional="false">
+${level_5_tab}<PARAM name="global" help="set global log level" ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND" optional="true">
+${level_5_tab}</PARAM>
+${level_5_tab}<PARAM name="object_type" help="set per object_type log level" ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND" optional="true">
+${level_6_tab}<PARAM name="debug_log_level_object_type_sc" help="object sc" ptype="SUBCOMMAND"
+                     mode="switch" optional="false">
+//::   object_class = "user"
+//::   object_iterator = gencli.object_generator(objects_dict, object_class)
+//::   for object_name, object_metadata in object_iterator:
+${level_7_tab}<PARAM name="${object_name}" help="${object_name} object type" ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND">
+${level_7_tab}</PARAM>
+//::   #endfor
+${level_7_tab}<PARAM name="all" help="All objects" ptype="SUBCOMMAND" mode="SUBCOMMAND"/>
+${level_6_tab}</PARAM>
+${level_5_tab}</PARAM>
+${level_4_tab}</PARAM>
+${level_4_tab}<ACTION builtin="${act_prefix}_debug_log_level_set"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//:: #endfor
+//::
+
+//::
+//:: # Generate debug object_operation <type>command.
+//:: #   debug object_operation <operation_type>
+//:: view_name = "bf_switch"
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="debug object_operation_type" help="debug object CRUD operations">
+${level_3_tab}<PARAM name="operation_type" help="operation type" ptype="BF_SMI_OPERATION_TYPE"/>
+${level_3_tab}<PARAM name="operation_toggle_select" help="operation_toggle sc" ptype="SUBCOMMAND"
+                     mode="switch" optional="false">
+${level_4_tab}<PARAM name="enable" help="enable debug" ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND" optional="true">
+${level_4_tab}</PARAM>
+${level_4_tab}<PARAM name="disable" help="disable debug" ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND" optional="true">
+${level_4_tab}</PARAM>
+${level_3_tab}</PARAM>
+${level_3_tab}<ACTION builtin="${act_prefix}_debug_operation_set"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//::
+
+//:: # Generate show counter {[<object_name> {<oid> | <all> }]} command
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     continue
+//::   #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="show counter" help="show counter">
+${level_3_tab}<PARAM name="dump_counter_sc" help="dump counter sc" ptype="SUBCOMMAND"
+                     mode="switch" optional="false">
+//::   object_class = "user"
+//::   if view_name == "bf_switch_internal":
+//::     object_class = "auto"
+//::   #endif
+//::   object_iterator = gencli.counter_object_generator(objects_dict, object_class)
+//::   for object_name, object_metadata in object_iterator:
+${level_4_tab}<PARAM name="${object_name}" help="${object_name} counter " ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND" optional="false">
+${level_5_tab}<PARAM name="dump_oid_sc" help="dump oid sc" ptype="SUBCOMMAND"
+                     mode="switch" optional="false">
+${level_6_tab}<PARAM name="all" help="Dump all ${object_name} counters" ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND" optional="true"/>
+${level_6_tab}<PARAM name="handle" help="${object_name}'s handle" ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND" optional="true">
+${level_7_tab}<PARAM  name="p_oid" help="Value of handle" ptype="bf_switchapi_HEX_INT" />
+${level_6_tab}</PARAM>
+${level_5_tab}</PARAM>
+${level_4_tab}</PARAM>
+//::   #endfor
+${level_3_tab}</PARAM>
+//::     # gen action tag
+${level_3_tab}<ACTION builtin="${act_prefix}_show_counter_object"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//:: #endfor
+
+//:: # Generate clear counter {[<object_name> {<oid> | <all> }]} command
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     continue
+//::   #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="clear counter" help="clear asic counter">
+${level_3_tab}<PARAM name="clear_counter_sc" help="clear counter sc" ptype="SUBCOMMAND"
+                     mode="switch" optional="false">
+//::   object_class = "user"
+//::   if view_name == "bf_switch_internal":
+//::     object_class = "auto"
+//::   #endif
+//::   object_iterator = gencli.counter_object_generator(objects_dict, object_class)
+//::   for object_name, object_metadata in object_iterator:
+${level_4_tab}<PARAM name="${object_name}" help="${object_name} counter " ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND" optional="false">
+${level_5_tab}<PARAM name="clear_oid_sc" help="clear oid sc" ptype="SUBCOMMAND"
+                     mode="switch" optional="false">
+${level_6_tab}<PARAM name="all" help="Clear all ${object_name} counters" ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND" optional="true"/>
+${level_6_tab}<PARAM name="handle" help="${object_name}'s handle" ptype="SUBCOMMAND"
+                     mode="SUBCOMMAND" optional="true">
+${level_7_tab}<PARAM  name="p_oid" help="Value of handle" ptype="bf_switchapi_HEX_INT" />
+${level_6_tab}</PARAM>
+${level_5_tab}</PARAM>
+${level_4_tab}</PARAM>
+//::   #endfor
+${level_3_tab}</PARAM>
+//::     # gen action tag
+${level_3_tab}<ACTION builtin="${act_prefix}_clear_counter_object"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//:: #endfor
+
+//::
+//:: # Generate show version command.
+//:: #   show version
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     continue
+//::   #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="show version" help="Display SDE and SAI version">
+${level_3_tab}<ACTION builtin="${act_prefix}_show_version"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//:: #endfor
+//::
+
+//::
+//:: # Generate tech-support
+//:: #   show tech-support
+//:: for view_name in bf_switch_cli_view_names:
+//::   if view_name == "bf_switch_internal":
+//::     continue
+//::   #endif
+${level_1_tab}<VIEW name="${view_name}-view">
+${level_2_tab}<COMMAND name="show tech-support" help="Display details for all user object">
+${level_3_tab}<ACTION builtin="${act_prefix}_show_tech_support"/>
+${level_2_tab}</COMMAND>
+${level_1_tab}</VIEW>
+//:: #endfor
+//::
+
+<VIEW name="bf_switch-view">
+  <COMMAND name="state" help="Manage switch state"/>
+  <COMMAND name="state save" help="Save switch state to file">
+      <PARAM name="filepath" help="Destination file path"
+             ptype="STRING" optional="false"/>
+      <ACTION builtin="bf_switch_cli_state_save"/>
+  </COMMAND>
+</VIEW>
+
+${level_1_tab}</CLISH_MODULE>
+

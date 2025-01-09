@@ -1,0 +1,23 @@
+{
+   "hostif_trap" : {
+       "profile" : "Per profile info",
+       "switch" : "hostif_trap",
+       "attributes" : {
+           "trap_type" : "type",
+           "packet_action" : "packet_action",
+           "trap_priority" : "priority",
+           "exclude_port_list" : "exclude_port_list",
+           "trap_group" : "hostif_trap_group_handle"
+       },
+       "enums" : {
+           "packet_action" : {
+               "DROP" : "DROP",
+               "FORWARD" : "NOP",
+               "COPY" : "COPY_TO_CPU",
+               "TRAP" : "REDIRECT_TO_CPU",
+               "LOG" : "COPY_TO_CPU"
+           }
+       },
+       "global_enums" : ["packet_action"]
+   }
+}

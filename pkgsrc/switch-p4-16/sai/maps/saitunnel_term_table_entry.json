@@ -1,0 +1,25 @@
+{
+   "tunnel_term_table_entry" : {
+       "profile" : "Per profile info",
+       "switch" : "tunnel_term",
+       "attributes" : {
+           "tunnel_type" : "type",
+           "vr_id" : "vrf_handle",
+           "type" : "termination_type",
+           "dst_ip" : "dst_ip",
+           "src_ip" : "src_ip",
+           "action_tunnel_id" : "tunnel_handle"
+       },
+       "enums" : {
+           "tunnel_type" : {
+               "IPINIP" : "IPIP",
+               "VXLAN" : "VXLAN"
+           },
+           "type" : {
+            "P2P" : "P2P",
+            "P2MP" : "P2MP"
+           }
+       },
+       "global_enums" : ["tunnel_type"]        
+   }
+}

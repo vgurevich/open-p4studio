@@ -1,0 +1,191 @@
+[
+  {
+      "nat_entry" : {
+          "class" : "user",
+          "description" : "NAT entry object. Supports SNAT/DNAT and Flow NAT",
+          "attributes" : {
+                "device" : {
+                    "description" : "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description" : "NAT type",
+                    "type_info" : {
+                        "enum" : [
+                          "NONE",
+                          "SOURCE_NAT",
+                          "SOURCE_NAPT",
+                          "DESTINATION_NAT",
+                          "DESTINATION_NAPT",
+                          "DOUBLE_NAT",
+                          "DOUBLE_NAPT",
+                          "DESTINATION_NAT_POOL"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    },
+                    "is_mandatory": true
+                },
+                "src_ip_key" : {
+                    "description" : "Source IP address",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    },
+                    "is_mandatory": true
+                },
+                "src_ip_mask" : {
+                    "description" : "Source IP address mask",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "dst_ip_key" : {
+                    "description" : "Destination IP address",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    },
+                    "is_mandatory": true
+                },
+                "dst_ip_mask" : {
+                    "description" : "Destination IP address mask",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "ip_proto_key" : {
+                    "description" : "IP protocol",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    },
+                    "is_mandatory" : true
+                },
+                "ip_proto_mask" : {
+                    "description" : "IP protocol mask",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "l4_src_port_key" : {
+                    "description" : "L4 source port",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    },
+                    "is_mandatory" : true
+                },
+                "l4_src_port_mask" : {
+                    "description" : "L4 source port mask",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "l4_dst_port_key" : {
+                    "description" : "L4 destination port",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    },
+                    "is_mandatory": true
+                },
+                "l4_dst_port_mask" : {
+                    "description" : "L4 destination port mask",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "nat_src_ip" : {
+                    "description" : "Translated Source IP address",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "nat_dst_ip" : {
+                    "description" : "Translated Destination IP address",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "nat_l4_src_port" : {
+                    "description" : "Translated L4 source port",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "nat_l4_dst_port" : {
+                    "description" : "Translated L4 destination port",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "cached_counter" : {
+                    "description" : "Cached packet counter of the entry, to support hit flag",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "nat_index" : {
+                    "is_internal" : true,
+                    "is_read_only" : true,
+                    "description": "NAT index internally generated for Source/Dest PAT entries",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "vr_handle" : {
+                    "description": "Virtual Router handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "vrf"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "aging_time" : {
+                    "description": "Aging time in seconds",
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                }
+          },
+          "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "PKTS",
+                            "BYTES"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                  "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "nat_factory"
+                      ]
+                  }
+                }
+           },
+           "key_groups" : [["device","type","src_ip_key","dst_ip_key","ip_proto_key","l4_src_port_key","l4_dst_port_key"]]
+      }
+  }
+]

@@ -1,0 +1,11 @@
+{
+   "ingress_priority_group" : {
+      "profile" : "Per profile info",
+      "switch" : "port_priority_group",
+      "attributes" : {
+          "buffer_profile" : "buffer_profile_handle",
+          "port" : "port_handle",
+          "index" : "ppg_index"
+      }
+   }
+}

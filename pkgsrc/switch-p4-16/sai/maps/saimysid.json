@@ -1,0 +1,40 @@
+{
+  "my_sid_entry" : {
+    "profile" : "Per profile info",
+    "switch" : "my_sid_entry",
+    "attributes" : {
+      "endpoint_behavior" : "endpoint_type",
+      "endpoint_behavior_flavor" : "endpoint_flavor",
+      "next_hop_id" : "nexthop_handle",
+      "packet_action" : "packet_action",
+      "vrf" : "vrf_handle",
+      "counter_id" : "counter_handle"
+    },
+    "enums" : {
+      "endpoint_behavior" : {
+        "E" : "END",
+        "X" : "END_X",
+        "T" : "END_T",
+        "DX6" : "END_DX6",
+        "DX4" : "END_DX4",
+        "DT6" : "END_DT6",
+        "DT4" : "END_DT4",
+        "DT46" : "END_DT46",
+        "B6_ENCAPS_RED" : "END_B6_ENCAPS_RED",
+        "B6_INSERT_RED" : "END_B6_INSERT_RED",
+        "UN" : "END_UN",
+        "UA" : "END_UA"
+      },
+      "endpoint_behavior_flavor" : {
+        "PSP" : "PSP",
+        "USP" : "USP",
+        "USD" : "USD",
+        "PSP_AND_USP" : "PSP_AND_USP",
+        "USD_AND_USP" : "USD_AND_USP",
+        "PSP_AND_USD" : "PSP_AND_USD",
+        "PSP_AND_USP_AND_USD" : "PSP_AND_USP_AND_USD"
+      }
+    }
+  },
+  "version" : "10901"
+}

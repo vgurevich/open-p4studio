@@ -1,0 +1,3 @@
+#!/bin/bash
+#Unload bf_knet kernel module
+rmmod bf_knet

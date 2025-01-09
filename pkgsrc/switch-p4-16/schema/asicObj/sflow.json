@@ -1,0 +1,83 @@
+[
+    {
+        "ingress_sflow_session" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto",
+            "dependencies" : [
+                {
+                    "object" : "port",
+                    "attribute" : "ingress_sflow_handle"
+                }
+            ]
+        }
+    },
+    {
+        "egress_sflow_session" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto",
+            "dependencies" : [
+                {
+                    "object" : "port",
+                    "attribute" : "egress_sflow_handle"
+                }
+            ]
+        }
+    },
+    {
+        "sflow_session_helper" : {
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "sflow_session"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "class" : "auto",
+            "dependencies" : [
+                {
+                    "object" : "sflow_session",
+                    "attribute" : "sample_rate"
+                }
+            ]
+        }
+    }
+]

@@ -1,0 +1,116 @@
+[
+    {
+        "drop_reason" : {
+            "class" : "user",
+            "description" : "Drop reason",
+            "attributes" : {
+                "type" : {
+                    "description": "Drop reason type",
+                    "type_info": {
+                        "default_value": "IN_DROP_REASON_INGRESS_VLAN_FILTER",
+                        "enum" : [
+                            "IN_DROP_REASON_INGRESS_VLAN_FILTER",
+                            "IN_DROP_REASON_L2_ANY",
+                            "IN_DROP_REASON_DMAC_RESERVED",
+                            "IN_DROP_REASON_SMAC_MULTICAST",
+                            "IN_DROP_REASON_SMAC_EQUALS_DMAC",
+                            "IN_DROP_REASON_TTL",
+                            "IN_DROP_REASON_IP_HEADER_ERROR",
+                            "IN_DROP_REASON_SIP_MC",
+                            "IN_DROP_REASON_RIF_DISABLED_DISCARDS",
+                            "IN_DROP_REASON_L3_ANY",
+                            "IN_DROP_REASON_ACL_ANY",
+                            "IN_DROP_REASON_DIP_LOOPBACK",
+                            "IN_DROP_REASON_SIP_LOOPBACK",
+                            "IN_DROP_REASON_SIP_CLASS_E",
+                            "IN_DROP_REASON_DIP_LINK_LOCAL",
+                            "IN_DROP_REASON_SIP_LINK_LOCAL",
+                            "IN_DROP_REASON_SIP_UNSPECIFIED",
+                            "IN_DROP_REASON_UC_DIP_MC_DMAC",
+                            "IN_DROP_REASON_BC_DIP_MC_DMAC",
+                            "IN_DROP_REASON_NON_ROUTABLE",
+                            "IN_DROP_REASON_MPLS_MISS",
+                            "IN_DROP_REASON_SRV6_MY_SID_DROP",
+                            "IN_DROP_REASON_LPM4_MISS",
+                            "IN_DROP_REASON_LPM6_MISS",
+                            "IN_DROP_REASON_BLACKHOLE_ROUTE",
+                            "IN_DROP_REASON_L3_PORT_RMAC_MISS",
+                            "IN_DROP_REASON_L3_EGRESS_LINK_DOWN",
+                            "IN_DROP_REASON_FDB_AND_BLACKHOLE_DISCARDS",
+                            "IN_DROP_REASON_FDB_UC_DISCARD",
+                            "IN_DROP_REASON_FDB_MC_DISCARD",
+                            "IN_DROP_REASON_SIP_BC",
+                            "IN_DROP_REASON_IPV6_MC_SCOPE0",
+                            "IN_DROP_REASON_IPV6_MC_SCOPE1",
+                            "IN_DROP_REASON_STP_FILTER",
+                            "IN_DROP_REASON_MC_DMAC_MISMATCH",
+                            "IN_IP_DST_UNSPECIFIED",
+                            "OUT_MTU_CHECK_FAIL"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "debug_counter" : {
+            "class" : "user",
+            "description" : "Debug counter",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description": "Debug counter type",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "is_read_only" : "true",
+                    "type_info": {
+                        "default_value": "PORT_IN_DROP_REASONS",
+                        "enum" : [
+                            "PORT_IN_DROP_REASONS",
+                            "SWITCH_IN_DROP_REASONS",
+                            "PORT_OUT_DROP_REASONS",
+                            "SWITCH_OUT_DROP_REASONS"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "index" : {
+                    "description": "Debug counter index added to base start",
+                    "is_read_only" : "true",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "drop_reasons_list" : {
+                    "description": "drop reason list",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_UINT16"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "drop_counters_list" : {
+                    "description" : "internal debug counters drop counters list",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_UINT16"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    }
+]

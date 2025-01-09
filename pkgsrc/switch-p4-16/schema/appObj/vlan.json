@@ -1,0 +1,284 @@
+[
+    {
+        "vlan" : {
+            "class" : "user",
+            "description" : "Create a vlan",
+            "attributes" : {
+            "device" : {
+                "description": "Device handle",
+                "is_mandatory": true,
+                "is_create_only" : true,
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "device"
+                    ]
+                }
+            },
+            "vlan_id" : {
+                "description": "Vlan ID",
+                "is_mandatory": true,
+                "is_create_only" : true,
+                "type_info" : {
+                    "max" : 4095,
+                    "type" : "SWITCH_TYPE_UINT16"
+                }
+            },
+            "rif_handles" : {
+                "is_internal" : true,
+                "comment" : "List of RIFs associated with this vlan",
+                "type_info" : {
+                    "list" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "rif"
+                        ]
+                    },
+                    "type" : "SWITCH_TYPE_LIST"
+                }
+            },
+            "stp_handle" : {
+                "description": "Spanning tree group handle",
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "stp"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "igmp_snooping" : {
+                "description": "Enable/disable IGMP snooping",
+                "type_info" : {
+                    "default_value": false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "mld_snooping" : {
+                "description": "Enable/disable MLD snooping",
+                "type_info" : {
+                    "default_value": false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "mrouter_mc_handle" : {
+                "description": "Mrouter group handle",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "l2mc_group"
+                    ]
+                }
+            },
+            "ingress_acl_handle" : {
+                "description": "Ingress ACL group or table handle",
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "acl_group", "acl_table"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "egress_acl_handle" : {
+                "description": "Egress ACL group or table handle",
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "acl_group", "acl_table"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "ingress_vlan_rif_label" : {
+                "description": "Ingress bd label",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_UINT16"
+                }
+            },
+            "egress_vlan_rif_label" : {
+                "description": "Egress bd label",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_UINT16"
+                }
+            },
+            "learning" : {
+                "description": "Enable/disable learning",
+                "type_info" : {
+                    "default_value": true,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "max_learned_addresses" : {
+                "description": "set max learned addresses",
+                "type_info" : {
+                    "default_value": 0,
+                    "type" : "SWITCH_TYPE_UINT32"
+                }
+            },
+            "unknown_ucast_flood_type" : {
+                "description": "Unknown unicast flooding control type",
+                "type_info" : {
+                    "default_value": "ALL",
+                    "enum" : [
+                        "ALL",
+                        "NONE"
+                    ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                }
+            },
+            "unknown_mcast_flood_type" : {
+                "description": "Unknown multicast flooding control type",
+                "type_info" : {
+                    "default_value": "ALL",
+                    "enum" : [
+                        "ALL",
+                        "NONE"
+                    ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                }
+            },
+            "bcast_flood_type" : {
+                "description": "Broadcast flooding control type",
+                "type_info" : {
+                    "default_value": "ALL",
+                    "enum" : [
+                        "ALL",
+                        "NONE"
+                    ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                }
+            },
+            "aging_interval" : {
+                "description": "Set aging interval",
+                "type_info" : {
+                    "default_value": 30000,
+                    "type" : "SWITCH_TYPE_UINT32"
+                }
+            },
+            "ipv4_multicast" : {
+                "description": "Enable/disable IPv4 multicast",
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "arp_suppress_enable" : {
+                "description": "Enable/disable neigh suppress enable",
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "ipv6_multicast" : {
+                "description": "Enable/disable IPv6 multicast",
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "is_routable" : {
+                "description": "Internal utility flag to indicate this vlan is routable",
+                "is_internal": true,
+                "is_read_only": true,
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "IN_UCAST_PKTS",
+                            "IN_MCAST_PKTS",
+                            "IN_BCAST_PKTS",
+                            "IN_UCAST_BYTES",
+                            "IN_MCAST_BYTES",
+                            "IN_BCAST_BYTES",
+                            "OUT_UCAST_PKTS",
+                            "OUT_MCAST_PKTS",
+                            "OUT_BCAST_PKTS",
+                            "OUT_UCAST_BYTES",
+                            "OUT_MCAST_BYTES",
+                            "OUT_BCAST_BYTES"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "ingress_bd_stats", "egress_bd_stats"
+                        ]
+                    }
+                }
+            },
+            "key_groups" : [["device", "vlan_id"]],
+            "cli_info" : {
+                "table_view_attrs": ["vlan_id", "learning", "aging_interval", "rif_handles"],
+                "format" : {
+                   "key_attrs": [
+                       {
+                           "object": "vlan",
+                           "attribute" : "vlan_id"
+                       }
+                   ]
+                }
+            }
+        }
+    },
+    {
+        "vlan_member" : {
+            "class" : "user",
+            "description" : "Create a vlan member",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "member_handle" : {
+                    "description": "Handle to the object that is a member of the VLAN",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "port", "lag", "tunnel"
+                        ]
+                    }
+                },
+                "vlan_handle" : {
+                    "description": "VLAN handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "vlan"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "tagging_mode" : {
+                    "description": "This attribute defines the ingress and egress tagging mode",
+                    "type_info" : {
+                        "default_value": "UNTAGGED",
+                        "enum" : [
+                            "UNTAGGED",
+                            "TAGGED",
+                            "PRIORITY_TAGGED"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                }
+            },
+            "key_groups": [["device", "vlan_handle", "member_handle"]]
+        }
+    }
+]

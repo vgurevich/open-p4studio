@@ -1,0 +1,2190 @@
+{
+  "namespace" : "${p4_pd_prefix[3:-1]}",
+  "p4_name" : "pd_${p4_name}",
+//:: # match_fields is list of tuples (name, type)
+//:: def gen_match_params(match_fields, field_info):
+//::   params = []
+//::   for field, type in match_fields:
+//::     if type[:6] == "valid_":
+//::       params += [(field + "_valid", 1)]
+//::       if type[6:] == "ternary":
+//::         params += [(field + "_valid_mask", 1)]
+//::       #endif
+//::       continue
+//::     #endif
+//::     f_info = field_info[field]
+//::     bytes_needed = (f_info["bit_width"] + 7 ) // 8
+//::     if type != "range":
+//::        params += [(field, bytes_needed)]
+//::     else:
+//::        params += [(field + "_start", bytes_needed)]
+//::     #endif
+//::     if type == "lpm": params += [(field + "_prefix_length", 2)]
+//::     if type == "ternary" : params += [(field + "_mask", bytes_needed)]
+//::     if type == "range" : params += [(field + "_end", bytes_needed)]
+//::   #endfor
+//::   return params
+//:: #enddef
+//::
+//:: def gen_action_params(names, bit_widths, _get_type = get_cli_type):
+//::   params = []
+//::   for name, width in zip(names, bit_widths):
+//::     name = "action_" + name
+//::     width = (width + 7) // 8
+//::     params += [(name, width)]
+//::   #endfor
+//::   return params
+//:: #enddef
+//::
+//::
+//:: # MATCH STRUCTS
+  "structs" : [
+//:: for table, t_info in table_info.items():
+//::   if not t_info["match_fields"]:
+//::     continue
+//::   #endif
+//::   match_params = gen_match_params(t_info["match_fields"], field_info)
+    { "name" : "${p4_pd_prefix}${table}_match_spec_t",
+      "fields" : [
+//::   for idx, (name, width) in enumerate(match_params):
+        { "name" : "${name}",
+//::     type_ = get_cli_type(width)
+          "type" : "${type_}",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : 0
+//::     if idx != (len(match_params) - 1):
+        },
+//::     else:
+        }
+//::     #endif
+//::   #endfor
+      ]
+    },
+//:: #endfor
+//:: # ACTION STRUCTS
+//:: for action, a_info in action_info.items():
+//::   if not a_info["param_names"]:
+//::     continue
+//::   #endif
+//::   action_params = gen_action_params(a_info["param_names"],
+//::                                     a_info["param_bit_widths"])
+    { "name" : "${p4_pd_prefix}${action}_action_spec_t",
+      "fields" : [
+//::   for name, width in action_params:
+        {
+          "name" : "${name}",
+//::     type_ = get_cli_type(width)
+          "type" : "${type_}",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : 0
+//::     if name != action_params[-1][0]:
+        },
+//::     else:
+        }
+//::     #endif
+//::   #endfor
+      ]
+    },
+//:: #endfor
+//:: # MASK STRUCTS
+//:: for table, t_info in table_info.items():
+//::   if not t_info["match_fields"]:
+//::     continue
+//::   #endif
+//::   if not t_info["dynamic_match_key_masks"]:
+//::     continue
+//::   #endif
+//::   match_params = gen_match_params(t_info["match_fields"], field_info)
+    { "name" : "${p4_pd_prefix}${table}_match_key_mask_spec_t",
+      "fields" : [
+//::   for idx, (name, width) in enumerate(match_params):
+//::     mask_name = name + '_mask'
+        {
+          "name" : "${mask_name}",
+//::     type_ = get_cli_type(width)
+          "type" : "${type_}",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : 0
+//::     if idx != (len(match_params) -1):
+        },
+//::     else:
+        }
+//::     #endif
+//::   #endfor
+      ]
+    },
+//:: #endfor
+    { "name" : "${p4_pd_prefix}action_specs_t",
+      "fields" : [
+        {
+          "name" : "name",
+          "type" : "enum ${p4_pd_prefix}action_names_t",
+          "required" : false,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : 0
+        },
+        {
+          "name" : "u",
+          "type" : "union",
+          "required" : false,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : 0,
+          "relation_data" : {
+            "union" : [
+              "name",
+              [
+//:: i = 0
+//:: length = len(action_info.items())
+//:: for action, a_info in action_info.items():
+//::   comma = ","
+//::   if i == length - 1:
+//::     comma = ""
+//::   #endif
+//::   i += 1
+//::   if not a_info["param_names"]:
+                null${comma}
+//::     continue
+//::   #endif
+                "${p4_pd_prefix}${action}_action_spec_t"${comma}
+//:: #endfor
+              ],
+              [
+//:: i = 0
+//:: length = len(action_info.items())
+//:: for action, a_info in action_info.items():
+//::   comma = ","
+//::   if i == length - 1:
+//::     comma = ""
+//::   #endif
+//::   i += 1
+//::   if not a_info["param_names"]:
+                null${comma}
+//::     continue
+//::   #endif
+                "${p4_pd_prefix}${action}"${comma}
+//:: #endfor
+              ]
+            ]
+          }
+        }
+      ]
+    },
+//:: for register, r_info in register_info.items():
+//::   if r_info["layout"]:
+    {
+      "name" : "${p4_pd_prefix}${register}_value_t",
+      "fields" : [
+//::     for f_name, f_width in r_info["layout"]:
+        {
+          "name" : "${f_name}",
+          "type" : "${get_cli_reg_type(f_width)}",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : 0
+//::       if f_name != r_info["layout"][-1][0]:
+        },
+//::       else:
+        }
+//::       #endif
+//::     #endfor
+      ]
+    },
+//::   #endif
+//:: #endfor
+    {
+      "name" : "p4_pd_idle_time_params_t",
+      "fields" : [
+        {
+          "name" : "mode",
+          "type" : "enum p4_pd_idle_time_mode_e",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : 0
+        },
+        {
+          "name" : "params",
+          "type" : "inline_params_struct",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        }
+      ]
+    },
+    {
+      "name" : "inline_params_struct",
+      "fields" : [
+        {
+          "name" : "notify",
+          "type" : "inline_notify_struct",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        }
+      ]
+    },
+    {
+      "name" : "inline_notify_struct",
+      "fields" : [
+        {
+          "name" : "ttl_query_interval",
+          "type" : "i32",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "max_ttl",
+          "type" : "i32",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "min_ttl",
+          "type" : "i32",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "callback_fn",
+          "type" : "null",
+          "required" : false,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : "NOT SUPPORTED"
+        },
+        {
+          "name" : "cookie",
+          "type" : "null",
+          "required" : false,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : "NOT SUPPORTED"
+        }
+      ]
+    },
+    {
+      "name" : "p4_pd_dev_target_t",
+      "fields" : [
+        {
+          "name" : "device_id",
+          "type" : "i32",
+          "required" : false,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : 0
+        },
+        {
+          "name" : "dev_pipe_id",
+          "type" : "i16",
+          "required" : false,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : 65535
+        }
+      ]
+    },
+    {
+      "name" : "p4_pd_lpf_spec_t",
+      "fields" : [
+        {
+          "name" : "gain_decay_separate_time_constant",
+          "type" : "bool",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "gain_time_constant",
+          "type" : "float",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "decay_time_constant",
+          "type" : "float",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "time_constant",
+          "type" : "float",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "output_scale_down_factor",
+          "type" : "i32",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "lpf_type",
+          "type" : "enum p4_pd_lpf_type_t",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        }
+      ]
+    },
+    {
+      "name" : "p4_pd_wred_spec_t",
+      "fields" : [
+        {
+          "name" : "time_constant",
+          "type" : "float",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "red_min_threshold",
+          "type" : "i32",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "red_max_threshold",
+          "type" : "i32",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "max_probability",
+          "type" : "float",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        }
+      ]
+    },
+    {
+      "name" : "p4_pd_packets_meter_spec_t",
+      "fields" : [
+        {
+          "name" : "cir_pps",
+          "type" : "i32",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "cburst_pkts",
+          "type" : "i32",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "pir_pps",
+          "type" : "i32",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "pburst_pkts",
+          "type" : "i32",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "meter_type",
+          "type" : "enum p4_pd_meter_type_t",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        }
+      ]
+    },
+    {
+      "name" : "p4_pd_counter_value_t",
+      "fields" : [
+        {
+          "name" : "packets",
+          "type" : "i64",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "bytes",
+          "type" : "i64",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        }
+      ]
+    },
+    {
+      "name" : "p4_pd_dev_parser_target_t",
+      "fields" : [
+        {
+          "name" : "device_id",
+          "type" : "i32",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "dev_pipe_id",
+          "type" : "i16",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "parser_id",
+          "type" : "i16",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        }
+      ]
+    },
+    {
+      "name" : "p4_pd_bytes_meter_spec_t",
+      "fields" : [
+        {
+          "name" : "cir_kbps",
+          "type" : "i32",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "cburst_kbits",
+          "type" : "i32",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "pir_kbps",
+          "type" : "i32",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "pburst_kbits",
+          "type" : "i32",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        },
+        {
+          "name" : "meter_type",
+          "type" : "enum p4_pd_meter_type_t",
+          "required" : true,
+          "pointer" : false,
+          "custom" : false,
+          "width" : null,
+          "default" : null
+        }
+      ]
+    }
+  ],
+  "enums" : [
+    {"name" : "${p4_pd_prefix}action_names_t"},
+    {"name" : "p4_pd_grp_mbr_state_e"},
+    {"name" : "p4_pd_idle_time_mode_e"},
+    {"name" : "p4_pd_meter_type_t"},
+    {"name" : "p4_pd_pvs_prop_type_t"},
+    {"name" : "p4_pd_lpf_type_t"}
+  ],
+  "typedefs" : [
+    {"name" : "p4_pd_status_t", "type" : "i32"},
+    {"name" : "p4_pd_sess_hdl_t", "type" : "i32"},
+    {"name" : "p4_pd_entry_hdl_t", "type" : "i32"},
+    {"name" : "p4_pd_mbr_hdl_t", "type" : "i32"},
+    {"name" : "p4_pd_grp_hdl_t", "type" : "i32"},
+    {"name" : "p4_pd_pvs_hdl_t", "type" : "i32"},
+    {"name" : "p4_pd_pvs_prop_args_t", "type" : "i32"}
+  ],
+  "function_prefix" : "${p4_pd_prefix}",
+  "tables" : [
+//:: length = len(table_info.items())
+//:: i = 0
+//:: for table, t_info in table_info.items():
+//::   comma = ","
+//::   if i != length - 1:
+//::     comma = ","
+//::   else:
+//::     comma = ""
+//::   #endif
+//::   i += 1
+    "${table}"${comma}
+//:: #endfor
+  ],
+  "action_profiles" : [
+//:: action_profiles = set()
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   if not action_table_hdl: continue
+//::   act_prof = t_info["action_profile"]
+//::   assert(act_prof is not None)
+//::   if act_prof in action_profiles: continue
+//::   action_profiles.add(act_prof)
+//:: #endfor
+//:: length = len(action_profiles)
+//:: i = 0
+//:: for act_prof in action_profiles:
+//::   comma = ","
+//::   if i != length - 1:
+//::     comma = ","
+//::   else:
+//::     comma = ""
+//::   #endif
+//::   i += 1
+    "${act_prof}"${comma}
+//:: #endfor
+  ],
+  "services" : [
+    {
+      "name" : "pd",
+      "functions" : [
+//:: # IDLE TIME CONFIG
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   if not t_info["timeout"]: continue
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-idle_tmo_enable"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_id", "byte", false, false, false, null, 0, false],
+            ["params", "p4_pd_idle_time_params_t", true, false, false, null, null, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-idle_tmo_disable"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_id", "byte", false, false, false, null, 0, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-idle_params_get"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_id", "byte", false, false, false, null, 0, false],
+            ["params", "p4_pd_idle_time_params_t", false, true, false, null, 0, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-set_ttl"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_id", "byte", false, false, false, null, 0, false],
+            ["entry_hdl", "p4_pd_entry_hdl_t", true, false, false, null, null, false],
+            ["ttl", "i32", true, false, false, null, null, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-get_ttl"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_id", "byte", false, false, false, null, 0, false],
+            ["entry_hdl", "p4_pd_entry_hdl_t", true, false, false, null, null, false],
+            ["ttl", "i32", false, true, false, null, 0, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   if len(t_info["match_fields"]) == 0:
+//::     continue
+//::   #endif
+//::   match_type = t_info["match_type"]
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"],
+//::              [p4_pd_prefix + table + "_match_spec_t", "*match_spec", "true", "null", "false"]]
+//::   if match_type == "ternary" or match_type == "range":
+//::     params += [["i32", "priority", "true", "null", "false"]]
+//::   #endif
+//::   params += [["p4_pd_entry_hdl_t", "*entry_hdl", "false", "0", "true"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-match_spec_to_entry_hdl"
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+//::
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   if len(t_info["match_fields"]) == 0:
+//::     continue
+//::   #endif
+//::   if not t_info["dynamic_match_key_masks"]:
+//::     continue
+//::   #endif
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["i32", "dev_id", "false", "0", "false"],
+//::             [p4_pd_prefix + table + "_match_key_mask_spec_t", "*match_key_mask_spec", "true", "null", "false"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-match_key_mask_spec_set"
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["i32", "dev_id", "false", "0", "false"],
+//::             [p4_pd_prefix + table + "_match_key_mask_spec_t", "*match_key_mask_spec", "false", "0", "true"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-match_key_mask_spec_get"
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["i32", "dev_id", "false", "0", "false"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-match_key_mask_spec_reset"
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+//:: def get_direct_parameter_specs(direct_resources, register_info, _get_type):
+//::   specs = []
+//::   for res_name, res_type, _ in direct_resources:
+//::     if res_type == "bytes_meter":
+//::       specs += [["p4_pd_bytes_meter_spec_t", "*" + res_name + "_spec", "true", "null", "false"]]
+//::     elif res_type == "packets_meter":
+//::       specs += [["p4_pd_packets_meter_spec_t", "*" + res_name + "_spec", "true", "null", "false"]]
+//::     elif res_type == "register":
+//::       specs += [[_get_type(register_info[res_name]["v_type"]), "*" + res_name + "_spec", "true", "null", "false"]]
+//::     elif res_type == "lpf":
+//::       specs += [["p4_pd_lpf_spec_t", "*" + res_name + "_spec", "true", "null", "false"]]
+//::     elif res_type == "wred":
+//::       specs += [["p4_pd_wred_spec_t", "*" + res_name + "_spec", "true", "null", "false"]]
+//::     #endif
+//::   #endfor
+//::   return specs
+//:: #enddef
+//::
+//::
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   if action_table_hdl: continue
+//::   match_type = t_info["match_type"]
+//::   if len(t_info["match_fields"]) == 0: continue
+//::   for action in t_info["actions"]:
+//::     a_info = action_info[action]
+//::     has_action_spec = len(a_info["param_names"]) > 0
+//::     params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::               ["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"],
+//::               [p4_pd_prefix + table + "_match_spec_t", "*match_spec", "true", "null", "false"]]
+//::     if match_type == "ternary" or match_type == "range":
+//::       params += [["i32", "priority", "true", "null", "false"]]
+//::     #endif
+//::     if has_action_spec:
+//::       params += [[p4_pd_prefix + action + "_action_spec_t", "*action_spec", "true", "null", "false"]]
+//::     #endif
+//::     if t_info["timeout"]:
+//::       params += [["i32", "ttl", "true", "null", "false"]]
+//::     #endif
+//::     params += get_direct_parameter_specs(table_direct_resources[table], register_info, vtype_to_cli_type)
+//::     params += [["p4_pd_entry_hdl_t", "*entry_hdl", "false", "0", "true"]]
+//::     param_str = ""
+//::     for param in params:
+//::       if param != params[0]:
+//::         param_str += ",\n"
+//::       #endif
+//::       if param[1][0] == '*':
+//::         param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::       else:
+//::         param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::       #endif
+//::     #endfor
+//::     name = p4_pd_prefix[:-1] + '-' + table + "-table_add_with-" + action
+//::     synonym = '["' + p4_pd_prefix[:-1] + '-' + table + '-add_entry-' + action + '"]'
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t",
+          ${synonym}
+        ],
+//::   #endfor
+//:: #endfor
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   if action_table_hdl: continue
+//::   match_type = t_info["match_type"]
+//::   if len(t_info["match_fields"]) == 0: continue
+//::   for idx in range(2):
+//::     name = p4_pd_prefix[:-1] + '-' + table + "-table_delete"
+//::     synonym = '["' + p4_pd_prefix[:-1] + '-' + table + '-del_entry"]'
+//::     params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"]]
+//::     if idx:
+//::       name += "-by_match_spec"
+//::       synonym = '["' + p4_pd_prefix[:-1] + '-' + table + '-del_entry-by_match_spec"]'
+//::       params += [["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"],
+//::                  [p4_pd_prefix + table + "_match_spec_t", "*match_spec", "true", "null", "false"]]
+//::       if match_type == "ternary" or match_type == "range":
+//::         params += [["i32", "priority", "true", "null", "false"]]
+//::       #endif
+//::     else:
+//::       params += [["byte", "dev_id", "false", "0", "false"],
+//::                  ["p4_pd_entry_hdl_t", "entry_hdl", "true", "null", "false"]]
+//::     #endif
+//::     param_str = ""
+//::     for param in params:
+//::       if param != params[0]:
+//::         param_str += ",\n"
+//::       #endif
+//::       if param[1][0] == '*':
+//::         param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::       else:
+//::         param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::       #endif
+//::     #endfor
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t",
+          ${synonym}
+        ],
+//::   #endfor
+//:: #endfor
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-table_get_default_entry_handle"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["pd_dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["entry_handle", "p4_pd_entry_hdl_t", false, true, false, null, 0, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   name = p4_pd_prefix[:-1] + '-' + table + '-table_get_default_entry'
+//::   common_params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::                    ["p4_pd_dev_target_t", "pd_dev_tgt", "false", "0", "false"],
+//::                    ["bool", "read_from_hw", "false", "false", "false"]]
+//::
+//::   if not action_table_hdl:
+//::     params = common_params + [[p4_pd_prefix + "action_specs_t", "*action_spec", "false", "0", "true"]]
+//::   else:
+//::     # with indirect action data
+//::     act_prof = t_info["action_profile"]
+//::     assert(act_prof is not None)
+//::     if select_hdl:
+//::       params = common_params + [["bool", "*has_mbr_hdl", "false", "0", "true"],
+//::                                 ["bool", "*has_grp_hdl", "false", "0", "true"],
+//::                                 ["p4_pd_grp_hdl_t", "*grp_hdl", "false", "0", "true"],
+//::                                 ["p4_pd_mbr_hdl_t", "*mbr_hdl", "false", "0", "true"]]
+//::     else:
+//::       params = common_params + [["p4_pd_mbr_hdl_t", "*mbr_hdl", "false", "0", "true"]]
+//::     #endif
+//::     bound_indirect_res = []
+//::     for indirect_res_name in t_info["ap_bind_indirect_res_to_match"]:
+//::       bound_indirect_res += [indirect_res_name]
+//::     #endfor
+//::     for r in bound_indirect_res:
+//::       params += [["int",  "*" + r + "_index", "false", "0", "true"]]
+//::     #endfor
+//::   #endif
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-table_reset_default_entry"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["pd_dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   if action_table_hdl: continue
+//::   match_type = t_info["match_type"]
+//::   if len(t_info["match_fields"]) == 0: continue
+//::   for action in t_info["actions"]:
+//::     a_info = action_info[action]
+//::     has_action_spec = len(a_info["param_names"]) > 0
+//::     for idx in range(2):
+//::       name = p4_pd_prefix[:-1] + '-' + table + "-table_modify_with-" + action
+//::       synonym = '["' + p4_pd_prefix[:-1] + '-' + table + '-mod_entry-' + action + '"]'
+//::       params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"]]
+//::       if idx:
+//::         name += "-by_match_spec"
+//::         synonym = '["' + p4_pd_prefix[:-1] + '-' + table + '-mod_entry-' + action + '-by_match_spec"]'
+//::         params += [["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"],
+//::                    [p4_pd_prefix + table + "_match_spec_t", "*match_spec", "true", "null", "false"]]
+//::         if match_type == "ternary" or match_type == "range":
+//::           params += [["i32", "priority", "true", "null", "false"]]
+//::         #endif
+//::       else:
+//::         params += [["byte", "dev_id", "false", "0", "false"],
+//::                    ["p4_pd_entry_hdl_t", "entry_hdl", "true", "null", "false"]]
+//::       #endif
+//::       if has_action_spec:
+//::         params += [[p4_pd_prefix + action + "_action_spec_t", "*action_spec", "true", "null", "false"]]
+//::       #endif
+//::       params += get_direct_parameter_specs(table_direct_resources[table], register_info, vtype_to_cli_type)
+//::       param_str = ""
+//::       for param in params:
+//::         if param != params[0]:
+//::           param_str += ",\n"
+//::         #endif
+//::         if param[1][0] == '*':
+//::           param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::         else:
+//::           param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::         #endif
+//::       #endfor
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t",
+          ${synonym}
+        ],
+//::     #endfor
+//::   #endfor
+//:: #endfor
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   if action_table_hdl: continue
+//::   for action in t_info["actions"]:
+//::     name = p4_pd_prefix[:-1] + "-" + table + "-set_default_action-" + action
+//::     a_info = action_info[action]
+//::     if not a_info['allowed_to_be_default_action'][table]: continue
+//::     has_action_spec = len(a_info["param_names"]) > 0
+//::     params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::               ["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"]]
+//::     if has_action_spec:
+//::       params += [[p4_pd_prefix + action + "_action_spec_t", "*action_spec", "true", "null", "false"]]
+//::     #endif
+//::     params += get_direct_parameter_specs(table_direct_resources[table], register_info, vtype_to_cli_type)
+//::     params += [["p4_pd_entry_hdl_t", "*entry_hdl", "false", "0", "true"]]
+//::     param_str = ""
+//::     for param in params:
+//::       if param != params[0]:
+//::         param_str += ",\n"
+//::       #endif
+//::       if param[1][0] == '*':
+//::         param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::       else:
+//::         param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::       #endif
+//::     #endfor
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   #endfor
+//:: #endfor
+//:: for meter, m_info in meter_info.items():
+//::   binding = m_info["binding"]
+//::   type_ = m_info["type_"]
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"]]
+//::   if binding[0] == "direct":
+//::     params += [["p4_pd_entry_hdl_t", "entry_hdl", "true", "null", "false"]]
+//::   else:
+//::     params += [["int", "index", "true", "null", "false"]]
+//::   #endif
+//::   if type_ == "packets":
+//::     params += [["p4_pd_packets_meter_spec_t", "*meter_spec", "true", "null", "false"]]
+//::   else:
+//::     params += [["p4_pd_bytes_meter_spec_t", "*meter_spec", "true", "null", "false"]]
+//::   #endif
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + "-meter_set-" + meter
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   name = p4_pd_prefix[:-1] + "-meter_bytecount_adjust_set-" + meter
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["bytecount", "i32", false, false, false, null, 0, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   name = p4_pd_prefix[:-1] + "-meter_bytecount_adjust_get-" + meter
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["bytecount", "i32", false, true, false, null, 0, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+//:: for meter, m_info in meter_info.items():
+//::   binding = m_info["binding"]
+//::   type_ = m_info["type_"]
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"]]
+//::   if binding[0] == "direct":
+//::     params += [["p4_pd_entry_hdl_t", "entry_hdl", "true", "null", "false"]]
+//::   else:
+//::     params += [["int", "index", "true", "null", "false"]]
+//::   #endif
+//::   if type_ == "packets":
+//::     params += [["p4_pd_packets_meter_spec_t", "*meter_spec", "false", "0", "true"]]
+//::   else:
+//::     params += [["p4_pd_bytes_meter_spec_t", "*meter_spec", "false", "0", "true"]]
+//::   #endif
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + "-meter_read-" + meter
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+//:: for lpf, l_info in lpf_info.items():
+//::   binding = l_info["binding"]
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"]]
+//::   if binding[0] == "direct":
+//::     params += [["p4_pd_entry_hdl_t", "entry_hdl", "true", "null", "false"]]
+//::   else:
+//::     params += [["int", "index", "true", "null", "false"]]
+//::   #endif
+//::   params += [["p4_pd_lpf_spec_t", "*lpf_spec", "true", "null", "false"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + "-lpf_set-" + lpf
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   binding = l_info["binding"]
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"]]
+//::   if binding[0] == "direct":
+//::     params += [["p4_pd_entry_hdl_t", "entry_hdl", "true", "null", "false"]]
+//::   else:
+//::     params += [["int", "index", "true", "null", "false"]]
+//::   #endif
+//::   params += [["p4_pd_lpf_spec_t", "*lpf_spec", "false", "0", "true"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + "-lpf_read-" + lpf
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+//:: for wred, w_info in wred_info.items():
+//::   binding = w_info["binding"]
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"]]
+//::   if binding[0] == "direct":
+//::     params += [["p4_pd_entry_hdl_t", "entry_hdl", "true", "null", "false"]]
+//::   else:
+//::     params += [["int", "index", "true", "null", "false"]]
+//::   #endif
+//::   params += [["p4_pd_wred_spec_t", "*wred_spec", "true", "null", "false"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + "-wred_set-" + wred
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   binding = w_info["binding"]
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"]]
+//::   if binding[0] == "direct":
+//::     params += [["p4_pd_entry_hdl_t", "entry_hdl", "true", "null", "false"]]
+//::   else:
+//::     params += [["int", "index", "true", "null", "false"]]
+//::   #endif
+//::   params += [["p4_pd_wred_spec_t", "*wred_spec", "false", "0", "true"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + "-wred_read-" + wred
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+//:: # COUNTERS
+//:: for counter, c_info in counter_info.items():
+//::   binding = c_info["binding"]
+//::   type_ = c_info["type_"]
+//::   if binding[0] == "direct":
+//::     name = p4_pd_prefix[:-1] + "-counter_read-" + counter
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["entry_hdl", "p4_pd_entry_hdl_t", true, false, false, null, null, false],
+            ["flags", "i32", false, false, false, null, 1, false],
+            ["counter_value", "p4_pd_counter_value_t", false, true, false, null, 0, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//::     name = p4_pd_prefix[:-1] + "-counter_write-" + counter
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["entry_hdl", "p4_pd_entry_hdl_t", true, false, false, null, null, false],
+            ["counter_value", "p4_pd_counter_value_t", true, false, false, null, null, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   else:
+//::     name = p4_pd_prefix[:-1] + "-counter_read-" + counter
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["index", "i32", true, false, false, null, null, false],
+            ["flags", "i32", false, false, false, null, 1, false],
+            ["counter_value", "p4_pd_counter_value_t", false, true, false, null, 0, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//::     name = p4_pd_prefix[:-1] + "-counter_write-" + counter
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["index", "i32", true, false, false, null, null, false],
+            ["counter_value", "p4_pd_counter_value_t", true, false, false, null, null, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   #endif
+//:: #endfor
+//:: # REGISTERS
+//:: for register, r_info in register_info.items():
+//::   binding = r_info["binding"]
+//::   table_type = r_info["table_type"]
+//::   if table_type == "fifo":
+//::     name = p4_pd_prefix[:-1] + "-register_occupancy-" + register
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["occupancy", "i32", false, true, false, null, 48, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//::     name = p4_pd_prefix[:-1] + "-register_reset-" + register
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//::     if r_info['direction'] == "in":
+//::       name = p4_pd_prefix[:-1] + "-register_dequeue-" + register
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["num_to_dequeue", "i32", true, false, false, null, null, false],
+            ["register_value", "${vtype_to_cli_type(r_info["v_type"])}", true, true, false, null, null, false],
+            ["num_dequeued", "i32", false, true, false, null, 48, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//::     #endif
+//::     if r_info['direction'] == "out":
+//::       name = p4_pd_prefix[:-1] + "-register_enqueue-" + register
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["num_to_enqueue", "i32", true, false, false, null, null, false],
+            ["register_value", "${vtype_to_cli_type(r_info["v_type"])}", true, true, false, null, null, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//::     #endif
+//::   else:
+//::     if binding[0] == "direct":
+//::       name = p4_pd_prefix[:-1] + "-register_read-" + register
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["entry_hdl", "p4_pd_entry_hdl_t", true, false, false, null, null, false],
+            ["flags", "i32", false, false, false, null, 1, false],
+            ["register_value", "${vtype_to_cli_type(r_info["v_type"])}", false, true, false, null, 0, true, {"arr_sz" : [ 5, "value_count" ]}],
+            ["value_count", "i32", false, true, false, null, 48, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//::       name = p4_pd_prefix[:-1] + "-register_write-" + register
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_id", "byte", false, false, false, null, 0, false],
+            ["entry_hdl", "p4_pd_entry_hdl_t", true, false, false, null, null, false],
+            ["register_value", "${vtype_to_cli_type(r_info["v_type"])}", true, true, false, null, null, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//::     else:
+//::       name = p4_pd_prefix[:-1] + "-register_write-" + register
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["index", "i32", true, false, false, null, null, false],
+            ["register_value", "${vtype_to_cli_type(r_info["v_type"])}", true, true, false, null, null, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//::       name = p4_pd_prefix[:-1] + "-register_read-" + register
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["index", "i32", true, false, false, null, null, false],
+            ["flags", "i32", false, false, false, null, 1, false],
+            ["register_value", "${vtype_to_cli_type(r_info["v_type"])}", false, true, false, null, 0, true, {"arr_sz" : [ 5, "value_count" ]}],
+            ["value_count", "i32", false, true, false, null, 48, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//::       name = p4_pd_prefix[:-1] + "-register_reset_all-" + register
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//::       name = p4_pd_prefix[:-1] + "-register_range_reset-" + register
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["index", "i32", true, false, false, null, null, false],
+            ["count", "i32", true, false, false, null, null, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//::       name = p4_pd_prefix[:-1] + "-register_write_all-" + register
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["register_value", "${vtype_to_cli_type(r_info["v_type"])}", true, true, false, null, null, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//::     #endif
+//::   #endif
+//:: #endfor
+//:: for table, t_info in table_info.items():
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-get_entry_count"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["count", "i32", false, true, false, null, 0, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+//:: action_profiles = set()
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   if not action_table_hdl: continue
+//::   act_prof = t_info["action_profile"]
+//::   assert(act_prof is not None)
+//::   if act_prof in action_profiles: continue
+//::   action_profiles.add(act_prof)
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-get_act_prof_entry_count"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["count", "i32", false, true, false, null, 0, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   if not select_hdl: continue
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-get_selector_group_count"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["count", "i32", false, true, false, null, 0, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   match_type = t_info["match_type"]
+//::   has_match_spec = len(t_info["match_fields"]) > 0
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-get_first_entry_handle"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["index", "int", false, true, false, null, 0, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-get_next_entry_handles"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["entry_handle", "p4_pd_entry_hdl_t", true, false, false, null, null, false],
+            ["n", "int", false, false, false, null, 1, false],
+            ["next_entry_handles", "int", false, true, false, null, 0, true, {"arr_sz" : [ 3, "n" ]}]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   name = p4_pd_prefix[:-1] + '-' + table + '-get_entry'
+//::   common_params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::                    ["byte", "dev_id", "false", "0", "false"],
+//::                    ["p4_pd_entry_hdl_t", "entry_hdl", "true", "null", "false"],
+//::                    ["bool", "read_from_hw", "false", "false", "false"]]
+//::   if has_match_spec:
+//::     common_params += [[p4_pd_prefix + table + "_match_spec_t", "*match_spec", "false", "0", "true"]]
+//::   #endif
+//::   if match_type == "ternary" or match_type == "range":
+//::     common_params += [["i32", "*priority", "false", "0", "true"]]
+//::   #endif
+//::
+//::   if not action_table_hdl:
+//::     params = common_params + [[p4_pd_prefix + "action_specs_t", "*action_spec", "false", "0", "true"]]
+//::   else:
+//::     # with indirect action data
+//::     act_prof = t_info["action_profile"]
+//::     assert(act_prof is not None)
+//::     if select_hdl:
+//::       params = common_params + [["bool", "*has_mbr_hdl", "false", "0", "true"],
+//::                                 ["bool", "*has_grp_hdl", "false", "0", "true"],
+//::                                 ["p4_pd_grp_hdl_t", "*grp_hdl", "false", "0", "true"],
+//::                                 ["p4_pd_mbr_hdl_t", "*mbr_hdl", "false", "0", "true"]]
+//::     else:
+//::       params = common_params + [["p4_pd_mbr_hdl_t", "*mbr_hdl", "false", "0", "true"]]
+//::     #endif
+//::     bound_indirect_res = []
+//::     for indirect_res_name in t_info["ap_bind_indirect_res_to_match"]:
+//::       bound_indirect_res += [indirect_res_name]
+//::     #endfor
+//::     for r in bound_indirect_res:
+//::       params += [["int",  "*" + r + "_index", "false", "0", "true"]]
+//::     #endfor
+//::   #endif
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+//:: # INDIRECT TABLE ACCESS
+//:: action_profiles = set()
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   if not action_table_hdl: continue
+//::   act_prof = t_info["action_profile"]
+//::   assert(act_prof is not None)
+//::   if act_prof in action_profiles: continue
+//::   action_profiles.add(act_prof)
+//::
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-get_member"
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["byte", "dev_id", "false", "0", "false"],
+//::             ["p4_pd_mbr_hdl_t", "mbr_hdl", "true", "null", "false"],
+//::             ["bool", "read_from_hw", "false", "false", "false"],
+//::             [p4_pd_prefix + "action_specs_t", "*action_spec", "false", "0", "true"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::     name = p4_pd_prefix[:-1] + '-' + act_prof + "-get_first_member"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["entry_handle", "int", false, true, false, null, 0, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//::     name = p4_pd_prefix[:-1] + '-' + act_prof + "-get_next_members"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["entry_handle", "p4_pd_entry_hdl_t", true, false, false, null, null, false],
+            ["n", "int", false, false, false, null, 1, false],
+            ["next_entry_handles", "int", false, true, false, null, 0, true, {"arr_sz" : [ 3, "n" ]}]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   if not select_hdl: continue
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-get_first_group"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["grp_hdl", "int", false, true, false, null, 0, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-get_next_groups"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_tgt", "p4_pd_dev_target_t", false, false, false, null, 0, false],
+            ["grp_hdl", "int", true, false, false, null, null, false],
+            ["n", "int", false, false, false, null, 1, false],
+            ["grp_hdls", "int", false, true, false, null, 0, true, {"arr_sz" : [ 3, "n" ]}]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-get_first_group_member"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_id", "byte", false, false, false, null, 0, false],
+            ["grp_hdl", "int", true, false, false, null, null, false],
+            ["mbr_hdl", "int", false, true, false, null, 0, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-get_next_group_members"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_id", "byte", false, false, false, null, 0, false],
+            ["grp_hdl", "int", true, false, false, null, null, false],
+            ["mbr_hdl", "int", true, false, false, null, null, false],
+            ["n", "int", false, false, false, null, 1, false],
+            ["mbr_hdls", "int", false, true, false, null, 0, true, {"arr_sz" : [ 4, "n" ]}]
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   if not action_table_hdl: continue
+//::   match_type = t_info["match_type"]
+//::   if len(t_info["match_fields"]) == 0: continue
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"],
+//::             [p4_pd_prefix + table + "_match_spec_t", "*match_spec", "true", "null", "false"]]
+//::   if match_type == "ternary" or match_type == "range":
+//::     params += [["i32", "priority", "true", "null", "false"]]
+//::   #endif
+//::   params_wo = params + [["p4_pd_mbr_hdl_t", "mbr_hdl", "true", "null", "false"]]
+//::   if t_info["timeout"]:
+//::     params_wo += [["i32", "ttl", "true", "null", "false"]]
+//::   #endif
+//::   params_wo += get_direct_parameter_specs(table_direct_resources[table], register_info, vtype_to_cli_type)
+//::   bound_indirect_res = []
+//::   for indirect_res_name in t_info["ap_bind_indirect_res_to_match"]:
+//::     bound_indirect_res += [indirect_res_name]
+//::   #endfor
+//::   for r in bound_indirect_res:
+//::     params_wo += [["i32", r + "_index", "true", "null", "false"]]
+//::   #endfor
+//::   params_wo += [["p4_pd_entry_hdl_t", "*entry_hdl", "false", "0", "true"]]
+//::   param_str = ""
+//::   for param in params_wo:
+//::     if param != params_wo[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-add_entry"
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   if not select_hdl: continue
+//::   params_w = params + [["p4_pd_grp_hdl_t", "grp_hdl", "true", "null", "false"]]
+//::   if t_info["timeout"]:
+//::     params_w += [["i32", "ttl", "true", "null", "false"]]
+//::   #endif
+//::   params_w += get_direct_parameter_specs(table_direct_resources[table], register_info, vtype_to_cli_type)
+//::   for r in bound_indirect_res:
+//::     params_w += [["i32", r + "_index", "true", "null", "false"]]
+//::   #endfor
+//::   params_w += [["p4_pd_entry_hdl_t", "*entry_hdl", "false", "0", "true"]]
+//::   param_str = ""
+//::   for param in params_w:
+//::     if param != params_w[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + '-' + table + "-add_entry_with_selector"
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   if not action_table_hdl: continue
+//::   act_prof = t_info["action_profile"]
+//::   assert(act_prof is not None)
+//::   match_type = t_info["match_type"]
+//::   if len(t_info["match_fields"]) == 0: continue
+//::   for idx in range(2):
+//::     name = p4_pd_prefix[:-1] + '-' + table + "-modify_entry"
+//::     params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"]]
+//::     if idx:
+//::       name += "_by_match_spec"
+//::       params += [["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"],
+//::                  [p4_pd_prefix + table + "_match_spec_t", "*match_spec", "true", "null", "false"]]
+//::       if match_type == "ternary" or match_type == "range":
+//::         params += [["i32", "priority", "true", "null", "false"]]
+//::       #endif
+//::     else:
+//::       params += [["byte", "dev_id", "false", "0", "false"],
+//::                  ["p4_pd_entry_hdl_t", "entry_hdl", "true", "null", "false"]]
+//::     #endif
+//::     params_wo = params + [["p4_pd_mbr_hdl_t", "mbr_hdl", "true", "null", "false"]]
+//::     params_wo += get_direct_parameter_specs(table_direct_resources[table], register_info, vtype_to_cli_type)
+//::     bound_indirect_res = []
+//::     for indirect_res_name in t_info["ap_bind_indirect_res_to_match"]:
+//::       bound_indirect_res += [indirect_res_name]
+//::     #endfor
+//::     for r in bound_indirect_res:
+//::       params_wo += [["i32", r + "_index", "true", "null", "false"]]
+//::     #endfor
+//::     param_str = ""
+//::     for param in params_wo:
+//::       if param != params_wo[0]:
+//::         param_str += ",\n"
+//::       #endif
+//::       if param[1][0] == '*':
+//::         param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::       else:
+//::         param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::       #endif
+//::     #endfor
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::     if not select_hdl: continue
+//::     params_w = params + [["p4_pd_grp_hdl_t", "grp_hdl", "true", "null", "false"]]
+//::     params_w += get_direct_parameter_specs(table_direct_resources[table], register_info, vtype_to_cli_type)
+//::     for r in bound_indirect_res:
+//::       params_w += [["i32", r + "_index", "true", "null", "false"]]
+//::     #endfor
+//::     param_str = ""
+//::     for param in params_w:
+//::       if param != params_w[0]:
+//::         param_str += ",\n"
+//::       #endif
+//::       if param[1][0] == '*':
+//::         param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::       else:
+//::         param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::       #endif
+//::     #endfor
+//::     name = p4_pd_prefix[:-1] + '-' + table + "-modify_entry_with_selector"
+//::     if idx:
+//::       name += "_by_match_spec"
+//::     #endif
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   #endfor
+//:: #endfor
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   if not action_table_hdl: continue
+//::   match_type = t_info["match_type"]
+//::   if len(t_info["match_fields"]) == 0: continue
+//::   for idx in range(2):
+//::     name = p4_pd_prefix[:-1] + '-' + table + "-table_delete"
+//::     params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"]]
+//::     if idx:
+//::       name += "_by_match_spec"
+//::       params += [["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"],
+//::                  [p4_pd_prefix + table + "_match_spec_t", "*match_spec", "true", "null", "false"]]
+//::       if match_type == "ternary" or match_type == "range":
+//::         params += [["i32", "priority", "true", "null", "false"]]
+//::       #endif
+//::     else:
+//::       params += [["byte", "dev_id", "false", "0", "false"],
+//::                  ["p4_pd_entry_hdl_t", "entry_hdl", "true", "null", "false"]]
+//::     #endif
+//::     param_str = ""
+//::     for param in params:
+//::       if param != params[0]:
+//::         param_str += ",\n"
+//::       #endif
+//::       if param[1][0] == '*':
+//::         param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::       else:
+//::         param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::       #endif
+//::     #endfor
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   #endfor
+//:: #endfor
+//:: pvs_names = []
+//:: for pvs in parser_value_set["ingress"]:
+//::   pvs_names.append(pvs["pvs_name"])
+//:: #endfor
+//:: for pvs in parser_value_set["egress"]:
+//::   if pvs["pvs_name"] not in pvs_names:
+//::     pvs_names.append(pvs["pvs_name"])
+//::   #endif
+//:: #endfor
+//:: for pvs_name in pvs_names:
+//::   name = p4_pd_prefix[:-1] + '-' + pvs_name + "-entry_add"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["prsr_tgt", "p4_pd_dev_parser_target_t", true, false, false, null, null, false],
+            ["parser_value", "i32", true, false, false, null, null, false],
+            ["parser_value_mask", "i32", true, false, false, null, null, false],
+            ["pvs_entry_handle", "p4_pd_pvs_hdl_t", false, true, false, null, 0, true]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   name = p4_pd_prefix[:-1] + '-' + pvs_name + "-entry_modify"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_id", "byte", false, false, false, null, 0, false],
+            ["pvs_entry_handle", "p4_pd_pvs_hdl_t", true, false, false, null, null, false],
+            ["parser_value", "i32", true, false, false, null, null, false],
+            ["parser_value_mask", "i32", true, false, false, null, null, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//::   name = p4_pd_prefix[:-1] + '-' + pvs_name + "-entry_delete"
+        [
+          "${name}",
+          [
+            ["sess_hdl", "p4_pd_sess_hdl_t", false, false, false, null, 1, false],
+            ["dev_id", "byte", false, false, false, null, 0, false],
+            ["pvs_entry_handle", "p4_pd_pvs_hdl_t", true, false, false, null, null, false]
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+//:: action_profiles = set()
+//:: for table, t_info in table_info.items():
+//::   table_hdl, action_table_hdl, select_hdl = table_handles[table]
+//::   if not action_table_hdl: continue
+//::   act_prof = t_info["action_profile"]
+//::   assert(act_prof is not None)
+//::   if act_prof in action_profiles: continue
+//::   action_profiles.add(act_prof)
+//::   for action in t_info["actions"]:
+//::     a_info = action_info[action]
+//::     has_action_spec = len(a_info["param_names"]) > 0
+//::     params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::               ["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"]]
+//::     if has_action_spec:
+//::       params += [[p4_pd_prefix + action + "_action_spec_t", "*action_spec", "true", "null", "false"]]
+//::     #endif
+//::     params += [["p4_pd_mbr_hdl_t", "*mbr_hdl", "false", "0", "true"]]
+//::     param_str = ""
+//::     for param in params:
+//::       if param != params[0]:
+//::         param_str += ",\n"
+//::       #endif
+//::       if param[1][0] == '*':
+//::         param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::       else:
+//::         param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::       #endif
+//::     #endfor
+//::     name = p4_pd_prefix[:-1] + '-' + act_prof + "-add_member_with-" + action
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::     params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::               ["byte", "dev_id", "false", "0", "false"],
+//::               ["p4_pd_mbr_hdl_t", "mbr_hdl", "true", "null", "false"]]
+//::     if has_action_spec:
+//::       params += [[p4_pd_prefix + action + "_action_spec_t", "*action_spec", "true", "null", "false"]]
+//::     #endif
+//::     param_str = ""
+//::     for param in params:
+//::       if param != params[0]:
+//::         param_str += ",\n"
+//::       #endif
+//::       if param[1][0] == '*':
+//::         param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::       else:
+//::         param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::       #endif
+//::     #endfor
+//::     name = p4_pd_prefix[:-1] + '-' + act_prof + "-modify_member_with-" + action
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   #endfor
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["byte", "dev_id", "false", "0", "false"],
+//::             ["p4_pd_mbr_hdl_t", "mbr_hdl", "true", "null", "false"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-del_member"
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   if not select_hdl: continue
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"],
+//::             ["i32", "max_grp_size", "true", "null", "false"],
+//::             ["p4_pd_grp_hdl_t", "*grp_hdl", "false", "0", "true"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-create_group"
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["byte", "dev_id", "false", "0", "false"],
+//::             ["p4_pd_grp_hdl_t", "grp_hdl", "true", "null", "false"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-del_group"
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["byte", "dev_id", "false", "0", "false"],
+//::             ["p4_pd_grp_hdl_t", "grp_hdl", "true", "null", "false"],
+//::             ["p4_pd_mbr_hdl_t", "mbr_hdl", "true", "null", "false"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-add_member_to_group"
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["byte", "dev_id", "false", "0", "false"],
+//::             ["p4_pd_grp_hdl_t", "grp_hdl", "true", "null", "false"],
+//::             ["p4_pd_mbr_hdl_t", "mbr_hdl", "true", "null", "false"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-del_member_from_group"
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["byte", "dev_id", "false", "0", "false"],
+//::             ["p4_pd_grp_hdl_t", "grp_hdl", "true", "null", "false"],
+//::             ["p4_pd_mbr_hdl_t", "mbr_hdl", "true", "null", "false"],
+//::             ["enum p4_pd_grp_mbr_state_e", "mbr_state", "true", "null", "false"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-group_member_state_set"
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["byte", "dev_id", "false", "0", "false"],
+//::             ["p4_pd_grp_hdl_t", "grp_hdl", "true", "null", "false"],
+//::             ["p4_pd_mbr_hdl_t", "mbr_hdl", "true", "null", "false"],
+//::             ["enum p4_pd_grp_mbr_state_e", "*mbr_state", "false", "0", "true"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-group_member_state_get"
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"],
+//::             ["p4_pd_grp_hdl_t", "grp_hdl", "true", "null", "false"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-set_dynamic_action_selection_fallback_member"
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//::   params = [["p4_pd_sess_hdl_t", "sess_hdl", "false", "1", "false"],
+//::             ["p4_pd_dev_target_t", "dev_tgt", "false", "0", "false"]]
+//::   param_str = ""
+//::   for param in params:
+//::     if param != params[0]:
+//::       param_str += ",\n"
+//::     #endif
+//::     if param[1][0] == '*':
+//::       param_str += '            ["{}", "{}", {}, true, false, null, {}, {}]'.format(param[1][1:], param[0], param[2], param[3], param[4])
+//::     else:
+//::       param_str += '            ["{}", "{}", {}, false, false, null, {}, {}]'.format(param[1], param[0], param[2], param[3], param[4])
+//::     #endif
+//::   #endfor
+//::   name = p4_pd_prefix[:-1] + '-' + act_prof + "-reset_dynamic_action_selection_fallback_member"
+        [
+          "${name}",
+          [
+${param_str}
+          ],
+          "p4_pd_status_t"
+        ],
+//:: #endfor
+        [
+          "${p4_pd_prefix[:-1] + '-'}init",
+          [],
+          null
+        ]
+      ]
+    }
+  ]
+}

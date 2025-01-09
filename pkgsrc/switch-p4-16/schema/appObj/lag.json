@@ -1,0 +1,251 @@
+[
+    {
+        "lag" : {
+            "description": "Create a lag group",
+            "class" : "user",
+            "attributes" : {
+            "device" : {
+                "is_mandatory": true,
+                "is_create_only" : true,
+                "description": "Device handle",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "device"
+                    ]
+                }
+            },
+            "learning" : {
+                "description": "Enable/disable learning at lag level",
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "lag_members" : {
+                "is_read_only" : true ,
+                "description": "List of LAG members",
+                "type_info" : {
+                "list" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [ "lag_member" ]
+                    },
+                    "type" : "SWITCH_TYPE_LIST"
+                }
+            },
+            "designated_lag_member" : {
+                "is_read_only" : true ,
+                "description": "Designated lag member (Proxy resolution of Lag in Control Plane)",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_UINT64"
+                }
+            },
+            "is_peer_link" : {
+                "is_create_only" : true,
+                "description": "Configure this LAG as an mlag peer link",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_BOOL",
+                    "default_value" : false
+                }
+            },
+            "peer_link_handle" : {
+                "description": "MLAG peer link handle",
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "lag"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "max_group_size" : {
+                "is_read_only" : true,
+                "description": "Maximum size of the LAG",
+                "type_info" : {
+                    "default_value" : 64,
+                    "type" : "SWITCH_TYPE_UINT16"
+                }
+            },
+            "color" : {
+                "description": "Packet color",
+                "type_info" : {
+                    "default_value": "GREEN",
+                    "enum" : [
+                        "GREEN",
+                        "YELLOW",
+                        "RED"
+                    ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                }
+            },
+            "tc" : {
+                "description": "Traffic class",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_UINT8"
+                }
+            },
+            "egress_qos_group" : {
+                "description": "Egress QOS group",
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "qos_map_egress"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "bind_mode" : {
+                "description": "LAG group bind mode",
+                "type_info" : {
+                    "enum" : [
+                        "PORT",
+                        "PORT_VLAN"
+                    ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                }
+            },
+            "ingress_acl_handle" : {
+                "description": "Ingress ACL group or table handle",
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "acl_group", "acl_table"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "egress_acl_handle" : {
+                "description": "Egress ACL group or table handle",
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "acl_group", "acl_table"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "ingress_port_lag_label" : {
+                "description": "Ingress port lag label. Only valid when ingress_acl_handle is empty",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_UINT32"
+                }
+            },
+            "egress_port_lag_label" : {
+                "description": "Egress port lag label. Only valid when egress_acl_handle is empty",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_UINT32"
+                }
+            },
+            "ifindex" : {
+                "is_internal" : true,
+                "type_info" : {
+                    "allowed_object_types" : [ "ifindex" ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "port_vlan_id" : {
+                "description": "Untag ingress frames classify to this VLAN. The port's tagging_mode can now be set by the vlan_member/TAGGING_MODE attribute",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_UINT16"
+                }
+            },
+            "rif_handle" : {
+                "is_internal" : true,
+                "comment" : "holds a reverse ref",
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "rif"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "yid" : {
+                "is_internal" : true,
+                "type_info" : {
+                    "default_value" : 0,
+                    "type" : "SWITCH_TYPE_UINT16"
+                }
+            },
+            "ingress_port_group_index" : {
+                "description": "Ingress port group index",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_UINT32"
+                }
+            }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "IN_OCTETS",
+                            "IN_PACKETS",
+                            "OUT_OCTETS",
+                            "OUT_PACKETS"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "lag_helper"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "lag_member" : {
+            "class" : "user",
+            "description": "Create a lag group member",
+            "attributes" : {
+            "device" : {
+                "is_mandatory": true,
+                "is_create_only" : true,
+                "description": "Device handle",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "device"
+                    ]
+                }
+            },
+            "lag_handle" : {
+                "is_mandatory": true,
+                "is_create_only" : true,
+                "description": "LAG handle to add this member to",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "lag"
+                    ]
+                }
+            },
+            "port_handle" : {
+                "is_mandatory": true,
+                "is_create_only" : true,
+                "description": "Port handle to create the LAG member",
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "port"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "ingress_disable" : {
+                "description": "Disable lag member ingress. Unsupported",
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "egress_disable" : {
+                "description": "Disable lag member egress",
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            }
+            },
+            "key_groups": [["device", "lag_handle", "port_handle"]]
+        }
+    }
+]

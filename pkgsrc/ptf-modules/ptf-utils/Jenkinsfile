@@ -1,0 +1,149 @@
+PTF_TESTS_PART_1 = [
+  "bri_with_pdfixed_thrift",
+  "meters",
+  "multicast_test",
+  "tna_32q_2pipe",
+  "tna_custom_hash",
+  "tna_lpm_match",
+  "tna_ternary_match",
+  "entry_read_from_hw",
+  "tna_exact_match",
+]
+
+PTF_TESTS_PART_2 = [
+  "selector_resize",
+]
+
+def executePTFTests(String test_group) {
+  switch(test_group) {
+    case "part1":
+      runPTFTests(PTF_TESTS_PART_1)
+      break
+    case "part2":
+      runPTFTests(PTF_TESTS_PART_2)
+      break
+    default:
+      break
+  }
+}
+
+def buildPTFTests(List<String> testList) {
+  def testString = testList.join(" ")
+  sh '''
+    set -x
+    num_cores=8
+    mkdir  -p /p4factory/submodules
+    mkdir -p build && cd build
+    cmake .. -DSTANDALONE=ON -DCMAKE_MODULE_PATH=/p4factory/cmake -DCMAKE_INSTALL_PREFIX=/p4factory/install
+    make -j${num_cores} && make -j${num_cores} install
+    cd ..
+    rm -rf build
+    git clone \
+      git@github.com:intel-restricted/networking.switching.barefoot.p4-tests.git \
+      --single-branch \
+      --branch ${TARGET_BRANCH} \
+      /p4factory/submodules/p4-tests \
+      -j ${num_cores}
+    cd /p4factory/submodules/p4-tests
+    git submodule update -j ${num_cores} --init --recursive
+    mkdir build && cd build
+    cmake .. \
+      -DSTANDALONE=on \
+      -DCMAKE_MODULE_PATH=/p4factory/cmake \
+      -DTOFINO=ON \
+      -DCMAKE_INSTALL_PREFIX=/p4factory/install/
+    make -j${num_cores} '''+testString+'''
+    make -j${num_cores} install
+  '''
+}
+
+def runPTFTests(List<String> testList) {
+  buildPTFTests(testList)
+  for (test in testList){
+    try {
+      sh '''
+        set -x
+        mkdir -p xml_out
+        cd /p4factory
+        default_negative_timeout="0.05"
+        default_timeout="3"
+        ./install/bin/veth_setup.sh
+        WORKSPACE=/p4factory ./tools/run_tofino_model.sh \
+          -q \
+          -p '''+test+''' \
+          --arch=tofino \
+          >tofino-model.log \
+          2>tofino-model_err.log &
+        WORKSPACE=/p4factory ./tools/run_switchd.sh \
+          -p '''+test+''' \
+          --arch=tofino \
+          -- \
+          --background \
+          >tofino-driver.log &
+        WORKSPACE=/p4factory ./tools/run_p4_tests.sh \
+          --gen-xml-output \
+          -p '''+test+''' \
+          --arch=tofino \
+          --default-negative-timeout $default_negative_timeout \
+          --default-timeout $default_timeout
+        pkill tofino-model
+        pkill bf_switchd
+      '''
+    } finally {
+      junit 'xml_out/**/*.xml'
+      sh '''
+        rm -rf xml_out
+      '''
+    }
+  }
+}
+
+node('master') {
+  stage('Determine Target Branch') {
+    if (env.CHANGE_TARGET == "master" || env.CHANGE_TARGET ==~ /rel_\d_\d+/) {
+      target_branch = "${env.CHANGE_TARGET}"
+    } else {
+      target_branch = "master"
+    }
+  }
+}
+
+pipeline {
+  agent { label 'github-pr-builder' }
+  environment {
+    TARGET_BRANCH = "${target_branch}"
+  }
+  options {
+    timestamps()
+    timeout(time: 150, unit: 'MINUTES')
+  }
+  stages {
+    stage("Test") {
+      matrix {
+        axes {
+          axis {
+            name "TESTS_GROUP"
+            values "part1", "part2"
+          }
+        }
+        stages {
+          stage("Testing"){
+            agent {
+              docker {
+                label 'github-pr-builder'
+                image "artifacts-bxdsw.sc.intel.com:9444/p4factory:${TARGET_BRANCH}"
+                registryUrl 'https://artifacts-bxdsw.sc.intel.com:9444'
+                registryCredentialsId 'nexus-docker-creds'
+                args '--privileged --user=root'
+                alwaysPull true
+              }
+            }
+            steps {
+              executePTFTests("${TESTS_GROUP}")
+            }
+          }
+        }
+      }
+    }
+  }
+}

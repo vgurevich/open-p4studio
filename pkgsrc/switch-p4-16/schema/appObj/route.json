@@ -1,0 +1,114 @@
+[
+    {
+        "route" : {
+            "class" : "user",
+            "description" : "Create a route object",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "vrf_handle" : {
+                    "description": "VRF handle",
+                    "is_mandatory" : true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "vrf"
+                        ]
+                    }
+                },
+                "ip_prefix" : {
+                    "description": "IP prefix",
+                    "is_mandatory" : true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_PREFIX"
+                    }
+                },
+                "nexthop_handle" : {
+                    "description": "Destination nexthop handle",
+                    "is_mandatory" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nexthop", "ecmp", "rif"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "packet_action" : {
+                    "description": "Packet action",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value": "FORWARD",
+                        "enum" : [
+                            "DROP",
+                            "FORWARD",
+                            "TRAP",
+                            "DENY",
+                            "TRANSIT"
+                        ]
+                    }
+                },
+                "rif_handle" : {
+                    "description": "RIF handle, if the route points to a RIF",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "rif"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "is_host_myip" : {
+                    "description": "Specify if myip",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "is_route_sourced" : {
+                    "description": "Indicates if route is sourced by FIB",
+                    "type_info" : {
+                       "default_value": false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "is_nbr_sourced" : {
+                    "description": "Indicates if route sourced from neighbor",
+                    "type_info" : {
+                       "default_value": false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "neighbor_handle" : {
+                    "description": "Neighbor handle in case @is_nbr_sourced",
+                    "type_info" : {
+                       "allowed_object_types" : [
+                          "neighbor"
+                       ],
+                       "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                 },
+                 "fib_label" : {
+                    "description": "fib label",
+                    "type_info" : {
+                       "type" : "SWITCH_TYPE_UINT32"
+                    }
+                 }
+            },
+            "key_groups" : [
+               [ "device", "vrf_handle", "ip_prefix", "is_nbr_sourced" ]
+            ],
+            "cli_info" : {
+                "table_view_attrs": ["vrf_handle", "nexthop_handle", "ip_prefix"]
+            }
+        }
+    }
+]

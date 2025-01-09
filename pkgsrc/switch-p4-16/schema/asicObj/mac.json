@@ -1,0 +1,80 @@
+[
+    {
+        "dmac" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "mac_entry"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "mac_entry",
+                    "attribute" : "destination_handle"
+                }
+            ]
+        }
+    },
+    {
+        "smac" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "mac_entry"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "mac_entry",
+                    "attribute" : "destination_handle"
+                }
+            ]
+        }
+    },
+    {
+        "learning" : {
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "device"
+                    ]
+                }
+            },
+            "status" : {
+                "type_info" : {
+                    "list" : {
+                    "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    },
+                    "type" : "SWITCH_TYPE_LIST"
+                }
+            }
+            },
+            "class" : "auto"
+        }
+    }
+]

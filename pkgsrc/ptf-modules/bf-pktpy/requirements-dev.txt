@@ -1,0 +1,12 @@
+-r requirements.txt
+
+flake8
+pytest~=3.6.4
+more-itertools==8.0.0
+pytest-mock==2.0.0
+wheel
+scapy
+scapy_helper
+coverage
+pytest-profiling
+black~=21.12b0

@@ -1,0 +1,18 @@
+{
+   "vlan_member" : {
+      "profile" : "Per profile info",
+      "switch" : "vlan_member",
+      "attributes" : {
+         "vlan_id" : "vlan_handle",
+         "vlan_tagging_mode" : "tagging_mode"
+      },
+      "enums" : {
+         "vlan_tagging_mode" : {
+             "UNTAGGED" : "UNTAGGED",
+             "TAGGED" : "TAGGED",
+             "PRIORITY_TAGGED" : "PRIORITY_TAGGED"
+         }
+      },
+      "global_enums" : ["vlan_tagging_mode"]
+   }
+}

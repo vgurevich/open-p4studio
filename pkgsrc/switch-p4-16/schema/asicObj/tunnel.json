@@ -1,0 +1,609 @@
+[
+    {
+        "vrf_to_vni_mapping" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "tunnel_mapper_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "vni_to_bd_mapping" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "tunnel_mapper_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "bd_to_vni_mapping" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "tunnel_mapper_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "tunnel_rmac" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "rmac"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "outer_ecmp_selector_group" : {
+            "class" : "auto",
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "ecmp"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "mbr_cnt" : {
+                "type_info" : {
+                   "default_value" : 0,
+                   "type" : "SWITCH_TYPE_UINT16"
+                }
+            },
+            "status" : {
+                "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                }
+            }
+            }
+        }
+    },
+    {
+        "outer_ecmp_membership" : {
+            "class" : "auto",
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "ecmp_member"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            }
+            }
+        }
+    },
+    {
+        "outer_ecmp_selector" : {
+            "class" : "auto",
+            "comment" : "one entry per port, for when port is not part of lag",
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "nexthop_resolution"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            }
+            }
+        }
+    },
+    {
+        "outer_fib_table" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "tunnel_dest_ip"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "outer_nexthop_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nexthop", "ecmp"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "tunnel_src_addr_rewrite" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "tunnel"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "tunnel",
+                    "attribute" : "ttl"
+                },
+                {
+                    "object" : "tunnel",
+                    "attribute" : "dscp_val"
+                }
+            ]
+        }
+    },
+    {
+        "tunnel_dst_addr_rewrite" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "tunnel_dest_ip"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "tunnel_replication_resolution" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "outer_fib_table"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "flood_nexthop_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nexthop"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "rid" : {
+                   "is_internal" : true,
+                   "comment" : "Store allocated RID value",
+                   "type_info" : {
+                      "type" : "SWITCH_TYPE_UINT16"
+                   }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "ecmp",
+                    "attribute" : "ecmp_members"
+                },
+                {
+                    "object" : "outer_fib_table",
+                    "attribute" : "outer_nexthop_handle"
+                }
+            ]
+        }
+    },
+    {
+        "ipv4_src_vtep" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "tunnel_term"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "ipv4_dst_vtep" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "tunnel_term"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "tunnel",
+                    "attribute" : "decap_ttl_mode"
+                },
+                {
+                    "object" : "tunnel",
+                    "attribute" : "decap_ecn_mode"
+                },
+                {
+                    "object" : "tunnel",
+                    "attribute" : "decap_qos_mode"
+                }
+            ]
+        }
+    },
+    {
+        "ipv6_src_vtep" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "tunnel_term"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "ipv6_dst_vtep" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "tunnel_term"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "tunnel",
+                    "attribute" : "decap_ttl_mode"
+                },
+                {
+                    "object" : "tunnel",
+                    "attribute" : "decap_ecn_mode"
+                },
+                {
+                    "object" : "tunnel",
+                    "attribute" : "decap_qos_mode"
+                }
+            ]
+        }
+    },
+    {
+        "egress_vrf_mapping" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "vrf"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "tunnel_mapper_entry_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "tunnel_mapper_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "vrf",
+                    "attribute" : "src_mac"
+                }
+            ]
+        }
+    },
+    {
+        "tunnel_encap_ttl" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_LIST",
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        }
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "tunnel"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "tunnel",
+                    "attribute" : "encap_ttl_mode"
+                },
+                {
+                    "object" : "tunnel",
+                    "attribute" : "ttl"
+                }
+            ]
+        }
+    },
+    {
+        "tunnel_encap_dscp" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_LIST",
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        }
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "tunnel"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "tunnel",
+                    "attribute" : "encap_qos_mode"
+                }
+            ]
+        }
+    },
+    {
+        "my_sid" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                   "type_info" : {
+                      "list" : {
+                       "default_value" : false,
+                         "type" : "SWITCH_TYPE_BOOL"
+                      },
+                      "type" : "SWITCH_TYPE_LIST"
+                   }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "my_sid_entry"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : 0,
+                                "type" : "SWITCH_TYPE_UINT64"
+                            },
+                            "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "my_sid_entry",
+                    "attribute" : "endpoint_flavor"
+                },
+                {
+                    "object" : "my_sid_entry",
+                    "attribute" : "endpoint_type"
+                },
+                {
+                    "object" : "my_sid_entry",
+                    "attribute" : "nexthop_handle"
+                },
+                {
+                    "object" : "my_sid_entry",
+                    "attribute" : "packet_action"
+                },
+                {
+                    "object" : "my_sid_entry",
+                    "attribute" : "vrf_handle"
+                }
+            ]
+        }
+    },
+    {
+        "sid_rewrite" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nexthop_resolution"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "segmentroute_sidlist",
+                    "attribute" : "segment_list"
+                }
+            ]
+        }
+    },
+    {
+        "sidlist_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "segmentroute_sidlist"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "stored_cntrs" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    }
+]

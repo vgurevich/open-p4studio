@@ -1,0 +1,104 @@
+[
+    {
+        "ecmp_selector_group" : {
+            "class" : "auto",
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "ecmp"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "mbr_cnt" : {
+                "type_info" : {
+                   "default_value" : 0,
+                   "type" : "SWITCH_TYPE_UINT16"
+                }
+            },
+            "status" : {
+                "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                }
+            }
+            }
+        }
+    },
+    {
+        "ecmp_membership" : {
+            "class" : "auto",
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "ecmp_member"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            }
+            },
+            "dependencies" : [
+                {
+                    "object" : "ecmp_member",
+                    "attribute" : "enable"
+                },
+                {
+                    "object" : "ecmp_member",
+                    "attribute" : "nexthop_handle"
+                },
+                {
+                    "object" : "ecmp_member",
+                    "attribute" : "sequence_id"
+                }
+            ]
+        }
+    },
+    {
+        "ecmp_selector" : {
+            "class" : "auto",
+            "comment" : "one entry per port, for when port is not part of lag",
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "ecmp_member"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "status" : {
+                "type_info" : {
+                    "list" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    },
+                    "type" : "SWITCH_TYPE_LIST"
+                }
+            }
+            }
+        }
+    },
+    {
+        "ecmp_table" : {
+            "class" : "auto",
+            "attributes" : {
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "ecmp"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            },
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            }
+            }
+        }
+    }
+]

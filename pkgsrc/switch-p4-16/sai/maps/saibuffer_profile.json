@@ -1,0 +1,12 @@
+{
+   "buffer_profile" : {
+      "profile" : "Per profile info",
+      "switch" : "buffer_profile",
+      "attributes" : {
+          "pool_id" : "buffer_pool_handle",
+          "buffer_size" : "buffer_size",
+          "xoff_th" : "xoff_threshold",
+          "xon_th" : "xon_threshold"
+      }
+   }
+}

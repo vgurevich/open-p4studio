@@ -1,0 +1,9 @@
+{
+   "stp" : {
+      "profile" : "Per profile info",
+      "switch" : "stp",
+      "attributes" : {
+         "port_list" : "stp_ports"
+      }
+   }
+}

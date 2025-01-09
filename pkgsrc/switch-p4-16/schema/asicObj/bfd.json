@@ -1,0 +1,170 @@
+[
+  {
+    "bfd_rx_session": {
+      "class": "auto",
+      "attributes": {
+        "status": {
+          "type_info": {
+            "list": {
+              "default_value": false,
+              "type": "SWITCH_TYPE_BOOL"
+            },
+            "type": "SWITCH_TYPE_LIST"
+          }
+        },
+        "parent_handle": {
+          "type_info": {
+            "allowed_object_types": [
+              "bfd_session"
+            ],
+            "type": "SWITCH_TYPE_OBJECT_ID"
+          }
+        }
+      },
+      "dependencies": [
+      ]
+    },
+    "bfd_tx_session": {
+      "class": "auto",
+      "attributes": {
+        "status": {
+          "type_info": {
+            "default_value": false,
+            "type": "SWITCH_TYPE_BOOL"
+          }
+        },
+        "parent_handle": {
+          "type_info": {
+            "allowed_object_types": [
+              "bfd_session"
+            ],
+            "type": "SWITCH_TYPE_OBJECT_ID"
+          }
+        }
+      },
+      "dependencies": [
+        {
+          "object": "bfd_session",
+          "attribute": "multiplier"
+        },
+        {
+          "object": "bfd_session",
+          "attribute": "remote_multiplier"
+        }
+      ]
+    },
+    "bfd_tx_timer": {
+      "class": "auto",
+      "attributes": {
+        "status": {
+          "type_info": {
+            "default_value": false,
+            "type": "SWITCH_TYPE_BOOL"
+          }
+        },
+        "parent_handle": {
+          "type_info": {
+            "allowed_object_types": [
+              "bfd_session"
+            ],
+            "type": "SWITCH_TYPE_OBJECT_ID"
+          }
+        }
+      },
+      "dependencies": [
+        {
+          "object": "bfd_session",
+          "attribute": "min_rx"
+        },
+        {
+          "object": "bfd_session",
+          "attribute": "min_tx"
+        },
+        {
+          "object": "bfd_session",
+          "attribute": "multiplier"
+        }
+      ]
+    },
+    "bfd_rx_timer": {
+      "class": "auto",
+      "attributes": {
+        "status": {
+          "type_info": {
+            "list": {
+              "default_value": false,
+              "type": "SWITCH_TYPE_BOOL"
+            },
+            "type": "SWITCH_TYPE_LIST"
+          }
+        },
+        "parent_handle": {
+          "type_info": {
+            "allowed_object_types": [
+              "bfd_session"
+            ],
+            "type": "SWITCH_TYPE_OBJECT_ID"
+          }
+        }
+      },
+      "dependencies": []
+    },
+    "bfd_offload_trap": {
+      "class": "auto",
+      "attributes": {
+        "status": {
+          "type_info": {
+            "default_value": false,
+            "type": "SWITCH_TYPE_BOOL"
+          }
+        },
+        "parent_handle": {
+          "type_info": {
+            "allowed_object_types": [
+              "device"
+            ],
+            "type": "SWITCH_TYPE_OBJECT_ID"
+          }
+        }
+      },
+      "dependencies": []
+    },
+    "bfd_pkt_action": {
+      "class": "auto",
+      "attributes": {
+        "status": {
+          "type_info": {
+            "default_value": false,
+            "type": "SWITCH_TYPE_BOOL"
+          }
+        },
+        "parent_handle": {
+          "type_info": {
+            "allowed_object_types": [
+              "device"
+            ],
+            "type": "SWITCH_TYPE_OBJECT_ID"
+          }
+        }
+      },
+      "dependencies": []
+    },
+    "bfd_session_helper": {
+        "class": "auto",
+        "attributes": {
+           "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "parent_handle": {
+                "type_info": {
+                    "allowed_object_types": [ "bfd_session" ],
+                    "type": "SWITCH_TYPE_OBJECT_ID"
+                }
+            }
+        }
+    }
+  }
+]

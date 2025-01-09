@@ -1,0 +1,13 @@
+global-options: {}
+features:
+  bf-diags: false
+  drivers:
+    bfrt: true
+    grpc: false
+    thrift-driver: true
+  switch:
+    profile: x2_tofino
+    sai: true
+    thrift-switch: true
+architectures:
+  - tofino

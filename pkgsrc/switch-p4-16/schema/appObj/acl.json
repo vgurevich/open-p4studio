@@ -1,0 +1,1393 @@
+[
+    {
+        "acl_counter" : {
+            "class" : "user",
+            "description" : "User object to retreive counters from an ACL entry. First create this counter object and then assign as counter_handle attribute in acl_entry object",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "acl_range" : {
+            "class" : "user",
+            "description" : "Create an ACL range object",
+            "attributes" : {
+                "type" : {
+                    "description" : "ACL range type",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info": {
+                    "enum" : [
+                        "SRC_PORT",
+                        "DST_PORT"
+                        ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "range" : {
+                    "description" : "Min and Max range",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info": {
+                        "type" : "SWITCH_TYPE_RANGE"
+                    }
+                },
+                "label" : {
+                    "description" : "Acl range label. The switch implementation allocates a label for all ranges. This label is eventually used to match in the ACL tables",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "acl_entry" : {
+            "class" : "user",
+            "description" : "Create and ACL entry object. ACL entry fields are provided as Value/Mask pair",
+            "attributes" : {
+                "device" : {
+                    "description" : "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "table_handle" : {
+                    "description" : "ACL table handle. Add this ACL entry into this table",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "acl_table"
+                            ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "admin_state" : {
+                    "description": "Adminstrative state",
+                    "type_info" : {
+                        "default_value" : true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "eth_type" : {
+                    "description" : "EtherType value. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "eth_type_mask" : {
+                    "description" : "EtherType mask. This is a match field",
+                    "is_create_only" : true,
+                        "type_info" : {
+                            "type" : "SWITCH_TYPE_UINT16"
+                        }
+                },
+                "src_mac" : {
+                    "description" : "Source MAC address. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "src_mac_mask" : {
+                    "description" : "Source MAC address mask. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "dst_mac" : {
+                    "description" : "Destination MAC address. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "dst_mac_mask" : {
+                    "description" : "Destination MAC address mask. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "src_ip" : {
+                    "description" : "Source IP address. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "src_ipv6_word3" : {
+                    "description" : "Source IPv6 address [127:96] word3. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "src_ipv6_word2" : {
+                    "description" : "Source IPv6 address [95:64] word2. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "src_ip_mask" : {
+                    "description" : "Source IP address mask. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "src_ipv6_mask_word3" : {
+                    "description" : "Source IPv6 address [127:96] mask word3. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "src_ipv6_mask_word2" : {
+                    "description" : "Source IPv6 address [95:64] mask word2. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "dst_ip" : {
+                    "description" : "Destination IP address. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "dst_ipv6_word3" : {
+                    "description" : "Destination IPv6 address [127:96] word3. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "dst_ipv6_word2" : {
+                    "description" : "Destination IPv6 address [95:64] word2. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "dst_ip_mask" : {
+                    "description" : "Destination IP address mask. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "dst_ipv6_mask_word3" : {
+                    "description" : "Destination IPv6 address [127:96] mask word3. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "dst_ipv6_mask_word2" : {
+                    "description" : "Destination IPv6 address [95:64] mask word2. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "ip_proto" : {
+                    "description" : "IP protocol This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "ip_proto_mask" : {
+                    "description" : "IP protocol mask. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "ip_frag" : {
+                    "description" : "IP fragmentation flags. This is a match field",
+                    "is_create_only" : true,
+                    "type_info": {
+                        "default_value": "IGNORE",
+                        "enum" : [
+                            "ANY",
+                            "NON_FRAG",
+                            "NON_FRAG_OR_HEAD",
+                            "HEAD",
+                            "NON_HEAD",
+                            "IGNORE"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "ip_dscp" : {
+                    "description" : "DSCP. This is a match field.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "ip_dscp_mask" : {
+                    "description" : "DSCP mask. This is a match field.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "ip_ecn" : {
+                    "description" : "ECN. This is a match field.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "ip_ecn_mask" : {
+                    "description" : "ECN mask. This is a match field.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "tcp_flags" : {
+                    "description" : "TCP flags. This is a match field.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "tcp_flags_mask" : {
+                    "description" : "TCP flags mask. This is a match field.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "l4_src_port" : {
+                    "description" : "L4 source port. This is a match field.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "l4_src_port_mask" : {
+                    "description" : "L4 source port mask. This is a match field.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "l4_dst_port" : {
+                    "description" : "L4 destination port. This is a match field.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "l4_dst_port_mask" : {
+                    "description" : "L4 destination port mask. This is a match field.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "icmp_type" : {
+                    "description" : "ICMP type. This is a match field. If l4_src_port attribute is non-zero, this attribute is discarded.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "icmp_type_mask" : {
+                    "description" : "ICMP type mask. This is a match field. If l4_src_port_mask attribute is non-zero, this attribute is discarded.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "icmp_code" : {
+                    "description" : "ICMP code. This is a match field. If l4_src_port attribute is non-zero, this attribute is discarded.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "icmp_code_mask" : {
+                    "description" : "ICMP code mask. This is a match field. If l4_src_port_mask attribute is non-zero, this attribute is discarded.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "icmpv6_type" : {
+                    "description" : "ICMPv6 type. This is a match field. If l4_src_port attribute is non-zero, this attribute is discarded.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "icmpv6_type_mask" : {
+                    "description" : "ICMPv6 type mask. This is a match field. If l4_src_port_mask attribute is non-zero, this attribute is discarded.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "icmpv6_code" : {
+                    "description" : "ICMPv6 code. This is a match field. If l4_src_port attribute is non-zero, this attribute is discarded.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "icmpv6_code_mask" : {
+                    "description" : "ICMPv6 code mask. This is a match field.If l4_src_port_mask attribute is non-zero, this attribute is discarded.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "arp_tpa" : {
+                    "description" : "ARP target protocol address. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "arp_tpa_mask" : {
+                    "description" : "ARP target protocol address mask. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "src_port_range_id" : {
+                    "description" : "Source port range handle. This is a match field.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "acl_range"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "dst_port_range_id" : {
+                    "description" : "Destination port range handle. This is a match field.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "acl_range"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "port_lag_label" : {
+                    "description" : "Port or LAG label match field. This field is automatically set internally if bind_point_type is either PORT/LAG",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "port_lag_label_mask" : {
+                    "description" : "Port or LAG label mask match field. This field is automatically set internally if acl_table bind_point_type is either PORT/LAG",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "bd_label" : {
+                    "description" : "BD label match field. This field is automatically set internally if acl_table bind_point_type is either VLAN/RIF",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "bd_label_mask" : {
+                    "description" : "BD label mask match field. This field is automatically set internally if acl_table bind_point_type is either VLAN/RIF",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "internal_vlan" : {
+                    "description" : "Internal Vlan/BD match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "internal_vlan_mask" : {
+                    "description" : "Internal Vlan/BD mask match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "outer_vlan_pri" : {
+                    "description" : "outer Vlan priority match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "outer_vlan_pri_mask" : {
+                    "description" : "outer Vlan priority mask match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "outer_vlan_cfi" : {
+                    "description" : "outer Vlan cfi match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "outer_vlan_cfi_mask" : {
+                    "description" : "outer Vlan cfi mask match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "fib_label" : {
+                    "description" : "fib lable match field.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "fib_label_mask" : {
+                    "description" : "fib lable mask match field.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "tunnel_vni" : {
+                    "description" : "Tunnel VNI. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "tunnel_vni_mask" : {
+                    "description" : "Tunnel VNI mask. This is a match field",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "port_vlan_miss" : {
+                    "description" : "Port VLAN lookup miss. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "port_vlan_miss_mask" : {
+                    "description" : "Mask for Port VLAN lookup miss. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "acl_deny" : {
+                    "description" : "ACL action deny. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "acl_deny_mask" : {
+                    "description" : "ACL action deny mask. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "racl_deny" : {
+                    "description" : "Routing ACL deny action. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "racl_deny_mask" : {
+                    "description" : "Routing ACL deny mask. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "rmac_hit" : {
+                    "description" : "Router MAC hit. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "rmac_hit_mask" : {
+                    "description" : "Mask for Router MAC hit. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "myip" : {
+                    "description" : "Router (my) IP address. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "myip_mask" : {
+                    "description" : "Router (my) IP address mask. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "same_if_check" : {
+                    "description" : "Same interface check. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "same_if_check_mask" : {
+                    "description" : "Same interface check mask. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "same_bd_check" : {
+                    "description" : "Same BD check mask. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "same_bd_check_mask" : {
+                    "description" : "Same BD check mask. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "stp_state" : {
+                    "description" : "Spanning tree state. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                    },
+                "stp_state_mask" : {
+                    "description" : "Spanning tree state mask. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "ipv4_unicast_enable" : {
+                    "description" : "IPV4 unicast enable. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "ipv4_unicast_enable_mask" : {
+                    "description" : "IPV4 unicast enable mask. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "ipv6_unicast_enable" : {
+                    "description" : "IPV6 unicast enable. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "ipv6_unicast_enable_mask" : {
+                    "description" : "IPV6 unicast enable mask. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "sample_packet" : {
+                    "description" : "Enable copy to CPU for sflow packets. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "sample_packet_mask" : {
+                    "description" : "Enable copy to CPU for sflow packets mask. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "l3_mtu" : {
+                    "description" : "L3 MTU value. Applicable only for acl_table attr bind_point_type SWITCH in egress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "l3_mtu_mask" : {
+                    "description" : "L3 MTU mask. Applicable only for acl_table attr bind_point_type SWITCH in egress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "ttl" : {
+                    "description" : "TTL. Applicable only for acl_table attr bind_point_type SWITCH in egress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "ttl_mask" : {
+                    "description" : "TTL mask. Applicable only for acl_table attr bind_point_type SWITCH in egress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "pkt_type" : {
+                    "description" : "Packet type (B/U/M). This is a match field. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "pkt_type_mask" : {
+                    "description" : "Packet type (B/U/M) mask. This is a match field. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "arp_opcode" : {
+                    "description" : "ARP opcode type. This is a match field. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "arp_opcode_mask" : {
+                    "description" : "ARP opcode type mask. This is a match field. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "ingress_port_lag_handle" : {
+                    "description" : "Ingress port or LAG handle. This is a match field. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "port", "lag"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "routed" : {
+                    "description" : "Enable/Disable routed check. This is a match field. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "routed_mask" : {
+                    "description" : "Enable/Disable routed check mask. This is a match field. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "nat_miss_type" : {
+                    "description" : "Match on NAT miss type. This is a match field. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "type_info": {
+                        "default": 0,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "nat_miss_type_mask" : {
+                    "description" : "Match on NAT miss type mask. This is a match field. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "type_info": {
+                        "default": 0,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "user_metadata" : {
+                    "description" : "Match on user metadata passed on from previous ACL stage. This is a match field in egress direction only. Valid only when ACL_USER_META_ENABLE feature is enabled in the P4 profile.",
+                    "is_create_only" : true,
+                    "type_info": {
+                        "default": 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "user_metadata_mask" : {
+                    "description" : "Match on user metadata mask. This is a match field in egress direction only. Valid only when ACL_USER_META_ENABLE feature is enabled in the P4 profile.",
+                    "is_create_only" : true,
+                    "type_info": {
+                        "default": 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "in_out_ports_group_label" : {
+                    "is_read_only" : true,
+                    "description": "port group label internally generated when in_ports or out_ports are present.",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "in_out_ports_group_label_mask" : {
+                    "is_read_only" : true,
+                    "description": "port group label mask internally generated when in_ports or out_ports are present.",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "in_ports" : {
+                    "description": "Port handle list. This field is used to in-ports acl feature.",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_OBJECT_ID",
+                            "allowed_object_types" : [ "port" ]
+                            },
+                            "type" : "SWITCH_TYPE_LIST"
+                        }
+                },
+                "out_ports" : {
+                    "description": "Port handle list. This field is used to out-ports acl feature.",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_OBJECT_ID",
+                            "allowed_object_types" : [ "port" ]
+                            },
+                            "type" : "SWITCH_TYPE_LIST"
+                        }
+                },
+                "priority" : {
+                    "description" : "ACL entry priority. This is a match field.",
+                    "is_create_only" : true,
+                    "type_info": {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "egress_port_lag_handle" : {
+                    "description" : "Egress port or LAG handle. This is a match field. Applicable only for acl_table attr bind_point_type SWITCH in egress direction.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "port", "lag"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "action_counter_handle" : {
+                    "description" : "ACL counter handle. This is not a match or action field. It is used to bind an ACL counter object to this entry to retreive counters. This is to satisfy SAI object model. An application can directly query this object for counters",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "acl_counter"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "action_ingress_mirror_handle" : {
+                    "description" : "Set mirror session handle. This is an action parameter field. set_mirror action is used for the entry's action if this attribute is valid.",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "mirror"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "action_egress_mirror_handle" : {
+                    "description" : "Set mirror session handle. This is an action parameter field. set_mirror action is used for the entry's action if this attribute is valid.",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "mirror"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "action_set_vrf_handle" : {
+                    "description" : "Set VRF field. This is an action parameter field. set_vrf action is used for the entry's action if this attribute is valid. It is valid when acl_table type is PREINGRESS",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "vrf"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "action_set_tc" : {
+                    "description" : "Set TC field. This is an action parameter field. set_tc action is used for the entry's action if this attribute is non-zero",
+                    "type_info": {
+                        "default": 0,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "action_set_outer_vlan_pri" : {
+                    "description" : "Set PCP field. This is an action parameter field. set_outer_pri action is used for the entry's action if this attribute is non-zero",
+                    "type_info": {
+                        "default_value": 127,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "action_set_dscp" : {
+                    "description" : "Set DSCP field. This is an action parameter field. set_dscp action is used for the entry's action if this attribute is non-zero",
+                    "type_info": {
+                        "default_value": 127,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "action_set_ecn" : {
+                    "description" : "Set ECN field. This is an action parameter field.",
+                    "type_info": {
+                        "default_value": 127,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "action_set_color" : {
+                    "description" : "Packet color. This is an action parameter field. set_color action is used for the entry's action if this attribute is valid",
+                    "type_info": {
+                        "enum" : [
+                        "GREEN",
+                        "YELLOW",
+                        "RED"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "queue_id" : {
+                    "description" : "Set CPU rx queue id field. Valid for REDIRECT and COPY to CPU actions. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "type_info": {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "pfc_wd_qid" : {
+                    "description" : "PFC Watchdog queue index",
+                    "type_info": {
+                        "default": 255,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "action_report_type" : {
+                    "description" : "Set DTEL Report type (Drop/Queue/Flow). This field is valid only for DTE_REPORT and IFA_CLONE_AND_DTEL_REPORT dtel action types only.",
+                    "type_info": {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "action_report_all_packets" : {
+                    "description" : "DTEL report all packets and ignore suppression. This field is valid only for DTE_REPORT and IFA_CLONE_AND_DTEL_REPORT dtel action types only.",
+                    "type_info": {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "action_disable_nat" : {
+                    "description" : "Disable Destination/Source/Flow NAT lookup. This field is valid for ACL_NO_NAT action only.",
+                    "type_info": {
+                        "default": 0,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "sample_session_handle" : {
+                    "description": "Sample session handle. This field is valid for IFA_CLONE and IFA_CLONE_AND_DTEL_REPORT actions only.",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "sflow_session"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "cpu_redirect_reason_code" : {
+                    "description" : "Set CPU trap reason for action type REDIRECT_TO_CPU/COPY_TO_CPU. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "type_info": {
+                        "default": 0,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "drop_reason" : {
+                    "description" : "Set drop reason code for action type DROP. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction",
+                    "type_info": {
+                        "default": 0,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "set_user_metadata" : {
+                    "description" : "Set user metadata. This information is carried to subsequent ACL stages. This is an action paramter field. This field is valid for PERMIT, REDIRECT_TO_CPU and COPY_TO_CPU packet actions at INGRESS only.",
+                    "type_info": {
+                        "default": 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "action_hostif_user_defined_trap_handle" : {
+                    "description" : "Set hostif user defined trap ID field. This is an action parameter field. This field is valid for PERMIT, REDIRECT_TO_CPU and COPY_TO_CPU packet actions only.",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "hostif_user_defined_trap"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "action_meter_handle" : {
+                    "description" : "Meter handle. This is an action parameter field. This field is valid for PERMIT, REDIRECT_TO_CPU and COPY_TO_CPU packet actions only.",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "meter"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "packet_action" : {
+                    "description" : "ACL entry packet action. All of the below actions are not supported for all ACL table types. Some actions are only supported in specific P4 profiles.",
+                    "type_info": {
+                        "enum" : [
+                            "PERMIT",
+                            "DROP",
+                            "DENY",
+                            "REDIRECT_TO_CPU",
+                            "COPY_TO_CPU",
+                            "REDIRECT_SFLOW_TO_CPU",
+                            "COPY_SFLOW_TO_CPU",
+                            "TRANSIT"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "redirect" : {
+                    "description" : "Object handle for REDIRECT action. This is an action parameter field. Based on the object type, redirect_port or redirect_nexthop is used for the entry's action.",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "nexthop", "ecmp", "port", "lag"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "dtel_action_type" : {
+                    "description" : "DTEL ACL entry action list. All of the below actions are not supported for all ACL table types. Some actions are only supported in specific P4 profiles.",
+                    "type_info": {
+                        "enum" : [
+                            "NOP",
+                            "DTEL_REPORT",
+                            "IFA_CLONE",
+                            "IFA_CLONE_AND_DTEL_REPORT"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "inner_ipv4_entry_handle" : {
+                    "description" : "Inner IPv4 entry handle",
+                    "type_info" : {
+                        "is_internal" : true,
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types": [
+                            "acl_entry"
+                        ]
+                    }
+                },
+                "inner_ipv6_entry_handle" : {
+                    "description" : "Inner IPv6 entry handle",
+                    "type_info" : {
+                        "is_internal" : true,
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types": [
+                            "acl_entry"
+                        ]
+                    }
+                },
+                "etype_label" : {
+                    "description" : "Ether type compressed match field",
+                    "is_internal" : true,
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "macaddr_label" : {
+                    "description" : "Macaddr compressed match field",
+                    "is_internal" : true,
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "ingress_rif" : {
+                    "description" : "Ingress RIF handle. This is a match field. Applicable only for acl_table attr bind_point_type SWITCH in ingress direction.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "rif"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "egress_rif" : {
+                    "description" : "Egress RIF handle. This is a match field. Applicable only for acl_table attr bind_point_type SWITCH in egress direction.",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "rif"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "PKTS",
+                            "BYTES"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "acl_factory"
+                        ]
+                    }
+                }
+            },
+            "membership" : [
+                {
+                    "object" : "acl_table",
+                    "attribute" : "acl_entry_handles"
+                }
+            ],
+            "cli_info" : {
+                "table_view_attrs": ["priority", "packet_action", "table_handle", "src_ip", "dst_ip", "l4_src_port", "l4_dst_port", "port_lag_label", "bd_label", "internal_vlan"]
+            }
+        }
+    },
+    {
+        "acl_table" : {
+            "class" : "user",
+            "description" : "Create an ACL table object",
+            "attributes" : {
+                "device" : {
+                    "description" : "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description" : "ACL table type",
+                    "is_mandatory": true,
+                    "type_info": {
+                    "enum" : [
+                        "NONE",
+                        "MAC",
+                        "PREINGRESS",
+                        "IP",
+                        "IPV4",
+                        "INNER_DTEL_IPV4",
+                        "INNER_DTEL_IPV6",
+                        "IPV6",
+                        "IPV4_RACL",
+                        "IPV6_RACL",
+                        "MAC_QOS",
+                        "IP_QOS",
+                        "SYSTEM",
+                        "EGRESS_SYSTEM",
+                        "IP_MIRROR",
+                        "IPV4_MIRROR",
+                        "IPV6_MIRROR",
+                        "ECN",
+                        "DTEL",
+                        "PFCWD",
+                        "IPV4_ETRAP",
+                        "IPV6_ETRAP",
+                        "TOS_MIRROR"
+                        ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "bind_point_type" : {
+                    "description" : "ACL table bind point",
+                    "is_create_only" : true,
+                    "type_info": {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_ENUM",
+                            "enum" : [
+                                "PORT",
+                                "LAG",
+                                "VLAN",
+                                "RIF",
+                                "SWITCH"
+                            ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+		"bind_point_attach" : {
+                    "description" : "Becomes true once acl_table is attached to any bind_point (port/lag/vlan/rif/switch), otherwise false",
+                    "type_info": {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "direction" : {
+                    "description" : "ACL table direction",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info": {
+                    "enum" : [
+                        "NONE",
+                        "INGRESS",
+                        "EGRESS",
+                        "PREINGRESS"
+                        ],
+                    "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "acl_label" : {
+                    "is_read_only" : true,
+                    "description": "ACL label internally generated when bind point is not NONE. This will be used to set the port or bd label when this object is passed as a acl_handle to port, lag, vlan, rif",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "acl_label_mask" : {
+                    "is_read_only" : true,
+                    "description": "ACL label mask internally generated when bind point is not NONE. This will be used to set the port or bd label mask when this object is passed as a acl_handle to port, lag, vlan, rif",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "acl_groups" : {
+                    "is_read_only" : true ,
+                    "description": "List of ACL groups this table is attached to",
+                    "type_info" : {
+                    "list" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "acl_group" ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "acl_entry_handles" : {
+                    "description" : "List of ACL entries in this table",
+                    "is_read_only" : true ,
+                    "type_info" : {
+                    "list" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "acl_entry"
+                        ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "acl_type_port_group_value" : {
+                    "is_read_only" : true,
+                    "description": "Port group value based on the MAC/V4/V6/Mirror position",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "port_group_index" : {
+                    "is_read_only" : true,
+                    "description": "Port group index derived based on the list of ACL table bind points",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "use_port_group_index" : {
+                    "is_read_only" : true,
+                    "description" : "Use port_group_index or port_lag_index in the rules",
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "port_lag_handle" : {
+                    "is_read_only" : true,
+                    "description" : "Port/Lag handle when ACL table is bound to only one Port/Lag",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                              "port",
+                              "lag"
+                        ]
+                    }
+                },
+                "inner_ipv4_table_handle" : {
+                    "description" : "Inner IPv4 table handle",
+                    "type_info" : {
+                        "is_internal" : true,
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types": [
+                            "acl_table"
+                        ]
+                    }
+                },
+                "inner_ipv6_table_handle" : {
+                    "description" : "Inner IPv6 table handle",
+                    "type_info" : {
+                        "is_internal" : true,
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types": [
+                            "acl_table"
+                        ]
+                    }
+                }
+            }
+       }
+  },
+  {
+        "acl_group" : {
+            "class" : "user",
+            "description" : "Create and ACL group object",
+            "attributes" : {
+                "device" : {
+                    "description" : "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "bind_point_type" : {
+                    "description" : "ACL group bind point type",
+                    "is_create_only" : true,
+                    "type_info": {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_ENUM",
+                            "enum" : [
+                                "PORT",
+                                "LAG",
+                                "VLAN",
+                                "RIF",
+                                "SWITCH"
+                            ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+		"bind_point_attach" : {
+                    "description" : "Becomes true once acl_group is attached to any bind_point (port/lag/vlan/rif/switch), otherwise false",
+                    "type_info": {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "acl_label" : {
+                    "is_read_only" : true,
+                    "description": "ACL label internally generated when bind point is not NONE. This will be used to set the port or bd label when this object is passed as a acl_handle to port, lag, vlan, rif",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "acl_label_mask" : {
+                    "is_read_only" : true,
+                    "description": "ACL label mask internally generated when bind point is not NONE. This will be used to set the port or bd label when this object is passed as a acl_handle to port, lag, vlan, rif",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "acl_group_members" : {
+                    "is_read_only" : true ,
+                    "description": "List of ACL group members",
+                    "type_info" : {
+                    "list" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "acl_group_member" ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+  },
+  {
+        "acl_group_member" : {
+            "class" : "user",
+            "description" : "Create and ACL group member",
+            "attributes" : {
+                "device" : {
+                    "description" : "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "device"
+                        ]
+                    }
+                },
+                "acl_table_handle" : {
+                    "description" : "ACL table hande",
+                    "is_mandatory" : true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "acl_table"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "acl_group_handle" : {
+                    "description" : "ACL group handle",
+                    "is_mandatory" : true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "acl_group"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "membership" : [
+                {
+                    "object" : "acl_group",
+                    "attribute" : "acl_group_members"
+                }
+            ]
+        }
+    }
+]

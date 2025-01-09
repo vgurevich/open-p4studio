@@ -1,0 +1,283 @@
+[
+    {
+        "dtel" : {
+            "description": "Create a DTEL object. Only a single object of this type is allowed per switch instance.",
+            "class" : "user",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "drop_report" : {
+                    "description": "Enable drop reports (MOD)",
+                    "type_info" : {
+                        "default_value": false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "queue_report" : {
+                    "description": "Enable queue reports",
+                    "type_info" : {
+                        "default_value": false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "flow_report" : {
+                    "description": "Enable flow reports",
+                    "type_info" : {
+                        "default_value": false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "tail_drop_report" : {
+                    "description": "Enable tail drop DROP reports",
+                    "type_info" : {
+                        "default_value": true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "ifa_report" : {
+                    "description": "Enable IFA reports",
+                    "type_info" : {
+                        "default_value": false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "ifa_dscp" : {
+                    "description": "DSCP value identifying IFA clone packets",
+                    "type_info" : {
+                        "default_value": 7,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "ifa_dscp_mask" : {
+                    "description": "Mask for DSCP value id'ing IFA clone packets",
+                    "type_info" : {
+                        "default_value": 63,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "dtel_drop_control" : {
+            "description": "Create a DTEL object",
+            "class" : "user",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "enable" : {
+                    "description": "Enable drop reports for this drop reason",
+                    "type_info" : {
+                        "default_value": false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "drop_reason" : {
+                    "description": "Drop Reason to Generate Report for.",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "dtel_handle" : {
+                  "description": "Dtel config handle",
+                  "type_info": {
+                          "allowed_object_types" : [
+                                  "dtel"
+                          ],
+                          "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+            	}
+            }
+        }
+    },
+    {
+        "report_session" : {
+            "description": "Create DTEL Report Session for telemetery report packets",
+            "class" : "user",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "udp_dst_port" : {
+                    "description": "DTEL Report UDP Destination Port",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "udp_src_port_entropy" : {
+                    "description": "DTEL Report UDP Source Port carries entropy?",
+                    "type_info" : {
+                        "default_value": false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "udp_src_port" : {
+                    "description": "DTEL Report UDP Source Port",
+                    "type_info" : {
+                        "default_value": 0,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "vrf_handle" : {
+                    "description": "DTEL Report Virtual Router ID",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "vrf"
+                        ]
+                    }
+                },
+                "truncate_size" : {
+                    "description": "DTEL Report truncate size",
+                    "type_info" : {
+                        "default_value": 0,
+                        "type" : "SWITCH_TYPE_UINT16"
+                        }
+                },
+                "src_ip" : {
+                    "description": "DTEL Report SRC IP Address",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                        }
+                },
+                "dst_ip_list" : {
+                    "description": "DTEL Report Destination IP's",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_IP_ADDRESS"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                     }
+                },
+                "ttl" : {
+                    "description": "DTEL report TTL value",
+                    "type_info" : {
+                        "default_value": 64,
+                        "type" : "SWITCH_TYPE_UINT8"
+                     }
+                },
+                "tos" : {
+                    "description": "DTEL report TOS value",
+                    "type_info" : {
+                        "default_value": 0,
+                        "type" : "SWITCH_TYPE_UINT8"
+                     }
+                },
+                "mirror_session_id" : {
+                    "is_internal" : true,
+                    "description": "Internal Mirror Sessions corresponding to this DTEL session",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_UINT16"
+                         },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "dod_mirror_session_id" : {
+                    "is_internal" : true,
+                    "description": "Internal Mirror Session for DoD reports",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "rif_handles" : {
+                    "is_internal" : true,
+                    "description": "Internal rifs created over recirc ports for dtel",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_OBJECT_ID",
+                            "allowed_object_types" : [ "rif" ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "queue_report" : {
+            "class" : "user",
+            "description" : "Queue/DOD report DTEL config",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "device" ]
+                    }
+                },
+                "queue_handle" : {
+                    "description": "Queue handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [ "queue" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "depth_threshold" : {
+                    "description": "Queue depth threshold in byte",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "latency_threshold" : {
+                    "description": "Queue latency threshold in nanosecond",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "breach_quota" : {
+                    "description": "Maximum number of continuous reports after threshold breach",
+                    "type_info" : {
+                        "default_value": 1000,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "tail_drop" : {
+                    "description": "Send report for packets dropped by the queue",
+                    "type_info" : {
+                        "default_value": false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    }
+]

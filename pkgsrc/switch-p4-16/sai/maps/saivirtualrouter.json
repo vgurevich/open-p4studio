@@ -1,0 +1,49 @@
+{
+   "virtual_router" : {
+      "profile" : "Per profile info",
+      "switch" : "vrf",
+      "attributes" : {
+         "admin_v4_state" : "ipv4_unicast",
+         "admin_v6_state" : "ipv6_unicast",
+         "src_mac_address" : "src_mac",
+         "violation_ttl1_packet_action": "ttl_action",
+         "violation_ip_options_packet_action": "ip_options_action",
+         "unknown_l3_multicast_packet_action": "unknown_l3_mcast_action"
+      },
+      "enums" : {
+          "violation_ttl1_packet_action" : {
+              "DROP": "DROP",
+              "FORWARD": "FORWARD",
+              "DENY": "DENY",
+              "TRANSIT": "TRANSIT",
+              "TRAP": "TRAP",
+              "COPY": "COPY",
+              "LOG": "LOG"
+          },
+          "violation_ip_options_packet_action" : {
+              "DROP": "DROP",
+              "FORWARD": "FORWARD",
+              "DENY": "DENY",
+              "TRANSIT": "TRANSIT",
+              "TRAP": "TRAP",
+              "COPY": "COPY",
+              "LOG": "LOG"
+          },
+          "unknown_l3_multicast_packet_action" : {
+              "DROP": "DROP",
+              "DENY": "DENY",
+              "TRAP": "TRAP"
+          }
+      },
+      "global_enums" : [
+         "violation_ttl1_packet_action",
+         "violation_ip_options_packet_action",
+         "unknown_l3_multicast_packet_action"
+      ],
+      "enum_to_global" : {
+         "violation_ttl1_packet_action": "packet_action",
+         "violation_ip_options_packet_action": "packet_action",
+         "unknown_l3_multicast_packet_action": "packet_action"
+      }
+   }
+}

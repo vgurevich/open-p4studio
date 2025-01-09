@@ -1,0 +1,1031 @@
+{
+  "idlPrefix" : "switch_", "version" : "0", "objects" : {
+    "test_object_1" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+            "test_attribute_bool" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_BOOL"
+               }
+            },
+            "test_attribute_uint8" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT8"
+               }
+            },
+            "test_attribute_uint16" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT16"
+               }
+            },
+            "test_attribute_uint32" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT32"
+               }
+            },
+            "test_attribute_int64" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_INT64"
+               }
+            },
+            "test_attribute_uint64" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT64"
+               }
+            },
+            "test_attribute_string" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_STRING"
+               }
+            },
+            "test_attribute_oid" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_1",
+                     "test_object_2"
+                  ]
+               }
+            },
+            "test_attribute_mac" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_MAC"
+               }
+            },
+            "test_attribute_ip4" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_IP_ADDRESS"
+               }
+            },
+            "test_attribute_ip6" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_IP_ADDRESS"
+               }
+            },
+            "test_attribute_ip4_prefix" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_IP_PREFIX"
+               }
+            },
+            "test_attribute_ip6_prefix" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_IP_PREFIX"
+               }
+            },
+            "test_attribute_enum" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_ENUM",
+                  "enum" : [
+                     "enum_val_1",
+                     "enum_val_2"
+                  ]
+               }
+            },
+            "test_attribute_range" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_RANGE"
+               }
+            }
+         },
+         "key_groups" : [["test_attribute_uint64"]]
+      },
+      "test_object_2" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+            "test_attribute_enum" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_ENUM",
+                  "enum" : [
+                     "enum_val_1",
+                     "enum_val_2"
+                  ]
+               }
+            },
+            "test_attribute_mac" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_MAC"
+               }
+            },
+            "test_attribute_internal" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT64"
+               },
+               "internal" : true
+            }
+         }
+      },
+      "test_object_enum" : {
+         "description" : "test object for enum attrs",
+         "class" : "user",
+         "attributes" : {
+            "test_attribute_enum" : {
+               "description" : "enum attribute",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_ENUM",
+                  "enum" : [
+                     "enum_val_1",
+                     "enum_val_2",
+                     "enum_val_3"
+                  ]
+               }
+            }
+         }
+      },
+      "test_object_list" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+            "test_attribute_list_oid" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "test_object_1",
+                        "test_object_2"
+                     ]
+                  }
+               }
+            },
+            "test_attribute_list_bool" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_BOOL"
+                  }
+               }
+            },
+            "test_attribute_list_uint8" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_UINT8"
+                  }
+               }
+            },
+            "test_attribute_list_uint16" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_UINT16"
+                  }
+               }
+            },
+            "test_attribute_list_uint32" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_UINT32"
+                  }
+               }
+            },
+            "test_attribute_list_uint64" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_UINT64"
+                  }
+               }
+            },
+            "test_attribute_list_int64" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_INT64"
+                  }
+               }
+            },
+            "test_attribute_list_string" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_STRING"
+                  }
+               }
+            },
+            "test_attribute_list_mac" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_MAC"
+                  }
+               }
+            },
+            "test_attribute_list_ip" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_IP_ADDRESS"
+                  }
+               }
+            },
+            "test_attribute_list_ip4" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_IP_ADDRESS"
+                  }
+               }
+            },
+            "test_attribute_list_ip6" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_IP_ADDRESS"
+                  }
+               }
+            },
+            "test_attribute_list_prefix" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_IP_PREFIX"
+                  }
+               }
+            },
+            "test_attribute_list_ip4_prefix" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_IP_PREFIX"
+                  }
+               }
+            },
+            "test_attribute_list_ip6_prefix" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_IP_PREFIX"
+                  }
+               }
+            },
+            "test_attribute_list_enum" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_ENUM",
+                     "enum" : [
+                        "enum_val_1",
+                        "enum_val_2",
+                        "enum_val_3"
+                     ]
+                  }
+               }
+            },
+            "test_attribute_list_range" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_RANGE"
+                  }
+               }
+            }
+         }
+      },
+      "test_object_dependecies" : {
+         "class" : "auto",
+         "attributes" : {
+            "test_attribute_oid" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_1"
+                  ]
+               }
+            }
+         },
+         "dependencies" : [
+            {
+               "attribute" : "test_attribute_uint64",
+               "object" : "test_object_1"
+            }
+         ]
+      },
+      "test_object_group_membership" : {
+         "description" : "Membership Group Object",
+        "class" : "user",
+        "attributes" : {
+            "test_attribute_list_oid" : {
+               "description" : "List of test object membership objects ",
+               "is_read_only" : true,
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "test_object_membership"
+                     ]
+                  }
+               }
+            }
+        }
+     },
+      "test_object_membership" : {
+        "description" : "Membership Member Object",
+        "class" : "user",
+        "attributes" : {
+           "test_attribute_oid" : {
+              "description" : "Group object type",
+              "type_info" : {
+                 "type" : "SWITCH_TYPE_OBJECT_ID",
+                 "allowed_object_types" : [
+                    "test_object_group_membership"
+                 ]
+              }
+           }
+        },
+        "membership" : [
+           {
+              "attribute" : "test_attribute_list_oid",
+              "object" : "test_object_group_membership"
+           }
+        ]
+     },
+     "test_membership_auto_object" : {
+        "class" : "auto",
+        "attributes" : {
+           "parent_handle" : {
+              "type_info" : {
+                 "type" : "SWITCH_TYPE_OBJECT_ID",
+                 "allowed_object_types" : [
+                    "test_object_group_membership"
+                 ]
+              }
+           }
+        },
+        "dependencies" : [
+           {
+              "attribute" : "test_attribute_list_oid",
+              "object" : "test_object_group_membership"
+           }
+        ]
+     },
+      "test_key_1" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+            "test_attribute_uint64" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT64"
+               }
+            }
+         }
+      },
+      "test_key_2" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+            "test_attribute_uint64" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT64"
+               }
+            }
+         }
+      },
+      "test_key_3" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+            "test_attribute_uint64" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT64"
+               }
+            }
+         }
+      },
+      "test_object_3" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+            "test_key1" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_key_1"
+                  ]
+               }
+            },
+            "test_key2" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_key_2"
+                  ]
+               }
+            },
+            "test_key3" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_key_3"
+                  ]
+               }
+            },
+            "test_key4" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT8"
+               }
+            },
+            "test_attribute_ip_prefix" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_IP_PREFIX"
+                }
+            }
+         },
+         "key_groups" : [
+             ["test_key1", "test_key2"],
+             ["test_key2", "test_key3"]
+         ]
+      },
+      "test_object_4" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+            "to4_enum" : {
+               "description" : "test",
+               "type_info" : {
+                  "default_value" : "to4_1",
+                  "type" : "SWITCH_TYPE_ENUM",
+                  "enum" : [
+                     "to4_1",
+                     "to4_2"
+                  ]
+               }
+            },
+            "test_uint64" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT64"
+               }
+            },
+            "test_mac" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_MAC"
+               }
+            }
+         },
+         "key_groups" : [["test_uint64", "test_mac"]]
+      },
+      "test_object_5" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+         }
+      },
+      "test_object_6" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+         }
+      },
+      "test_auto_1" : {
+         "class" : "auto",
+         "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_4"
+                  ]
+               }
+            }
+         }
+      },
+      "test_auto_2" : {
+         "class" : "auto",
+         "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_4",
+                     "test_object_5",
+                     "test_object_6"
+                  ]
+               }
+            }
+         }
+      },
+      "test_auto_3" : {
+         "class" : "auto",
+         "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_4",
+                     "test_object_5",
+                     "test_object_6"
+                  ]
+               }
+            }
+         }
+      },
+      "test_auto_4" : {
+         "class" : "auto",
+         "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_5"
+                  ]
+               }
+            }
+         }
+      },
+      "test_auto_5" : {
+         "class" : "auto",
+         "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_6"
+                  ]
+               }
+            }
+         }
+      },
+      "test_auto_6" : {
+         "class" : "auto",
+         "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_4"
+                  ]
+               }
+            }
+         },
+         "dependencies" : [
+            {
+               "attribute" : "test_uint64",
+               "object" : "test_object_4"
+            }
+         ]
+      },
+      "test_object_8" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+         }
+      },
+      "test_prio_1" : {
+         "class" : "auto",
+         "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_8"
+                  ]
+               }
+            }
+         }
+      },
+      "test_prio_2" : {
+         "class" : "auto",
+         "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_8"
+                  ]
+               }
+            }
+         }
+      },
+      "test_prio_3" : {
+         "class" : "auto",
+         "priority" : 3,
+         "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_8"
+                  ]
+               }
+            }
+         }
+      },
+      "test_prio_4" : {
+         "class" : "auto",
+         "priority" : 4,
+         "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_8"
+                  ]
+               }
+            }
+         }
+      },
+        "counter" : {
+            "description" : "test",
+            "class" : "user",
+            "attributes" : {
+                "type" : {
+                    "description" : "test",
+                    "type_info": {
+                        "enum" : [ "ACL", "DTEL" ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                }
+            }
+        },
+        "direct_stats" : {
+          "class" : "auto",
+          "attributes" : {
+            "parent_handle" : {
+              "type_info" : {
+                "type" : "SWITCH_TYPE_OBJECT_ID",
+                "allowed_object_types" : [ "counter" ]
+              }
+            }
+          }
+        },
+        "indirect_stats_1" : {
+            "class" : "auto",
+            "attributes" : {
+              "parent_handle" : {
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [ "counter" ]
+                }
+              }
+            }
+        },
+        "indirect_stats_2" : {
+            "class" : "auto",
+            "attributes" : {
+              "parent_handle" : {
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [ "counter" ]
+                }
+              }
+            }
+        },
+        "stats_1" : {
+            "description" : "test",
+            "class" : "user",
+            "attributes" : {
+                "port_id" : {
+                    "description" : "test",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "description" : "test",
+                    "type_info" : {
+                        "enum" : [
+                            "IN_GOOD_OCTETS",
+                            "IN_FRAMES_TOO_LONG"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "description" : "test",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "direct_stats"
+                        ]
+                    }
+                }
+            }
+        },
+        "stats_2" : {
+            "description" : "test",
+            "class" : "user",
+            "attributes" : {
+                "port_id" : {
+                    "description" : "test",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+              "counter_handle" : {
+                "description" : "test",
+                "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                    "counter"
+                  ]
+                }
+              }
+            },
+            "counter" : {
+                "id" : {
+                    "description" : "test",
+                    "type_info" : {
+                        "enum" : [
+                            "IN_GOOD_OCTETS",
+                            "IN_FRAMES_TOO_LONG"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "description" : "test",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "indirect_stats_1", "indirect_stats_2"
+                        ]
+                    }
+                }
+            }
+        },
+        "stats_dep" : {
+          "class" : "auto",
+           "attributes" : {
+              "parent_handle" : {
+                 "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                       "stats_2"
+                    ]
+                 }
+              }
+           },
+           "dependencies" : [
+              {
+                 "attribute" : "stats",
+                 "object" : "stats_2"
+              }
+           ]
+      },
+      "test_object_7" : {
+         "description" : "test",
+         "class" : "user",
+         "attributes" : {
+            "test_uint8" : {
+               "description" : "test",
+               "is_mandatory" : true,
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT8"
+               }
+            },
+            "test_uint64" : {
+               "description" : "test",
+               "is_mandatory" : true,
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT64"
+               }
+            },
+            "test_uint16" : {
+               "description" : "test",
+               "is_internal" : true,
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT16"
+               }
+            },
+            "test_mac" : {
+               "description" : "test",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_MAC"
+               }
+            }
+         }
+      },
+      "test_object_referred" : {
+         "class" : "user",
+         "description" : "Test User object referred to by other test user objects",
+         "attributes" : {
+            "test_attribute_dummy_bool" : {
+               "description" : "Dummy Attribute",
+               "type_info" : {
+                  "default_value": true,
+                  "type" : "SWITCH_TYPE_BOOL"
+               }
+            }
+         }
+      },
+      "test_object_referrer_1" : {
+         "description" : "Test User object referring other test user object",
+         "class" : "user",
+         "attributes" : {
+            "test_attribute_referred_object_id" : {
+               "description" : "Object ID of referred user object",
+               "re_evaluate" : true,
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_referred"
+                  ]
+               }
+            }
+         }
+      },
+      "test_object_referrer_2" : {
+         "description" : "Test User object referring other test user object",
+         "class" : "user",
+         "attributes" : {
+            "test_attribute_referred_object_id" : {
+               "description" : "Object ID of referred user object",
+               "re_evaluate" : true,
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_referred"
+                  ]
+               }
+            }
+         }
+      },
+      "test_object_referrer_3" : {
+         "description" : "Test User object referring other test user object with multiple attributes",
+         "class" : "user",
+         "attributes" : {
+            "test_attribute_referred_object_id_1" : {
+               "description" : "Object ID of referred user object",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_referred"
+                  ]
+               }
+            },
+            "test_attribute_referred_object_id_2" : {
+               "description" : "Object ID of referred user object",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_referred"
+                  ]
+               }
+            },
+            "test_attribute_referred_object_id_3" : {
+               "description" : "Object ID of referred user object",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_referred"
+                  ]
+               }
+            }
+         }
+      },
+      "test_object_referred_auto_1" : {
+         "class" : "auto",
+         "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_referred"
+                  ]
+               }
+            }
+         }
+      },
+      "test_object_referred_auto_2" : {
+         "class" : "auto",
+         "attributes" : {
+            "parent_handle" : {
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "test_object_referred"
+                  ]
+               }
+            }
+         }
+      },
+      "test_trigger_object" : {
+         "description" : "Object used for trigger rollback testing",
+         "class" : "user",
+         "attributes" : {
+            "random_seed_before_1" : {
+               "description" : "Random Seed managed by before trigger 1",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_INT64"
+               }
+            },
+            "before_create_trigger_1_fail" : {
+               "description" : "Setting this attribute causes before create trigger 1 failure",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_BOOL"
+               }
+            },
+            "random_seed_before_2" : {
+               "description" : "Random Seed managed by before trigger 2",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_INT64"
+               }
+            },
+            "before_create_trigger_2_fail" : {
+               "description" : "Setting this attribute causes before create trigger 2 failure",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_BOOL"
+               }
+            },
+            "random_seed_before_3" : {
+               "description" : "Random Seed managed by before trigger 3",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_INT64"
+               }
+            },
+            "before_create_trigger_3_fail" : {
+               "description" : "Setting this attribute causes before create trigger 3 failure",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_BOOL"
+               }
+            },
+            "random_seed_after_1" : {
+               "description" : "Random Seed managed by after trigger 1",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_INT64"
+               }
+            },
+            "after_create_trigger_1_fail" : {
+               "description" : "Setting this attribute causes after create trigger 1 failure",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_BOOL"
+               }
+            },
+            "random_seed_after_2" : {
+               "description" : "Random Seed managed by after trigger 2",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_INT64"
+               }
+            },
+            "after_create_trigger_2_fail" : {
+               "description" : "Setting this attribute causes after create trigger 2 failure",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_BOOL"
+               }
+            },
+            "random_seed_after_3" : {
+               "description" : "Random Seed managed by after trigger 3",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_INT64"
+               }
+            },
+            "after_create_trigger_3_fail" : {
+               "description" : "Setting this attribute causes after create trigger 3 failure",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_BOOL"
+               }
+            }
+         }
+      }
+  }
+}

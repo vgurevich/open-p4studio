@@ -1,0 +1,3 @@
+#!/bin/bash
+#Unload bf_kpkt kernel module
+rmmod bf_kpkt

@@ -1,0 +1,116 @@
+[
+    {
+        "bridge" : {
+            "class" : "user",
+            "description" : "Create a 802.1Q bridge. A default DOT1Q bridge is created at init time and assigned as DEFAULT1Q_BRIDGE attribute to the DEVICE object",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+               },
+               "type" : {
+                    "description": "Bridge type",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "enum" : [
+                            "DOT1Q"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stp_handle" : {
+                    "description": "Spanning tree group handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "stp"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "igmp_snooping" : {
+                    "description": "Enable/disable IGMP snooping",
+                    "type_info" : {
+                        "default_value": false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "mld_snooping" : {
+                    "description": "Enable/disable MLD snooping",
+                    "type_info" : {
+                        "default_value": false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "learning" : {
+                    "description": "Enable/disable learning",
+                    "type_info" : {
+                        "default_value": true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "flood_enabled" : {
+                    "description": "Enable/disable flooding",
+                    "type_info" : {
+                        "default_value": true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "aging_interval" : {
+                    "description": "Set aging interval",
+                    "type_info" : {
+                        "default_value": 30000,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "bridge_members" : {
+                    "is_read_only" : true ,
+                    "description": "Bridge member handles",
+                    "type_info" : {
+                    "list" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "bridge_port" ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "IN_UCAST_PKTS",
+                            "IN_MCAST_PKTS",
+                            "IN_BCAST_PKTS",
+                            "IN_UCAST_BYTES",
+                            "IN_MCAST_BYTES",
+                            "IN_BCAST_BYTES",
+                            "OUT_UCAST_PKTS",
+                            "OUT_MCAST_PKTS",
+                            "OUT_BCAST_PKTS",
+                            "OUT_UCAST_BYTES",
+                            "OUT_MCAST_BYTES",
+                            "OUT_BCAST_BYTES"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "ingress_bd_stats", "egress_bd_stats"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+]

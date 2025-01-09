@@ -1,0 +1,107 @@
+[
+    {
+        "stp" : {
+            "class" : "user",
+            "description" : "Create a spanning tree group",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+               },
+                "vlan_handles" : {
+                    "description" : "List of vlans",
+                    "is_read_only" : true ,
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_OBJECT_ID",
+                            "allowed_object_types" : [
+                                "vlan"
+                            ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "stp_ports" : {
+                    "description" : "List of stp ports",
+                    "is_read_only" : true ,
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_OBJECT_ID",
+                            "allowed_object_types" : [
+                                "stp_port"
+                            ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "stp_port" : {
+            "class" : "user",
+            "description" : "Spanning tree member port",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "port_lag_handle" : {
+                    "description": "Port or LAG handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "port", "lag"
+                        ]
+                    }
+                },
+                "state" : {
+                    "description": "Spanning tree state",
+                    "type_info" : {
+                     "default_value": "FORWARDING",
+                     "enum" : [
+                        "FORWARDING",
+                        "BLOCKING",
+                        "LEARNING"
+                     ],
+                     "type" : "SWITCH_TYPE_ENUM"
+                  }
+                },
+                "stp_handle" : {
+                    "description": "Spanning tree group handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "stp"
+                     ]
+                    }
+                }
+            },
+            "membership" : [
+                {
+                    "object" : "stp",
+                    "attribute" : "stp_ports"
+                }
+            ],
+            "key_groups": [["device", "stp_handle", "port_lag_handle"]]
+        }
+    }
+]

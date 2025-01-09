@@ -1,0 +1,99 @@
+[
+    {
+        "rpf_group" : {
+            "class" : "user",
+            "description": "Create a RPF group",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "rpf_members" : {
+                    "description" : "List of rpf members",
+                    "is_read_only" : true ,
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_OBJECT_ID",
+                            "allowed_object_types" : ["rpf_member"]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "type" : {
+                    "description": "RPF group type",
+                    "type_info" : {
+                        "default_value" : "INNER",
+                        "enum" : [
+                            "INNER",
+                            "OUTER"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "pim_mode" : {
+                    "description": "PIM mode. This is from ipmc_route.pim_mode enum",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "rpf_member" : {
+            "class" : "user",
+            "description": "Create a RPF group member",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "rpf_group_handle" : {
+                    "description": "RPF Group handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "rpf_group"
+                        ]
+                    }
+                },
+                "handle" : {
+                    "description": "RIF handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "rif"
+                        ]
+                    }
+                }
+            },
+            "membership" : [
+                {
+                    "object" : "rpf_group",
+                    "attribute" : "rpf_members"
+                }
+            ],
+            "key_groups": [["device", "handle", "rpf_group_handle"]]
+        }
+    }
+]

@@ -1,0 +1,52 @@
+{
+    "chip_list": [
+        {
+            "id": "asic-0",
+            "chip_family": "Tofino3",
+            "instance": 0,
+            "pcie_sysfs_prefix": "/sys/devices/pci0000:00/0000:00:03.0/0000:05:00.0",
+            "pcie_domain": 0,
+            "pcie_bus": 5,
+            "pcie_fn": 0,
+            "pcie_dev": 0,
+            "pcie_int_mode": 1,
+            "subdev_list": [
+                {
+                    "subdev_instance": 0,
+                    "pcie_sysfs_prefix": "/sys/devices/pci0000:00/0000:00:03.0/0000:05:00.0",
+                    "cdev_name": "/dev/bf0"
+                }
+            ]
+        },
+        {
+            "id": "asic-1",
+            "chip_family": "Tofino3",
+            "instance": 1,
+            "virtual": 1
+        }
+    ],
+    "id": "drivers_test.csv",
+    "instance": 0,
+    "p4_program_list": [
+        {
+            "id": "pgm-0",
+            "instance": 0,
+            "path": "drivers_test",
+            "program-name": "drivers_test",
+            "pd": "lib/tofino3pd/drivers_test/libpd.so",
+            "pd-thrift": "lib/tofino3pd/drivers_test/libpdthrift.so",
+            "table-config": "share/tofino3pd/drivers_test/context.json",
+            "tofino-bin": "share/tofino3pd/drivers_test/tofino3.bin",
+            "agent0": "lib/libpltfm_mgr.so"
+        },
+        {
+            "id": "pgm-0",
+            "instance": 1,
+            "path": "drivers_test",
+            "program-name": "drivers_test",
+            "pd": "lib/tofino3pd/drivers_test/libpd.so",
+            "pd-thrift": "lib/tofino3pd/drivers_test/libpdthrift.so",
+            "table-config": "share/tofino3pd/drivers_test/context.json"
+        }
+    ]
+}

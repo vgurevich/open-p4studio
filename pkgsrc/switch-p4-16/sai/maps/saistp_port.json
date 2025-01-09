@@ -1,0 +1,17 @@
+{
+   "stp_port" : {
+       "profile" : "Per profile info",
+       "switch" : "stp_port",
+       "attributes" : {
+           "stp" : "stp_handle",
+           "state" : "state"
+       },
+       "enums" : {
+           "state" : {
+               "LEARNING" : "LEARNING",
+               "FORWARDING" : "FORWARDING",
+               "BLOCKING" : "BLOCKING"
+           }
+       }
+   }
+}

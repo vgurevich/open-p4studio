@@ -1,0 +1,13 @@
+{
+   "queue" : {
+      "profile" : "Per profile info",
+      "switch" : "queue",
+      "attributes" : {
+         "wred_profile_id" : "wred_profile_handle",
+         "buffer_profile_id" : "buffer_profile_handle",
+         "index" : "queue_id",
+         "port" : "port_handle",
+         "scheduler_profile_id" : "scheduler_handle"
+      }
+   }
+}

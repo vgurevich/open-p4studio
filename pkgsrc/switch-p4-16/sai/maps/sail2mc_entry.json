@@ -1,0 +1,9 @@
+{
+   "l2mc_entry" : {
+       "profile" : "Per profile info",
+       "switch" : "l2mc_bridge",
+       "attributes" : {
+           "output_group_id" : "group_handle"
+       }
+   }
+}

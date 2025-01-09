@@ -1,0 +1,9 @@
+{
+   "wred" : {
+      "profile" : "Per profile info",
+      "switch" : "wred_profile",
+      "attributes" : {
+         "weight" : "weight"
+      }
+   }
+}

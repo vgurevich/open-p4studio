@@ -1,0 +1,122 @@
+[
+    {
+        "queue" : {
+            "class" : "user",
+            "description" : "Create queue object for port",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                    }
+                },
+                "port_handle" : {
+                    "description": "Port handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "port"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "buffer_profile_handle" : {
+                    "description": "Buffer profile handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "buffer_profile"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "buffer_profile_in_use" : {
+                    "description": "Buffer profile (device/q) handle",
+                    "is_read_only": true,
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "wred_profile_handle" : {
+                    "description": "Buffer profile handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "wred_profile"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "queue_id" : {
+                    "description": "Queue ID",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "scheduler_handle" : {
+                    "description": "queue scheduler handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "scheduler"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "DROPPED_PACKETS",
+                            "WATERMARK_BYTES",
+                            "CURR_OCCUPANCY_BYTES",
+                            "SHARED_WATERMARK_BYTES",
+                            "SHARED_CURR_OCCUPANCY_BYTES",
+                            "STAT_PACKETS",
+                            "STAT_BYTES",
+                            "WRED_GREEN_DROPPED_PACKETS",
+                            "WRED_YELLOW_DROPPED_PACKETS",
+                            "WRED_RED_DROPPED_PACKETS",
+                            "WRED_GREEN_DROPPED_BYTES",
+                            "WRED_YELLOW_DROPPED_BYTES",
+                            "WRED_RED_DROPPED_BYTES",
+                            "WRED_GREEN_ECN_MARKED_PACKETS",
+                            "WRED_YELLOW_ECN_MARKED_PACKETS",
+                            "WRED_RED_ECN_MARKED_PACKETS",
+                            "WRED_GREEN_ECN_MARKED_BYTES",
+                            "WRED_YELLOW_ECN_MARKED_BYTES",
+                            "WRED_RED_ECN_MARKED_BYTES",
+                            "WRED_DROPPED_PACKETS",
+                            "WRED_DROPPED_BYTES",
+                            "WRED_ECN_MARKED_PACKETS",
+                            "WRED_ECN_MARKED_BYTES",
+                            "MAX_OCCUPANCY_BYTES"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "queue_stats", "egress_wred_stats"
+                        ]
+                    }
+                }
+            },
+            "membership" : [
+                {
+                    "object" : "port",
+                    "attribute" : "queue_handles"
+                }
+            ]
+        }
+    }
+]

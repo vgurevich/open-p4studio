@@ -1,0 +1,10 @@
+{
+   "acl_table_group_member" : {
+       "profile" : "Per profile info",
+       "switch" : "acl_group_member",
+       "attributes" : {
+           "acl_table_group_id" : "acl_group_handle",
+           "acl_table_id" : "acl_table_handle"
+       }
+   }
+}

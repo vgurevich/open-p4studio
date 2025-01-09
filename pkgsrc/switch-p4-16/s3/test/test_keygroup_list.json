@@ -1,0 +1,196 @@
+{
+  "idlPrefix" : "switch_", "version" : "0", "objects" : {
+    "test_object_keygroup_list_bool" : {
+      "description" : "Test key_group list bool",
+      "class" : "user",
+      "attributes" : {
+        "test_attribute_uint32" : {
+          "description" : "Test attribute",
+          "type_info" : {
+            "type" : "SWITCH_TYPE_UINT32"
+          }
+        },
+        "test_attribute_list" : {
+          "description" : "Test List attribute",
+          "type_info" : {
+            "type" : "SWITCH_TYPE_LIST",
+            "list" : {
+              "type" : "SWITCH_TYPE_BOOL"
+            }
+          }
+        }
+      },
+      "key_groups" : [
+        ["test_attribute_uint32", "test_attribute_list"]
+      ]
+    },
+    "test_object_keygroup_list_uint32" : {
+      "description" : "Test key_group list UINT32",
+      "class" : "user",
+      "attributes" : {
+        "test_attribute_uint32" : {
+          "description" : "Test attribute",
+          "type_info" : {
+            "type" : "SWITCH_TYPE_UINT32"
+          }
+        },
+        "test_attribute_list" : {
+          "description" : "Test List attribute",
+          "type_info" : {
+            "list" : {
+              "type" : "SWITCH_TYPE_UINT32"
+            },
+            "type" : "SWITCH_TYPE_LIST"
+          }
+        }
+      },
+      "key_groups" : [
+        ["test_attribute_uint32", "test_attribute_list"]
+      ]
+    },
+    "test_object_keygroup_list_uint16" : {
+      "description" : "Test key_group list UINT16",
+      "class" : "user",
+      "attributes" : {
+        "test_attribute_uint32" : {
+          "description" : "Test attribute",
+          "type_info" : {
+            "type" : "SWITCH_TYPE_UINT32"
+          }
+        },
+        "test_attribute_list" : {
+          "description" : "Test List attribute",
+          "type_info" : {
+            "list" : {
+              "type" : "SWITCH_TYPE_UINT16"
+            },
+            "type" : "SWITCH_TYPE_LIST"
+          }
+        }
+      },
+      "key_groups" : [
+        ["test_attribute_uint32", "test_attribute_list"]
+      ]
+    },
+    "test_object_keygroup_list_uint8" : {
+      "description" : "Test key_group list UINT8",
+      "class" : "user",
+      "attributes" : {
+        "test_attribute_uint32" : {
+          "description" : "Test attribute",
+          "type_info" : {
+            "type" : "SWITCH_TYPE_UINT32"
+          }
+        },
+        "test_attribute_list" : {
+          "description" : "Test List attribute",
+          "type_info" : {
+            "list" : {
+              "type" : "SWITCH_TYPE_UINT8"
+            },
+            "type" : "SWITCH_TYPE_LIST"
+          }
+        }
+      },
+      "key_groups" : [
+        ["test_attribute_uint32", "test_attribute_list"]
+      ]
+    },
+    "test_object_keygroup_list_uint64" : {
+      "description" : "Test key_group list UINT64",
+      "class" : "user",
+      "attributes" : {
+        "test_attribute_uint32" : {
+          "description" : "Test attribute",
+          "type_info" : {
+            "type" : "SWITCH_TYPE_UINT32"
+          }
+        },
+        "test_attribute_list" : {
+          "description" : "Test List attribute",
+          "type_info" : {
+            "list" : {
+              "type" : "SWITCH_TYPE_UINT64"
+            },
+            "type" : "SWITCH_TYPE_LIST"
+          }
+        }
+      },
+      "key_groups" : [
+        ["test_attribute_uint32", "test_attribute_list"]
+      ]
+    },
+    "test_object_keygroup_list_mac" : {
+      "description" : "Test key_group list MAC",
+      "class" : "user",
+      "attributes" : {
+        "test_attribute_uint32" : {
+          "description" : "Test attribute",
+          "type_info" : {
+            "type" : "SWITCH_TYPE_UINT32"
+          }
+        },
+        "test_attribute_list" : {
+          "description" : "Test List attribute",
+          "type_info" : {
+            "list" : {
+              "type" : "SWITCH_TYPE_MAC"
+            },
+            "type" : "SWITCH_TYPE_LIST"
+          }
+        }
+      },
+      "key_groups" : [
+        ["test_attribute_uint32", "test_attribute_list"]
+      ]
+    },
+    "test_object_keygroup_list_ip_address" : {
+      "description" : "Test key_group list ip_address",
+      "class" : "user",
+      "attributes" : {
+        "test_attribute_uint32" : {
+          "description" : "Test attribute",
+          "type_info" : {
+            "type" : "SWITCH_TYPE_UINT32"
+          }
+        },
+        "test_attribute_list" : {
+          "description" : "Test List attribute",
+          "type_info" : {
+            "list" : {
+              "type" : "SWITCH_TYPE_IP_ADDRESS"
+            },
+            "type" : "SWITCH_TYPE_LIST"
+          }
+        }
+      },
+      "key_groups" : [
+        ["test_attribute_uint32", "test_attribute_list"]
+      ]
+    },
+    "test_object_keygroup_list_ip_prefix" : {
+      "description" : "Test key_group list ip prefix",
+      "class" : "user",
+      "attributes" : {
+        "test_attribute_uint32" : {
+          "description" : "Test attribute",
+          "type_info" : {
+            "type" : "SWITCH_TYPE_UINT32"
+          }
+        },
+        "test_attribute_list" : {
+          "description" : "Test List attribute",
+          "type_info" : {
+            "list" : {
+              "type" : "SWITCH_TYPE_IP_PREFIX"
+            },
+            "type" : "SWITCH_TYPE_LIST"
+          }
+        }
+      },
+      "key_groups" : [
+        ["test_attribute_uint32", "test_attribute_list"]
+      ]
+    }
+  }
+}

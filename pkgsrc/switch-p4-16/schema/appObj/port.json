@@ -1,0 +1,1105 @@
+[
+    {
+        "port" : {
+            "description": "Create a port object",
+            "class" : "user",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description": "Port type",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "default_value": "NORMAL",
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "enum" : [
+                            "NORMAL",
+                            "CPU",
+                            "FABRIC",
+                            "RECIRC"
+                        ]
+                    }
+                },
+                "port_id" : {
+                    "is_read_only" : true,
+                    "description": "Port id to create this port on",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "dev_port" : {
+                    "description": "Device port for this port",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "channel_id" : {
+                    "description": "Channel Id for this port",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "connector_id" : {
+                    "description": "Connector Id for this port",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "lane_list" : {
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "description": "Port lane list",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_UINT32"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "speed" : {
+                    "is_mandatory": true,
+                    "description": "Port speed in Mbps",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "supported_speeds" : {
+                    "is_read_only" : true ,
+                    "description": "This read-only attribute returns the supported list of speeds given the port lane list based on chip architecture.",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_UINT32"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "oper_state" : {
+                    "description": "Operational state, read-only",
+                    "type_info" : {
+                        "default_value": "DOWN",
+                        "enum" : [
+                            "UNKNOWN",
+                            "UP",
+                            "DOWN"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    },
+                    "is_read_only" : true
+                },
+                "oper_speed" : {
+                    "description": "Current port negotiated speed, read-only",
+                    "type_info" : {
+                        "default_value": 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    },
+                    "is_read_only": true
+                },
+                "admin_state" : {
+                    "description": "Adminstrative state",
+                    "type_info" : {
+                        "default_value" : true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "drop_untagged" : {
+                    "description": "Drop untagged packets on ingress, not supported yet",
+                    "type_info" : {
+                        "default_value" : true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "drop_tagged" : {
+                    "description": "Drop tagged packets on ingress, not supported yet",
+                    "type_info" : {
+                        "default_value" : true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "autoneg" : {
+                    "description": "Auto-negotiation configuration",
+                    "type_info" : {
+                        "default_value": "DISABLED",
+                        "enum" : [
+                            "DEFAULT",
+                            "ENABLED",
+                            "DISABLED"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "autoneg_status" : {
+                    "description": "Auto-negotiation status",
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    },
+                    "is_read_only": true
+                },
+                "advertised_speed" : {
+                    "description": "Port advertised speeds",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_UINT32"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "advertised_fec_type" : {
+                    "description": "Port advertised fec types",
+                    "type_info" : {
+                        "list" : {
+                            "enum" : [
+                                "NONE",
+                                "RS",
+                                "FC"
+                            ],
+                            "type" : "SWITCH_TYPE_ENUM"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                     }
+                },
+                "pfc_map" : {
+                    "description": "Set port pfc map",
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "pfc_mode" : {
+                    "description": "Pfc mode",
+                    "type_info" : {
+                        "default_value": "COMBINED",
+                        "enum" : [
+                            "COMBINED",
+                            "SEPARATE"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "rx_pfc_map" : {
+                    "description": "Set port rx pfc map",
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "tx_pfc_map" : {
+                    "description": "Set port tx pfc map",
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "flow_control" : {
+                    "description": "Flow control configuration",
+                    "type_info" : {
+                        "default_value": "NONE",
+                        "enum" : [
+                            "NONE",
+                            "PFC",
+                            "PAUSE"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "link_pause" : {
+                    "description": "Link pause configuration",
+                    "type_info" : {
+                        "default_value": "DISABLE",
+                        "enum" : [
+                            "DISABLE",
+                            "TX_ONLY",
+                            "RX_ONLY",
+                            "BOTH_ENABLE"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "ingress_sflow_handle" : {
+                    "description": "Ingress SFLOW session handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "sflow_session"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "egress_sflow_handle" : {
+                    "description": "Egress SFLOW session handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "sflow_session"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "ingress_acl_handle" : {
+                    "description": "Ingress ACL group or table handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "acl_group", "acl_table"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "egress_acl_handle" : {
+                    "description": "Egress ACL group or table handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "acl_group", "acl_table"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "port_exclusion_bit_map" : {
+                    "description": "Bit map representing all the exclusion lists a port is part of.",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "ingress_port_lag_label" : {
+                    "description": "Ingress port lag label. Only valid when ingress_acl_handle is empty",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "egress_port_lag_label" : {
+                    "description": "Egress port lag label. Only valid when egress_acl_handle is empty",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "in_ports_group_label" : {
+                    "description": "In ports group label",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "out_ports_group_label" : {
+                    "description": "Out ports group label.",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "lag_handle" : {
+                    "description": "LAG handle of this port if part of LAG, read-only",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "lag"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    },
+                    "is_read_only" : true
+                },
+                "yid" : {
+                    "is_internal" : true,
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "ifindex" : {
+                    "is_internal" : true,
+                    "type_info" : {
+                        "allowed_object_types" : [ "ifindex" ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "learning" : {
+                    "description": "Enable/disable learning at port level",
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "bind_mode" : {
+                    "description": "Port bind mode, unused",
+                    "type_info" : {
+                        "default_value": "PORT",
+                        "enum" : [
+                            "PORT",
+                            "PORT_VLAN"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "supported_fec_types" : {
+                    "description": "Supported forward error correction types",
+                    "is_read_only" : true ,
+                    "type_info" : {
+                        "list" : {
+                            "enum" : [
+                                "NONE",
+                                "RS",
+                                "FC"
+                            ],
+                            "type" : "SWITCH_TYPE_ENUM"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "fec_type" : {
+                    "description": "Forward error correction type",
+                    "type_info" : {
+                        "default_value": "NONE",
+                        "enum" : [
+                            "NONE",
+                            "RS",
+                            "FC"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "loopback_mode" : {
+                    "description": "Port loopback mode",
+                    "type_info" : {
+                        "default_value": "NONE",
+                        "enum" : [
+                            "NONE",
+                            "MAC_NEAR",
+                            "MAC_FAR",
+                            "PCS_NEAR",
+                            "SERDES_NEAR",
+                            "SERDES_FAR"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "media_type" : {
+                    "description": "Set media type of the port",
+                    "type_info" : {
+                        "default_value": "UNKNOWN",
+                        "enum" : [
+                            "NOT_PRESENT",
+                            "UNKNOWN",
+                            "FIBER",
+                            "COPPER"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "drop_limit" : {
+                    "description": "Set port drop limit",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "drop_hysterisis" : {
+                    "description": "Set port drop hysterisis",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "pfc_cos_map" : {
+                    "description": "Set port PFC cos mapping",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "skid_limit" : {
+                   "description": "Set port skid limit in bytes.",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "rx_mtu" : {
+                    "description": "Specify RX MTU size",
+                    "type_info" : {
+                        "default_value" : 1600,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "tx_mtu" : {
+                    "description": "Specify TX MTU size",
+                    "type_info" : {
+                        "default_value" : 1600,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "icos_ppg_qos_map_handle" : {
+                    "description": "Ingress icos to ppg qos map handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "qos_map_ingress"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "pfc_priority_queue_qos_map_handle" : {
+                    "description": "Egress pfc_priority to queue qos map handle ",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "qos_map_egress"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "tc_qos_map_handle" : {
+                    "description": "Ingress TC qos map handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "qos_map_ingress"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "ingress_qos_dscp_tos_group" : {
+                    "description": "Ingress QOS dscp/tos group",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "qos_map_ingress"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "ingress_qos_pcp_group" : {
+                    "description": "Ingress QOS pcp group",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "qos_map_ingress"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "egress_qos_group" : {
+                    "description": "Egress QOS group",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "qos_map_egress"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "egress_l3_qos_group" : {
+                    "description": "Egress L3 QOS group",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "qos_map_egress"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "egress_l2_qos_group" : {
+                    "description": "Egress L2_QOS group",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "qos_map_egress"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "ingress_mirror_handle" : {
+                    "description": "Mirror session handle with direction as ingress",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "mirror"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "egress_mirror_handle" : {
+                    "description": "Mirror session handle with direction as egress",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "mirror"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "clone_mirror_session_id" : {
+                    "is_internal" : true,
+                    "description": "Internal Mirror Session for (IFA) cloned packets",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "dtel_int_edge" : {
+                    "description": "Whether this port is an edge of an INT or IFA domain",
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "unknown_unicast_storm_control" : {
+                    "description": "Storm control meter handle for unknown unicast and flood packets",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "meter"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "multicast_storm_control" : {
+                    "description": "Storm control meter handle for multicast packets",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "meter"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "broadcast_storm_control" : {
+                    "description": "Storm control meter handle for broadcast packets",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "meter"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "ingress_policer_handle" : {
+                    "description" : "Ingress QoS policer handle",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "meter"
+                        ]
+                    }
+                },
+                "egress_policer_handle" : {
+                    "description" : "Ingress QoS policer handle",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "meter"
+                        ]
+                    }
+                },
+                "is_mlag_member" : {
+                    "is_read_only" : true ,
+                    "description": "Read only attribute indicating if this port is an MLAG member",
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "color" : {
+                    "description": "Packet color",
+                    "type_info" : {
+                        "default_value": "GREEN",
+                        "enum" : [
+                            "GREEN",
+                            "YELLOW",
+                            "RED"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "tc" : {
+                    "description": "Traffic class",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "default_ppg" : {
+                    "is_read_only" : true ,
+                    "description": "Default port priority group. Created and assigned during port creation",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "queue_handles" : {
+                    "is_read_only" : true ,
+                    "description": "List of Queues",
+                    "type_info" : {
+                    "list" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "queue" ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "port_priority_groups" : {
+                    "is_read_only" : true ,
+                    "description": "List of Port priority groups",
+                    "type_info" : {
+                    "list" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "port_priority_group" ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "scheduler_handle" : {
+                    "description": "port scheduler handle",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "scheduler"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "port_queue_scheduler_group_handles" : {
+                    "is_read_only" : true ,
+                    "description": "List of scheduler groups per port queue",
+                    "type_info" : {
+                    "list" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "scheduler_group" ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "non_def_ppgs" : {
+                    "description": "number of non_def ppgs to create during port provision",
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "isolation_group_handle" : {
+                    "description" : "Isolation group handle for packets ingressing on this port",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "isolation_group"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "port_vlan_id" : {
+                    "description": "Untag ingress frames classify to this VLAN. The port's tagging_mode can now be set by the vlan_member/TAGGING_MODE attribute",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "rif_handle" : {
+                    "is_internal" : true,
+                    "comment" : "holds a reverse ref",
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "rif"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "qos_config_precedence" : {
+                    "description": "Use port QOS config instead of LAG one when port is a LAG member",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "ingress_port_group_index" : {
+                    "description": "Ingress port group index",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "update_pal" : {
+                    "description": "Internal variable to PAL state based on previous values",
+                    "is_internal" : true,
+                    "type_info" : {
+                        "default_value" : true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "max_headroom_size" : {
+                    "description":  "Maximum headroom size for dynamic calculation",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "default_value:" : 0,
+                        "type": "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "internal_pipe_port_list" : {
+                    "is_read_only" : true ,
+                    "description": "For a Folded Pipeline, this represents the ports added on internal pipe in loopback mode to stitch multiple in and eg'ress pipes into a long pipeline",
+                    "type_info" : {
+                    "list" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "port" ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "queue_priorities" : {
+                    "is_read_only" : true ,
+                    "description": "Queues priority list",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_UINT8"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "pkt_tx_enable" : {
+                    "description": "Disable/Enable TM port Tx/Rx",
+                    "type_info" : {
+                        "default_value" : true ,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "description": "List of port stats supported",
+                    "is_immutable" : true,
+                    "type_info" : {
+                        "enum" : [
+                            "IN_GOOD_OCTETS",
+                            "IN_ALL_OCTETS",
+                            "IN_GOOD_PKTS",
+                            "IN_ALL_PKTS",
+                            "IN_VLAN_PKTS",
+                            "IN_UCAST_PKTS",
+                            "IN_MCAST_PKTS",
+                            "IN_BCAST_PKTS",
+                            "IN_NON_UCAST_PKTS",
+                            "IN_FCS_ERRORS",
+                            "IN_ERROR_PKTS",
+                            "IN_CRC_ERRORS",
+                            "IN_BUFFER_FULL",
+                            "IN_FRAGMENTS",
+                            "IN_JABBERS",
+                            "IN_OCTETS_RATE",
+                            "OUT_GOOD_OCTETS",
+                            "OUT_ALL_OCTETS",
+                            "OUT_GOOD_PKTS",
+                            "OUT_ALL_PKTS",
+                            "OUT_VLAN_PKTS",
+                            "OUT_UCAST_PKTS",
+                            "OUT_MCAST_PKTS",
+                            "OUT_BCAST_PKTS",
+                            "OUT_NON_UCAST_PKTS",
+                            "OUT_ERROR_PKTS",
+                            "OUT_OCTETS_RATE",
+                            "IN_PKTS_LT_64",
+                            "IN_PKTS_EQ_64",
+                            "IN_PKTS_65_TO_127",
+                            "IN_PKTS_128_TO_255",
+                            "IN_PKTS_256_TO_511",
+                            "IN_PKTS_512_TO_1023",
+                            "IN_PKTS_1024_TO_1518",
+                            "IN_PKTS_1519_TO_2047",
+                            "IN_PKTS_2048_TO_4095",
+                            "IN_PKTS_4096_TO_8191",
+                            "IN_PKTS_8192_TO_9215",
+                            "IN_PKTS_9216",
+                            "IN_PKTS_RATE",
+                            "OUT_PKTS_LT_64",
+                            "OUT_PKTS_EQ_64",
+                            "OUT_PKTS_65_TO_127",
+                            "OUT_PKTS_128_TO_255",
+                            "OUT_PKTS_256_TO_511",
+                            "OUT_PKTS_512_TO_1023",
+                            "OUT_PKTS_1024_TO_1518",
+                            "OUT_PKTS_1519_TO_2047",
+                            "OUT_PKTS_2048_TO_4095",
+                            "OUT_PKTS_4096_TO_8191",
+                            "OUT_PKTS_8192_TO_9215",
+                            "OUT_PKTS_9216",
+                            "OUT_PKTS_RATE",
+                            "IN_PAUSE_PKTS",
+                            "OUT_PAUSE_PKTS",
+                            "IN_PFC_0_PKTS",
+                            "IN_PFC_1_PKTS",
+                            "IN_PFC_2_PKTS",
+                            "IN_PFC_3_PKTS",
+                            "IN_PFC_4_PKTS",
+                            "IN_PFC_5_PKTS",
+                            "IN_PFC_6_PKTS",
+                            "IN_PFC_7_PKTS",
+                            "OUT_PFC_0_PKTS",
+                            "OUT_PFC_1_PKTS",
+                            "OUT_PFC_2_PKTS",
+                            "OUT_PFC_3_PKTS",
+                            "OUT_PFC_4_PKTS",
+                            "OUT_PFC_5_PKTS",
+                            "OUT_PFC_6_PKTS",
+                            "OUT_PFC_7_PKTS",
+                            "IN_OVER_SIZED_PKTS",
+                            "IN_UNDER_SIZED_PKTS",
+                            "OUT_OVER_SIZED_PKTS",
+                            "IN_FRAMES_TOO_LONG",
+                            "IN_PFC_0_RX_PAUSE_DURATION",
+                            "IN_PFC_1_RX_PAUSE_DURATION",
+                            "IN_PFC_2_RX_PAUSE_DURATION",
+                            "IN_PFC_3_RX_PAUSE_DURATION",
+                            "IN_PFC_4_RX_PAUSE_DURATION",
+                            "IN_PFC_5_RX_PAUSE_DURATION",
+                            "IN_PFC_6_RX_PAUSE_DURATION",
+                            "IN_PFC_7_RX_PAUSE_DURATION",
+                            "IN_PFC_0_TX_PAUSE_DURATION",
+                            "IN_PFC_1_TX_PAUSE_DURATION",
+                            "IN_PFC_2_TX_PAUSE_DURATION",
+                            "IN_PFC_3_TX_PAUSE_DURATION",
+                            "IN_PFC_4_TX_PAUSE_DURATION",
+                            "IN_PFC_5_TX_PAUSE_DURATION",
+                            "IN_PFC_6_TX_PAUSE_DURATION",
+                            "IN_PFC_7_TX_PAUSE_DURATION",
+                            "OCTETS",
+                            "PKTS",
+                            "IF_IN_DISCARDS",
+                            "IF_IN_OUTER_SAME_MAC_CHECK_DISCARDS",
+                            "IF_IN_OUTER_SMAC_MULTICAST_DISCARDS",
+                            "IF_IN_SMAC_MULTICAST_DISCARDS",
+                            "IF_IN_OUTER_SMAC_ZERO_DISCARDS",
+                            "IF_IN_SMAC_ZERO_DISCARDS",
+                            "IF_IN_OUTER_DMAC_ZERO_DISCARDS",
+                            "IF_IN_DMAC_ZERO_DISCARDS",
+                            "IF_IN_OUTER_IP_SRC_MULTICAST_DISCARDS",
+                            "IF_IN_IP_SRC_MULTICAST_DISCARDS",
+                            "IF_IN_OUTER_IP_VERSION_INVALID_DISCARDS",
+                            "IF_IN_IP_VERSION_INVALID_DISCARDS",
+                            "IF_IN_OUTER_IP_CHECKSUM_INVALID_DISCARDS",
+                            "IF_IN_OUTER_IP_IHL_DISCARDS",
+                            "IF_IN_IP_IHL_DISCARDS",
+                            "IF_IN_OUTER_IP_TTL_ZERO_DISCARDS",
+                            "IF_IN_IP_TTL_ZERO_DISCARDS",
+                            "IF_IN_DIP_UNSPECIFIED_DISCARDS",
+                            "IF_IN_SIP_UNSPECIFIED_DISCARDS",
+                            "IF_IN_UC_DIP_MC_DMAC_DISCARDS",
+                            "IF_IN_BC_DIP_MC_DMAC_DISCARDS",
+                            "IF_IN_SAME_IFINDEX_DISCARDS",
+                            "IF_IN_DIP_LOOPBACK_DISCARDS",
+                            "IF_IN_SIP_LOOPBACK_DISCARDS",
+                            "IF_IN_IP_CHECKSUM_INVALID_DISCARDS",
+                            "IF_IN_IP_DST_LINK_LOCAL_DISCARDS",
+                            "IF_IN_IP_SRC_LINK_LOCAL_DISCARDS",
+                            "IF_IN_IP_SRC_CLASS_E_DISCARDS",
+                            "IF_IN_IP_LPM4_MISS_DISCARDS",
+                            "IF_IN_IP_LPM6_MISS_DISCARDS",
+                            "IF_IN_IP_BLACKHOLE_ROUTE_DISCARDS",
+                            "IF_IN_L3_PORT_RMAC_MISS_DISCARDS",
+                            "IF_IP_SRC_BROADCAST_DISCARDS",
+                            "IF_IN_L2_ANY_DISCARDS",
+                            "IF_IN_NEXTHOP_DISCARDS",
+                            "IF_IN_MPLS_LOOKUP_MISS_DISCARD",
+                            "IF_IN_SRV6_MY_SID_DISCARDS",
+                            "IF_IN_NON_IP_ROUTER_MAC_DISCARDS",
+                            "IF_IN_VLAN_DISCARDS",
+                            "IF_IN_ACL_DENY_DISCARDS",
+                            "IF_IN_RACL_DENY_DISCARDS",
+                            "IF_IN_ACL_METER_DISCARDS",
+                            "IF_IN_PORT_METER_DISCARDS",
+                            "IF_IN_L3_IPV4_DISABLE_DISCARDS",
+                            "IF_IN_L3_IPV6_DISABLE_DISCARDS",
+                            "IF_IN_MPLS_DISABLE_DISCARDS",
+                            "IF_IN_L3_LPM4_MISS_DISCARDS",
+                            "IF_IN_L3_LPM6_MISS_DISCARDS",
+                            "IF_IN_DMAC_RESERVED_DISCARDS",
+                            "IF_IN_NON_ROUTABLE_DISCARDS",
+                            "IF_IN_L3_EGRESS_LINK_DOWN_DISCARDS",
+                            "IF_IN_FDB_AND_BLACKHOLE_DISCARDS",
+                            "IF_IN_L2_MISS_UNICAST",
+                            "IF_IN_L2_MISS_MULTICAST",
+                            "IF_IN_L2_MISS_BROADCAST",
+                            "IF_IN_SIP_BC_DISCARDS",
+                            "IF_IN_IPV6_MC_SCOPE0_DISCARD",
+                            "IF_IN_IPV6_MC_SCOPE1_DISCARD",
+                            "IF_IN_MC_DMAC_MISMATCH",
+                            "IF_IN_STP_STATE_BLOCKING_DISCARDS",
+                            "IF_OUT_DISCARDS",
+                            "IF_OUT_STP_STATE_BLOCKING_DISCARDS",
+                            "IF_OUT_STORM_PFC_WD_DISCARDS",
+                            "IF_OUT_MTU_CHECK_FAIL_DISCARDS",
+                            "IF_OUT_EGRESS_ACL_DENY_DISCARDS",
+                            "IF_OUT_EGRESS_ACL_METER_DISCARDS",
+                            "IF_OUT_EGRESS_PORT_METER_DISCARDS",
+                            "INGRESS_TM_DISCARDS",
+                            "EGRESS_TM_DISCARDS",
+                            "IN_CURR_OCCUPANCY_BYTES",
+                            "OUT_CURR_OCCUPANCY_BYTES",
+                            "WRED_GREEN_DROPPED_PACKETS",
+                            "WRED_YELLOW_DROPPED_PACKETS",
+                            "WRED_RED_DROPPED_PACKETS",
+                            "WRED_GREEN_DROPPED_BYTES",
+                            "WRED_YELLOW_DROPPED_BYTES",
+                            "WRED_RED_DROPPED_BYTES",
+                            "WRED_GREEN_ECN_MARKED_PACKETS",
+                            "WRED_YELLOW_ECN_MARKED_PACKETS",
+                            "WRED_RED_ECN_MARKED_PACKETS",
+                            "WRED_GREEN_ECN_MARKED_BYTES",
+                            "WRED_YELLOW_ECN_MARKED_BYTES",
+                            "WRED_RED_ECN_MARKED_BYTES",
+                            "SC_UCAST_RED_PACKETS",
+                            "SC_UCAST_GREEN_PACKETS",
+                            "SC_MCAST_RED_PACKETS",
+                            "SC_MCAST_GREEN_PACKETS",
+                            "SC_BCAST_RED_PACKETS",
+                            "SC_BCAST_GREEN_PACKETS",
+                            "IP_IN_RECEIVES",
+                            "IP_IN_OCTETS",
+                            "IP_IN_UCAST_PKTS",
+                            "IP_IN_NON_UCAST_PKTS",
+                            "IP_IN_DISCARDS",
+                            "IP_OUT_OCTETS",
+                            "IP_OUT_UCAST_PKTS",
+                            "IP_OUT_NON_UCAST_PKTS",
+                            "IP_OUT_DISCARDS",
+                            "IPV6_IN_RECEIVES",
+                            "IPV6_IN_OCTETS",
+                            "IPV6_IN_UCAST_PKTS",
+                            "IPV6_IN_NON_UCAST_PKTS",
+                            "IPV6_IN_MCAST_PKTS",
+                            "IPV6_IN_DISCARDS",
+                            "IPV6_OUT_OCTETS",
+                            "IPV6_OUT_UCAST_PKTS",
+                            "IPV6_OUT_NON_UCAST_PKTS",
+                            "IPV6_OUT_MCAST_PKTS",
+                            "IPV6_OUT_DISCARDS"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "port_stats", "ingress_drop_stats", "egress_drop_stats", "port_ecn_stats", "sc_port_meter_stats", "ingress_port_ip_stats", "egress_port_ip_stats", "default_egress_system_acl2"
+                        ]
+                    }
+                }
+            },
+            "key_groups":   [["device", "port_id"]],
+            "cli_info" : {
+                "table_view_attrs": ["type", "port_id", "dev_port", "speed", "oper_state", "admin_state", "autoneg", "fec_type", "lag_handle", "rif_handle"],
+                "format" : {
+                   "key_attrs": [
+                       {
+                           "object": "port",
+                           "attribute" : "port_id"
+                       }
+                   ]
+                }
+            }
+        }
+    },
+    {
+        "snake" : {
+            "description": "Create a Snake Entry - Match: Any Normal Type Ingress Port, Action: Forward packet to any Normal Type Egress Port",
+            "class" : "user",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "ingress_port_handle" : {
+                    "description": "Port handle of ingress port",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "port"
+                        ]
+                    }
+                },
+                "egress_port_handle" : {
+                    "description": "Port handle of egress port",
+                    "comment" : "Can be same as ingress port",
+                    "is_mandatory": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "port"
+                        ]
+                    }
+                }
+            },
+            "key_groups":   [["device", "ingress_port_handle"]]
+        }
+    },
+    {
+        "port_serdes" : {
+            "description": "Create a Port Serdes Entry",
+            "class" : "user",
+            "attributes" : {
+                "port_id" : {
+                    "description": "Port ID",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "port"
+                        ]
+                    }
+                },
+                "tx_fir_pre1" : {
+                    "description": "List of port serdes TX fir precursor1 tap-filter values",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_INT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "tx_fir_pre2" : {
+                    "description": "List of port serdes TX fir precursor2 tap-filter values",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_INT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "tx_fir_main" : {
+                    "description": "List of port serdes TX fir maincursor tap-filter values",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_INT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "tx_fir_post1" : {
+                    "description": "List of port serdes TX fir postcursor1 tap-filter values",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_INT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "tx_fir_post2" : {
+                    "description": "List of port serdes TX fir postcursor2 tap-filter values",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_INT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "tx_fir_attn" : {
+                    "description": "List of port serdes TX fir attentuation values",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_INT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+
+        }
+    }
+]

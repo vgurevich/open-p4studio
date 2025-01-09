@@ -1,0 +1,10 @@
+{
+   "scheduler_group" : {
+       "profile" : "Per profile info",
+       "switch" : "scheduler_group",
+       "attributes" : {
+           "port_id" : "port_handle",
+           "scheduler_profile_id" : "scheduler_handle"
+       }
+   }
+}

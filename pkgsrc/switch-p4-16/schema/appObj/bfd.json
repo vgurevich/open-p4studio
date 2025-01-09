@@ -1,0 +1,241 @@
+[
+    {
+        "bfd_session" : {
+            "class" : "user",
+            "description" : "BFD Session",
+            "attributes" : {
+                "device" : {
+                    "description" : "Device handle",
+                    "is_mandatory" : true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                         "allowed_object_types" : [
+                            "device"
+                     ]
+                    }
+                },
+                "type" : {
+                    "description" : "BFD Session type",
+                    "is_mandatory" : true,
+                    "type_info" : {
+                        "default_value" : "ASYNC_ACTIVE",
+                        "enum" : [
+                            "ASYNC_ACTIVE",
+                            "ASYNC_PASSIVE"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "state" : {
+                    "description" : "BFD Session State",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "enum" : [
+                            "ADMIN_DOWN",
+                            "DOWN",
+                            "INIT",
+                            "UP"
+                        ],
+                        "default_value" : "DOWN"
+                    }
+                },
+                "vrf_handle" : {
+                    "description" : "VRF Handle",
+                    "is_mandatory" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "vrf"
+                        ]
+                    }
+                },
+                "local_discriminator" : {
+                    "description" : "Local Discriminator",
+                    "is_mandatory" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "remote_discriminator" : {
+                    "description" : "Remote Discriminator",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "udp_src_port" : {
+                    "description" : "UDP source port",
+                    "is_mandatory" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "tc" : {
+                    "description": "Traffic class",
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "encapsulation_type" : {
+                    "description" : "Encapsulation type",
+                    "is_mandatory" : true,
+                    "type_info" : {
+                        "default_value" : "NONE",
+                        "enum" : [
+                            "NONE"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "iphdr_version" : {
+                    "description" : "IP Version",
+                    "is_mandatory" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "tos" : {
+                    "description" : "IP Header TOS",
+                    "type_info" : {
+                        "default_value" : 0,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "ttl" : {
+                    "description" : "IP header TTL",
+                    "type_info" : {
+                        "default_value" : 64,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "src_ip_address" : {
+                    "description": "Source IP",
+                    "is_mandatory" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                        }
+                },
+                "dst_ip_address" : {
+                    "description": "Destination IP",
+                    "is_mandatory" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "multihop" : {
+                    "description" : "Hardware offload status",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL",
+                        "default_value" : false
+                    }
+                },
+                "min_tx" : {
+                    "description" : "Minimum Trasmit interval in microseconds",
+                    "is_mandatory" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "min_rx" : {
+                    "description" : "Minimum Receive interval in microseconds",
+                    "is_mandatory" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "multiplier" : {
+                    "description" : "Detect time multiplier",
+                    "is_mandatory" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "remote_min_tx" : {
+                    "description" : "Minimum Remote Transmit interval in microseconds",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "remote_min_rx" : {
+                    "description" : "Minimum Remote Receive interval in microseconds",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32",
+                        "default_value" : 1
+                    }
+                },
+                "offload_type" : {
+                    "description" : "Offload type",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "enum" : [
+                            "NONE",
+                            "FULL"
+                        ]
+                    }
+                },
+                "negotiated_tx" : {
+                    "description" : "Negotiated transmit interval in microseconds",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "negotiated_rx" : {
+                    "description" : "Negotiated receive interval in microseconds",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "local_diag" : {
+                    "description" : "Local diagnostic code field",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "remote_diag" : {
+                    "description" : "Remote diagnostic code field",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "remote_multiplier" : {
+                    "description" : "Remote time multiplier",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "designated_recirc_port" : {
+                    "description" : "Recirculation port used to reach designated pipe",
+                    "is_internal" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "designated_pipe" : {
+                    "description" : "Designated pipe",
+                    "is_internal" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "is_offloaded" : {
+                    "description" : "Hardware offload status",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL",
+                        "default_value" : false
+                    }
+                }
+            }
+        }
+    }
+]

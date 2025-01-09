@@ -1,0 +1,199 @@
+{
+  "idlPrefix" : "switch_", "version" : "0", "objects" : {
+    "user_referred_object" : {
+         "description" : "User Referred Object",
+         "class" : "user",
+         "attributes" : {
+            "u_referred_attr_u64" : {
+               "description" : "UINT64 Test Attribute",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT64"
+               }
+            }
+        }
+    },
+    "user_referrer_object" : {
+         "description" : "User Referrer Object",
+         "class" : "user",
+         "attributes" : {
+            "u_referrer_attr_referred_oid" : {
+               "description" : "Referred Object ID",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "user_referred_object"
+                  ]
+               }
+            }
+         }
+    },
+    "auto_referrer_object" : {
+         "description" : "Auto Referrer Object",
+         "class" : "auto",
+         "attributes" : {
+            "a_referrer_attr_referred_oid" : {
+               "description" : "Referred Object ID",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "user_referred_object"
+                  ]
+               }
+            }
+         }
+    },
+    "auto_referred_object" : {
+         "description" : "Auto Referred Object",
+         "class" : "auto",
+         "attributes" : {
+            "a_referred_attr_u64" : {
+               "description" : "UINT64 Test Attribute",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_UINT64"
+               }
+            }
+        }
+    },
+    "user_referrer_list_object" : {
+         "description" : "User object that refers a list of Objects",
+         "class" : "user",
+         "attributes" : {
+            "u_referrer_attr_referred_oids_list" : {
+               "description" : "Referred Object ID",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "user_referred_object"
+                     ]
+                  }
+               }
+            }
+         }
+    },
+    "auto_referrer_list_object" : {
+         "description" : "Auto object that refers a list of Objects",
+         "class" : "auto",
+         "attributes" : {
+            "a_referrer_attr_referred_oids_list" : {
+               "description" : "Referred Object ID",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "user_referred_object"
+                     ]
+                  }
+               }
+            }
+         }
+    },
+    "user_internal_reference_object" : {
+         "description" : "User Object with a Test attribute of type Object ID that is marked internal",
+         "class" : "user",
+         "attributes" : {
+            "u_referrer_attr_internal_referred_oid" : {
+               "description" : "Referred Object ID",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "user_referred_object"
+                  ]
+               },
+               "is_internal" : true
+            }
+         }
+    },
+    "user_read_only_reference_object" : {
+         "description" : "User Object with a Test attribute of type Object ID that is marked as read only",
+         "class" : "user",
+         "attributes" : {
+            "u_referrer_attr_ro_referred_oid" : {
+               "description" : "Referred Object ID",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "user_referred_object"
+                  ]
+               },
+               "is_read_only" : true
+            }
+         }
+    },
+    "user_internal_read_only_reference_object" : {
+         "description" : "User Object with a Test attribute of type Object ID that is marked both as internal and read only",
+         "class" : "user",
+         "attributes" : {
+            "u_referrer_attr_internal_ro_referred_oid" : {
+               "description" : "Referred Object ID",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "user_referred_object"
+                  ]
+               },
+               "is_internal" : true,
+               "is_read_only" : true
+            }
+         }
+    },
+    "user_referred_membership_object" : {
+         "description" : "User object that is referred by another user object and also defines a membership to some other user object caches members list of another user object",
+         "class" : "user",
+         "attributes" : {
+           "u_referred_membership_attr_member_of_oid" : {
+              "description" : "Membership Group Object ID",
+              "is_mandatory": true,
+              "type_info" : {
+                 "type" : "SWITCH_TYPE_OBJECT_ID",
+                 "allowed_object_types" : [
+                    "user_membership_object"
+                 ]
+              }
+           }
+        },
+        "membership" : [
+           {
+              "attribute" : "u_membership_attr_members",
+              "object" : "user_membership_object"
+           }
+        ]
+    },
+    "user_membership_object" : {
+         "description" : "User Object that caches a list of all its member objects",
+         "class" : "user",
+         "attributes" : {
+            "u_membership_attr_members" : {
+               "description" : "Members of user membership object",
+               "is_read_only" : true,
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_LIST",
+                  "list" : {
+                      "type" : "SWITCH_TYPE_OBJECT_ID",
+                      "allowed_object_types" : [
+                         "user_referred_membership_object"
+                      ]
+                  }
+               }
+            }
+         }
+    },
+    "user_referrer_membership_object" : {
+         "description" : "User object that refers another object which defines a membership to some other User object",
+         "class" : "user",
+         "attributes" : {
+            "u_referrer_membership_attr_referred_oid" : {
+               "description" : "Referred Object ID",
+               "type_info" : {
+                  "type" : "SWITCH_TYPE_OBJECT_ID",
+                  "allowed_object_types" : [
+                     "user_referred_membership_object"
+                  ]
+               }
+            }
+         }
+    }
+  }
+}

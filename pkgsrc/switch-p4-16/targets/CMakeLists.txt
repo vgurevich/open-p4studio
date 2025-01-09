@@ -1,0 +1,27 @@
+#setup conf files
+set(TOFINO_CONF "${CMAKE_CURRENT_SOURCE_DIR}/tofino")
+if(CPUVETH)
+  configure_file(${TOFINO_CONF}/switch-cpu-veth.conf.in tofino/switch.conf)
+else()
+  configure_file(${TOFINO_CONF}/switch.conf.in tofino/switch.conf)
+endif()
+configure_file(${TOFINO_CONF}/switch-sai.conf.in tofino/switch-sai.conf)
+configure_file(${TOFINO_CONF}/switch-sai-cpu-veth.conf.in tofino/switch-sai-cpu-veth.conf)
+configure_file(${TOFINO_CONF}/switch-32q-cpu-veth.conf.in tofino/switch-32q-cpu-veth.conf)
+configure_file(${TOFINO_CONF}/switch-sai-32q.conf.in tofino/switch-sai-32q.conf)
+configure_file(${TOFINO_CONF}/switch-32q-asym-folded-cpu-veth.conf.in tofino/switch-32q-asym-folded-cpu-veth.conf)
+configure_file(${TOFINO_CONF}/switch-32q-asym-folded.conf.in tofino/switch-32q-asym-folded.conf)
+
+set(TOFINO2_CONF "${CMAKE_CURRENT_SOURCE_DIR}/tofino2")
+if(CPUVETH)
+  configure_file(${TOFINO2_CONF}/switch-cpu-veth.conf.in tofino2/switch.conf)
+else()
+  configure_file(${TOFINO2_CONF}/switch.conf.in tofino2/switch.conf)
+endif()
+configure_file(${TOFINO2_CONF}/switch-sai.conf.in tofino2/switch-sai.conf)
+configure_file(${TOFINO2_CONF}/switch-sai-cpu-veth.conf.in tofino2/switch-sai-cpu-veth.conf)
+configure_file(${TOFINO2_CONF}/switch-32q-asym-folded-cpu-veth.conf.in tofino2/switch-32q-asym-folded-cpu-veth.conf)
+
+# make install targets
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tofino DESTINATION share/p4/targets)
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/tofino2 DESTINATION share/p4/targets)

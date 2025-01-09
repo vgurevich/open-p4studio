@@ -1,0 +1,11 @@
+{
+   "acl_entry" : {
+       "profile" : "Per profile info",
+       "switch" : "acl_entry",
+       "attributes" : {
+            "table_id" : "table_handle",
+            "priority" : "priority",
+            "admin_state" : "admin_state"
+       }
+   }
+}

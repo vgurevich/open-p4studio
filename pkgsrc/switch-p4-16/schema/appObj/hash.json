@@ -1,0 +1,308 @@
+[
+    {
+        "hash" : {
+            "description": "Create a hash object",
+            "class" : "user",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description": "Provides the information for type of HASH",
+                    "type_info" : {
+                        "default_value": "NONE",
+                        "enum" : [
+                            "NONE",
+                            "ECMP_IPV4_HASH",
+                            "ECMP_IPV6_HASH",
+                            "NON_IP_HASH",
+                            "LAG_IPV4_HASH",
+                            "LAG_IPV6_HASH",
+                            "INNER_DTEL_IPV4_HASH",
+                            "INNER_DTEL_IPV6_HASH"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "field" : {
+                    "description": "Attribute to consider for HASH calculation",
+                    "is_immutable" : true,
+                    "is_internal" : true,
+                    "type_info" : {
+                        "default_value": "NONE",
+                        "enum" : [
+                            "NONE",
+                            "SRC_ADDR",
+                            "DST_ADDR",
+                            "IP_PROTO",
+                            "SRC_PORT",
+                            "DST_PORT",
+                            "INGRESS_PORT",
+                            "MAC_TYPE",
+                            "SRC_MAC",
+                            "DST_MAC",
+                            "IPV6_FLOW_LABEL"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "field_list" : {
+                    "description": "Fields to consider for a hash calculation",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_UINT32"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "fine_grained_field_list" : {
+                    "description": "Fine-grained hash fields object list",
+                    "type_info" : {
+                    "list" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "fine_grained_hash" ]
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "symmetric_hash" : {
+                    "description": "Enable/Disable symmetric hash",
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "hash_algorithm" : {
+            "description": "Create a hash algorithm object",
+            "class" : "user",
+            "attributes" : {
+                "type" : {
+                    "description": "Provides the information for type of HASH",
+                    "type_info" : {
+                        "default_value": "PRE_DEFINED",
+                        "enum" : [
+                            "PRE_DEFINED",
+                            "USER_DEFINED"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "algorithm" : {
+                    "is_immutable": true,
+                    "description" : "List of supported pre defined dynamic hash algorithms",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                          "enum" : [
+                            "CRC_32",
+                            "IDENTITY",
+                            "RANDOM",
+                            "XOR",
+                            "CRC_8",
+                            "CRC_8_DARC",
+                            "CRC_8_I_CODE",
+                            "CRC_8_ITU",
+                            "CRC_8_MAXIM",
+                            "CRC_8_ROHC",
+                            "CRC_8_WCDMA",
+                            "CRC_16",
+                            "CRC_16_BYPASS",
+                            "CRC_16_DDS_110",
+                            "CRC_16_DECT",
+                            "CRC_16_DECT_R",
+                            "CRC_16_DECT_X",
+                            "CRC_16_DNP",
+                            "CRC_16_EN_13757",
+                            "CRC_16_GENIBUS",
+                            "CRC_16_MAXIM",
+                            "CRC_16_MCRF4XX",
+                            "CRC_16_RIELLO",
+                            "CRC_16_T10_DIF",
+                            "CRC_16_TELEDISK",
+                            "CRC_16_USB",
+                            "X_25",
+                            "XMODEM",
+                            "MODBUS",
+                            "KERMIT",
+                            "CRC_CCITT_FALSE",
+                            "CRC_AUG_CCITT",
+                            "CRC_32_BZIP2",
+                            "CRC_32C",
+                            "CRC_32D",
+                            "CRC_32_MPEG",
+                            "POSIX",
+                            "CRC_32Q",
+                            "JAMCRC",
+                            "XFER",
+                            "CRC_64",
+                            "CRC_64_GO_ISO",
+                            "CRC_64_WE",
+                            "CRC_64_JONES",
+                            "CRC_INVALID"
+                        ]
+                    }
+                },
+                "polynomial" : {
+                    "description" : "Valid only when hash algorithm type is USER_DEFINED",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "init" : {
+                    "description" : "Valid only when hash algorithm type is USER_DEFINED",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "final_xor" : {
+                    "description" : "Valid only when hash algorithm type is USER_DEFINED",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "hash_bit_width" : {
+                    "description" : "Valid only when hash algorithm type is USER_DEFINED",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "reverse" : {
+                    "description": "Valid only when hash algorithm type is USER_DEFINED",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "default_value" : true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "fine_grained_hash" : {
+            "description": "Fine-grained hash field attributes",
+            "class" : "user",
+            "attributes" : {
+                "field_name" : {
+                    "description": "Fine-grained hash field Name",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "enum" : [
+                            "NONE",
+                            "SRC_ADDR",
+                            "DST_ADDR",
+                            "IP_PROTO",
+                            "SRC_PORT",
+                            "DST_PORT",
+                            "INGRESS_PORT",
+                            "MAC_TYPE",
+                            "SRC_MAC",
+                            "DST_MAC",
+                            "IPV6_FLOW_LABEL"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "src_ip_mask" : {
+                    "description" : "Source IP address mask with continuous bits only, if not mentioned all bits selected",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "dst_ip_mask" : {
+                    "description" : "Destination IP address mask with continuous bits only, if not mentioned all bits selected",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_ADDRESS"
+                    }
+                },
+                "ip_proto_mask" : {
+                    "description" : "IP protocol mask with continuous bits only, if not mentioned all bits selected",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "src_port_mask" : {
+                    "description" : "Source port mask with continuous bits only, if not mentioned all bits selected",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "dst_port_mask" : {
+                    "description" : "Destination port mask with continuous bits only, if not mentioned all bits selected",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "ingress_port_mask" : {
+                    "description" : "Ingress port mask with continuous bits only, if not mentioned all bits selected",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "mac_type_mask" : {
+                    "description" : "MAC type mask with continuous bits only, if not mentioned all bits selected",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "mac_type_mask" : {
+                    "description" : "MAC type mask with continious bits only, if not mentioned all bits selected",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "src_mac_mask" : {
+                    "description" : "Source mac mask with continuous bits only, if not mentioned all bits selected",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "dest_mac_mask" : {
+                    "description" : "Destination mac mask with continuous bits only, if not mentioned all bits selected",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "ipv6_flow_label_mask" : {
+                    "description" : "ipv6 flow label mask with continuous and max 20 bits only, if not mentioned all bits selected",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "sequence" : {
+                    "description": "Specifies in which order the fields are hashed ",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                }
+            }
+        }
+    }
+]

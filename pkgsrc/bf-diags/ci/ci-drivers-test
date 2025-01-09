@@ -1,0 +1,353 @@
+#!/bin/bash -xe
+
+######################################################################################
+# Script is intended to be run by Jenkinsfile. As such, several environment variables
+# are assumed to be present. Including standard jenkins 
+# env var (e.g. WORKSPACE, CHANGE_TARGET)
+# and other custom variables such as `target_branch`
+#####################################################################################
+
+skip_tests=false
+run_local=false
+gcc_check=false
+standalone_check=false
+custom_cpu=4
+
+
+private_bf_p4c_compilers=""
+private_target_syslibs=""
+private_utils_syslibs=""
+private_bf_utils=""
+private_model=""
+private_ptf_utils=""
+private_ptf=""
+private_bf_pktpy=""
+private_bf_drivers=""
+# default p4factory branch should be the branch this PR is being run against eg. master or rel_9_8
+private_p4factory=$CHANGE_TARGET
+
+THRIFT_OPTION=""
+COMPILER_OPTION="-DCOMPILER=off"
+MODEL_OPTION="-DMODEL=off"
+SYSLIBS_DEBUG_OPTION="-DTARGETSYS-DEBUG-MODE=on"
+BUILD_TYPE="-DCMAKE_BUILD_TYPE=debug"
+ASAN_OPT="-DASAN=on"
+DIAG_OPT="-DBF-DIAGS=on"
+DIAG_PROF=""
+
+export ASAN_OPTIONS="abort_on_error=1:disable_coredump=0"
+arch="tofino"
+
+default_negative_timeout="0.05"
+default_timeout="3"
+
+for arg in "$@"; do
+  case $arg in
+    --skip_tests)
+      skip_tests=true
+      # Turning off asan for compile check
+      ASAN_OPT=""
+      shift;;
+    --base_tf1)
+      ut=true
+      arch="tofino"
+      shift;;
+    --base_tf2)
+      ut=true
+      arch="tofino2"
+      shift;;
+    --base_tf2m)
+      ut=true
+      arch="tofino2m"
+      shift;;
+
+    --gcc_check=*)
+      # Turning off asan for compile check
+      ASAN_OPT=""
+      gcc_check=true
+      gcc_list="${arg#*=}"
+      SYSLIBS_DEBUG_OPTION=""
+      BUILD_TYPE="-DCMAKE_BUILD_TYPE=Release"
+      shift;;
+
+    --standalone_check)
+      standalone_check=true
+      # Turning off asan for compile check
+      ASAN_OPT=""
+      # Turn off asserts for compile check
+      SYSLIBS_DEBUG_OPTION=""
+      BUILD_TYPE="-DCMAKE_BUILD_TYPE=Release"
+      # Turn off diags for initial p4factory build, diags is re-enabled in the
+      # standalone check itself
+      DIAG_OPT="-DBF-DIAGS=off"
+      DIAG_PROF=""
+      shift;;
+
+    --private_bf_p4c_compilers=*)
+      private_bf_p4c_compilers="${arg#*=}"
+      # Currently when ASAN is ON, custom compiler/model is not supported
+      # by p4factory and overriden to prebuild binaries.
+      ASAN_OPT=""
+      # Jenkins machine tends to run out of memory for compiler compilation
+      custom_cpu=2
+      # Change to be inline with compiler CI
+      BUILD_TYPE="-DCMAKE_BUILD_TYPE=debug"
+      shift;;
+    --private_bf_platforms=*)
+      private_bf_platforms="${arg#*=}"
+      shift;;
+    --private_target_syslibs=*)
+      private_target_syslibs="${arg#*=}"
+      shift;;
+    --private_target_utils=*)
+      private_target_utils="${arg#*=}"
+      shift;;
+    --private_bf_utils=*)
+      private_bf_utils="${arg#*=}"
+      shift;;
+    --private_model=*)
+      private_model="${arg#*=}"
+      shift;;
+    --private_ptf_utils=*)
+      private_ptf_utils="${arg#*=}"
+      shift;;
+    --private_bf_pktpy=*)
+      private_bf_pktpy="${arg#*=}"
+      shift;;
+    --private_bf_drivers=*)
+      private_bf_drivers="${arg#*=}"
+      shift;;
+    --private_ptf=*)
+      private_ptf="${arg#*=}"
+      shift;;
+    --private_p4factory=*)
+      private_p4factory="${arg#*=}"
+      shift;;
+  esac
+done
+
+build_everything() {
+  local arch_k=$1
+  if [ "$arch_k" = "" ]; then
+    arch_k="tofino"
+  fi
+
+  case "$arch_k" in
+    tofino)   TOFINO_ARCH="-DTOFINO=ON  -DTOFINO2=OFF -DTOFINO2M=OFF";;
+    tofino2)  TOFINO_ARCH="-DTOFINO=OFF -DTOFINO2=ON  -DTOFINO2M=OFF";;
+    tofino2m) TOFINO_ARCH="-DTOFINO=OFF -DTOFINO2=OFF -DTOFINO2M=ON";;
+    *) echo "Invalid arch option specified ${ARCH}"; exit 1;;
+  esac
+
+  echo "Building for arch" $arch_k
+
+
+  cd $SDE
+  rm -rf build $SDE_INSTALL
+  mkdir -p build && cd build
+  cmake .. -DBF-PYTHON=OFF -DBFRT=OFF -DGRPC=OFF $DIAG_OPT $DIAG_PROF $COMPILER_OPTION $MODEL_OPTION $THRIFT_OPTION $TOFINO_ARCH $ASAN_OPT $SYSLIBS_DEBUG_OPTION $BUILD_TYPE
+  make -j$custom_cpu
+  make -j$custom_cpu install
+  cd $SDE
+}
+
+
+install_dependencies() {
+  #Running veth setups
+  submodules/sandals/jenkins/veth_setup.sh 128 &> /dev/null
+  submodules/sandals/jenkins/disable_ipv6.sh
+  submodules/sandals/jenkins/veth_disable_ipv6.sh
+}
+
+kill_model_switch() {
+    # Kill model and switchd if running
+    set +e
+    while kill -9 $(pidof tofino-model) 2>/dev/null; do
+        sleep 0.1
+    done
+    while kill -9 $(pidof bf_switchd) 2>/dev/null; do
+        sleep 0.1
+    done
+    sleep 1
+    ps -aux | grep switchd
+    ps -aux | grep model
+    set -e
+    sleep 1
+}
+
+
+
+run_gcc_checks() {
+  local arch_k=$1
+  for i in "${gcc_list[@]}"
+  do
+    echo "Changing gcc version to " $i
+    apt-get -y install gcc-$i || true
+    apt-get -y install g++-$i || true
+    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-$i 60 --slave /usr/bin/g++ g++ /usr/bin/g++-$i || true
+    update-alternatives --set gcc /usr/bin/gcc-$i || true
+    update-alternatives --set g++ /usr/bin/g++-$i || true
+    echo "Cleaning up build " $i
+    rm -rf $SDE/build || true
+    rm -rf $SDE_INSTALL || true
+
+    echo "Building with gcc and g++ version " $i
+    build_everything $arch_k
+  done
+}
+
+run_standalone_check() {
+  local arch_k=$1
+  build_everything $arch_k
+  cd $SDE/submodules/bf-diags
+  rm -rf build
+  mkdir -p build && cd build
+  cmake .. -DSTANDALONE=on -DTOFINO=on -DCMAKE_MODULE_PATH=$SDE/cmake -DCMAKE_INSTALL_PREFIX=$SDE_INSTALL
+  make -j$custom_cpu
+  make install -j$custom_cpu
+  cd $SDE
+}
+
+run_diag_tests() {
+  cd $SDE
+  pwd
+
+  local arch_k=$1
+  local ports_file="ports.json"
+  if [ "$arch_k" = "tofino2" ]; then
+    ports_file="ports_tof2.json"
+  fi
+
+  build_everything $arch_k
+
+  $SDE_INSTALL/bin/veth_setup.sh
+  
+  echo "Running diag base tests for arch" $arch_k
+  kill_model_switch
+  $SDE/tools/run_tofino_model.sh -q -p diag --arch=$arch_k 2>&1 > run_tofino_model.log &
+  $SDE/tools/run_switchd.sh -p diag 2>&1 --arch=$arch_k -- --background > run_switchd.log &
+  $SDE/tools/run_p4_tests.sh --failfast -t submodules/bf-diags/ptf-tests/base --arch=$arch_k --default-negative-timeout $default_negative_timeout --default-timeout $default_timeout
+  kill_model_switch
+
+  echo "Running diag internal port loop tests for arch " $arch_k
+  kill_model_switch
+  $SDE/tools/run_tofino_model.sh -q -p diag -f submodules/bf-diags/ptf-tests/int_port_loop/$ports_file --int-port-loop 0xf --arch=$arch_k 2>&1 > run_tofino_model.log &
+  $SDE/tools/run_switchd.sh -p diag 2>&1 --arch=$arch_k -- --background > run_switchd.log &
+  $SDE/tools/run_p4_tests.sh --failfast -t submodules/bf-diags/ptf-tests/int_port_loop -f submodules/bf-diags/ptf-tests/int_port_loop/$ports_file --arch=$arch_k --default-negative-timeout $default_negative_timeout --default-timeout $default_timeout
+  kill_model_switch
+
+}
+
+
+change_submodule_branch() {
+  local submod=$1
+  local branch_name=$2
+  if [ "$branch_name" != "" ]; then
+    echo "Trying to change " $1 " to " $2
+    cd submodules/$1
+    git checkout $branch_name
+    git submodule update --init --recursive
+    cd ../..
+  fi
+}
+
+change_all_submodule_branch() {
+  change_submodule_branch "bf-p4c-compilers" $private_bf_p4c_compilers
+  change_submodule_branch "model" $private_model
+  change_submodule_branch "target-syslibs" $private_target_syslibs
+  change_submodule_branch "target-utils" $private_target_utils
+  change_submodule_branch "bf-utils" $private_bf_utils
+  change_submodule_branch "ptf-utils" $private_ptf_utils
+  change_submodule_branch "ptf" $private_ptf
+  change_submodule_branch "bf-pktpy" $private_bf_pktpy
+  change_submodule_branch "bf-drivers" $private_bf_drivers
+}
+
+# Only use p4factory if compiler or model private branch is needed.
+# If tests need to be skipped, i.e., for build checks, don't use
+# p4factory either
+create_and_setup_p4factory() {
+  local p4factory_branch=$1
+
+  if [ "$private_bf_p4c_compilers" != "" ]; then
+      COMPILER_OPTION="-DCOMPILER=ON -DENABLE_UNIFIED_COMPILATION=OFF"
+  fi
+  if [ "$private_model" != "" ]; then
+      MODEL_OPTION="-DMODEL=ON"
+  fi
+
+  if [ ! -d ci_workspace ]; then
+      git clone --single-branch --branch $p4factory_branch git@github.com:barefootnetworks/p4factory ci_workspace || git clone --single-branch --branch master git@github.com:barefootnetworks/p4factory ci_workspace
+  fi
+
+  cd ci_workspace
+
+  export SDE=`pwd`
+  export SDE_INSTALL=$SDE/install
+  export WORKSPACE=$SDE # Override WORKSPACE var to be our p4f workspace
+
+  git fetch
+  git reset --hard $p4factory_branch
+  git -c submodule."submodules/bf-p4c-compilers".update=none -c submodule."submodules/model".update=none submodule update --recursive --init
+  if [ "$COMPILER_OPTION" != "-DCOMPILER=OFF" ]; then
+    git submodule update --init --recursive ./submodules/bf-p4c-compilers/
+  fi
+  if [ "$MODEL_OPTION" != "-DMODEL=OFF" ]; then
+    git submodule update --init --recursive ./submodules/model/
+  fi
+}
+
+############ Script execution start here ###########
+# convert test_list and arch from a string to array of strings delimiter=" "
+test_list=($test_list)
+gcc_list=($gcc_list)
+test_dep_list=($test_dep_list)
+arch=($arch)
+
+# Get the driver refpoint
+if [ "$run_local" = false ]; then
+  DRIVER_BRANCH=$(git show-ref --head | head -n 2 | tail -1 | awk '{print $1}')
+else
+  DRIVER_BRANCH=$(git show-ref --head | head -n 1 | awk '{print $1}')
+fi
+
+git branch
+git remote -v
+git show-ref --head | head -n 3
+
+### CD to an appropriate location to start building p4factory
+# Comment the below command if you want to run this script in your
+# local workspace. This is only required for our container env
+if [ "$run_local" = false ]; then
+  cd /
+fi
+
+export BRANCH="$CHANGE_TARGET"
+
+if [ -z "$BRANCH" ];then
+  export BRANCH="master"
+fi
+
+create_and_setup_p4factory $private_p4factory
+
+# Change to bf-diags and change the refpoint
+cd $SDE/submodules/bf-diags
+git fetch
+git checkout -f $DRIVER_BRANCH
+git merge --no-edit origin/$BRANCH
+cd $SDE
+
+
+# Change all submodule refpoints
+change_all_submodule_branch
+
+echo "Using arch=$arch"
+if [ "$skip_tests" = true ]; then
+    if [ "$gcc_check" = true ]; then
+        run_gcc_checks $arch
+    elif [ "$standalone_check" = true ]; then
+        run_standalone_check $arch
+    fi
+elif [ "$ut" = true ]; then
+    run_diag_tests $arch
+fi

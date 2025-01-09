@@ -1,0 +1,35 @@
+{% for obj in objects %}
+
+    {% for rl in obj.register_lists%}
+        reg_decoder_t tof3_{{rl.x}}_{{rl.y}}__{{rl.z}}_fid_list[] = {
+        {% for argument in method.arguments %}
+            {{argument.type}} {{argument.name}},
+        {% endfor %}
+        };
+    {% endfor%}
+
+    {% for reg in obj.registers%}
+        reg_decoder_t tof3_{{obj.x}}_{{obj.y}}__{{obj.z}} = {
+        {% for m in method.arguments %}
+            {{m.name}}, {{m.comment}}
+        {% endfor %}
+        };
+    {% endfor%}
+
+    {% for c in obj.cmd_arg_t %}
+        cmd_arg_t tof3_{{c.name}} = {
+        {% for m in c.members %}
+            {{m.one}}, {{m.two}}
+        {% endfor %}
+        };
+    {% endfor%}
+
+    {% for c in obj.cmd_arg_item_t %}
+        cmd_arg_item_t tof3_{{c.name}}_list[] = {
+        {% for m in c.members %}
+            { {{m.one}}, {{m.two}}, {{m.three}}, {{.four}} },
+        {% endfor %}
+        };
+    {% endfor %}
+
+{% endfor %}

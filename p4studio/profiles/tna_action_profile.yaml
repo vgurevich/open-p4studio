@@ -1,0 +1,6 @@
+global-options: {}
+features:
+  p4-examples:
+  - p4-16-programs
+architectures:
+- tofino

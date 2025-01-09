@@ -1,0 +1,223 @@
+#!/bin/bash
+set +x
+##############################################################################################
+#
+# bf_model_driver_remote
+#  Setup remote driver and model on different hosts.
+#  
+#    This script is run on both model and driver hosts. The remote sessions are established with specifying 
+#    Driver ip on Model Host, and Model ip address on Driver Host.
+#
+#  Pre-requisite:
+#   
+#    ip-tables, ip, sysctl and sudo (root access)
+#       This script requires iptables options to setup post routing rules and root previedges to update iptables.
+#
+#  Usage:
+#
+#    The following are the script usage and various options to show and clear the routing rules. 
+#
+#    Usage : $0 [--model <remote model ip>] [--driver <remote driver ip>] [--clear] [--show]
+#    
+#          --model  : Remote Model IP address
+#          --driver : Remote Switch Driver IP address
+#          --show   : Show  remote forwarding rules
+#          --clear  : Clear remote forwarding rules
+#   
+#       DRIVER HOST  : bf_model_driver_remote --model <MODEL IP Address>
+#                      bf_model_driver_remote --model <MODEL IP Address> --clear
+#                      bf_model_driver_remote --show 
+#    
+#       MODEL HOST  :  bf_model_driver_remote --driver <DRIVER IP Address>
+#                       bf_model_driver_remote --driver <DRIVER IP Address> --clear
+#                       bf_model_driver_remote --show
+#
+##############################################################################################
+
+#################
+# Global Defaults
+#################
+REMOTEMODEL=false
+REMOTEDRIVER=false
+INTFNAME="eth0"
+CLEAR=false
+
+is_valid_ip() {
+    ipaddr=$1
+    if [[ $ipaddr =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]] ; then 
+        return 0
+    else
+        return 1
+    fi
+}
+
+#################
+#  Get Gateway Interface binding
+#################
+get_intf() {
+    ipaddr=$1
+    #Get Default gateway
+    intf=$(/sbin/ip route | awk '/default/ {print $5}')
+    echo $intf
+}
+
+#################
+# Validate Ip Address
+#################
+validate_ip() {
+    ipaddr=$1
+    if is_valid_ip $ipaddr ; then
+        INTFNAME=$(get_intf  $ipaddr)
+        if [ -z "$INTFNAME" ] ; then
+            echo "ERROR: \"$ipaddr\" has no default gateway"
+            exit
+        fi
+    else
+        echo "ERROR: \"$ipaddr\" - Invalid Address"
+        exit
+    fi
+
+    return 0
+}
+
+#################
+# Show iptables post routing rules
+#################
+fwd_rules_show() {
+    postrouting=$(sudo iptables -t nat -L PREROUTING | grep "8001\|8002")
+    output=$(sudo iptables -t nat -L OUTPUT | grep "8001\|8002")
+
+    if [ -z "$postrouting" ]  &&  [ -z "$output" ] ; then
+        echo " "
+        echo "No Rules Installed for Remote Model/Driver"
+        echo " "
+        return
+    fi
+
+    echo "POSTROUTING:"
+    echo $postrouting
+    echo "OUTPUT:"
+    echo $output
+}
+
+#################
+# Script usage
+#################
+usage_help() {
+
+        echo " "
+        echo "Usage : $0 [--model <remote model ip>] [--driver <remote driver ip>] [--clear] [--show]"
+        echo " "
+        echo "       --model  : Remote Model IP address"
+        echo "       --driver : Remote Switch Driver IP address"
+        echo "       --show   : Show  remote forwarding rules"
+        echo "       --clear  : Clear remote forwarding rules"
+        echo " "
+        echo "    DRIVER HOST  : bf_model_driver_remote --model <MODEL IP Address>   "
+        echo "                   bf_model_driver_remote --model <MODEL IP Address> --clear  "
+        echo "                   bf_model_driver_remote --show  "
+        echo " "
+        echo "    MODEL HOST  :  bf_model_driver_remote --driver <DRIVER IP Address> "
+        echo "                   bf_model_driver_remote --driver <DRIVER IP Address> --clear "
+        echo "                   bf_model_driver_remote --show "
+        echo " "
+}
+
+
+if [ $# -lt 1 ] ;  then
+      usage_help
+      exit
+fi
+
+OPTS=`getopt -s sh -l "model:","driver:","clear","show","help" "" "$@"`
+eval set -- "$OPTS"
+
+
+######
+# Read p4app args
+##
+while true; 
+do
+    case "$1" in
+        --model)
+            shift 1 ; REMOTEMODEL=true ; REMOTE_MODEL_IP=$1 ; shift 1
+            validate_ip $REMOTE_MODEL_IP
+            ;;
+
+        --driver)
+            shift 1 ; REMOTEDRIVER=true; REMOTE_SWITCHD_IP=$1 ; shift 1
+            validate_ip $REMOTE_SWITCHD_IP
+            ;;
+
+        --clear)
+            CLEAR=true; shift 1
+            ;;
+
+        --show)
+            fwd_rules_show
+            exit
+            ;;
+
+        --help)
+            usage_help
+	        exit
+            ;;
+
+        --)
+            shift 1
+            break
+            ;;
+    esac
+done
+
+#############################################################
+# DEV_VM: Switchd --> Remote Model - connecting to port 8001
+#############################################################
+
+if [ $REMOTEMODEL == true ] ; then
+    if [ $CLEAR == true ] ; then
+    	echo " !!! Clearing routing rules."
+        #### Delete Rules
+        sudo iptables -t nat -D PREROUTING -p tcp --dport 8001 -j DNAT --to-destination ${REMOTE_MODEL_IP}:8001
+        sudo iptables -t nat -D OUTPUT -p tcp -m tcp --dport 8001 -j DNAT --to-destination ${REMOTE_MODEL_IP}:8001   
+        sudo iptables -t nat -D POSTROUTING -o ${INTFNAME} -j MASQUERADE
+        exit
+    fi
+
+    echo " ==> Settingup up Switchd -> Remote Model"
+    echo " ==> Setup routing rules."
+    # Add rules to OUTPUT and POSTROUTING iptables NAT CHAINS
+    sudo iptables -t nat -A PREROUTING -p tcp --dport 8001 -j DNAT --to-destination ${REMOTE_MODEL_IP}:8001
+    sudo iptables -t nat -A OUTPUT -p tcp -m tcp --dport 8001 -j DNAT --to-destination ${REMOTE_MODEL_IP}:8001
+    sudo iptables -t nat -I POSTROUTING -o ${INTFNAME} -j MASQUERADE
+    echo " ==> Enable forwarding."
+    sudo sysctl -w net.ipv4.conf.all.route_localnet=1 > /dev/null
+    sudo sysctl net.ipv4.ip_forward=1 > /dev/null
+    echo " ==> Start run_switchd now.."
+fi
+
+#############################################################
+# MODEL : Tofino-Model --> switchd - Connecting to port 8002
+#############################################################
+
+if [ $REMOTEDRIVER == true ] ; then
+    if [ $CLEAR == true ] ; then
+    	echo " !!! Clearing routing rules."
+        ## Delete Rules
+        sudo iptables -t nat -D PREROUTING -p tcp --dport 8002 -j DNAT --to-destination ${REMOTE_SWITCHD_IP}:8002
+        sudo iptables -t nat -D OUTPUT -p tcp -m tcp --dport 8002 -j DNAT --to-destination ${REMOTE_SWITCHD_IP}:8002
+        sudo iptables -t nat -D POSTROUTING -o ${INTFNAME} -j MASQUERADE
+        exit
+    fi
+
+    echo " ==> Setting up Model --> Remote Switch driver"
+    echo " ==> Setup routing rules."
+    # Add rules to OUTPUT and POSTROUTING iptables NAT CHAINS
+    sudo iptables -t nat -A PREROUTING -p tcp --dport 8002 -j DNAT --to-destination ${REMOTE_SWITCHD_IP}:8002
+    sudo iptables -t nat -A OUTPUT -p tcp -m tcp --dport 8002 -j DNAT --to-destination ${REMOTE_SWITCHD_IP}:8002
+    sudo iptables -t nat -I POSTROUTING -o ${INTFNAME} -j MASQUERADE
+    echo " ==> Enable forwarding."
+    sudo sysctl -w net.ipv4.conf.all.route_localnet=1 > /dev/null
+    sudo sysctl net.ipv4.ip_forward=1 > /dev/null
+    echo " ==> Start run_tofino_model now.."
+fi

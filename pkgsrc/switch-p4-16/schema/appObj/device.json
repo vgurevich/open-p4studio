@@ -1,0 +1,746 @@
+[
+    {
+        "device" : {
+            "class" : "user",
+            "description" : "Device object to be created per device/chip",
+            "attributes" : {
+                "dev_id" : {
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "description": "Device id used to reference this handle",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "use_pcie" : {
+                    "description": "Use PCIE port as CPU port",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "program_smac" : {
+                    "description": "Specify behavior for learnt MACs",
+                    "type_info" : {
+                        "default_value" : true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "cpu_port" : {
+                    "description": "CPU port handle. This handle is created as part of device add",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "port"
+                        ]
+                    }
+                },
+                "egress_cpu_mirror_handle" : {
+                    "description": "Egress CPU mirror handle. This handle is created as part of device add",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "mirror"
+                        ]
+                    }
+                },
+                "eth_cpu_dev_port" : {
+                    "description": "Ethernet CPU dev port for asic",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "pcie_cpu_dev_port" : {
+                    "description": "PCIE CPU dev port for asic",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "folded_cpu_dev_port" : {
+                    "description": "For a folded pipeline, cpu packets are forwarded to this port for Switch Egress processing, if the actual cpu port is on a pipe other than SwitchEgress",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "default1q_bridge" : {
+                    "description": "Default DOT1Q bridge. There is no default object created. The application can create one and set this value for later access",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "bridge"
+                        ]
+                    }
+                },
+                "default_hostif_trap_group" : {
+                    "description": "Default hostif trap group. There is no default object created. The application can create one and set this value for later access",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "hostif_trap_group"
+                        ]
+                    }
+                },
+                "cut_through" : {
+                    "description": "Set device cut through mode",
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "default_aging_interval" : {
+                    "description": "Default aging time of learned MAC in milliseconds. Setting this value will update all dynamic MAC entries in the hardware with the new aging interval",
+                    "type_info" : {
+                        "default_value": 10000,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "refresh_interval" : {
+                    "description": "MAU counter refresh interval in seconds. Setting a non-zero value will create a timer thread which will do hardware sync of supported stats tables",
+                    "type_info" : {
+                        "default_value": 2,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "port_rate_interval" : {
+                    "description": "Port rate polling interval in milli-seconds.",
+                    "type_info" : {
+                        "default_value": 1000,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "max_aging_time" : {
+                    "description": "Maximum aging time of learned MAC in milliseconds",
+                    "type_info" : {
+                        "default_value": 3000000,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    },
+                    "is_read_only" : true
+                },
+                "learn_notif_timeout" : {
+                    "description": "Amount of time hardware FIFO waits before flushing learn digest to DMA in ms",
+                    "type_info" : {
+                        "default_value": 50,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "query_interval" : {
+                    "description": "MAC query interval in milliseconds",
+                    "type_info" : {
+                        "default_value": 5000,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    },
+                    "is_read_only" : true
+                },
+                "src_mac" : {
+                    "description": "Default router MAC address for this device",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "inner_src_mac_from_overlay_vrf" : {
+                    "description": "Use overlay vrf's src_mac as the inner smac instead of device src_mac",
+                    "comment": "Currently community SONiC expects the inner smac to be the default device global src_mac",
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "default_vrf" : {
+                    "description": "Default VRF handle",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "vrf"
+                        ]
+                    }
+                },
+                "default_buffer_pool_size" : {
+                    "is_read_only": true,
+                    "description": "Default buffer pool size used for creating default buffer pool",
+                    "type_info" : {
+                        "default_value": 80000,
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "max_vrf" : {
+                    "is_read_only": true,
+                    "description": "Maximum VRFs",
+                    "type_info" : {
+                        "default_value": 1024,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "default_vlan" : {
+                    "description": "Default VLAN handle",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "vlan"
+                        ]
+                    }
+                },
+                "default_stp" : {
+                    "description": "Default STP handle",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "stp"
+                        ]
+                    }
+                },
+                "tunnel_dmac" : {
+                    "description": "MAC address",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "udp_port_vxlan" : {
+                    "description": "Default UDP L4 destination port for vxlan tunnels",
+                    "type_info" : {
+                        "default_value": 4789,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "outer_vlan_eth_type" : {
+                    "description" : "EtherType value for outer VLAN",
+                    "type_info" : {
+                        "default_value" : 39484,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "inner_vlan_eth_type" : {
+                    "description" : "EtherType value for inner VLAN",
+                    "type_info" : {
+                        "default_value" : 33024,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "num_ports" : {
+                    "description": "Total ports currently created in the ASIC",
+                    "type_info" : {
+                        "default_value": 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "max_ports" : {
+                    "is_read_only": true,
+                    "description": "Maximum ports supported by the ASIC",
+                    "type_info" : {
+                        "default_value": 512,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "max_recirc_ports" : {
+                    "is_read_only": true,
+                    "description": "Maximum recirc ports",
+                    "type_info" : {
+                        "default_value": 4,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "recirc_port_list" : {
+                    "is_read_only": true,
+                    "description": "Recirc port list",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_UINT16"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "recirc_dev_port_list" : {
+                    "is_read_only": true,
+                    "description": "Recirc device port list",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_UINT16"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "max_lag_members" : {
+                    "is_read_only": true,
+                    "description": "Maximum LAG members",
+                    "type_info" : {
+                        "default_value": 16,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "max_ecmp_members" : {
+                    "is_read_only": true,
+                    "description": "Maximum ECMP members",
+                    "type_info" : {
+                        "default_value": 16,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "max_port_mtu" : {
+                    "is_read_only": true,
+                    "description": "Maximum ECMP members",
+                    "type_info" : {
+                        "default_value": 16,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "ecmp_default_hash_offset" : {
+                    "description": "ECMP default hash offset",
+                    "type_info" : {
+                        "default_value": 0,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "lag_default_hash_offset" : {
+                    "description": "LAG default hash offset",
+                    "type_info" : {
+                        "default_value": 0,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "ecmp_default_hash_seed" : {
+                    "description": "ECMP default hash seed (default 0xba7efee1)",
+                    "type_info" : {
+                        "default_value": 3128884961,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "lag_default_hash_seed" : {
+                    "description": "LAG default hash seed (default 0xba7efee1)",
+                    "type_info" : {
+                        "default_value": 3128884961,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "ecmp_hash_algo_cache" : {
+                    "description": "Internal cache for predefined ECMP default hash algorithm fetched from ASIC/P4 Table",
+                    "is_read_only": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "ecmp_default_hash_algo" : {
+                    "description": "ECMP default hash algorithm",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "hash_algorithm"
+                        ]
+                    }
+                },
+                "lag_hash_algo_cache" : {
+                    "description": "Internal cache for predefined LAG default hash algorithm fetched from ASIC/P4 Table",
+                    "is_read_only": true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "lag_default_hash_algo" : {
+                    "description": "LAG default hash algorithm",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "hash_algorithm"
+                        ]
+                    }
+                },
+                "max_cpu_queue" : {
+                    "is_read_only": true,
+                    "description": "Maximum CPU queues",
+                    "type_info" : {
+                        "default_value": 32,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "max_port_queue" : {
+                    "description": "Maximum port queues",
+                    "is_read_only": true,
+                    "type_info" : {
+                        "default_value": 8,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "max_traffic_classes" : {
+                    "is_read_only": true,
+                    "description": "Maximum traffic classes",
+                    "type_info" : {
+                        "default_value": 32,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "max_ingress_buffer_pool_size" : {
+                    "is_read_only": true,
+                    "description": "Maximum ingress buffer pool size",
+                    "type_info" : {
+                        "default_value": 4,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "max_egress_buffer_pool_size" : {
+                    "is_read_only": true,
+                    "description": "Maximum egress buffer pool size",
+                    "type_info" : {
+                        "default_value": 4,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "total_buffer_size" : {
+                    "is_read_only": true,
+                    "description": "Total buffer size in KB",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "max_pipes" : {
+                    "is_read_only": true,
+                    "description": "Maximum pipes",
+                    "type_info" : {
+                        "default_value": 4,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "acl_entry_min_priority" : {
+                    "is_read_only": true,
+                    "description": "minimum priority for acl entry",
+                    "type_info" : {
+                        "default_value": 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "acl_entry_max_priority" : {
+                    "is_read_only": true,
+                    "description": "Maximum priority for acl entry (0xFFFFFF)",
+                    "type_info" : {
+                        "default_value": 16777215,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "switch_id" : {
+                    "description": "Globally Unique SWITCH ID",
+                    "type_info" : {
+                        "default_value": 0,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "latency_sensitivity" : {
+                    "description": "Dtel flow report latency sensitivity",
+                    "type_info" : {
+                        "default_value": 18,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "flow_state_clear_cycle" : {
+                    "description": " DTEL flow state clear cycle in seconds",
+                    "type_info" : {
+                        "default_value": 0,
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "num_non_default_ppgs" : {
+                    "description": "Number of non-default PPGS to be used per port",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "global_pcp_tc_handle" : {
+                    "description": "global pcp_tc qos map handle. There is no default object created. The application can create one and set this value for later access",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "qos_map_ingress"
+                        ]
+                    }
+                },
+                "glean_nexthop_handle" : {
+                    "description": "A reference to a nexthop handle for gleaned packets",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "nexthop"
+                        ]
+                    }
+                },
+                "drop_nexthop_handle" : {
+                    "description": "A reference to a nexthop handle for drop packet action",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "nexthop"
+                        ]
+                    }
+                },
+                "unicast_miss_packet_action" : {
+                    "description": "Flood control for packets with unknown destination address. DROP=0, FORWARD=1, REDIRECT=2, COPY=3",
+                    "type_info" : {
+                        "default_value" : 1,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "broadcast_miss_packet_action" : {
+                    "description": "Broadcast miss action. DROP=0, FORWARD=1, REDIRECT=2, COPY=3",
+                    "type_info" : {
+                        "default_value" : 1,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "multicast_miss_packet_action" : {
+                    "description": "Multicast miss action. DROP=0, FORWARD=1, REDIRECT=2, COPY=3",
+                    "type_info" : {
+                        "default_value" : 1,
+                        "type" : "SWITCH_TYPE_UINT8"
+                    }
+                },
+                "ingress_acl_port_group_enable" : {
+                    "description" : "Configured to use port-group as ACL label for ingress ACLs",
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                     }
+                },
+                "acl_user_metadata_range" : {
+                    "description": "Min Max range values for user based ACL meta data",
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_RANGE"
+                    }
+                },
+                "default_ingress_buffer_profile_handle" : {
+                    "description": "Device level ingress default buffer profile handle",
+                    "comment" : "This buffer profile is used when ppg specific buffer profile is NULL",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "buffer_profile"
+                        ]
+                    }
+                },
+                "default_egress_buffer_profile_handle" : {
+                    "description": "Device level egress default buffer profile handle",
+                    "comment" : "This buffer profile is used when queue specific buffer profile is NULL",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "buffer_profile"
+                        ]
+                    }
+                },
+                "warm_shut" : {
+                    "description": "Hint if switch should perform warm shutdown",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "table" :{
+                    "is_immutable": true,
+                    "description" : "List of tables supported to query for usage information",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "enum" : [
+                            "DMAC",
+                            "IPV4_HOST",
+                            "IPV4_LPM",
+                            "IPV6_HOST",
+                            "IPV6_HOST64",
+                            "IPV6_LPM",
+                            "IPV6_LPM64",
+                            "IPV6_LPM_TCAM",
+                            "NEXTHOP",
+                            "NEIGHBOR",
+                            "LAG_GROUP",
+                            "LAG_GROUP_MEMBERS",
+                            "ECMP_GROUP",
+                            "ECMP_GROUP_MEMBERS",
+                            "OUTER_ECMP_GROUP",
+                            "OUTER_ECMP_GROUP_MEMBERS",
+                            "PRE_INGRESS_ACL",
+                            "IP_ACL",
+                            "IPV4_ACL",
+                            "IPV6_ACL",
+                            "MAC_ACL",
+                            "IP_MIRROR_ACL",
+                            "DTEL_ACL",
+                            "SYSTEM_ACL",
+                            "EGRESS_IPV4_ACL",
+                            "EGRESS_IPV6_ACL",
+                            "EGRESS_MAC_ACL",
+                            "EGRESS_SYSTEM_ACL",
+                            "ECN_ACL",
+                            "SNAT",
+                            "DNAT",
+                            "FLOW_NAT",
+                            "SNAPT",
+                            "DNAPT",
+                            "FLOW_NAPT",
+                            "L4_SRC_PORT",
+                            "L4_DST_PORT",
+                            "IPV4_MCAST_ROUTE_S_G",
+                            "IPV4_MCAST_ROUTE_X_G",
+                            "TUNNEL",
+                            "MPLS",
+                            "MY_SID"
+                        ]
+                    }
+                },
+                "ingress_acl_actions" :{
+                    "is_immutable": true,
+                    "description" : "List of ingress acl actions supported to query for usage information",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_UINT8"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "egress_acl_actions" :{
+                    "is_immutable": true,
+                    "description" : "List of egress acl actions supported to query for usage information",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_UINT8"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "ecmp_ipv4_hash" : {
+                    "description": "The hash object for IPv4 packets going through ECMP",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "hash"
+                        ]
+                    }
+                },
+                "ecmp_ipv6_hash" : {
+                    "description": "The hash object for IPv6 packets going through ECMP",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "hash"
+                        ]
+                    }
+                },
+                "non_ip_hash" : {
+                    "description": "The hash object for Non IP packets",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "hash"
+                        ]
+                    }
+                },
+                "lag_ipv4_hash" : {
+                    "description": "The hash object for IPv4 packets going through LAG",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "hash"
+                        ]
+                    }
+                },
+                "lag_ipv6_hash" : {
+                    "description": "The hash object for IPv6 packets going through LAG",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "hash"
+                        ]
+                    }
+                },
+                "myip_type" :{
+                    "is_read_only" : true,
+                    "is_immutable": true,
+                    "description" : "List of supported myip type",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "enum" : [
+                            "NONE",
+                            "HOST",
+                            "SUBNET",
+                            "MASK"
+                        ]
+                    }
+                },
+                "max_mirror" : {
+                    "is_read_only": true,
+                    "description": "Maximum mirror sessions",
+                    "type_info" : {
+                        "default_value": 1024,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "nvgre_st_key" : {
+                    "description": "nvgre-st key value",
+                    "type_info" : {
+                        "default_value": 25600,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "ingress_acl" : {
+                    "description": "Ingress ACL group or table handle",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "acl_group",
+                            "acl_table"
+                        ]
+                    }
+                },
+                "egress_acl" : {
+                    "description": "Egress ACL group or table handle",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "acl_group",
+                            "acl_table"
+                        ]
+                    }
+                },
+                "pre_ingress_acl" : {
+                    "description": "Activate pre ingress ACL table or group. Disabled if value is not set",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "acl_group",
+                            "acl_table"
+                        ]
+                    }
+                },
+                "nexthop_resolution" : {
+                    "description": "Enable/disable internal neighbor resolution for all nexthops",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "default_value" : true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "max_stp_instance" : {
+                    "description": "Max number of STP instances",
+                    "type_info" : {
+                        "default_value": 1024,
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "temp_list" : {
+                    "is_read_only": true,
+                    "description": "List of temperature readings from all temperature sensors",
+                    "type_info" : {
+                        "list" : {
+                            "type" : "SWITCH_TYPE_INT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "ecmp_symmetric_hash" : {
+                    "description": "Symmetric hash property. Only a placeholder for SAI. Actual property has to be set on the respective hash object",
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "key_groups" : [["dev_id"]]
+        }
+    }
+]

@@ -1,0 +1,13 @@
+{
+   "dtel_queue_report" : {
+      "profile" : "Per profile info",
+      "switch" : "queue_report",
+      "attributes" : {
+         "queue_id" : "queue_handle",
+         "depth_threshold" : "depth_threshold",
+         "latency_threshold" : "latency_threshold",
+         "breach_quota" : "breach_quota",
+         "tail_drop" : "tail_drop"
+      }
+   }
+}

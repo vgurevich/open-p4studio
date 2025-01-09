@@ -1,0 +1,45 @@
+{
+   "tunnel" : {
+       "profile" : "Per profile info",
+       "switch" : "tunnel",
+       "attributes" : {
+           "type" : "type",
+           "peer_mode" : "peer_mode",
+           "underlay_interface" : "underlay_rif_handle",
+           "overlay_interface" : "overlay_rif_handle",
+           "encap_src_ip" : "src_ip",
+           "encap_dst_ip" : "dst_ip",
+           "encap_ttl_mode" : "encap_ttl_mode",
+           "decap_ttl_mode" : "decap_ttl_mode",
+           "encap_ttl_val" : "ttl",
+           "encap_dscp_mode" : "encap_qos_mode",
+           "decap_dscp_mode" : "decap_qos_mode",
+           "encap_dscp_val" : "dscp_val",
+           "decap_ecn_mode" : "decap_ecn_mode",
+           "encap_gre_key" : "gre_key"
+       },
+       "enums" : {
+           "type" : {
+               "IPINIP" : "IPIP",
+               "VXLAN" : "VXLAN",
+               "SRV6" : "SRV6"
+           },
+           "peer_mode" : {
+               "P2P" : "P2P",
+               "P2MP" : "P2MP"
+           },
+           "ttl_mode" : {
+               "UNIFORM_MODEL" : "UNIFORM_MODEL",
+               "PIPE_MODEL" : "PIPE_MODEL"
+           },
+           "ecn_mode" : {
+               "STANDARD" : "STANDARD",
+               "COPY_FROM_OUTER" : "COPY_FROM_OUTER"
+           },
+           "dscp_mode" : {
+               "UNIFORM_MODEL" : "UNIFORM_MODEL",
+               "PIPE_MODEL" : "PIPE_MODEL"
+           }
+       }
+   }
+}

@@ -1,0 +1,688 @@
+[
+    {
+        "device_aging" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "default_aging_interval"
+                }
+            ]
+        }
+    },
+    {
+        "device_refresh_interval" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "refresh_interval"
+                }
+            ]
+        }
+    },
+    {
+        "device_port_rate_stat" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "port_rate_interval"
+                }
+            ]
+        }
+    },
+    {
+        "device_warm_reboot" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "warm_shut"
+                }
+            ]
+        }
+    },
+    {
+        "device_dtel_bloom_filters_clear_cycle" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "flow_state_clear_cycle"
+                }
+            ]
+        }
+    },
+    {
+        "device_learn_notif_timeout" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "learn_notif_timeout"
+                }
+            ]
+        }
+    },
+    {
+        "device_cut_through" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "cut_through"
+                }
+            ]
+        }
+    },
+    {
+        "device_init" : {
+            "class" : "auto",
+            "priority" : 10,
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "device_acl_init" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "device_ecmp_hash_algo" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "ecmp_default_hash_algo"
+                },
+                {
+                    "object" : "device",
+                    "attribute" : "ecmp_default_hash_seed"
+                },
+                {
+                    "object" : "device",
+                    "attribute" : "ecmp_default_hash_offset"
+                }
+            ]
+        }
+    },
+    {
+        "device_lag_hash_algo" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "lag_default_hash_algo"
+                },
+                {
+                    "object" : "device",
+                    "attribute" : "lag_default_hash_seed"
+                },
+                {
+                    "object" : "device",
+                    "attribute" : "lag_default_hash_offset"
+                }
+            ]
+        }
+    },
+    {
+        "device_latency_sensitivity" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "latency_sensitivity"
+                }
+            ]
+        }
+    },
+    {
+        "device_hostif" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "cpu_port"
+                }
+            ]
+        }
+    },
+    {
+        "device_vxlan_port" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "udp_port_vxlan"
+                }
+            ]
+        }
+    },
+    {
+        "default_tunnel_entries" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "udp_port_vxlan"
+                }
+            ]
+        }
+    },
+    {
+        "device_fdb_unicast_packet_action" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "unicast_miss_packet_action"
+                }
+            ]
+        }
+    },
+    {
+        "device_fdb_broadcast_packet_action" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "broadcast_miss_packet_action"
+                }
+            ]
+        }
+    },
+    {
+        "device_fdb_multicast_packet_action" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "multicast_miss_packet_action"
+                }
+            ]
+        }
+    },
+    {
+        "device_ecmp_ipv4_hash" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "device"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "device",
+                  "attribute" : "ecmp_ipv4_hash"
+               }
+            ]
+        }
+    },
+    {
+        "device_ecmp_ipv6_hash" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "device"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "device",
+                  "attribute" : "ecmp_ipv6_hash"
+               }
+            ]
+        }
+    },
+    {
+        "device_nonip_hash" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "device"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "device",
+                  "attribute" : "non_ip_hash"
+               }
+            ]
+        }
+    },
+    {
+        "device_lag_v4_hash" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "device"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "device",
+                  "attribute" : "lag_ipv4_hash"
+               }
+            ]
+        }
+    },
+    {
+        "device_lag_v6_hash" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "device"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               }
+            },
+            "dependencies" : [
+               {
+                  "object" : "device",
+                  "attribute" : "lag_ipv6_hash"
+               }
+            ]
+        }
+    },
+    {
+        "device_nvgre_st_key" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "nvgre_st_key"
+                }
+            ]
+        }
+    },
+    {
+        "fold_pipeline" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "device"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "device_rmac" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                  }
+               },
+               "status" : {
+                   "type_info" : {
+                       "default_value" : false,
+                       "type" : "SWITCH_TYPE_BOOL"
+                   }
+               }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "src_mac"
+                }
+            ]
+        }
+    },
+    {
+        "device_vxlan_rmac" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                  }
+               },
+               "status" : {
+                   "type_info" : {
+                       "default_value" : false,
+                       "type" : "SWITCH_TYPE_BOOL"
+                   }
+               }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "src_mac"
+                }
+            ]
+        }
+    },
+    {
+        "inner_tunnel_dmac" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                  }
+               },
+               "status" : {
+                   "type_info" : {
+                       "default_value" : false,
+                       "type" : "SWITCH_TYPE_BOOL"
+                   }
+               }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "tunnel_dmac"
+                }
+            ]
+        }
+    },
+    {
+        "outer_tunnel_dmac" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                  }
+               },
+               "status" : {
+                   "type_info" : {
+                       "default_value" : false,
+                       "type" : "SWITCH_TYPE_BOOL"
+                   }
+               }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "tunnel_dmac"
+                }
+            ]
+        }
+    },
+    {
+        "ecmp_default_hash_offset" : {
+            "class" : "auto",
+            "attributes" : {
+               "parent_handle" : {
+                  "type_info" : {
+                     "allowed_object_types" : [
+                        "device"
+                     ],
+                     "type" : "SWITCH_TYPE_OBJECT_ID"
+                  }
+               },
+               "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "device",
+                    "attribute" : "ecmp_default_hash_offset"
+                }
+            ]
+        }
+    }
+]

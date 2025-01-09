@@ -1,0 +1,94 @@
+[
+    {
+        "vrf" : {
+            "class" : "user",
+            "description" : "Create a VRF",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                     "type" : "SWITCH_TYPE_OBJECT_ID",
+                     "allowed_object_types" : [
+                        "device"
+                     ]
+                    }
+                },
+                "id" : {
+                    "description": "VRF id",
+                    "is_create_only" : true,
+                    "type_info" : {
+                     "default_value" : 0,
+                     "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "src_mac" : {
+                    "description": "Source MAC address",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "ipv4_unicast" : {
+                    "description": "Enable/disable IPv4 unicast",
+                    "type_info" : {
+                        "default_value" : true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "ipv6_unicast" : {
+                    "description": "Enable/disable IPv6 unicast",
+                    "type_info" : {
+                        "default_value" : true,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "ttl_action" : {
+                    "description": "Action for packets with TTL value 1 or 0",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value": "NONE",
+                        "enum" : [
+                            "NONE",
+                            "DROP",
+                            "FORWARD",
+                            "DENY",
+                            "TRANSIT",
+                            "TRAP",
+                            "COPY",
+                            "LOG"
+                        ]
+                    }
+                },
+                "ip_options_action" : {
+                    "description": "Action for packets with IP options",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value": "TRAP",
+                        "enum" : [
+                            "DROP",
+                            "FORWARD",
+                            "DENY",
+                            "TRANSIT",
+                            "TRAP",
+                            "COPY",
+                            "LOG"
+                        ]
+                    }
+                },
+                "unknown_l3_mcast_action" : {
+                    "description": "Action for unknown L3 multicast packets",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value": "DROP",
+                        "enum" : [
+                            "DROP",
+                            "DENY",
+                            "TRAP"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+]

@@ -1,0 +1,473 @@
+[
+    {
+        "hostif" : {
+            "class" : "user",
+            "description": "Create a host interface",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "device"
+                        ]
+                    }
+                },
+                "name" : {
+                    "description": "Host interface or genetlink family interface name",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_STRING"
+                    }
+                },
+                "ifindex" : {
+                    "description": "Host interface ifindex, this attribute is only valid if use_ifindex is true",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "use_ifindex" : {
+                    "description": "Enable use of ifindex",
+                    "type_info" : {
+                        "default_value": false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "genl_mcgrp_name" : {
+                    "description": "Genetlink Multicast group name",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "default_value": "",
+                        "type" : "SWITCH_TYPE_STRING"
+                    }
+                },
+                "type" : {
+                    "description": "Host interface type",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value": "NETDEV",
+                        "enum" : [
+                        "NETDEV",
+                        "FD",
+                        "GENETLINK"
+                        ]
+                    }
+                },
+                "ip_addr" : {
+                    "description" : "hostif ipv4 address",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_IP_PREFIX"
+                    }
+                },
+                "mac" : {
+                    "description" : "hostif mac address",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_MAC"
+                    }
+                },
+                "handle" : {
+                    "description": "Host interface object handle, valid when type is NETDEV/FD",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "port", "lag", "vlan", "rif"
+                        ]
+                    }
+                },
+                "oper_status" : {
+                    "description" : "Set the operational status for this host interface",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "queue" : {
+                    "description" : "Set the tx queue for this host interface",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32"
+                    }
+                },
+                "vlan_action" : {
+                    "description" : "Strip/keep vlan tag for received packet",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value": "STRIP",
+                        "enum" : [
+                        "STRIP",
+                        "KEEP",
+                        "ORIGINAL"
+                        ]
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "RX_PKT",
+                            "TX_PKT"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "hostif_stats"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "hostif_trap_group" : {
+            "class" : "user",
+            "description" : "Host interface trap group",
+            "attributes" : {
+                "device" : {
+                    "description" : "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "device"
+                        ]
+                    }
+                },
+                "queue_handle" : {
+                    "description" : "CPU egress queue handle",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "queue"
+                        ]
+                    }
+                },
+                "policer_handle" : {
+                    "description" : "Meter handle",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "meter"
+                        ]
+                    }
+                },
+                "admin_state" : {
+                    "description" : "Administrative state",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "hostif_trap" : {
+            "class" : "user",
+            "description" : "Host interface trap",
+            "attributes" : {
+                "device" : {
+                    "description" : "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description" : "Supported trap types",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "default_value": "NONE",
+                        "enum" : [
+                            "NONE",
+                            "L2",
+                            "STP", "LACP", "EAPOL", "LLDP", "PVRST", "IGMP_TYPE_QUERY", "IGMP_TYPE_LEAVE", "IGMP_TYPE_V1_REPORT", "IGMP_TYPE_V2_REPORT", "IGMP_TYPE_V3_REPORT", "SAMPLEPACKET", "UDLD", "PTP", "DHCP_L2", "DHCPV6_L2",
+                            "L3",
+                            "ARP_REQUEST", "ARP_RESPONSE", "DHCP", "OSPF", "PIM", "VRRP", "DHCPV6", "OSPFV6", "VRRPV6", "IPV6_NEIGHBOR_DISCOVERY", "IPV6_MLD_V1_V2", "IPV6_MLD_V1_REPORT", "IPV6_MLD_V1_DONE", "MLD_V2_REPORT", "SNAT_MISS", "DNAT_MISS", "ISIS",
+                            "LOCAL",
+                            "MYIP", "SSH", "SNMP", "MYIP_SUBNET", "BGP", "BGPV6", "BFD", "BFDV6", "LDP", "GNMI", "P4RT", "NTPCLIENT", "NTPSERVER",
+                            "EXCEPTIONS",
+                            "L3_MTU_ERROR", "TTL_ERROR", "MPLS_ROUTER_ALERT", "MPLS_TTL_ERROR",
+                            "ARP_SUPPRESS", "ND_SUPPRESS", "ICMP", "ICMPV6", "ICCP"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "internal_trap" : {
+                    "description" : "Custom reason codes for internal traps",
+                    "is_internal" : true,
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "enum" : [
+                            "GLEAN",
+                            "SRC_IS_LINK_LOCAL",
+                            "MPLS_TRAP",
+                            "SRV6_TRAP",
+                            "UNKNOWN_L3_MULTICAST",
+                            "IP_OPTIONS",
+                            "L2_MISS_UNICAST",
+                            "L2_MISS_MULTICAST",
+                            "L2_MISS_BROADCAST"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "priority" : {
+                    "description" : "trap priority",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32",
+                        "default_value": 0
+                    }
+                },
+                "packet_action" : {
+                    "description" : "trap action",
+                    "is_mandatory": true,
+                    "type_info": {
+                        "enum" : [
+                        "NOP",
+                        "DROP",
+                        "FORWARD",
+                        "COPY_TO_CPU",
+                        "REDIRECT_TO_CPU"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "exclude_port_list" : {
+                    "description" : "List of port (handles) to be excluded from trap generation",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_LIST",
+                        "list": {
+                            "type": "SWITCH_TYPE_OBJECT_ID",
+                            "allowed_object_types" : ["port"]
+                        }
+                    }
+                },
+                "exclude_port_list_id" : {
+                    "description" : "Internal ID allocated to each unique exclusion port list. Ports part of multiple exclusion lists can have multiple bits set, 1 bit corresponding to each eaclusion port list index",
+                    "is_internal" : true,
+                    "is_read_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32",
+                        "default_value": 0
+                    }
+                },
+                "hostif_trap_group_handle" : {
+                    "description" : "trap_group object handle for trap",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "hostif_trap_group"
+                        ]
+                    }
+                }
+            },
+            "counter" : {
+                "id" : {
+                    "type_info" : {
+                        "enum" : [
+                            "RX_PKTS",
+                            "RX_BYTES"
+                        ],
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                },
+                "stats" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "hostif_trap_stats"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "hostif_user_defined_trap" : {
+            "class" : "user",
+            "description" : "Host interface user-defined trap",
+            "attributes" : {
+                "device" : {
+                    "description" : "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description" : "Supported user-defined trap types",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value": "ACL",
+                        "enum" : [
+                            "ACL", "NEIGHBOR"
+                        ]
+                    }
+                },
+                "hostif_trap_group_handle" : {
+                    "description" : "trap_group object handle for trap",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "hostif_trap_group"
+                        ]
+                    }
+                },
+                "priority" : {
+                    "description" : "user-defined trap priority",
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT32",
+                        "default_value": 0
+                    }
+                }
+            }
+        }
+    },
+    {
+        "hostif_rx_filter" : {
+            "class" : "user",
+            "description" : "Host interface RX filter",
+            "attributes" : {
+                "device" : {
+                    "description" : "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description" : "RX filter type",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value": "PORT",
+                        "enum" : [
+                        "PORT", "LAG", "VLAN", "RIF", "TRAP", "WILDCARD"
+                        ]
+                    }
+                },
+                "handle" : {
+                    "description" : "(Match Field) Object handle for corresponding RX filter type, valid when type == PORT/LAG/VLAN",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "port", "lag", "vlan", "rif"
+                        ]
+                    }
+                },
+                "hostif_trap_handle" : {
+                    "description" : "(Match Field) Host interface trap handle, valid when type == TRAP",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "hostif_trap",
+                        "hostif_user_defined_trap"
+                        ]
+                    }
+                },
+                "channel_type" : {
+                    "description" : "RX filter action channel",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value": "PORT",
+                        "enum" : [
+                        "CB", "FD", "PORT", "LAG", "GENETLINK"
+                        ]
+                    }
+                },
+                "hostif" : {
+                    "description" : "Host interface handle (Rx Filter Action Target), valid when channel_type == PORT/FD/GENETLINK",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "hostif"
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    {
+        "hostif_tx_filter" : {
+            "class" : "user",
+            "description" : "Host interface TX filter",
+            "attributes" : {
+                "device" : {
+                    "description" : "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "device"
+                        ]
+                    }
+                },
+                "type" : {
+                    "description" : "TX filter type",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_ENUM",
+                        "default_value": "PORT",
+                        "enum" : [
+                        "PORT", "LAG", "RIF", "VLAN"
+                        ]
+                    }
+                },
+                "handle" : {
+                    "description" : "Object handle for corresponding TX filter type (Tx Action Target)",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "port", "lag", "rif", "vlan"
+                        ]
+                    }
+                },
+                "hostif" : {
+                    "description" : "(Match Field) Host interface handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                        "hostif"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+]

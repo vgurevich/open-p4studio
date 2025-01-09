@@ -1,0 +1,88 @@
+#!/bin/sh -e
+#
+# Copyright (C) 2024 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.  You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+readonly MY_PATH=$(realpath "$0")
+readonly MY_DIR=$(dirname "$MY_PATH")
+eval $(cat /etc/os-release | grep ID)
+
+readonly REQUIRED_TOOLS="python3 sudo"
+MISSING_TOOLS=""
+
+install_missing_tools() {
+  if is_root_user; then
+    readonly SUDO=""
+  else
+    readonly SUDO="sudo -E"
+  fi
+
+  case "$ID" in
+  debian | ubuntu)
+    $SUDO apt-get update
+    $SUDO apt-get install -y $MISSING_TOOLS
+    ;;
+  centos)
+    $SUDO yum install -y $MISSING_TOOLS
+    ;;
+  *)
+    echo "Error: $ID is not supported."
+    exit 1
+    ;;
+  esac
+}
+
+is_root_user() {
+  test $(id -u) = "0"
+}
+
+is_missing() {
+  ! command -v "$1" >/dev/null
+}
+
+for tool in $REQUIRED_TOOLS; do
+  if is_missing $tool; then
+    echo "Error: cannot find $tool. $tool is required by p4studio CLI to be installed."
+    if [ -z "$MISSING_TOOLS" ]; then
+      MISSING_TOOLS="$tool"
+    else
+      MISSING_TOOLS="$MISSING_TOOLS $tool"
+    fi
+  fi
+done
+
+if [ -n "$MISSING_TOOLS" ]; then
+  if is_missing "sudo" && ! is_root_user; then
+    echo "Error: to install sudo please run p4studio CLI as root or install sudo manually."
+    exit 1
+  fi
+
+  while true; do
+    read -p "Do you want to install $(echo "$MISSING_TOOLS" | sed "s/ / and /")? (Y/n): " answer
+    case "$answer" in
+    [Yy]* | "")
+      install_missing_tools
+      break
+      ;;
+    [Nn]*) exit 1 ;;
+    *) echo "Please answer yes or no." ;;
+    esac
+  done
+fi
+
+exec python3 "$MY_DIR" "$@"

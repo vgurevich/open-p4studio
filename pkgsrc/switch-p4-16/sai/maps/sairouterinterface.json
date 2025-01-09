@@ -1,0 +1,25 @@
+{
+   "router_interface" : {
+      "profile" : "Per profile info",
+      "switch" : "rif",
+      "attributes" : {
+         "virtual_router_id" : "vrf_handle",
+         "type" : "type",
+         "port_id" : "port_handle",
+         "vlan_id" : "vlan_handle",
+         "outer_vlan_id" : "outer_vlan_id",
+         "inner_vlan_id" : "inner_vlan_id",
+         "admin_v4_state" : "ipv4_unicast",
+         "admin_v6_state" : "ipv6_unicast",
+         "mtu" : "mtu",
+         "v4_mcast_enable" : "ipv4_multicast",
+         "v6_mcast_enable" : "ipv6_multicast",
+         "admin_mpls_state" : "mpls_state",
+         "src_mac_address" : "src_mac",
+         "ingress_acl" : "ingress_acl_handle",
+         "egress_acl" : "egress_acl_handle",
+         "nat_zone_id"   : "nat_zone",
+         "is_virtual" : "is_virtual"
+      }
+   }
+}

@@ -1,0 +1,26 @@
+###########################################################################
+#
+# Local source generation targets.
+#
+###############################################################################
+
+krn = bf_tun
+
+ifneq ($(KERNELRELEASE),)
+obj-m := $(krn).o
+
+else
+
+KDIR ?= /lib/modules/$$(uname -r)/build
+PWD := $(shell 'pwd')
+
+all: default
+
+default:
+	            $(MAKE) -C $(KDIR) M=$(PWD) modules
+
+clean:
+	            $(MAKE) -C $(KDIR) M=$(PWD) clean
+
+.PHONY : clean
+endif

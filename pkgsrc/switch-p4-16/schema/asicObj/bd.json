@@ -1,0 +1,711 @@
+[
+    {
+        "bd" : {
+            "class" : "auto",
+            "priority" : 15,
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "vlan",
+                            "rif",
+                            "vrf",
+                            "bridge"
+                        ]
+                    }
+                },
+                "is_deleting" : {
+                    "description": "Internal utility flag to indicate if vlan is delete",
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "bd_member" : {
+            "class" : "auto",
+            "comment" : "The following three attributes use flag <key>. This asks that the combination of the three attributes are unique",
+            "attributes" : {
+            "vlan_id" : {
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_UINT16"
+                }
+            },
+            "handle" : {
+                "comment" : "This is not referencing the port or lag object. It's only a place to store the actual value based on the parent type",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_UINT64"
+                }
+            },
+            "parent_type" : {
+                "comment" : "We need to distinguish between L3 sub port and vlan member in the keygroup",
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_UINT16"
+                }
+            },
+            "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "vlan_member", "rif"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            }
+            }
+        }
+    },
+    {
+        "ingress_bd_state_eg_1" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "bd"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "vlan",
+                    "attribute" : "is_routable"
+                },
+                {
+                    "object" : "vlan",
+                    "attribute" : "ingress_vlan_rif_label"
+                },
+                {
+                    "object" : "vlan",
+                    "attribute" : "ipv4_multicast"
+                },
+                {
+                    "object" : "vlan",
+                    "attribute" : "ipv6_multicast"
+                },
+                {
+                    "object" : "vlan",
+                    "attribute" : "igmp_snooping"
+                },
+                {
+                    "object" : "vlan",
+                    "attribute" : "mld_snooping"
+                },
+                {
+                    "object" : "vlan",
+                    "attribute" : "ingress_acl_handle"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "vrf_handle"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "ingress_acl_handle"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "ingress_vlan_rif_label"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "ipv4_unicast"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "ipv6_unicast"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "ipv4_multicast"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "ipv6_multicast"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "mpls_state"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "nat_zone"
+                },
+                {
+                    "object" : "vrf",
+                    "attribute" : "ipv4_unicast"
+                },
+                {
+                    "object" : "vrf",
+                    "attribute" : "ipv6_unicast"
+                }
+            ]
+        }
+    },
+    {
+        "ingress_bd_state_ig_1" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                     "default_value" : false,
+                     "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                            "bd"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "vlan",
+                    "attribute" : "is_routable"
+                },
+                {
+                    "object" : "vlan",
+                    "attribute" : "ingress_vlan_rif_label"
+                },
+                {
+                    "object" : "vlan",
+                    "attribute" : "ipv4_multicast"
+                },
+                {
+                    "object" : "vlan",
+                    "attribute" : "ipv6_multicast"
+                },
+                {
+                    "object" : "vlan",
+                    "attribute" : "igmp_snooping"
+                },
+                {
+                    "object" : "vlan",
+                    "attribute" : "mld_snooping"
+                },
+                {
+                    "object" : "vlan",
+                    "attribute" : "ingress_acl_handle"
+                },
+                {
+                    "object" : "vlan",
+                    "attribute" : "arp_suppress_enable"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "vrf_handle"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "ingress_acl_handle"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "ingress_vlan_rif_label"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "ipv4_unicast"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "ipv6_unicast"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "ipv4_multicast"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "ipv6_multicast"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "mpls_state"
+                },
+                {
+                    "object" : "rif",
+                    "attribute" : "nat_zone"
+                },
+                {
+                    "object" : "vrf",
+                    "attribute" : "ipv4_unicast"
+                },
+                {
+                    "object" : "vrf",
+                    "attribute" : "ipv6_unicast"
+                },
+                {
+                    "object" : "vrf",
+                    "attribute" : "ttl_action"
+                },
+                {
+                    "object" : "vrf",
+                    "attribute" : "ip_options_action"
+                }
+            ]
+        }
+    },
+    {
+        "bd_flood" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "allowed_object_types" : [
+                        "bd"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                },
+                "flood_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT64"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "attribute" : "mrouter_mc_handle",
+                    "object" : "vlan"
+                },
+                {
+                    "attribute" : "unknown_ucast_flood_type",
+                    "object" : "vlan"
+                },
+                {
+                    "attribute" : "unknown_mcast_flood_type",
+                    "object" : "vlan"
+                },
+                {
+                    "attribute" : "bcast_flood_type",
+                    "object" : "vlan"
+                }
+            ]
+        }
+    },
+    {
+        "bd_action_profile" : {
+            "class" : "auto",
+            "priority" : 10,
+            "dependencies" : [
+            {
+                "object" : "vlan",
+                "attribute" : "learning"
+            },
+            {
+                "object" : "vlan",
+                "attribute" : "igmp_snooping"
+            },
+            {
+                "object" : "vlan",
+                "attribute" : "mld_snooping"
+            },
+            {
+                "object" : "vlan",
+                "attribute" : "ipv4_multicast"
+            },
+            {
+                "object" : "vlan",
+                "attribute" : "arp_suppress_enable"
+            },
+            {
+                "object" : "vlan",
+                "attribute" : "ipv6_multicast"
+            },
+            {
+                "object" : "vlan",
+                "attribute" : "stp_handle"
+            },
+            {
+                "object" : "vlan",
+                "attribute" : "ingress_acl_handle"
+            },
+            {
+                "object" : "vlan",
+                "attribute" : "ingress_vlan_rif_label"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "vrf_handle"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "ingress_acl_handle"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "ingress_vlan_rif_label"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "ipv4_unicast"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "ipv6_unicast"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "ipv4_multicast"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "ipv6_multicast"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "mpls_state"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "src_mac"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "mtu"
+            },
+            {
+                "object" : "vlan",
+                "attribute" : "is_routable"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "nat_zone"
+            },
+            {
+                "object" : "vrf",
+                "attribute" : "ipv4_unicast"
+            },
+            {
+                "object" : "vrf",
+                "attribute" : "ipv6_unicast"
+            },
+            {
+                "object" : "vrf",
+                "attribute" : "ttl_action"
+            },
+            {
+                "object" : "vrf",
+                "attribute" : "ip_options_action"
+            },
+            {
+                "object" : "vrf",
+                "attribute" : "unknown_l3_mcast_action"
+            }
+            ],
+            "attributes" : {
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "parent_handle" : {
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "bd"
+                    ]
+                }
+            }
+            }
+        }
+    },
+    {
+        "egress_bd_mapping" : {
+            "class" : "auto",
+            "dependencies" : [
+            {
+                "object" : "vlan",
+                "attribute" : "egress_acl_handle"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "egress_acl_handle"
+            },
+            {
+                "object" : "vlan",
+                "attribute" : "egress_vlan_rif_label"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "egress_vlan_rif_label"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "src_mac"
+            },
+            {
+                "object" : "vlan",
+                "attribute" : "is_routable"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "mtu"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "src_mac_rif_update"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "anycast_mac_addr"
+            }
+            ],
+            "attributes" : {
+            "status" : {
+                "type_info" : {
+                    "default_value" : false,
+                    "type" : "SWITCH_TYPE_BOOL"
+                }
+            },
+            "parent_handle" : {
+                "type_info" : {
+                    "type" : "SWITCH_TYPE_OBJECT_ID",
+                    "allowed_object_types" : [
+                        "bd"
+                    ]
+                }
+            }
+            }
+        }
+    },
+    {
+        "vlan_decap" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "parent_handle" : {
+                "type_info" : {
+                    "allowed_object_types" : [
+                        "device"
+                    ],
+                    "type" : "SWITCH_TYPE_OBJECT_ID"
+                }
+            }
+            }
+        }
+    },
+    {
+        "ingress_bd_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "bd" ]
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "egress_bd_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "bd" ]
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : false,
+                            "type" : "SWITCH_TYPE_BOOL"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "rif_stats" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [ "rif" ]
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                        "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "vlan_to_bd_mapping" : {
+            "class" : "auto",
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "bd"
+                        ]
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "vlan_membership" : {
+            "class" : "auto",
+            "priority" : 10,
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "bd_member"
+                        ]
+                    }
+                },
+                "vlan_id" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_UINT16"
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "port_bd_to_vlan_mapping" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                        "type_info" : {
+                        "allowed_object_types" : [
+                            "bd_member"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "bd_member",
+                    "attribute" : "vlan_id"
+                },
+                {
+                    "object" : "vlan_member",
+                    "attribute" : "tagging_mode"
+                }
+            ]
+        }
+    },
+    {
+        "bd_to_vlan_mapping" : {
+            "class" : "auto",
+            "attributes" : {
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "parent_handle" : {
+                        "type_info" : {
+                        "allowed_object_types" : [
+                            "bd"
+                        ],
+                        "type" : "SWITCH_TYPE_OBJECT_ID"
+                    }
+                }
+            }
+        }
+    }
+]

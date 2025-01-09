@@ -1,0 +1,18 @@
+{
+   "neighbor_entry" : {
+       "profile" : "Per profile info",
+       "switch" : "neighbor",
+       "attributes" : {
+           "dst_mac_address" : "mac_address",
+           "packet_action" : "packet_action",
+           "user_trap_id": "user_defined_trap_handle"
+       },
+       "enums" : {
+            "packet_action" : {
+               "FORWARD" : "FORWARD",
+               "TRAP" : "TRAP"
+            }
+		},
+        "global_enums" : ["packet_action"]
+   }
+}

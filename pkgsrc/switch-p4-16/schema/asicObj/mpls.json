@@ -1,0 +1,86 @@
+[
+    {
+        "mpls_fib" : {
+            "class" : "auto",
+            "dependencies" : [
+            {
+                "object" : "mpls",
+                "attribute" : "nexthop_rif_handle"
+            },
+            {
+                "object" : "rif",
+                "attribute" : "vrf_handle"
+            },
+            {
+                "object" : "mpls",
+                "attribute" : "num_pop"
+            },
+            {
+                "object" : "mpls",
+                "attribute" : "pop_ttl_mode"
+            },
+            {
+                "object" : "mpls",
+                "attribute" : "pop_qos_mode"
+            },
+            {
+                "object" : "mpls",
+                "attribute" : "packet_action"
+            }
+            ],
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                          "mpls"
+                        ]
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                },
+                "mau_stats_cache" : {
+                    "type_info" : {
+                        "list" : {
+                            "default_value" : 0,
+                            "type" : "SWITCH_TYPE_UINT64"
+                        },
+                        "type" : "SWITCH_TYPE_LIST"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "mpls_label" : {
+            "class" : "auto",
+            "priority" : 10,
+            "attributes" : {
+                "parent_handle" : {
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                          "nexthop"
+                        ]
+                    }
+                },
+                "status" : {
+                    "type_info" : {
+                        "default_value" : false,
+                        "type" : "SWITCH_TYPE_BOOL"
+                    }
+                }
+            },
+            "dependencies" : [
+                {
+                    "object" : "nexthop",
+                    "attribute" : "labelstack"
+                }
+            ]
+        }
+    }
+]

@@ -1,0 +1,20 @@
+{
+    "bridge_port" : {
+        "profile" : "Per profile info",
+        "switch" : "bridge_port",
+        "attributes" : {
+            "type" : "type",
+            "port_id" : "port_lag_handle",
+            "tunnel_id" : "tunnel_handle",
+            "bridge_id" : "bridge_handle",
+            "admin_state" : "admin_state",
+            "isolation_group" : "isolation_group_handle"
+        },
+        "enums" : {
+            "type" : {
+                "PORT" : "PORT",
+                "TUNNEL" : "TUNNEL"
+            }
+        }
+    }
+}

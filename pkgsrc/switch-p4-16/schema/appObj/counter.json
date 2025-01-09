@@ -1,0 +1,33 @@
+[
+    {
+        "generic_counter" : {
+            "class" : "user",
+            "description" : "User object to retreive counters from a switch object entry. First create this counter object and then assign as counter_handle attribute in entry object. This is to satisfy SAI object model.",
+            "attributes" : {
+                "device" : {
+                    "description": "Device handle",
+                    "is_mandatory": true,
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "type" : "SWITCH_TYPE_OBJECT_ID",
+                        "allowed_object_types" : [
+                            "device"
+                        ]
+                    }
+                },
+                "type": {
+                    "description" : "Counter type",
+                    "is_create_only" : true,
+                    "type_info" : {
+                        "enum" : [
+                            "REGULAR"
+                        ],
+                        "default_value" : "REGULAR",
+                        "type" : "SWITCH_TYPE_ENUM"
+                    }
+                }
+            }
+        }
+    }
+]
+

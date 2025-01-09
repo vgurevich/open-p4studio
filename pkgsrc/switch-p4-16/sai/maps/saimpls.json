@@ -1,0 +1,24 @@
+{
+  "inseg_entry" : {
+    "profile" : "Per profile info",
+    "switch"  : "mpls",
+    "attributes" : {
+      "num_of_pop" : "num_pop",
+      "packet_action" : "packet_action",
+      "next_hop_id" : "nexthop_rif_handle",
+      "pop_ttl_mode" : "pop_ttl_mode",
+      "pop_qos_mode" : "pop_qos_mode",
+      "counter_id" : "counter_handle"
+    },
+    "enums" : {
+      "pop_ttl_mode" : {
+          "UNIFORM" : "UNIFORM_MODEL",
+          "PIPE" : "PIPE_MODEL"
+      },
+      "pop_qos_mode" : {
+          "UNIFORM" : "UNIFORM_MODEL",
+          "PIPE" : "PIPE_MODEL"
+      }
+    }
+  }
+}

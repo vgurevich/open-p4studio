@@ -1,0 +1,13 @@
+{
+  "nat_entry" : {
+    "profile" : "Per profile info",
+    "switch" : "nat_entry",
+    "attributes" : {
+      "nat_type" : "type",
+      "l4_src_port" : "nat_l4_src_port",
+      "l4_dst_port" : "nat_l4_dst_port",
+      "src_ip" : "nat_src_ip",
+      "dst_ip" : "nat_dst_ip"
+    }
+  }
+}

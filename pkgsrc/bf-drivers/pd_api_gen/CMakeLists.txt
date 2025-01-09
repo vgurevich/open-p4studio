@@ -1,0 +1,21 @@
+set(pdtemplatedir ${CMAKE_INSTALL_PREFIX}/share/tofino_pd_api)
+
+configure_file(templates/pd/pd.h ${pdtemplatedir}/templates/pd/pd.h COPYONLY)
+configure_file(templates/src/pd.c ${pdtemplatedir}/templates/src/pd.c COPYONLY)
+file(COPY templates/cli/pd.json DESTINATION ${pdtemplatedir}/templates/cli)
+configure_file(templates/thrift-src/bfn_pd_rpc_server.cpp ${pdtemplatedir}/templates/thrift-src/bfn_pd_rpc_server.cpp COPYONLY)
+configure_file(templates/thrift-src/bfn_pd_rpc_server.h ${pdtemplatedir}/templates/thrift-src/bfn_pd_rpc_server.h COPYONLY)
+configure_file(templates/thrift-src/p4_pd_rpc_server.ipp ${pdtemplatedir}/templates/thrift-src/p4_pd_rpc_server.ipp COPYONLY)
+configure_file(templates/thrift/p4_pd_rpc.thrift ${pdtemplatedir}/templates/thrift/p4_pd_rpc.thrift COPYONLY)
+configure_file(templates/thrift/res.thrift ${pdtemplatedir}/templates/thrift/res.thrift COPYONLY)
+
+include(PythonDependencies)
+set(pdgenpythondir ${SDE_PYTHON_DEPENDENCIES_DIR}/tofino_pd_api)
+
+file(COPY generate_tofino_pd.py DESTINATION ${SDE_PYTHON_DEPENDENCIES_DIR}/tofino_pd_api)
+file(COPY gencli.py DESTINATION ${SDE_PYTHON_DEPENDENCIES_DIR}/tofino_pd_api)
+file(COPY tenjin.py DESTINATION ${SDE_PYTHON_DEPENDENCIES_DIR}/tofino_pd_api)
+file(COPY tenjin_util.py DESTINATION ${SDE_PYTHON_DEPENDENCIES_DIR}/tofino_pd_api)
+configure_file(generate_tofino_pd.in ${CMAKE_INSTALL_PREFIX}/bin/generate_tofino_pd)
+configure_file(gencli.in ${CMAKE_INSTALL_PREFIX}/bin/gencli)
+configure_file(split_pd_thrift.py ${CMAKE_INSTALL_PREFIX}/bin/split_pd_thrift.py)
