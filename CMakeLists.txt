@@ -249,6 +249,7 @@ add_subdirectory(${BF_PKG_DIR}/bf-drivers)
 #compiler/model
 include(FindP4CModel)
 add_subdirectory(${BF_PKG_DIR}/p4-compilers)
+add_subdirectory(${BF_PKG_DIR}/tofino-model)
 
 if(ASIC AND BSP)
   #platform
