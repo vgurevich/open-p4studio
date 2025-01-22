@@ -7,7 +7,7 @@ The `p4-examples` package is organized as follows
 * `p4_16_programs`
 Example P4_16 programs
 * `programs`
-Example P4_14 programs/to    
+Example P4_14 programs    
 * `ptf-tests`
 PTF tests corresponding to each of the example P4_14 programs in the `programs` directory
     Makefile:
@@ -36,7 +36,7 @@ $SDE/p4studio/p4studio build p4-16-programs
 To build all P4_14 examples use the command:
 
 ```
-$SDE/p4studio/p4studio build p4-16-programs
+$SDE/p4studio/p4studio build p4-14-programs
 ```
 
 To build all examples use the command:
@@ -56,7 +56,7 @@ It is also critical to create the necessary VETH interfaces by running the follo
 sudo $SDE_INSTALL/bin/veth_setup.sh
 ```
 
-To run the PTF tests on the Tofino Model you will need 3 separate windows (or, at least, shell sessions). Again, it
+To run the PTF tests on the Tofino Model you will need 3 separate windows (or, at least, shell sessions):
 
 1. In the first one, you will need to run the model using the command:
    
@@ -76,4 +76,4 @@ To run the PTF tests on the Tofino Model you will need 3 separate windows (or, a
    $SDE/run_p4_tests.sh [--arch tofino2] -p example_name
    ```
 
-Please, be aware that the scripts mentioned above have special code to make running the examples as easy as possible by being aware and properly consuming additional files stored in the examples' subdirectores. Running your pwn programs and their PTF tests might require additional options.
+Please, be aware that the scripts mentioned above have special code to make running the examples as easy as possible by being aware and properly consuming additional files stored in the examples' subdirectores. Running your own programs and their PTF tests might require additional options.
